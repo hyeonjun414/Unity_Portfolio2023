@@ -1,22 +1,52 @@
 using System;
-using UniRx;
-using UniRx.Triggers;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Title
 {
     public class SceneSwitcher : MonoBehaviour
     {
-        [SerializeField] private string sceneName;
-        [SerializeField] private Button button;
+        public Image loadingScreen;
+
         private void Start()
         {
-            button.onClick.AsObservable().Subscribe(_ =>
+            if (GameManager.Instance != null)
             {
-                SceneManager.LoadSceneAsync(sceneName);
-            });
+                GameManager.Instance.sceneSwitcher = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public async UniTask AsyncSceneLoad(string sceneName)
+        {
+            loadingScreen.DOColor(Color.black, 0.5f)
+                .OnStart(()=> loadingScreen.gameObject.SetActive(true));
+            await UniTask.Delay(500);
+
+            var asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+            asyncLoad.allowSceneActivation = false;
+
+            while (!asyncLoad.isDone)
+            {
+                if (asyncLoad.progress >= 0.9f)
+                {
+                    asyncLoad.allowSceneActivation = true;
+                }
+
+                await UniTask.Yield();
+            }
+
+            loadingScreen.DOColor(Color.clear, 0.5f)
+                .OnComplete(()=> loadingScreen.gameObject.SetActive(false));
+            await UniTask.Delay(500);
         }
         
     }
