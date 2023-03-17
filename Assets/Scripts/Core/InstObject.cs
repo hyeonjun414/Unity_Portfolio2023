@@ -5,7 +5,13 @@ using UnityEngine;
 
 namespace Core
 {
-    public class Enemy
+    public class User
+    {
+        public List<Hero> MyHeroes;
+        
+    }
+
+    public class Entity
     {
         public string Id;
         public string Name;
@@ -16,7 +22,8 @@ namespace Core
         public float MaxActionGauge;
         public float CurActionGauge;
         public float ActionSpeed;
-        public void Init(MasterEnemy me)
+
+        public void Init(MasterEntity me)
         {
             Id = me.Id;
             Name = me.Name;
@@ -28,9 +35,11 @@ namespace Core
             ActionSpeed = me.ActionSpeed;
         }
     }
-    public class Character
+    public class Enemy : Entity
     {
-    
+    }
+    public class Hero : Entity
+    {
     }
 
     public class Stage

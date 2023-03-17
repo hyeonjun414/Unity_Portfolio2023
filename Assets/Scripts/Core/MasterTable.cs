@@ -6,19 +6,15 @@ namespace Core
     public class MasterTable
     {
         public List<MasterStage> MasterStages;
-        public List<MasterCharacter> MasterCharacters;
+        public List<MasterHero> MasterHeroes;
         public List<MasterEnemy> MasterEnemies;
     }
     public class MasterStage
     {
         public List<string> StageEnemies;
     }
-    public class MasterCharacter
-    {
 
-    }
-    
-    public class MasterEnemy
+    public class MasterEntity
     {
         public string Id;
         public string Name;
@@ -27,6 +23,14 @@ namespace Core
         public float Damage;
         public float MaxActionGauge;
         public float ActionSpeed;
+    }
+
+    public class MasterHero : MasterEntity
+    {
+    }
+
+    public class MasterEnemy : MasterEntity
+    {
     }
 
     
