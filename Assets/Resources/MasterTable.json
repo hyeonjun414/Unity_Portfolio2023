@@ -28,6 +28,35 @@
       "ActionSpeed"   : 1
     }
   ],
+  "MasterHeroes" : [
+    {
+      "Id"            : "Slime",
+      "Name"          : "Slime",
+      "Desc"          : "Slime",
+      "Hp"            : 5,
+      "Damage"        : 1,
+      "MaxActionGauge": 5,
+      "ActionSpeed"   : 1
+    },
+    {
+      "Id"            : "Orc",
+      "Name"          : "Orc",
+      "Desc"          : "Orc",
+      "Hp"            : 7,
+      "Damage"        : 1,
+      "MaxActionGauge": 4,
+      "ActionSpeed"   : 1
+    },
+    {
+      "Id"            : "Skeleton",
+      "Name"          : "Skeleton",
+      "Desc"          : "Skeleton",
+      "Hp"            : 10,
+      "Damage"        : 1,
+      "MaxActionGauge": 5,
+      "ActionSpeed"   : 1
+    }
+  ],
   "MasterStages" : [
     {
       "Id"          : "Normal1",

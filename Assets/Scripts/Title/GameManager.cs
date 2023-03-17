@@ -14,6 +14,7 @@ namespace Title
 
         public SceneSwitcher sceneSwitcher;
         public SceneMaster sceneMaster;
+        public User user;
         public MasterTable MasterTable;
         
         public void Awake()
@@ -35,6 +36,19 @@ namespace Title
             var newMasterTable = Resources.Load<TextAsset>("MasterTable");
             MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
             print(MasterTable);
+            
+            //User Generate Test
+            user = new User
+            {
+                MyHeroes = new List<Hero>()
+            };
+            for (var i = 0; i < 3; i++)
+            {
+                var masterHero = MasterTable.MasterHeroes[0];
+                var hero = new Hero();
+                hero.Init(masterHero);
+                user.MyHeroes.Add(hero);
+            }
         }
     }
 }
