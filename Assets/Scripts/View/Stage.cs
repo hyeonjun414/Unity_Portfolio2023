@@ -1,14 +1,12 @@
-using System;
 using System.Collections.Generic;
-using Core;
-using Title;
+using Manager;
 using UnityEngine;
 
-namespace InGame
+namespace View
 {
     public class Stage : MonoBehaviour
     {
-        public Core.Stage stageData;
+        public Model.Stage stageData;
 
         public GameObject tempEnemyObj;
         public List<Transform> enemyPosList;
@@ -19,7 +17,7 @@ namespace InGame
                 return;
             
             var curStage = GameManager.Instance.MasterTable.MasterStages[0];
-            stageData = new Core.Stage();
+            stageData = new Model.Stage();
             stageData.Init(curStage);
             
             // Init Hero

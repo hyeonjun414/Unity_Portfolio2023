@@ -1,11 +1,9 @@
-using System;
-using Cysharp.Threading.Tasks;
+using Manager;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Title
+namespace View
 {
     public class SceneSwitchButton : MonoBehaviour
     {

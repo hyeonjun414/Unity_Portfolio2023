@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Title;
-using UnityEngine;
+using Manager;
 
-namespace Core
+namespace Model
 {
     public class User
     {

@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using Core;
+using Model;
 using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Title
+namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
@@ -13,7 +11,6 @@ namespace Title
         private static GameManager _instance;
 
         public SceneSwitcher sceneSwitcher;
-        public SceneMaster sceneMaster;
         public User user;
         public MasterTable MasterTable;
         

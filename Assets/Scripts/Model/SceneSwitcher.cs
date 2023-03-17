@@ -1,12 +1,11 @@
-using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Title
+namespace Model
 {
     public class SceneSwitcher : MonoBehaviour
     {
