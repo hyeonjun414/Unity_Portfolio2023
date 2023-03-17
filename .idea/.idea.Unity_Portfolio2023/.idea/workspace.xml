@@ -2,9 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="249c87d4-c4c5-4112-88f4-36d71a176fd5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/InstObject.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/InstObject.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/InGame/Stage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/InGame/Stage.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/SceneMaster.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/SceneMaster.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity_Portfolio2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity_Portfolio2023/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MasterTable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MasterTable.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InGameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TitleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TitleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/MasterTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/MasterTable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Title/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Title/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +25,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../SimpleDefense/Assets/GameAsset/Scripts/Core/GameMaster.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/InstObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/MasterTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/InGame/Stage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Title/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
@@ -85,7 +99,7 @@
       <workItem from="1678877152826" duration="453000" />
       <workItem from="1678969793845" duration="4713000" />
       <workItem from="1679023052345" duration="785000" />
-      <workItem from="1679024243788" duration="805000" />
+      <workItem from="1679024243788" duration="6452000" />
     </task>
     <servers />
   </component>
@@ -115,13 +129,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Title/GameManager.cs</url>
-          <line>35</line>
+          <line>36</line>
           <properties documentPath="C:\Users\wns83\OneDrive\Documents\GitHub\Unity_Portfolio2023\Assets\Scripts\Title\GameManager.cs" initialLine="34" containingFunctionPresentation="method 'Start'">
             <startOffsets>
-              <option value="882" />
+              <option value="951" />
             </startOffsets>
             <endOffsets>
-              <option value="902" />
+              <option value="970" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />

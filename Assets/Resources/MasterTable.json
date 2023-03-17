@@ -27,5 +27,16 @@
       "MaxActionGauge": 5,
       "ActionSpeed"   : 1
     }
+  ],
+  "MasterStages" : [
+    {
+      "Id"          : "Normal1",
+      "Name"        : "Normal1",
+      "StageEnemies": [
+        "Slime",
+        "Slime",
+        "Slime"
+      ]
+    }
   ]
 }
