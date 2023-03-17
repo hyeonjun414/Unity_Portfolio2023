@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Core;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Title
@@ -10,6 +12,8 @@ namespace Title
         private static GameManager _instance;
 
         public SceneSwitcher sceneSwitcher;
+
+        private MasterTable _masterTable;
         public void Awake()
         {
             
@@ -24,7 +28,11 @@ namespace Title
             }
         }
 
-
-        
+        public void Start()
+        {
+            var newMasterTable = Resources.Load<TextAsset>("MasterTable");
+            _masterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
+            print(_masterTable);
+        }
     }
 }
