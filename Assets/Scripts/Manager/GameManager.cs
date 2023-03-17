@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Model;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Serialization;
+using View;
 
 namespace Manager
 {
@@ -10,7 +12,7 @@ namespace Manager
         public static GameManager Instance => _instance;
         private static GameManager _instance;
 
-        public SceneSwitcher sceneSwitcher;
+        public SceneSwitchView sceneSwitchView;
         public User user;
         public MasterTable MasterTable;
         
