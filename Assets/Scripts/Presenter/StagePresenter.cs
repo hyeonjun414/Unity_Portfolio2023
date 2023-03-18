@@ -33,16 +33,11 @@ namespace Presenter
         public async UniTask Update()
         {
             if (IsAction) return;
+            
             UpdateActionGaugePhase();
             await AttackPhase();
-            UpdateView();
         }
-
-        private void UpdateView()
-        {
-            View.UpdateStage();
-        }
-
+        
         private async UniTask AttackPhase()
         {
             if (userModel.Hero.IsActionReady)
@@ -50,7 +45,7 @@ namespace Presenter
                 var enemyIndex = Random.Range(0, Model.Enemies.Count);
                 Attack(userModel.Hero, Model.Enemies[enemyIndex]);
                 IsAction = true;
-                await View.HeroAttack(enemyIndex);
+                await View.HeroView.Attack(View.EnemyViews[enemyIndex]);
                 IsAction = false;
             }
 
@@ -61,7 +56,7 @@ namespace Presenter
                 {
                     Attack(enemy, userModel.Hero);
                     IsAction = true;
-                    await View.EnemyAttack(index);
+                    await View.EnemyViews[index].Attack(View.HeroView);
                     IsAction = false;
                 }
             }
@@ -74,12 +69,17 @@ namespace Presenter
             target.CurHp -= actor.Damage;
         }
 
-        public void UpdateActionGaugePhase()
+        private void UpdateActionGaugePhase()
         {
-            userModel.Hero.UpdateActionGauge(Time.deltaTime);
-            foreach (var enemy in Model.Enemies)
+            var heroModel = userModel.Hero;
+            heroModel.UpdateActionGauge(Time.deltaTime);
+            View.HeroView.UpdateActionGauge(heroModel.CurActionGauge, heroModel.MaxActionGauge);
+            
+            for (var index = 0; index < Model.Enemies.Count; index++)
             {
+                var enemy = Model.Enemies[index];
                 enemy.UpdateActionGauge(Time.deltaTime);
+                View.EnemyViews[index].UpdateActionGauge(enemy.CurActionGauge, enemy.MaxActionGauge);
             }
         }
         

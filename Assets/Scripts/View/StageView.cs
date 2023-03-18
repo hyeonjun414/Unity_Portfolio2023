@@ -18,13 +18,13 @@ namespace View
     {
         public StagePresenter Presenter;
 
-        public GameObject tempEnemyObj;
         public EntityView entityView;
         public List<Transform> enemyPosList;
         public Transform heroPosition;
 
         public EntityView HeroView;
         public List<EntityView> EnemyViews;
+        
         public void Start()
         {
             if (GameMasterView.Instance == null) 
@@ -61,47 +61,6 @@ namespace View
             inst.gameObject.SetActive(true);
             
             EnemyViews.Add(inst);
-        }
-
-        public void UpdateEntityInfo(EntityView ev)
-        {
-            ev.UpdateEntityInfo();
-        }
-
-        public void UpdateStage()
-        {
-            UpdateEntityInfo(HeroView);
-
-            foreach (var ev in EnemyViews)
-            {
-                UpdateEntityInfo(ev);
-            }
-        }
-
-        public async UniTask HeroAttack(int enemyIdx)
-        {
-            HeroView.animator.SetBool("Attack", true);
-            HeroView.transform.DOMoveX(2, 0.1f)
-                .SetRelative()
-                .SetEase(Ease.OutExpo)
-                .SetLoops(2, LoopType.Yoyo);
-            await UniTask.Delay(100);
-            UpdateEntityInfo(EnemyViews[enemyIdx]);
-            await UniTask.Delay(100);
-            HeroView.animator.SetBool("Attack", false);
-        }
-
-        public async UniTask EnemyAttack(int index)
-        {
-            EnemyViews[index].animator.SetBool("Attack", true);
-            EnemyViews[index].transform.DOMoveX(-2, 0.1f)
-                .SetRelative()
-                .SetEase(Ease.OutExpo)
-                .SetLoops(2, LoopType.Yoyo);
-            await UniTask.Delay(100);
-            UpdateEntityInfo(HeroView);
-            await UniTask.Delay(100);
-            EnemyViews[index].animator.SetBool("Attack", false);
         }
     }
 }

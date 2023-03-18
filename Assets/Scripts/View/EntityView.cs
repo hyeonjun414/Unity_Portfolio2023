@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Model;
 using Presenter;
 using TMPro;
@@ -66,6 +68,22 @@ namespace View
         {
             ActionGauge.maxValue = maxActionPoint;
             ActionGauge.value = curActionPoint;
+        }
+
+        public async UniTask Attack(EntityView enemyView)
+        {
+            animator.SetBool("Attack", true);
+            var moveX = transform.position.x > enemyView.transform.position.x ? -2 : 2;
+            transform.DOMoveX(moveX, 0.1f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)
+                .SetLoops(2, LoopType.Yoyo)
+                .OnStart(() => sprite.sortingOrder = 5)
+                .OnComplete(() => sprite.sortingOrder = 4);
+            await UniTask.Delay(100);
+            enemyView.UpdateEntityInfo();
+            await UniTask.Delay(100);
+            animator.SetBool("Attack", false);
         }
     }
 }
