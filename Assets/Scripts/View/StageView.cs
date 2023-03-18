@@ -80,6 +80,7 @@ namespace View
 
         public async UniTask HeroAttack(int enemyIdx)
         {
+            HeroView.animator.SetBool("Attack", true);
             HeroView.transform.DOMoveX(2, 0.1f)
                 .SetRelative()
                 .SetEase(Ease.OutExpo)
@@ -87,10 +88,12 @@ namespace View
             await UniTask.Delay(100);
             UpdateEntityInfo(EnemyViews[enemyIdx]);
             await UniTask.Delay(100);
+            HeroView.animator.SetBool("Attack", false);
         }
 
         public async UniTask EnemyAttack(int index)
         {
+            EnemyViews[index].animator.SetBool("Attack", true);
             EnemyViews[index].transform.DOMoveX(-2, 0.1f)
                 .SetRelative()
                 .SetEase(Ease.OutExpo)
@@ -98,6 +101,7 @@ namespace View
             await UniTask.Delay(100);
             UpdateEntityInfo(HeroView);
             await UniTask.Delay(100);
+            EnemyViews[index].animator.SetBool("Attack", false);
         }
     }
 }

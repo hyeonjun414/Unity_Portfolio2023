@@ -20,6 +20,7 @@ namespace View
     {
         public EntityPresenter Presenter;
 
+        public Animator animator;
 
         [Header("EntityUI")] 
         public SpriteRenderer sprite;
