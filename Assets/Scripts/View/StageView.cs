@@ -60,5 +60,20 @@ namespace View
             
             EnemyViews.Add(inst);
         }
+
+        public void UpdateEntityInfo(EntityView ev)
+        {
+            ev.UpdateEntityInfo();
+        }
+
+        public void UpdateStage()
+        {
+            UpdateEntityInfo(HeroView);
+
+            foreach (var ev in EnemyViews)
+            {
+                UpdateEntityInfo(ev);
+            }
+        }
     }
 }

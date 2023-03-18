@@ -11,6 +11,7 @@ namespace Model
         public float MaxActionGauge;
         public float CurActionGauge;
         public float ActionSpeed;
+        public bool IsActionReady;
 
         public EntityModel(MasterEntity me)
         {
@@ -22,6 +23,16 @@ namespace Model
             MaxActionGauge = me.MaxActionGauge;
             CurActionGauge = 0;
             ActionSpeed = me.ActionSpeed;
+        }
+
+        public void UpdateActionGauge(float deltaTime)
+        {
+            CurActionGauge += ActionSpeed * deltaTime;
+            if (CurActionGauge >= MaxActionGauge)
+            {
+                MaxActionGauge = CurActionGauge;
+                IsActionReady = true;
+            }
         }
     }
 }

@@ -36,7 +36,7 @@
       "Hp"            : 5,
       "Damage"        : 1,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 1
+      "ActionSpeed"   : 5
     },
     {
       "Id"            : "Orc",

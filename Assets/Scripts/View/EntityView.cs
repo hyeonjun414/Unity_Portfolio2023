@@ -34,6 +34,11 @@ namespace View
             InitActionGauge(entity.CurActionGauge, entity.MaxActionGauge);
         }
 
+        public void UpdateEntityInfo()
+        {
+            Presenter.UpdateEntityInfo();
+        }
+
         public void InitHp(float curHp, float maxHp)
         {
             HpGauge.maxValue = maxHp;
@@ -44,7 +49,10 @@ namespace View
 
         public void UpdateHp(float curHp, float maxHp)
         {
-            throw new NotImplementedException();
+            HpGauge.maxValue = maxHp;
+            HpGauge.value = curHp;
+
+            HpText.SetText($"{curHp} / {maxHp}");
         }
 
         public void InitActionGauge(float curActionPoint, float maxActionPoint)
@@ -55,7 +63,8 @@ namespace View
 
         public void UpdateActionGauge(float curActionPoint, float maxActionPoint)
         {
-            throw new NotImplementedException();
+            ActionGauge.maxValue = maxActionPoint;
+            ActionGauge.value = curActionPoint;
         }
     }
 }

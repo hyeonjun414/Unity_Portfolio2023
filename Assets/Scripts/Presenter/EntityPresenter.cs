@@ -14,5 +14,11 @@ namespace Presenter
             Model = model;
             View = view;
         }
+
+        public void UpdateEntityInfo()
+        {
+            View.UpdateHp(Model.CurHp, Model.MaxHp);
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
+        }
     }
 }
