@@ -6,8 +6,8 @@ namespace Model
 {
     public class User
     {
-        public List<EntityModel> MyHeroes;
-        
+        public EntityModel Hero;
+
     }
 
     public class Entity

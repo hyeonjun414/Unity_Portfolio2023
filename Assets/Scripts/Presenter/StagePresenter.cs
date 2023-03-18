@@ -18,10 +18,7 @@ namespace Presenter
         public void Init()
         {
             var user = GameMasterView.Instance.user;
-            for (var index = 0; index < user.MyHeroes.Count; index++)
-            {
-               View.CreateHeroView(index, user.MyHeroes[index]);
-            }
+            View.CreateHeroView(user.Hero);
 
             for (var index = 0; index < Model.Enemies.Count; index++)
             {

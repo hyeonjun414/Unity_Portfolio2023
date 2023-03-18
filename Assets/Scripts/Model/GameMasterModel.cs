@@ -18,16 +18,11 @@ namespace Model
             masterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
             // Generate User Test
+            var masterHero = masterTable.MasterHeroes[0];
             user = new User
             {
-                MyHeroes = new List<EntityModel>()
+                Hero = new EntityModel(masterHero)
             };
-            for (var i = 0; i < 3; i++)
-            {
-                var masterHero = masterTable.MasterHeroes[0];
-                var hero = new EntityModel(masterHero);
-                user.MyHeroes.Add(hero);
-            }
         }
     }
 

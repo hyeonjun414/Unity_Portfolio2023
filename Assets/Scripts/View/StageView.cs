@@ -7,7 +7,7 @@ namespace View
 {
     public interface IStageView
     {
-        void CreateHeroView(int index, EntityModel hero);
+        void CreateHeroView(EntityModel hero);
         void CreateEnemyView(int index, EntityModel enemy);
     }
     
@@ -18,7 +18,7 @@ namespace View
         public GameObject tempEnemyObj;
         public EntityView entityView;
         public List<Transform> enemyPosList;
-        public List<Transform> heroPosList;
+        public Transform heroPosition;
         public void Start()
         {
             if (GameMasterView.Instance == null) 
@@ -29,11 +29,11 @@ namespace View
             Presenter.Init();
         }
 
-        public void CreateHeroView(int index, EntityModel hero)
+        public void CreateHeroView(EntityModel hero)
         {
             var inst = Instantiate(entityView);
             inst.Init(hero);
-            inst.transform.position = heroPosList[index].position;
+            inst.transform.position = heroPosition.position;
             inst.gameObject.SetActive(true);
         }
         
