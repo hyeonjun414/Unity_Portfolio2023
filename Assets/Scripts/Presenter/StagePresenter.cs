@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Model;
 using UnityEngine;
 using View;
@@ -9,6 +10,8 @@ namespace Presenter
         public StageModel Model;
         public UserModel userModel;
         public StageView View;
+
+        public bool IsAction;
 
         public StagePresenter(StageModel model, StageView view)
         {
@@ -27,10 +30,11 @@ namespace Presenter
             }
         }
 
-        public void Update()
+        public async UniTask Update()
         {
+            if (IsAction) return;
             UpdateActionGaugePhase();
-            AttackPhase();
+            await AttackPhase();
             UpdateView();
         }
 
@@ -39,18 +43,26 @@ namespace Presenter
             View.UpdateStage();
         }
 
-        private void AttackPhase()
+        private async UniTask AttackPhase()
         {
             if (userModel.Hero.IsActionReady)
             {
-                Attack(userModel.Hero, Model.Enemies[Random.Range(0, Model.Enemies.Count)]);
+                var enemyIndex = Random.Range(0, Model.Enemies.Count);
+                Attack(userModel.Hero, Model.Enemies[enemyIndex]);
+                IsAction = true;
+                await View.HeroAttack(enemyIndex);
+                IsAction = false;
             }
 
-            foreach (var enemy in Model.Enemies)
+            for (var index = 0; index < Model.Enemies.Count; index++)
             {
+                var enemy = Model.Enemies[index];
                 if (enemy.IsActionReady)
                 {
                     Attack(enemy, userModel.Hero);
+                    IsAction = true;
+                    await View.EnemyAttack(index);
+                    IsAction = false;
                 }
             }
         }

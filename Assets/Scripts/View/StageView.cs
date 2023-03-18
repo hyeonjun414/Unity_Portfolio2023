@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Model;
 using Presenter;
 using UnityEngine;
@@ -37,9 +39,9 @@ namespace View
             Presenter.Init();
         }
 
-        private void Update()
+        private async void Update()
         {
-            Presenter.Update();
+            await Presenter.Update();
         }
 
         public void CreateHeroView(EntityModel hero)
@@ -74,6 +76,28 @@ namespace View
             {
                 UpdateEntityInfo(ev);
             }
+        }
+
+        public async UniTask HeroAttack(int enemyIdx)
+        {
+            HeroView.transform.DOMoveX(2, 0.1f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)
+                .SetLoops(2, LoopType.Yoyo);
+            await UniTask.Delay(100);
+            UpdateEntityInfo(EnemyViews[enemyIdx]);
+            await UniTask.Delay(100);
+        }
+
+        public async UniTask EnemyAttack(int index)
+        {
+            EnemyViews[index].transform.DOMoveX(-2, 0.1f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)
+                .SetLoops(2, LoopType.Yoyo);
+            await UniTask.Delay(100);
+            UpdateEntityInfo(HeroView);
+            await UniTask.Delay(100);
         }
     }
 }
