@@ -1,16 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using View;
-
 namespace Model
 {
-    public class User
-    {
-        public List<EntityModel> MyHeroes;
-        
-    }
-
-    public class Entity
+    public class EntityModel
     {
         public string Id;
         public string Name;
@@ -22,7 +12,7 @@ namespace Model
         public float CurActionGauge;
         public float ActionSpeed;
 
-        public void Init(MasterEntity me)
+        public EntityModel(MasterEntity me)
         {
             Id = me.Id;
             Name = me.Name;
@@ -33,11 +23,5 @@ namespace Model
             CurActionGauge = 0;
             ActionSpeed = me.ActionSpeed;
         }
-    }
-    public class Enemy : Entity
-    {
-    }
-    public class Hero : Entity
-    {
     }
 }

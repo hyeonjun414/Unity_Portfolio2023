@@ -5,8 +5,8 @@ namespace Model
     public class MasterTable
     {
         public List<MasterStage> MasterStages;
-        public List<MasterHero> MasterHeroes;
-        public List<MasterEnemy> MasterEnemies;
+        public List<MasterEntity> MasterHeroes;
+        public List<MasterEntity> MasterEnemies;
     }
     public class MasterStage
     {

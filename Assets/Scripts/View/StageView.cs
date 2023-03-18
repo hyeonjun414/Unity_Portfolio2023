@@ -7,8 +7,8 @@ namespace View
 {
     public interface IStageView
     {
-        void CreateHeroView(int index, Hero hero);
-        void CreateEnemyView(int index, Enemy enemy);
+        void CreateHeroView(int index, EntityModel hero);
+        void CreateEnemyView(int index, EntityModel enemy);
     }
     
     public class StageView : MonoBehaviour, IStageView
@@ -16,6 +16,7 @@ namespace View
         public StagePresenter Presenter;
 
         public GameObject tempEnemyObj;
+        public EntityView entityView;
         public List<Transform> enemyPosList;
         public List<Transform> heroPosList;
         public void Start()
@@ -28,18 +29,21 @@ namespace View
             Presenter.Init();
         }
 
-        public void CreateHeroView(int index, Hero hero)
+        public void CreateHeroView(int index, EntityModel hero)
         {
-            var inst = Instantiate(tempEnemyObj);
+            var inst = Instantiate(entityView);
+            inst.Init(hero);
             inst.transform.position = heroPosList[index].position;
-            inst.SetActive(true);
+            inst.gameObject.SetActive(true);
         }
         
-        public void CreateEnemyView(int index, Enemy enemy)
+        public void CreateEnemyView(int index, EntityModel enemy)
         {
-            var inst = Instantiate(tempEnemyObj);
+            var inst = Instantiate(entityView);
+            inst.Init(enemy);
+            inst.sprite.flipX = true;
             inst.transform.position = enemyPosList[index].position;
-            inst.SetActive(true);
+            inst.gameObject.SetActive(true);
         }
     }
 }

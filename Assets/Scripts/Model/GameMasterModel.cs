@@ -20,13 +20,12 @@ namespace Model
             // Generate User Test
             user = new User
             {
-                MyHeroes = new List<Hero>()
+                MyHeroes = new List<EntityModel>()
             };
             for (var i = 0; i < 3; i++)
             {
                 var masterHero = masterTable.MasterHeroes[0];
-                var hero = new Hero();
-                hero.Init(masterHero);
+                var hero = new EntityModel(masterHero);
                 user.MyHeroes.Add(hero);
             }
         }
