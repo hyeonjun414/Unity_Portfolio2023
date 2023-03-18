@@ -6,12 +6,14 @@ namespace Presenter
     public class GameMasterPresenter
     {
         public GameMasterModel Model;
+        public UserModel userModel;
         public GameMasterView View;
 
         public GameMasterPresenter(GameMasterModel model, GameMasterView view)
         {
             this.Model = model;
             this.View = view;
+            userModel = new UserModel(GetMasterTable().MasterHeroes[0]);
         }
 
         public MasterTable GetMasterTable()
@@ -19,9 +21,9 @@ namespace Presenter
             return Model.masterTable;
         }
 
-        public User GetUser()
+        public UserModel GetUser()
         {
-            return Model.user;
+            return userModel;
         }
     }
 }

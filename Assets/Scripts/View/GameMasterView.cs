@@ -11,7 +11,6 @@ namespace View
         public SceneSwitchView sceneSwitchView;
         public GameMasterPresenter Presenter;
         public MasterTable MasterTable => Presenter.GetMasterTable();
-        public User user => Presenter.GetUser();
 
         private void Awake()
         {
@@ -25,6 +24,11 @@ namespace View
             {
                 Destroy(gameObject);
             }
+        }
+
+        public UserModel GetUser()
+        {
+            return Presenter.GetUser();
         }
     }
 }

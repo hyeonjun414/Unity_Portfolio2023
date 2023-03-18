@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using View;
 
 namespace Model
 {
@@ -9,6 +10,7 @@ namespace Model
 
         public StageModel(MasterStage ms, MasterTable mt)
         {
+            //User = user;
             Enemies = new List<EntityModel>();
             
             foreach (var enemyId in ms.StageEnemies)
