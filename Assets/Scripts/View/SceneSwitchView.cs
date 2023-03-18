@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Manager;
 using Presenter;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +13,9 @@ namespace View
 
         private void Start()
         {
-            if (GameManager.Instance != null)
+            if (GameMasterView.Instance != null)
             {
-                GameManager.Instance.sceneSwitchView = this;
+                GameMasterView.Instance.sceneSwitchView = this;
                 DontDestroyOnLoad(gameObject);
 
                 if (presenter == null)

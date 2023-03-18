@@ -1,4 +1,3 @@
-using Manager;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +12,7 @@ namespace View
         {
             button.onClick.AsObservable().Subscribe( async _ =>
             {
-                var sceneSwitcher = GameManager.Instance.sceneSwitchView;
+                var sceneSwitcher = GameMasterView.Instance.sceneSwitchView;
                 if (sceneSwitcher != null)
                 {
                     await sceneSwitcher.AsyncSceneLoad(sceneName);

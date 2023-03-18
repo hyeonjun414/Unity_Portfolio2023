@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Manager;
+using View;
 
 namespace Model
 {
@@ -46,7 +46,7 @@ namespace Model
         public List<Enemy> Enemies = new();
         public void Init(MasterStage ms)
         {
-            var masterTable = GameManager.Instance.MasterTable;
+            var masterTable = GameMasterView.Instance.MasterTable;
 
             foreach (var enemyId in ms.StageEnemies)
             {

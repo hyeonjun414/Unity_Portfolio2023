@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Manager;
 using UnityEngine;
 
 namespace View
@@ -13,15 +12,15 @@ namespace View
         public List<Transform> heroPosList;
         public void Start()
         {
-            if (GameManager.Instance == null) 
+            if (GameMasterView.Instance == null) 
                 return;
             
-            var curStage = GameManager.Instance.MasterTable.MasterStages[0];
+            var curStage = GameMasterView.Instance.MasterTable.MasterStages[0];
             stageData = new Model.Stage();
             stageData.Init(curStage);
             
             // Init Hero
-            var user = GameManager.Instance.user;
+            var user = GameMasterView.Instance.user;
             for (var index = 0; index < user.MyHeroes.Count; index++)
             {
                 var hero = user.MyHeroes[index];
