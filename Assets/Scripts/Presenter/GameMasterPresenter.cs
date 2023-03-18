@@ -5,23 +5,23 @@ namespace Presenter
 {
     public class GameMasterPresenter
     {
-        private GameMasterModel model;
-        private GameMasterView view;
+        public GameMasterModel Model;
+        public GameMasterView View;
 
         public GameMasterPresenter(GameMasterModel model, GameMasterView view)
         {
-            this.model = model;
-            this.view = view;
+            this.Model = model;
+            this.View = view;
         }
 
         public MasterTable GetMasterTable()
         {
-            return model.masterTable;
+            return Model.masterTable;
         }
 
         public User GetUser()
         {
-            return model.user;
+            return Model.user;
         }
     }
 }

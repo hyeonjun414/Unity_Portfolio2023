@@ -40,21 +40,4 @@ namespace Model
     public class Hero : Entity
     {
     }
-
-    public class Stage
-    {
-        public List<Enemy> Enemies = new();
-        public void Init(MasterStage ms)
-        {
-            var masterTable = GameMasterView.Instance.MasterTable;
-
-            foreach (var enemyId in ms.StageEnemies)
-            {
-                var masterEnemy = masterTable.MasterEnemies.First(target => target.Id == enemyId);
-                var enemy = new Enemy();
-                enemy.Init(masterEnemy);
-                Enemies.Add(enemy);
-            }
-        }
-    }
 }
