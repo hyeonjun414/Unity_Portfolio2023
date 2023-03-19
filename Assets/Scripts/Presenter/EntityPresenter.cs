@@ -47,6 +47,12 @@ namespace Presenter
         {
             await View.EndAttack(targetPos);
         }
+
+        public void AddActionGauge()
+        {
+            Model.AddActionGauge();
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
+        }
     }
 
     public class EnemyPresenter : EntityPresenter

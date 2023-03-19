@@ -84,16 +84,10 @@ namespace Presenter
 
         private void UpdateActionGaugePhase()
         {
-            var heroModel = gm.User.GetHero();
-            heroModel.UpdateActionGauge(Time.deltaTime);
-            View.HeroView.UpdateActionGauge(heroModel.CurActionGauge, heroModel.MaxActionGauge);
-            
-            for (var index = 0; index < Model.Enemies.Count; index++)
-            {
-                var enemy = Model.Enemies[index];
-                enemy.UpdateActionGauge(Time.deltaTime);
-                View.EnemyViews[index].UpdateActionGauge(enemy.CurActionGauge, enemy.MaxActionGauge);
-            }
+            HeroPresenter.AddActionGauge();
+
+            foreach (var enemy in EnemyPresenters)
+                enemy.AddActionGauge();
         }
         
     }

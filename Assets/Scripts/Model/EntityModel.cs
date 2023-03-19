@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Model
 {
     public class EntityModel
@@ -26,9 +28,9 @@ namespace Model
             ActionSpeed = me.ActionSpeed;
         }
 
-        public void UpdateActionGauge(float deltaTime)
+        public void AddActionGauge()
         {
-            CurActionGauge += ActionSpeed * deltaTime;
+            CurActionGauge += ActionSpeed * Time.deltaTime;
             if (CurActionGauge >= MaxActionGauge)
             {
                 MaxActionGauge = CurActionGauge;
