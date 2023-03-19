@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Model
 {
-    public class UserModel : MonoBehaviour
+    public class UserModel
     {
         public EntityModel Hero;
 
