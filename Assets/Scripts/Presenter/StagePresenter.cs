@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Model;
 using UnityEngine;
@@ -60,14 +61,18 @@ namespace Presenter
         {
             if (HeroPresenter.Model.IsActionReady)
             {
-                var targetEnemyIndex = Random.Range(0, EnemyPresenters.Count);
-                await Attack(HeroPresenter, EnemyPresenters[targetEnemyIndex]);
+                var enemy = EnemyPresenters.Where(target => !target.Model.IsDead).ToList();
+                if (enemy.Count != 0)
+                {
+                    var targetEnemyIndex = Random.Range(0, enemy.Count);
+                    await Attack(HeroPresenter, enemy[targetEnemyIndex]);
+                }
             }
 
             for (var index = 0; index < EnemyPresenters.Count; index++)
             {
                 var enemy = EnemyPresenters[index];
-                if (enemy.Model.IsActionReady)
+                if (enemy.Model.IsActionReady && !enemy.Model.IsDead)
                     await Attack(enemy, HeroPresenter);
             }
         }
@@ -78,6 +83,10 @@ namespace Presenter
             await atker.PrepareAttack(target.View.GetPosition());
             await atker.PlayAttack();
             await target.TakeDamage(atker.Model.Damage);
+            if (target.Model.IsDead)
+            {
+                
+            }
             await atker.EndAttack(target.View.GetPosition());
             IsAction = false;
         }

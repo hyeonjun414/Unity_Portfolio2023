@@ -25,7 +25,11 @@ namespace Presenter
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
-            View.PlayDamageEft();
+            if (Model.IsDead)
+                View.Dead();
+            else
+                View.PlayDamageEft();
+
             View.UpdateHp(Model.CurHp, Model.MaxHp);
             await UniTask.Yield();
         }

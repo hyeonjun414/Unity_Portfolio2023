@@ -114,6 +114,17 @@ namespace View
         {
             return transform.position;
         }
+
+        public void RemoveFromStage()
+        {
+            Destroy(gameObject);
+        }
+
+        public void Dead()
+        {
+            animator.SetBool("Dead", true);
+            animator.SetTrigger(STR_HIT);
+        }
     }
 
     
