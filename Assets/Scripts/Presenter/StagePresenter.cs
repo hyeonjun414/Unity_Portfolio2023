@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Model;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace Presenter
         public StageModel Model;
         public StageView View;
 
+        public EntityPresenter HeroPresenter;
+        public List<EnemyPresenter> EnemyPresenters = new();
+
         public bool IsAction;
 
 
@@ -19,16 +23,28 @@ namespace Presenter
             this.Model = model;
             this.View = view;
             gm = GameManager.Instance;
+            gm.CurStage = this;
         }
 
         public void Init()
         {
-            var userHero = GameManager.Instance.user.GetHero();
-            View.CreateHeroView(userHero);
+            View.CreateHeroView(gm.User.GetHero());
+            var heroView = View.GetHeroView();
+            HeroPresenter = new EntityPresenter(gm.User.GetHero(), heroView);
+            heroView.Presenter = HeroPresenter;
 
-            for (var index = 0; index < Model.Enemies.Count; index++)
+            var enemyModels = Model.GetEnemies();
+            for (var index = 0; index < enemyModels.Count; index++)
             {
-                View.CreateEnemyView(index, Model.Enemies[index]);
+                View.CreateEnemyView(index, enemyModels[index]);
+            }
+
+            var enemyViews = View.GetEnemyViews();
+            for (var index = 0; index < enemyViews.Count; index++)
+            {
+                var enemyPresenter = new EnemyPresenter(enemyModels[index], enemyViews[index]);
+                enemyViews[index].Presenter = enemyPresenter;
+                EnemyPresenters.Add(enemyPresenter);
             }
         }
 
@@ -42,38 +58,33 @@ namespace Presenter
         
         private async UniTask AttackPhase()
         {
-            if (gm.user.GetHero().IsActionReady)
+            if (HeroPresenter.Model.IsActionReady)
             {
-                var enemyIndex = Random.Range(0, Model.Enemies.Count);
-                Attack(gm.user.GetHero(), Model.Enemies[enemyIndex]);
-                IsAction = true;
-                await View.HeroView.Attack(View.EnemyViews[enemyIndex]);
-                IsAction = false;
+                var targetEnemyIndex = Random.Range(0, EnemyPresenters.Count);
+                await Attack(HeroPresenter, EnemyPresenters[targetEnemyIndex]);
             }
 
-            for (var index = 0; index < Model.Enemies.Count; index++)
+            for (var index = 0; index < EnemyPresenters.Count; index++)
             {
-                var enemy = Model.Enemies[index];
-                if (enemy.IsActionReady)
-                {
-                    Attack(enemy, gm.user.GetHero());
-                    IsAction = true;
-                    await View.EnemyViews[index].Attack(View.HeroView);
-                    IsAction = false;
-                }
+                var enemy = EnemyPresenters[index];
+                if (enemy.Model.IsActionReady)
+                    await Attack(enemy, HeroPresenter);
             }
         }
 
-        private void Attack(EntityModel actor, EntityModel target)
+        private async UniTask Attack(EntityPresenter atker, EntityPresenter target)
         {
-            actor.IsActionReady = false;
-            actor.CurActionGauge = 0;
-            target.CurHp -= actor.Damage;
+            IsAction = true;
+            await atker.PrepareAttack(target.View.GetPosition());
+            await atker.PlayAttack();
+            await target.TakeDamage(atker.Model.Damage);
+            await atker.EndAttack(target.View.GetPosition());
+            IsAction = false;
         }
 
         private void UpdateActionGaugePhase()
         {
-            var heroModel = gm.user.GetHero();
+            var heroModel = gm.User.GetHero();
             heroModel.UpdateActionGauge(Time.deltaTime);
             View.HeroView.UpdateActionGauge(heroModel.CurActionGauge, heroModel.MaxActionGauge);
             

@@ -12,8 +12,8 @@ namespace View
         public SceneSwitchView sceneSwitchView;
         public MasterTable MasterTable;
 
-        public StagePresenter curStage;
-        public UserPresenter user;
+        public StagePresenter CurStage;
+        public UserPresenter User;
         
         private void Awake()
         {
@@ -23,6 +23,9 @@ namespace View
                 DontDestroyOnLoad(gameObject);
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
+
+                var userView = gameObject.AddComponent<UserView>();
+                User = new UserPresenter(new UserModel(MasterTable.MasterHeroes[0]), userView);
             }
             else
             {

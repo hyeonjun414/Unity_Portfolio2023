@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Model;
 using UnityEngine;
 using View;
@@ -21,10 +22,30 @@ namespace Presenter
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
         }
 
-        public void Damaged()
+        public async UniTask TakeDamage(float damage)
         {
+            Model.TakeDamage(damage);
             View.PlayDamageEft();
             View.UpdateHp(Model.CurHp, Model.MaxHp);
+            await UniTask.Yield();
+        }
+
+        public async UniTask PrepareAttack(Vector3 targetPos)
+        {
+            Model.IsActionReady = false;
+            Model.CurActionGauge = 0;
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
+            await View.PrepareAttack(targetPos);
+        }
+
+        public async UniTask PlayAttack()
+        {
+            await View.PlayAttack();
+        }
+
+        public async UniTask EndAttack(Vector3 targetPos)
+        {
+            await View.EndAttack(targetPos);
         }
     }
 

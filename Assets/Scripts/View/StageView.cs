@@ -63,5 +63,15 @@ namespace View
             
             EnemyViews.Add(inst);
         }
+
+        public EntityView GetHeroView()
+        {
+            return HeroView;
+        }
+
+        public List<EnemyView> GetEnemyViews()
+        {
+            return EnemyViews;
+        }
     }
 }

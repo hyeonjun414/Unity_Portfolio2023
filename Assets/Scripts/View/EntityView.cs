@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
@@ -16,6 +17,8 @@ namespace View
         void UpdateHp(float curHp, float maxHp);
 
         void UpdateActionGauge(float curActionPoint, float maxActionPoint);
+
+        Vector3 GetPosition();
     }
     public class EntityView : MonoBehaviour, IEntityView
     {
@@ -37,7 +40,6 @@ namespace View
 
         public void Init(EntityModel entity)
         {
-            Presenter = new EntityPresenter(entity, this);
             InitHp(entity.CurHp, entity.MaxHp);
             InitActionGauge(entity.CurActionGauge, entity.MaxActionGauge);
         }
@@ -70,10 +72,15 @@ namespace View
             ActionGauge.value = curActionPoint;
         }
 
-        public virtual async UniTask Attack(EntityView enemyView)
+        public void PlayDamageEft()
         {
-            var moveX = transform.position.x > enemyView.transform.position.x ? -2 : 2;
-            transform.DOMoveX(enemyView.transform.position.x - moveX, 0.5f)
+            animator.SetTrigger(STR_HIT);
+        }
+
+        public virtual async UniTask PrepareAttack(Vector3 targetPos)
+        {
+            var moveX = transform.position.x > targetPos.x ? -2 : 2;
+            transform.DOMoveX(targetPos.x - moveX, 0.5f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() =>
                 {
@@ -82,9 +89,16 @@ namespace View
                 })
                 .OnComplete(() => animator.SetBool(STR_MOVE, false));
             await UniTask.Delay(500);
-            
-            enemyView.Damaged();
-            
+        }
+
+        public virtual async UniTask PlayAttack()
+        {
+            await UniTask.Yield();
+        }
+
+        public virtual async UniTask EndAttack(Vector3 targetPos)
+        {
+            var moveX = transform.position.x > targetPos.x ? -2 : 2;
             transform.DOLocalMove(Vector3.zero, 0.5f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() => animator.SetBool(STR_MOVE, true))
@@ -96,14 +110,9 @@ namespace View
             await UniTask.Delay(500);
         }
 
-        public void Damaged()
+        public Vector3 GetPosition()
         {
-            Presenter.Damaged();
-        }
-
-        public void PlayDamageEft()
-        {
-            animator.SetTrigger(STR_HIT);
+            return transform.position;
         }
     }
 

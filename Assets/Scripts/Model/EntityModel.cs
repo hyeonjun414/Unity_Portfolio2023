@@ -12,6 +12,7 @@ namespace Model
         public float CurActionGauge;
         public float ActionSpeed;
         public bool IsActionReady;
+        public bool IsDead;
 
         public EntityModel(MasterEntity me)
         {
@@ -32,6 +33,16 @@ namespace Model
             {
                 MaxActionGauge = CurActionGauge;
                 IsActionReady = true;
+            }
+        }
+        
+        public void TakeDamage(float damage)
+        {
+            CurHp -= damage;
+            if (CurHp <= 0)
+            {
+                CurHp = 0;
+                IsDead = true;
             }
         }
     }

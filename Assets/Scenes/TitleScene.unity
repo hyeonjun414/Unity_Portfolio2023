@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4801aaa7e22f4704a9ccb1ed4cdfa92a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneSwitchView: {fileID: 0}
+  sceneSwitchView: {fileID: 2098395159}
 --- !u!1 &758219343
 GameObject:
   m_ObjectHideFlags: 0

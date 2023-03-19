@@ -30,11 +30,11 @@
   ],
   "MasterHeroes" : [
     {
-      "Id"            : "Slime",
-      "Name"          : "Slime",
-      "Desc"          : "Slime",
-      "Hp"            : 5,
-      "Damage"        : 1,
+      "Id"            : "Hero",
+      "Name"          : "Hero",
+      "Desc"          : "Hero",
+      "Hp"            : 100,
+      "Damage"        : 10,
       "MaxActionGauge": 5,
       "ActionSpeed"   : 5
     },

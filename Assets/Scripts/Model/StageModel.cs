@@ -21,9 +21,9 @@ namespace Model
             }
         }
 
-        public EntityModel GetEntityData(int index)
+        public List<EnemyModel> GetEnemies()
         {
-            return Enemies[index];
+            return Enemies;
         }
     }
 }
