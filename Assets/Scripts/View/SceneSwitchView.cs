@@ -13,22 +13,12 @@ namespace View
 
         private void Start()
         {
-            if (GameMasterView.Instance != null)
+            if (presenter == null)
             {
-                GameMasterView.Instance.sceneSwitchView = this;
-                DontDestroyOnLoad(gameObject);
-
-                if (presenter == null)
-                {
-                    presenter = new SceneSwitchPresenter();
-                }
-            }
-            else
-            {
-                Destroy(gameObject);
+                presenter = new SceneSwitchPresenter();
             }
         }
-        
+
         public async UniTask AsyncSceneLoad(string sceneName)
         {
             loadingScreen.DOColor(Color.black, 0.5f)

@@ -12,7 +12,7 @@ namespace View
         {
             button.onClick.AsObservable().Subscribe( async _ =>
             {
-                var sceneSwitcher = GameMasterView.Instance.sceneSwitchView;
+                var sceneSwitcher = GameManager.Instance.sceneSwitchView;
                 if (sceneSwitcher != null)
                 {
                     await sceneSwitcher.AsyncSceneLoad(sceneName);

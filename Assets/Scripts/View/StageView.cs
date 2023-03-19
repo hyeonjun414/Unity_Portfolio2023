@@ -29,14 +29,14 @@ namespace View
         
         public void Start()
         {
-            if (GameMasterView.Instance == null) 
+            if (GameManager.Instance == null) 
                 return;
 
             EnemyViews = new List<EnemyView>();
             
-            var curStage = GameMasterView.Instance.MasterTable.MasterStages[0];
+            var curStage = GameManager.Instance.MasterTable.MasterStages[0];
             Presenter = new StagePresenter(
-                new StageModel(curStage, GameMasterView.Instance.MasterTable),
+                new StageModel(curStage, GameManager.Instance.MasterTable),
                 this);
             Presenter.Init();
         }

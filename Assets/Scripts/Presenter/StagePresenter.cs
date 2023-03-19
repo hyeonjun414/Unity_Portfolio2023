@@ -8,21 +8,23 @@ namespace Presenter
     public class StagePresenter
     {
         public StageModel Model;
-        public UserModel userModel;
         public StageView View;
 
         public bool IsAction;
 
+
+        private GameManager gm;
         public StagePresenter(StageModel model, StageView view)
         {
             this.Model = model;
             this.View = view;
-            userModel = GameMasterView.Instance.GetUser();
+            gm = GameManager.Instance;
         }
 
         public void Init()
         {
-            View.CreateHeroView(userModel.Hero);
+            var userHero = GameManager.Instance.user.GetHero();
+            View.CreateHeroView(userHero);
 
             for (var index = 0; index < Model.Enemies.Count; index++)
             {
@@ -40,10 +42,10 @@ namespace Presenter
         
         private async UniTask AttackPhase()
         {
-            if (userModel.Hero.IsActionReady)
+            if (gm.user.GetHero().IsActionReady)
             {
                 var enemyIndex = Random.Range(0, Model.Enemies.Count);
-                Attack(userModel.Hero, Model.Enemies[enemyIndex]);
+                Attack(gm.user.GetHero(), Model.Enemies[enemyIndex]);
                 IsAction = true;
                 await View.HeroView.Attack(View.EnemyViews[enemyIndex]);
                 IsAction = false;
@@ -54,7 +56,7 @@ namespace Presenter
                 var enemy = Model.Enemies[index];
                 if (enemy.IsActionReady)
                 {
-                    Attack(enemy, userModel.Hero);
+                    Attack(enemy, gm.user.GetHero());
                     IsAction = true;
                     await View.EnemyViews[index].Attack(View.HeroView);
                     IsAction = false;
@@ -71,7 +73,7 @@ namespace Presenter
 
         private void UpdateActionGaugePhase()
         {
-            var heroModel = userModel.Hero;
+            var heroModel = gm.user.GetHero();
             heroModel.UpdateActionGauge(Time.deltaTime);
             View.HeroView.UpdateActionGauge(heroModel.CurActionGauge, heroModel.MaxActionGauge);
             
