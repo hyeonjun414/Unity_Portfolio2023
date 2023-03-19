@@ -1044,6 +1044,8 @@ MonoBehaviour:
   EnemyViews: []
   EnemyPrefabs:
   - {fileID: 6966354741140356193, guid: da41d3dc5b019b84a983944697289144, type: 3}
+  - {fileID: 3888421685267043447, guid: 25549750f1358614eaed5c185e31988d, type: 3}
+  - {fileID: 7905569210834846294, guid: 6d073b87713211e4fba272a969fed19c, type: 3}
 --- !u!1 &885801943
 GameObject:
   m_ObjectHideFlags: 0

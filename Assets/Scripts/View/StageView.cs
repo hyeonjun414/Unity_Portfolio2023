@@ -58,7 +58,7 @@ namespace View
             var enemyView = EnemyPrefabs.First(target => target.name == enemy.Name);
             var inst = Instantiate(enemyView, enemyPosList[index]);
             inst.Init(enemy);
-            inst.sprite.flipX = true;
+            inst.sprite.flipX = !inst.sprite.flipX;
             inst.gameObject.SetActive(true);
             
             EnemyViews.Add(inst);
