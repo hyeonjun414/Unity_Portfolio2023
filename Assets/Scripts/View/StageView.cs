@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
@@ -23,14 +24,15 @@ namespace View
         public Transform heroPosition;
 
         public EntityView HeroView;
-        public List<EntityView> EnemyViews;
+        public List<EnemyView> EnemyViews;
+        public List<EnemyView> EnemyPrefabs;
         
         public void Start()
         {
             if (GameMasterView.Instance == null) 
                 return;
 
-            EnemyViews = new List<EntityView>();
+            EnemyViews = new List<EnemyView>();
             
             var curStage = GameMasterView.Instance.MasterTable.MasterStages[0];
             Presenter = new StagePresenter(
@@ -54,7 +56,8 @@ namespace View
         
         public void CreateEnemyView(int index, EntityModel enemy)
         {
-            var inst = Instantiate(entityView);
+            var enemyView = EnemyPrefabs.First(target => target.name == enemy.Name);
+            var inst = Instantiate(enemyView);
             inst.Init(enemy);
             inst.sprite.flipX = true;
             inst.transform.position = enemyPosList[index].position;

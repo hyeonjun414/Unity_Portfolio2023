@@ -35,4 +35,10 @@ namespace Model
             }
         }
     }
+    public class EnemyModel : EntityModel
+    {
+        public EnemyModel(MasterEntity me) : base(me)
+        {
+        }
+    }
 }

@@ -6,17 +6,17 @@ namespace Model
 {
     public class StageModel
     {
-        public List<EntityModel> Enemies;
+        public List<EnemyModel> Enemies;
 
         public StageModel(MasterStage ms, MasterTable mt)
         {
             //User = user;
-            Enemies = new List<EntityModel>();
+            Enemies = new List<EnemyModel>();
             
             foreach (var enemyId in ms.StageEnemies)
             {
                 var masterEnemy = mt.MasterEnemies.First(target => target.Id == enemyId);
-                var enemy = new EntityModel(masterEnemy);
+                var enemy = new EnemyModel(masterEnemy);
                 Enemies.Add(enemy);
             }
         }

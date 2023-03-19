@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
@@ -70,20 +71,39 @@ namespace View
             ActionGauge.value = curActionPoint;
         }
 
-        public async UniTask Attack(EntityView enemyView)
+        public virtual async UniTask Attack(EntityView enemyView)
         {
-            animator.SetBool("Attack", true);
             var moveX = transform.position.x > enemyView.transform.position.x ? -2 : 2;
-            transform.DOMoveX(moveX, 0.1f)
+            transform.DOMoveX(moveX, 0.5f)
                 .SetRelative()
                 .SetEase(Ease.OutExpo)
-                .SetLoops(2, LoopType.Yoyo)
-                .OnStart(() => sprite.sortingOrder = 5)
-                .OnComplete(() => sprite.sortingOrder = 4);
-            await UniTask.Delay(100);
-            enemyView.UpdateEntityInfo();
-            await UniTask.Delay(100);
-            animator.SetBool("Attack", false);
+                .OnStart(() =>
+                {
+                    sprite.sortingOrder = 5;
+                    animator.SetBool("Move", true);
+                })
+                .OnComplete(() => animator.SetBool("Move", false));
+            await UniTask.Delay(500);
+            
+            enemyView.Damaged();
+            
+            transform.DOMoveX(-moveX, 0.5f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)
+                .OnStart(() => animator.SetBool("Move", true))
+                .OnComplete(() =>
+                {
+                    sprite.sortingOrder = 4;
+                    animator.SetBool("Move", false);
+                });
+            await UniTask.Delay(500);
+        }
+
+        public void Damaged()
+        {
+            Presenter.Damaged();
         }
     }
+
+    
 }

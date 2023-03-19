@@ -1,11 +1,11 @@
 {
   "MasterEnemies": [
     {
-      "Id"            : "Slime",
-      "Name"          : "Slime",
-      "Desc"          : "Slime",
-      "Hp"            : 5,
-      "Damage"        : 1,
+      "Id"            : "Bald Pirate",
+      "Name"          : "Bald Pirate",
+      "Desc"          : "Bald",
+      "Hp"            : 30,
+      "Damage"        : 3,
       "MaxActionGauge": 5,
       "ActionSpeed"   : 1
     },
@@ -62,9 +62,9 @@
       "Id"          : "Normal1",
       "Name"        : "Normal1",
       "StageEnemies": [
-        "Slime",
-        "Slime",
-        "Slime"
+        "Bald Pirate",
+        "Bald Pirate",
+        "Bald Pirate"
       ]
     }
   ]

@@ -20,5 +20,18 @@ namespace Presenter
             View.UpdateHp(Model.CurHp, Model.MaxHp);
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
         }
+
+        public void Damaged()
+        {
+            View.animator.SetTrigger("Hit");
+            View.UpdateHp(Model.CurHp, Model.MaxHp);
+        }
+    }
+
+    public class EnemyPresenter : EntityPresenter
+    {
+        public EnemyPresenter(EntityModel model, EntityView view) : base(model, view)
+        {
+        }
     }
 }
