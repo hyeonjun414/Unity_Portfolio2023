@@ -48,19 +48,17 @@ namespace View
 
         public void CreateHeroView(EntityModel hero)
         {
-            HeroView = Instantiate(entityView);
+            HeroView = Instantiate(entityView, heroPosition);
             HeroView.Init(hero);
-            HeroView.transform.position = heroPosition.position;
             HeroView.gameObject.SetActive(true);
         }
         
         public void CreateEnemyView(int index, EntityModel enemy)
         {
             var enemyView = EnemyPrefabs.First(target => target.name == enemy.Name);
-            var inst = Instantiate(enemyView);
+            var inst = Instantiate(enemyView, enemyPosList[index]);
             inst.Init(enemy);
             inst.sprite.flipX = true;
-            inst.transform.position = enemyPosList[index].position;
             inst.gameObject.SetActive(true);
             
             EnemyViews.Add(inst);

@@ -721,6 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 5954922040366782471}
   sprite: {fileID: 7542503441936597618}
+  uiCanvas: {fileID: 7542503441789463490}
   ActionGauge: {fileID: 7542503442475874370}
   HpGauge: {fileID: 7542503442745307441}
   HpText: {fileID: 7542503441906869154}

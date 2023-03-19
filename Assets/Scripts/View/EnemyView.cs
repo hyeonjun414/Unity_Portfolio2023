@@ -10,12 +10,12 @@ namespace View
         public override async UniTask Attack(EntityView enemyView)
         {
             var moveX = transform.position.x > enemyView.transform.position.x ? -2 : 2;
-            transform.DOMoveX(moveX, 0.5f)
-                .SetRelative()
+            transform.DOMoveX(enemyView.transform.position.x - moveX, 0.5f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() =>
                 {
-                    sprite.sortingOrder = 5;
+                    uiCanvas.sortingOrder = sprite.sortingOrder = 5;
+                    
                     animator.SetBool("Move", true);
                 })
                 .OnComplete(() => animator.SetBool("Move", false));
@@ -30,16 +30,14 @@ namespace View
             enemyView.Damaged();
             await UniTask.Delay((int)((attackPlayTime - attackPeekTime) * 1000));
 
-            transform.DOMoveX(-moveX, 0.5f)
-                .SetRelative()
+            transform.DOLocalMove(Vector3.zero, 0.5f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() => animator.SetBool("Move", true))
                 .OnComplete(() =>
                 {
-                    sprite.sortingOrder = 4;
+                    uiCanvas.sortingOrder = sprite.sortingOrder = 4;
                     animator.SetBool("Move", false);
                 });
-
             await UniTask.Delay(500);
         }
 
