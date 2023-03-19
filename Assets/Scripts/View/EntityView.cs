@@ -117,13 +117,18 @@ namespace View
 
         public void RemoveFromStage()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            //transform.DOScale(Vector3.one * 0.8f, 0.5f);
+            //sprite.DOColor()
+            //transform.DOLocalMoveY(-1, 0.5f);
         }
 
-        public void Dead()
+        public async UniTask Dead()
         {
             animator.SetBool("Dead", true);
             animator.SetTrigger(STR_HIT);
+            transform.DOScale(Vector3.one * 0.8f, 0.5f);
+            sprite.DOColor(Color.gray, 0.5f);
         }
     }
 

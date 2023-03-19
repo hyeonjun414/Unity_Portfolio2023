@@ -83,10 +83,6 @@ namespace Presenter
             await atker.PrepareAttack(target.View.GetPosition());
             await atker.PlayAttack();
             await target.TakeDamage(atker.Model.Damage);
-            if (target.Model.IsDead)
-            {
-                
-            }
             await atker.EndAttack(target.View.GetPosition());
             IsAction = false;
         }
@@ -95,7 +91,7 @@ namespace Presenter
         {
             HeroPresenter.AddActionGauge();
 
-            foreach (var enemy in EnemyPresenters)
+            foreach (var enemy in EnemyPresenters.Where(target => !target.Model.IsDead))
                 enemy.AddActionGauge();
         }
         

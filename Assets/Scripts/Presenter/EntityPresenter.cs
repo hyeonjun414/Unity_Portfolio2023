@@ -26,7 +26,7 @@ namespace Presenter
         {
             Model.TakeDamage(damage);
             if (Model.IsDead)
-                View.Dead();
+                await View.Dead();
             else
                 View.PlayDamageEft();
 
