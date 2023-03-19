@@ -23,7 +23,7 @@ namespace Presenter
 
         public void Damaged()
         {
-            View.animator.SetTrigger("Hit");
+            View.PlayDamageEft();
             View.UpdateHp(Model.CurHp, Model.MaxHp);
         }
     }

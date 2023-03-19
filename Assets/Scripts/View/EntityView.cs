@@ -13,14 +13,16 @@ namespace View
     public interface IEntityView
     {
         void Init(EntityModel entity);
-        void InitHp(float curHp, float maxHp);
         void UpdateHp(float curHp, float maxHp);
 
-        void InitActionGauge(float curActionPoint, float maxActionPoint);
         void UpdateActionGauge(float curActionPoint, float maxActionPoint);
     }
     public class EntityView : MonoBehaviour, IEntityView
     {
+        protected const string STR_MOVE = "Move";
+        protected const string STR_ATTACK = "Attack";
+        protected const string STR_HIT = "Hit";
+
         public EntityPresenter Presenter;
 
         public Animator animator;
@@ -32,7 +34,7 @@ namespace View
         public Slider ActionGauge;
         public Slider HpGauge;
         public TextMeshProUGUI HpText;
-        
+
         public void Init(EntityModel entity)
         {
             Presenter = new EntityPresenter(entity, this);
@@ -40,12 +42,7 @@ namespace View
             InitActionGauge(entity.CurActionGauge, entity.MaxActionGauge);
         }
 
-        public void UpdateEntityInfo()
-        {
-            Presenter.UpdateEntityInfo();
-        }
-
-        public void InitHp(float curHp, float maxHp)
+        private void InitHp(float curHp, float maxHp)
         {
             HpGauge.maxValue = maxHp;
             HpGauge.value = curHp;
@@ -61,7 +58,7 @@ namespace View
             HpText.SetText($"{curHp} / {maxHp}");
         }
 
-        public void InitActionGauge(float curActionPoint, float maxActionPoint)
+        private void InitActionGauge(float curActionPoint, float maxActionPoint)
         {
             ActionGauge.maxValue = maxActionPoint;
             ActionGauge.value = curActionPoint;
@@ -81,20 +78,20 @@ namespace View
                 .OnStart(() =>
                 {
                     uiCanvas.sortingOrder = sprite.sortingOrder = 5;
-                    animator.SetBool("Move", true);
+                    animator.SetBool(STR_MOVE, true);
                 })
-                .OnComplete(() => animator.SetBool("Move", false));
+                .OnComplete(() => animator.SetBool(STR_MOVE, false));
             await UniTask.Delay(500);
             
             enemyView.Damaged();
             
             transform.DOLocalMove(Vector3.zero, 0.5f)
                 .SetEase(Ease.OutExpo)
-                .OnStart(() => animator.SetBool("Move", true))
+                .OnStart(() => animator.SetBool(STR_MOVE, true))
                 .OnComplete(() =>
                 {
                     uiCanvas.sortingOrder = sprite.sortingOrder = 4;
-                    animator.SetBool("Move", false);
+                    animator.SetBool(STR_MOVE, false);
                 });
             await UniTask.Delay(500);
         }
@@ -102,6 +99,11 @@ namespace View
         public void Damaged()
         {
             Presenter.Damaged();
+        }
+
+        public void PlayDamageEft()
+        {
+            animator.SetTrigger(STR_HIT);
         }
     }
 

@@ -16,12 +16,12 @@ namespace View
                 {
                     uiCanvas.sortingOrder = sprite.sortingOrder = 5;
                     
-                    animator.SetBool("Move", true);
+                    animator.SetBool(STR_MOVE, true);
                 })
-                .OnComplete(() => animator.SetBool("Move", false));
+                .OnComplete(() => animator.SetBool(STR_MOVE, false));
             await UniTask.Delay(500);
 
-            animator.SetTrigger("Attack");
+            animator.SetTrigger(STR_ATTACK);
             await UniTask.Yield();
             var curClip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
             var attackPlayTime = curClip.length;
@@ -32,11 +32,11 @@ namespace View
 
             transform.DOLocalMove(Vector3.zero, 0.5f)
                 .SetEase(Ease.OutExpo)
-                .OnStart(() => animator.SetBool("Move", true))
+                .OnStart(() => animator.SetBool(STR_MOVE, true))
                 .OnComplete(() =>
                 {
                     uiCanvas.sortingOrder = sprite.sortingOrder = 4;
-                    animator.SetBool("Move", false);
+                    animator.SetBool(STR_MOVE, false);
                 });
             await UniTask.Delay(500);
         }
