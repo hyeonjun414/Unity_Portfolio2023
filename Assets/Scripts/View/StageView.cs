@@ -38,10 +38,8 @@ namespace View
 
             EnemyViews = new List<EnemyView>();
             
-            var curStage = GameManager.Instance.MasterTable.MasterStages[0];
-            Presenter = new StagePresenter(
-                new StageModel(curStage, GameManager.Instance.MasterTable),
-                this);
+            Presenter = GameManager.Instance.CurStage;
+            Presenter.View = this;
             Presenter.Init();
         }
 

@@ -26,7 +26,6 @@ namespace Presenter
             this.Model = model;
             this.View = view;
             gm = GameManager.Instance;
-            gm.CurStage = this;
         }
 
         public void Init()

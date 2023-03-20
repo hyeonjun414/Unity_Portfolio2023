@@ -6,19 +6,19 @@ namespace Presenter
 {
     public class SceneSwitchPresenter
     {
-        private SceneSwitchModel model;
-        private SceneSwitchView view;
+        public SceneSwitchModel Model;
+        public SceneSwitchView View;
 
         public SceneSwitchPresenter(SceneSwitchModel model, SceneSwitchView view)
         {
-            this.model = model;
-            this.view = view;
+            this.Model = model;
+            this.View = view;
         }
         public async UniTask AsyncSceneLoad(string sceneName)
         {
-            await view.FadeOut();
-            await model.AsyncSceneLoad(sceneName);
-            await view.FadeIn();
+            await View.FadeOut();
+            await Model.AsyncSceneLoad(sceneName);
+            await View.FadeIn();
         }
     }
 }

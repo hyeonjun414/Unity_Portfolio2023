@@ -10,19 +10,15 @@ namespace View
     public class SceneSwitchView : MonoBehaviour
     {
         [SerializeField] private Image loadingScreen;
-        public SceneSwitchPresenter presenter;
+        public SceneSwitchPresenter Presenter;
 
         private void Start()
         {
-            if (presenter == null)
+            if (Presenter == null)
             {
-                presenter = new SceneSwitchPresenter(new SceneSwitchModel(),this);
+                Presenter = GameManager.Instance.SceneSwitchPresenter;
+                Presenter.View = this;
             }
-        }
-
-        public async UniTask AsyncSceneLoad(string sceneName)
-        {
-            await presenter.AsyncSceneLoad(sceneName);
         }
 
         public async UniTask FadeOut()
