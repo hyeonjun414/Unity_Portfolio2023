@@ -2,11 +2,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Presenter;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace View
 {
-    public class EnemyView : EntityView
+    public class EnemyView : EntityView, IPointerClickHandler
     {
         private float remainAttackAnimTime;
         public override async UniTask PlayAttack()
@@ -25,6 +27,14 @@ namespace View
             await UniTask.Delay((int)(remainAttackAnimTime * 1000));
             remainAttackAnimTime = 0;
             await base.EndAttack(targetPos);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if(Presenter is EnemyPresenter ep)
+            {
+                ep.Targeted();
+            }
         }
     }
 }

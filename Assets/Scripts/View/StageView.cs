@@ -28,6 +28,7 @@ namespace View
         public EntityView HeroView;
         public List<EnemyView> EnemyViews;
         public List<EnemyView> EnemyPrefabs;
+        public GameObject indicator;
 
         private bool _isBattleEnd;
         
@@ -104,6 +105,21 @@ namespace View
             
             await UniTask.Delay((int)(clipLength * 1000));
             
+        }
+
+        public void SetTargetIndicator(EnemyPresenter ep)
+        {
+            var targetView = EnemyViews.FirstOrDefault(target => target.Presenter == ep);
+            if (targetView != null)
+            {
+                indicator.SetActive(true);
+                indicator.transform.position = targetView.transform.position + Vector3.up * 2.5f;
+            }
+        }
+
+        public void UnsetTargetIndicator()
+        {
+            indicator.SetActive(false);
         }
     }
 }

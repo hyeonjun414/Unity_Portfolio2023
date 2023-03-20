@@ -63,6 +63,8 @@ namespace Presenter
             Model = null;
             View.DestroyView();
         }
+
+        
     }
 
     public class EnemyPresenter : EntityPresenter
@@ -71,6 +73,11 @@ namespace Presenter
         {
         }
 
+        public void Targeted()
+        {
+            var stage = GameManager.Instance.CurStage;
+            stage.TargetEnemy(this);
+        }
         
     }
 }

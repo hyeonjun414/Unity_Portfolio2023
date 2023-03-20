@@ -18,9 +18,10 @@ namespace Presenter
         public List<DoorPresenter> Doors = new();
         
         public bool IsAction;
-
+        
 
         private GameManager gm;
+        private EnemyPresenter _curTarget;
         public StagePresenter(StageModel model, StageView view)
         {
             this.Model = model;
@@ -86,14 +87,9 @@ namespace Presenter
 
         private async UniTask AttackPhase()
         {
-            if (HeroPresenter.Model.IsActionReady)
+            if (HeroPresenter.Model.IsActionReady && _curTarget != null)
             {
-                var enemy = EnemyPresenters.Where(target => !target.Model.IsDead).ToList();
-                if (enemy.Count != 0)
-                {
-                    var targetEnemyIndex = Random.Range(0, enemy.Count);
-                    await Attack(HeroPresenter, enemy[targetEnemyIndex]);
-                }
+                await Attack(HeroPresenter, _curTarget);
             }
 
             foreach (var enemy in EnemyPresenters)
@@ -110,7 +106,15 @@ namespace Presenter
             await atker.PlayAttack();
             await target.TakeDamage(atker.Model.Damage);
             if (target.Model.IsDead)
+            {
+                if (target == _curTarget)
+                {
+                    _curTarget = null;
+                    View.UnsetTargetIndicator();
+                }
                 CheckEnemies();
+            }
+                
             
             await atker.EndAttack(target.View.GetPosition());
             IsAction = false;
@@ -127,6 +131,12 @@ namespace Presenter
         public async UniTask MoveStage()
         {
             await View.MoveStage();
+        }
+
+        public void TargetEnemy(EnemyPresenter ep)
+        {
+            _curTarget = ep;
+            View.SetTargetIndicator(ep);
         }
     }
 }

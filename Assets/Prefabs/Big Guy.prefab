@@ -924,6 +924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3888421685267043444}
   - component: {fileID: 3888421685267043447}
+  - component: {fileID: 3201487081553945169}
   m_Layer: 0
   m_Name: Big Guy
   m_TagString: Untagged
@@ -966,3 +967,29 @@ MonoBehaviour:
   ActionGauge: {fileID: 2242397660649659845}
   HpGauge: {fileID: 2242397660917093558}
   HpText: {fileID: 2242397661214459429}
+--- !u!61 &3201487081553945169
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888421685267043445}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.8}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.6, y: 2.5}
+  m_EdgeRadius: 0
