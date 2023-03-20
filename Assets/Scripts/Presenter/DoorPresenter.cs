@@ -26,6 +26,7 @@ namespace Presenter
         {
             View.Open();
             await GameManager.Instance.CurStage.MoveStage();
+            View.Close();
         }
     }
 }
