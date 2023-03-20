@@ -57,6 +57,12 @@ namespace Presenter
             Model.AddActionGauge();
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
         }
+
+        public void Dispose()
+        {
+            Model = null;
+            View.DestroyView();
+        }
     }
 
     public class EnemyPresenter : EntityPresenter
@@ -64,5 +70,7 @@ namespace Presenter
         public EnemyPresenter(EntityModel model, EntityView view) : base(model, view)
         {
         }
+
+        
     }
 }

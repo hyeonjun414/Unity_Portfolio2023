@@ -15,6 +15,8 @@ namespace Presenter
         public EntityPresenter HeroPresenter;
         public List<EnemyPresenter> EnemyPresenters = new();
 
+        public List<DoorPresenter> Doors = new();
+        
         public bool IsAction;
 
 
@@ -56,7 +58,33 @@ namespace Presenter
             UpdateActionGaugePhase();
             await AttackPhase();
         }
-        
+
+        private void CheckEnemies()
+        {
+            var allEnemyDead = EnemyPresenters.All(target => target.Model.IsDead);
+            if (allEnemyDead)
+            {
+                foreach (var enemy in EnemyPresenters)
+                {
+                    enemy.Dispose();
+                }
+
+                EnemyPresenters.Clear();
+                View.BattleEnd();
+
+                GenerateDoor();
+            }
+        }
+
+        private void GenerateDoor()
+        {
+            var masterStage = gm.MasterTable.MasterStages[0];
+            var doorModel = new DoorModel(masterStage);
+            var doorPresenter = new DoorPresenter(doorModel, View.GenerateDoor());
+            
+            Doors.Add(doorPresenter);
+        }
+
         private async UniTask AttackPhase()
         {
             if (HeroPresenter.Model.IsActionReady)
@@ -69,9 +97,8 @@ namespace Presenter
                 }
             }
 
-            for (var index = 0; index < EnemyPresenters.Count; index++)
+            foreach (var enemy in EnemyPresenters)
             {
-                var enemy = EnemyPresenters[index];
                 if (enemy.Model.IsActionReady && !enemy.Model.IsDead)
                     await Attack(enemy, HeroPresenter);
             }
@@ -83,6 +110,9 @@ namespace Presenter
             await atker.PrepareAttack(target.View.GetPosition());
             await atker.PlayAttack();
             await target.TakeDamage(atker.Model.Damage);
+            if (target.Model.IsDead)
+                CheckEnemies();
+            
             await atker.EndAttack(target.View.GetPosition());
             IsAction = false;
         }
@@ -94,6 +124,10 @@ namespace Presenter
             foreach (var enemy in EnemyPresenters.Where(target => !target.Model.IsDead))
                 enemy.AddActionGauge();
         }
-        
+
+        public async UniTask MoveStage()
+        {
+            await View.MoveStage();
+        }
     }
 }

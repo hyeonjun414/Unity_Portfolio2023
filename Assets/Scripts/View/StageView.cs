@@ -20,12 +20,16 @@ namespace View
         public StagePresenter Presenter;
 
         public EntityView entityView;
+        public DoorView doorPrefab;
         public List<Transform> enemyPosList;
         public Transform heroPosition;
+        public Transform doorPosition;
 
         public EntityView HeroView;
         public List<EnemyView> EnemyViews;
         public List<EnemyView> EnemyPrefabs;
+
+        private bool _isBattleEnd;
         
         public void Start()
         {
@@ -43,7 +47,14 @@ namespace View
 
         private async void Update()
         {
+            if (_isBattleEnd) return;
+            
             await Presenter.Update();
+        }
+
+        public void BattleEnd()
+        {
+            _isBattleEnd = true;
         }
 
         public void CreateHeroView(EntityModel hero)
@@ -72,6 +83,29 @@ namespace View
         public List<EnemyView> GetEnemyViews()
         {
             return EnemyViews;
+        }
+
+        public DoorView GenerateDoor()
+        {
+            var doorInst = Instantiate(doorPrefab, doorPosition);
+
+            return doorInst;
+        }
+
+        public async UniTask MoveStage()
+        {
+            HeroView.transform.DOMove(doorPosition.position, 2f)
+                .OnStart(() => HeroView.animator.SetBool("Move", true))
+                .OnComplete(() => HeroView.animator.SetBool("Move", false));
+            await UniTask.Delay(2000);
+            HeroView.animator.SetTrigger("DoorIn");
+            await UniTask.Yield();
+            var clipLength = HeroView.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            HeroView.transform.DOScale(0.8f, clipLength)
+                .OnComplete(() => HeroView.gameObject.SetActive(false));
+            
+            await UniTask.Delay((int)(clipLength * 1000));
+            
         }
     }
 }

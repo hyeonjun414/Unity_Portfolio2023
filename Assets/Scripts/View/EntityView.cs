@@ -129,6 +129,12 @@ namespace View
             animator.SetTrigger(STR_HIT);
             transform.DOScale(Vector3.one * 0.8f, 0.5f);
             sprite.DOColor(Color.gray, 0.5f);
+            await UniTask.Yield();
+        }
+
+        public void DestroyView()
+        {
+            Destroy(gameObject);
         }
     }
 

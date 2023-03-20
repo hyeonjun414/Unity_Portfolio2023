@@ -34,7 +34,7 @@
       "Name"          : "Hero",
       "Desc"          : "Hero",
       "Hp"            : 100,
-      "Damage"        : 10,
+      "Damage"        : 50,
       "MaxActionGauge": 5,
       "ActionSpeed"   : 5
     },
