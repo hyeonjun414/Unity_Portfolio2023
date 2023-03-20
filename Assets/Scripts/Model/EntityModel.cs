@@ -33,7 +33,7 @@ namespace Model
             CurActionGauge += ActionSpeed * Time.deltaTime;
             if (CurActionGauge >= MaxActionGauge)
             {
-                MaxActionGauge = CurActionGauge;
+                CurActionGauge = MaxActionGauge;
                 IsActionReady = true;
             }
         }
