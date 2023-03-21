@@ -26,9 +26,9 @@ namespace Presenter
         private EnemyPresenter _curTarget;
         private CardPresenter _selectedCard;
 
-        public List<CardPresenter> Hand;
-        public List<CardPresenter> Deck;
-        public List<CardPresenter> Grave;
+        public List<CardPresenter> Hand = new();
+        public List<CardPresenter> Deck = new();
+        public List<CardPresenter> Grave = new();
         
         public StagePresenter(StageModel model, StageView view)
         {
@@ -59,8 +59,8 @@ namespace Presenter
                 EnemyPresenters.Add(enemyPresenter);
             }
 
-            user.Deck = gm.User.GetCards();
-            View.SetUserCards(gm.User.GetCards());
+            Deck = new List<CardPresenter>(gm.User.GetCards());
+            View.SetUserCards(Deck);
         }
 
         public async UniTask Update()
@@ -121,12 +121,12 @@ namespace Presenter
         private async UniTask DrawCard()
         {
             var drawCount = user.Model.DrawCardCount;
-            if (user.Deck.Count == 0)
+            if (Deck.Count == 0)
             {
                 await GraveToDeck();
             }
 
-            while(drawCount > 0 && user.Deck.Count > 0)
+            while(drawCount > 0 && Deck.Count > 0)
             {
                 await DeckToHand();
                 await UniTask.Delay(200);
@@ -136,23 +136,23 @@ namespace Presenter
 
         private async UniTask DeckToHand()
         {
-            var card = user.Deck[0];
-            user.Hand.Add(card);
-            user.Deck.Remove(card);
+            var card = Deck[0];
+            Hand.Add(card);
+            Deck.Remove(card);
             await View.DeckToHand(card);
         }
 
         private async UniTask GraveToDeck()
         {
-            user.Deck.AddRange(user.Grave);
-            user.Grave.Clear();
-            await View.GraveToDeck(user.Deck);
+            Deck.AddRange(Grave);
+            Grave.Clear();
+            await View.GraveToDeck(Deck);
         }
 
         private async UniTask HandToGrave(CardPresenter card)
         {
-            user.Grave.Add(card);
-            user.Hand.Remove(card);
+            Grave.Add(card);
+            Hand.Remove(card);
             await View.HandToGrave(card);
         }
 
