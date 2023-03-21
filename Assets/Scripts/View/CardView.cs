@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Presenter;
 using TMPro;
@@ -18,6 +20,7 @@ namespace View
         public TextMeshProUGUI Text_Name;
         public TextMeshProUGUI Text_Desc;
         public TextMeshProUGUI Text_Damage;
+        public ParticleSystem CardEffect;
 
         private void Update()
         {
@@ -32,6 +35,7 @@ namespace View
             var data = card.Model;
             Text_Name.SetText(data.Name);
             Text_Desc.SetText(data.Desc);
+            CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
         }
 
         public void DestroyView()
@@ -59,6 +63,14 @@ namespace View
         public void OnPointerUp(PointerEventData eventData)
         {
             Presenter.UnSelectCard();
+        }
+
+        public async UniTask PlayCardEft(EntityView ev)
+        {
+            var eft = Instantiate(CardEffect, ev.transform);
+            eft.transform.position += Vector3.up;
+            Destroy(eft.gameObject, eft.main.duration);
+            await UniTask.Yield();
         }
     }
 }

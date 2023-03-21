@@ -42,8 +42,9 @@ namespace Presenter
         {
             View.CreateHeroView(gm.User.GetHero());
             var heroView = View.GetHeroView();
-            HeroPresenter = new EntityPresenter(gm.User.GetHero(), heroView);
+            HeroPresenter = user.HeroPresenter;
             heroView.Presenter = HeroPresenter;
+            HeroPresenter.View = heroView;
 
             var enemyModels = Model.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
@@ -160,7 +161,7 @@ namespace Presenter
         private async UniTask CardAttack(EntityPresenter target)
         {
             IsAction = true;
-            await _selectedCard.CardActivate(target);
+            await user.UseCard(_selectedCard, _curTarget);
             if (target.Model.IsDead)
             {
                 if (target == _curTarget)
@@ -238,9 +239,7 @@ namespace Presenter
             {
                 if (_curTarget != null)
                 {
-                    _selectedCard.CardActivate(_curTarget);
-                    Attack(HeroPresenter, _curTarget);
-                    //_selectedCard.Dispose();
+                    CardAttack(_curTarget);
                     HandToGrave(_selectedCard);
                     UnTargetEnemy(_curTarget);
                 }

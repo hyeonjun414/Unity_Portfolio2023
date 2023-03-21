@@ -93,7 +93,10 @@ namespace View
 
         public virtual async UniTask PlayAttack()
         {
+            animator.SetTrigger("Attack");
             await UniTask.Yield();
+            var playTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            await UniTask.Delay((int)(playTime * 1000));
         }
 
         public virtual async UniTask EndAttack(Vector3 targetPos)

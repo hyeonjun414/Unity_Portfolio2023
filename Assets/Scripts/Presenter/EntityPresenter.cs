@@ -69,7 +69,7 @@ namespace Presenter
 
     public class EnemyPresenter : EntityPresenter
     {
-        public EnemyPresenter(EntityModel model, EntityView view) : base(model, view)
+        public EnemyPresenter(EnemyModel model, EntityView view) : base(model, view)
         {
         }
 

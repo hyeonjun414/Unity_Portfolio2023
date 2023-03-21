@@ -33,7 +33,8 @@
       "Id"      : "Bomb",
       "Name"    : "Bomb",
       "Desc"    : "Bomb",
-      "CardType": "Attack",
+      "CardType": "CfBomb",
+      "Effect"  : "Explosion",
       "Function": {
         "Type"  : "CfBomb",
         "Damage": 5

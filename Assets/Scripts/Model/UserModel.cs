@@ -14,7 +14,7 @@ namespace Model
         public void Init(MasterUser mu, MasterTable mt)
         {
             var hero = mt.MasterHeroes.First(target => target.Name == mu.Hero);
-            Hero = new EnemyModel(hero);
+            Hero = new EntityModel(hero);
 
             DrawCardCount = mu.DrawCardCount;
             
