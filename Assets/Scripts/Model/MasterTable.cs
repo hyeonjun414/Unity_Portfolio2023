@@ -19,6 +19,7 @@ namespace Model
         public string Name;
         public string Desc;
         public string Hero;
+        public int DrawCardCount;
         public List<string> Cards;
     }
     public class MasterStage

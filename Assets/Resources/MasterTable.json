@@ -71,11 +71,18 @@
   ],
   "MasterUsers"  : [
     {
-      "Id"   : "Char1",
-      "Name" : "Char1",
-      "Desc" : "Normal",
-      "Hero" : "Hero",
-      "Cards": [
+      "Id"           : "Char1",
+      "Name"         : "Char1",
+      "Desc"         : "Normal",
+      "Hero"         : "Hero",
+      "DrawCardCount": 3,
+      "Cards"        : [
+        "Bomb",
+        "Bomb",
+        "Bomb",
+        "Bomb",
+        "Bomb",
+        "Bomb",
         "Bomb",
         "Bomb",
         "Bomb"

@@ -16,14 +16,8 @@ namespace Presenter
         public UserPresenter(UserModel model, UserView view, MasterUser mu, MasterTable mt)
         {
             this.Model = model;
-            var hero = mt.MasterHeroes.First(target => target.Name == mu.Hero);
-            List<MasterCard> masterCards = new();
-            foreach (var cardId in mu.Cards)
-            {
-                var mc = mt.MasterCards.First(target => target.Id == cardId);
-                masterCards.Add(mc);
-            }
-            Model.Init(hero, masterCards);
+            
+            Model.Init(mu, mt);
 
             foreach (var cardModel in Model.Cards)
             {

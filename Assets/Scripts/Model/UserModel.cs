@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Model
@@ -8,12 +9,18 @@ namespace Model
         public EntityModel Hero;
         public List<CardModel> Cards = new();
 
-        public void Init(MasterEntity hero, List<MasterCard> masterCards)
+        public int DrawCardCount;
+
+        public void Init(MasterUser mu, MasterTable mt)
         {
+            var hero = mt.MasterHeroes.First(target => target.Name == mu.Hero);
             Hero = new EnemyModel(hero);
 
-            foreach (var mc in masterCards)
+            DrawCardCount = mu.DrawCardCount;
+            
+            foreach (var cardId in mu.Cards)
             {
+                var mc = mt.MasterCards.First(target => target.Id == cardId);
                 Cards.Add(new CardModel(mc));
             }
         }
