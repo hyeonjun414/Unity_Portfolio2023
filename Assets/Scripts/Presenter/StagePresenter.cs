@@ -242,6 +242,7 @@ namespace Presenter
                     Attack(HeroPresenter, _curTarget);
                     //_selectedCard.Dispose();
                     HandToGrave(_selectedCard);
+                    UnTargetEnemy(_curTarget);
                 }
                 else
                 {

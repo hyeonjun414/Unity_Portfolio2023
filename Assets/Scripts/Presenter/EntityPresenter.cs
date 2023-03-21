@@ -75,12 +75,14 @@ namespace Presenter
 
         public void Targeted()
         {
+            if (Model.IsDead) return;
             var stage = GameManager.Instance.CurStage;
             stage.TargetEnemy(this);
         }
 
         public void UnTargeted()
         {
+            if (Model.IsDead) return;
             var stage = GameManager.Instance.CurStage;
             stage.UnTargetEnemy(this);
         }
