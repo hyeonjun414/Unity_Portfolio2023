@@ -141,7 +141,7 @@ namespace View
                 cardView.transform.rotation = Quaternion.Euler(0, 180, 0);
                 cardView.transform.DOScale(0.5f, 0.2f);
                 card.View = cardView;
-                UserCards.Add(cardView);
+                DeckCards.Add(cardView);
             }
         }
 

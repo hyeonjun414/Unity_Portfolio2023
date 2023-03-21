@@ -31,6 +31,7 @@ namespace View
                 
                 var userView = gameObject.AddComponent<UserView>();
                 User = new UserPresenter(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
+                userView.Presenter = User;
                 
                 GenerateStage(MasterTable.MasterStages[0]);
             }

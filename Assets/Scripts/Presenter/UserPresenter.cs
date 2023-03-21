@@ -12,9 +12,6 @@ namespace Presenter
         public UserView View;
 
         public List<CardPresenter> Cards = new();
-        public List<CardPresenter> Hand = new();
-        public List<CardPresenter> Deck = new();
-        public List<CardPresenter> Grave = new();
 
         public UserPresenter(UserModel model, UserView view, MasterUser mu, MasterTable mt)
         {
