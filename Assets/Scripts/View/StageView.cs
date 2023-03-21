@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
 using Presenter;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace View
 {
@@ -26,11 +28,16 @@ namespace View
         public Transform heroPosition;
         public Transform doorPosition;
         public Transform cardPosition;
+        public Transform handPos, deckPos, gravePos;
+            
 
         public EntityView HeroView;
         public List<EnemyView> EnemyViews;
         public List<EnemyView> EnemyPrefabs;
         public List<CardView> UserCards = new();
+        public List<CardView> DeckCards = new();
+        public List<CardView> GraveCards = new();
+        public List<CardView> HandCards = new();
         public GameObject indicator;
 
         private bool _isBattleEnd;
@@ -129,11 +136,71 @@ namespace View
         {
             foreach (var card in Cards)
             {
-                var cardView = Instantiate(cardPrefab, cardPosition);
+                var cardView = Instantiate(cardPrefab, deckPos);
                 cardView.SetView(card);
+                cardView.transform.rotation = Quaternion.Euler(0, 180, 0);
+                cardView.transform.DOScale(0.5f, 0.2f);
                 card.View = cardView;
                 UserCards.Add(cardView);
             }
+        }
+
+        public async UniTask DeckToHand(CardPresenter card)
+        {
+            var cardView = card.View;
+            if (cardView == null) return;
+            
+            DeckCards.Remove(cardView);
+            HandCards.Add(cardView);
+
+            cardView.transform.DOScale(1, 0.2f);
+            cardView.transform.DORotate(Vector3.zero, 0.2f);
+            cardView.transform.SetParent(handPos);
+
+            await ReplaceHandCard();
+        }
+
+        public async UniTask ReplaceHandCard()
+        {
+            var cardStartPos = (HandCards.Count -1)*100 * 0.5f;
+            for (var index = 0; index < HandCards.Count; index++)
+            {
+                var cv = HandCards[index];
+                cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.5f);
+            }
+
+            await UniTask.Yield();
+        }
+
+        public async UniTask GraveToDeck(List<CardPresenter> deck)
+        {
+            foreach (var card in deck)
+            {
+                var cardView = card.View;
+                GraveCards.Remove(cardView);
+                DeckCards.Add(cardView);
+                cardView.transform.SetParent(deckPos);
+                cardView.transform.DOMove(deckPos.position, 0.2f);
+                cardView.transform.DORotate(new Vector3(0, 180, 0), 0.2f);
+
+                await UniTask.Delay(200);
+            }
+        }
+
+        public async UniTask HandToGrave(CardPresenter card)
+        {
+            var cardView = card.View;
+            if (cardView == null) return;
+
+            HandCards.Remove(cardView);
+            GraveCards.Add(cardView);
+
+            cardView.transform.DOScale(0.5f, 0.2f);
+            cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.2f);
+            cardView.transform.DOMove(gravePos.position, 0.5f);
+            cardView.transform.SetParent(gravePos);
+
+            await ReplaceHandCard();
         }
     }
 }

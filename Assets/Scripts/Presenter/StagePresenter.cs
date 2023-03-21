@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Model;
 using UnityEngine;
@@ -21,13 +22,20 @@ namespace Presenter
         
 
         private GameManager gm;
+        private UserPresenter user;
         private EnemyPresenter _curTarget;
         private CardPresenter _selectedCard;
+
+        public List<CardPresenter> Hand;
+        public List<CardPresenter> Deck;
+        public List<CardPresenter> Grave;
+        
         public StagePresenter(StageModel model, StageView view)
         {
             this.Model = model;
             this.View = view;
             gm = GameManager.Instance;
+            user = gm.User;
         }
 
         public void Init()
@@ -51,6 +59,7 @@ namespace Presenter
                 EnemyPresenters.Add(enemyPresenter);
             }
 
+            user.Deck = gm.User.GetCards();
             View.SetUserCards(gm.User.GetCards());
         }
 
@@ -59,7 +68,7 @@ namespace Presenter
             if (IsAction) return;
             
             UpdateActionGaugePhase();
-            await AttackPhase();
+            await ActionPhase();
         }
 
         private void CheckEnemies()
@@ -88,11 +97,11 @@ namespace Presenter
             Doors.Add(doorPresenter);
         }
 
-        private async UniTask AttackPhase()
+        private async UniTask ActionPhase()
         {
             if (HeroPresenter.Model.IsActionReady)
             {
-                IsAction = true;
+                await UserActionReady();
             }
 
             foreach (var enemy in EnemyPresenters)
@@ -101,6 +110,52 @@ namespace Presenter
                     await Attack(enemy, HeroPresenter);
             }
         }
+
+        private async UniTask UserActionReady()
+        {
+            IsAction = true;
+            await DrawCard();
+
+        }
+
+        private async UniTask DrawCard()
+        {
+            var drawCount = user.Model.DrawCardCount;
+            if (user.Deck.Count == 0)
+            {
+                await GraveToDeck();
+            }
+
+            while(drawCount > 0 && user.Deck.Count > 0)
+            {
+                await DeckToHand();
+                await UniTask.Delay(200);
+                drawCount--;
+            }
+        }
+
+        private async UniTask DeckToHand()
+        {
+            var card = user.Deck[0];
+            user.Hand.Add(card);
+            user.Deck.Remove(card);
+            await View.DeckToHand(card);
+        }
+
+        private async UniTask GraveToDeck()
+        {
+            user.Deck.AddRange(user.Grave);
+            user.Grave.Clear();
+            await View.GraveToDeck(user.Deck);
+        }
+
+        private async UniTask HandToGrave(CardPresenter card)
+        {
+            user.Grave.Add(card);
+            user.Hand.Remove(card);
+            await View.HandToGrave(card);
+        }
+
 
         private async UniTask CardAttack(EntityPresenter target)
         {
@@ -185,7 +240,8 @@ namespace Presenter
                 {
                     _selectedCard.CardActivate(_curTarget);
                     Attack(HeroPresenter, _curTarget);
-                    _selectedCard.Dispose();
+                    //_selectedCard.Dispose();
+                    HandToGrave(_selectedCard);
                 }
                 else
                 {
@@ -196,6 +252,6 @@ namespace Presenter
             }
         }
 
-       
+        
     }
 }

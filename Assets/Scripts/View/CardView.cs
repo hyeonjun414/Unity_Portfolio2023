@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Presenter;
 using TMPro;
@@ -12,9 +13,18 @@ namespace View
         public CardPresenter Presenter;
 
         public Image CardImage;
+        public GameObject front;
+        public GameObject back;
         public TextMeshProUGUI Text_Name;
         public TextMeshProUGUI Text_Desc;
         public TextMeshProUGUI Text_Damage;
+
+        private void Update()
+        {
+            var forward = transform.forward;
+            front.SetActive(forward.z > 0);
+            back.SetActive(forward.z <= 0);
+        }
 
         public void SetView(CardPresenter card)
         {
