@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace View
 {
-    public class EnemyView : EntityView, IPointerClickHandler
+    public class EnemyView : EntityView, IPointerEnterHandler, IPointerExitHandler
     {
         private float remainAttackAnimTime;
         public override async UniTask PlayAttack()
@@ -29,11 +29,25 @@ namespace View
             await base.EndAttack(targetPos);
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            if(Presenter is EnemyPresenter ep)
+            if (eventData.pointerPress != null)
             {
-                ep.Targeted();
+                if (Presenter is EnemyPresenter ep)
+                {
+                    ep.Targeted();
+                }
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (eventData.pointerPress != null)
+            {
+                if (Presenter is EnemyPresenter ep)
+                {
+                    ep.UnTargeted();
+                }
             }
         }
     }

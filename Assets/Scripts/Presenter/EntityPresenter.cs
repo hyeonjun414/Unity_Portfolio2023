@@ -78,6 +78,11 @@ namespace Presenter
             var stage = GameManager.Instance.CurStage;
             stage.TargetEnemy(this);
         }
-        
+
+        public void UnTargeted()
+        {
+            var stage = GameManager.Instance.CurStage;
+            stage.UnTargetEnemy(this);
+        }
     }
 }

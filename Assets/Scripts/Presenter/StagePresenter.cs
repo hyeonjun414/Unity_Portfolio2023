@@ -22,6 +22,7 @@ namespace Presenter
 
         private GameManager gm;
         private EnemyPresenter _curTarget;
+        private CardPresenter _selectedCard;
         public StagePresenter(StageModel model, StageView view)
         {
             this.Model = model;
@@ -89,9 +90,9 @@ namespace Presenter
 
         private async UniTask AttackPhase()
         {
-            if (HeroPresenter.Model.IsActionReady && _curTarget != null)
+            if (HeroPresenter.Model.IsActionReady)
             {
-                await Attack(HeroPresenter, _curTarget);
+                IsAction = true;
             }
 
             foreach (var enemy in EnemyPresenters)
@@ -101,6 +102,22 @@ namespace Presenter
             }
         }
 
+        private async UniTask CardAttack(EntityPresenter target)
+        {
+            IsAction = true;
+            await _selectedCard.CardActivate(target);
+            if (target.Model.IsDead)
+            {
+                if (target == _curTarget)
+                {
+                    _curTarget = null;
+                    View.UnsetTargetIndicator();
+                }
+
+                CheckEnemies();
+            }
+            IsAction = false;
+        }
         private async UniTask Attack(EntityPresenter atker, EntityPresenter target)
         {
             IsAction = true;
@@ -140,5 +157,45 @@ namespace Presenter
             _curTarget = ep;
             View.SetTargetIndicator(ep);
         }
+
+        public void UnTargetEnemy(EnemyPresenter ep)
+        {
+            if (_curTarget == ep)
+            {
+                View.UnsetTargetIndicator(); 
+                _curTarget = null;
+            }
+            
+        }
+
+        public void SelectCard(CardPresenter card)
+        {
+            if (HeroPresenter.Model.IsActionReady)
+            {
+                _selectedCard = card;
+                card.Selected();
+            }
+        }
+
+        public void UnSelectCard(CardPresenter card)
+        {
+            if (_selectedCard == card)
+            {
+                if (_curTarget != null)
+                {
+                    _selectedCard.CardActivate(_curTarget);
+                    Attack(HeroPresenter, _curTarget);
+                    _selectedCard.Dispose();
+                }
+                else
+                {
+                    _selectedCard.UnSelected();
+                }
+
+                _selectedCard = null; 
+            }
+        }
+
+       
     }
 }

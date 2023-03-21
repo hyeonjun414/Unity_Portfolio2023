@@ -131,6 +131,7 @@ namespace View
             {
                 var cardView = Instantiate(cardPrefab, cardPosition);
                 cardView.SetView(card);
+                card.View = cardView;
                 UserCards.Add(cardView);
             }
         }
