@@ -45,7 +45,7 @@ namespace Model
         public string Desc;
         public string CardType;
         public string Effect;
-        public JToken Function;
+        public JObject Function;
     }
 
     

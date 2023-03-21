@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Presenter;
-using UnityEngine;
 
 namespace Model
 {
@@ -23,9 +22,19 @@ namespace Model
             Desc = mc.Desc;
             CardType = mc.CardType;
             Effect = mc.Effect;
-            string cardFunctionType = mc.Function["Type"].ToString();
-            Function = JsonConvert.DeserializeObject<CfBomb>(mc.Function.ToString());
-            
+            Function = ToObject<CardFunction>(mc.Function);
+        }
+
+        public static T ToObject<T>(JObject data)
+        {
+            var type = typeof(CardFunction);
+            var domainPrefix = type.FullName;
+            domainPrefix = domainPrefix.Remove(domainPrefix.Length - type.Name.Length);
+            if (data["Type"] != null)
+            {
+                type = Type.GetType(domainPrefix + data["Type"]);
+            }
+            return (T)JsonConvert.DeserializeObject(data.ToString(), type);
         }
     }
 
