@@ -28,13 +28,25 @@
       "ActionSpeed"   : 0.5
     }
   ],
+  "MasterCards"  : [
+    {
+      "Id"      : "Bomb",
+      "Name"    : "Bomb",
+      "Desc"    : "Bomb",
+      "CardType": "Attack",
+      "Function": {
+        "Type"  : "CfBomb",
+        "Damage": 5
+      }
+    }
+  ],
   "MasterHeroes" : [
     {
       "Id"            : "Hero",
       "Name"          : "Hero",
       "Desc"          : "Hero",
       "Hp"            : 100,
-      "Damage"        : 50,
+      "Damage"        : 10,
       "MaxActionGauge": 5,
       "ActionSpeed"   : 5
     },
@@ -57,7 +69,31 @@
       "ActionSpeed"   : 1
     }
   ],
+  "MasterUsers"  : [
+    {
+      "Id"   : "Char1",
+      "Name" : "Char1",
+      "Desc" : "Normal",
+      "Hero" : "Hero",
+      "Cards": [
+        "Bomb",
+        "Bomb",
+        "Bomb"
+      ]
+    }
+  ],
   "MasterStages" : [
+    {
+      "Id"          : "Normal1",
+      "Name"        : "Normal1",
+      "StageEnemies": [
+        "Bald Pirate",
+        "Cucumber",
+        "Big Guy"
+      ]
+    }
+  ],
+  "MasterMaps"   : [
     {
       "Id"          : "Normal1",
       "Name"        : "Normal1",

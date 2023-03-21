@@ -30,7 +30,7 @@ namespace View
                 SceneSwitchPresenter = new SceneSwitchPresenter(new SceneSwitchModel(), null);
                 
                 var userView = gameObject.AddComponent<UserView>();
-                User = new UserPresenter(new UserModel(MasterTable.MasterHeroes[0]), userView);
+                User = new UserPresenter(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
                 
                 GenerateStage(MasterTable.MasterStages[0]);
             }

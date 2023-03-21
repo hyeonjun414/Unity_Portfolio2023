@@ -49,6 +49,8 @@ namespace Presenter
                 enemyViews[index].Presenter = enemyPresenter;
                 EnemyPresenters.Add(enemyPresenter);
             }
+
+            View.SetUserCards(gm.User.GetCards());
         }
 
         public async UniTask Update()

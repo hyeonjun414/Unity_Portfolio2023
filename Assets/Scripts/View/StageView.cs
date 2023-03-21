@@ -21,13 +21,16 @@ namespace View
 
         public EntityView entityView;
         public DoorView doorPrefab;
+        public CardView cardPrefab;
         public List<Transform> enemyPosList;
         public Transform heroPosition;
         public Transform doorPosition;
+        public Transform cardPosition;
 
         public EntityView HeroView;
         public List<EnemyView> EnemyViews;
         public List<EnemyView> EnemyPrefabs;
+        public List<CardView> UserCards = new();
         public GameObject indicator;
 
         private bool _isBattleEnd;
@@ -120,6 +123,16 @@ namespace View
         public void UnsetTargetIndicator()
         {
             indicator.SetActive(false);
+        }
+
+        public void SetUserCards(List<CardPresenter> Cards)
+        {
+            foreach (var card in Cards)
+            {
+                var cardView = Instantiate(cardPrefab, cardPosition);
+                cardView.SetView(card);
+                UserCards.Add(cardView);
+            }
         }
     }
 }
