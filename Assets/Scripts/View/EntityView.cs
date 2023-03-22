@@ -62,7 +62,9 @@ namespace View
             if (ActionCountText.text != actionCountStr)
             {
                 ActionCountText.SetText(actionCountStr);
-                ActionCountText.transform.DOPunchScale(Vector3.one, 0.2f, 1);
+                ActionCountText.transform.DOKill();
+                ActionCountText.transform.localScale = Vector3.one;
+                ActionCountText.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 1, 0.5f);
             }
         }
 
