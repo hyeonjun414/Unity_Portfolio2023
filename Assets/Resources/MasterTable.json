@@ -37,9 +37,9 @@
   ],
   "MasterCards"  : [
     {
-      "Id"      : "Bomb",
-      "Name"    : "Bomb",
-      "Desc"    : "Bomb",
+      "Id"      : "폭탄 투하",
+      "Name"    : "폭탄 투하",
+      "Desc"    : "적에게 15의 피해를 줍니다.",
       "Effect"  : "Explosion",
       "Cost"    : 1,
       "Function": {
@@ -83,17 +83,17 @@
       "Name"         : "Char1",
       "Desc"         : "Normal",
       "Hero"         : "Hero",
-      "DrawCardCount": 3,
+      "DrawCardCount": 2,
       "Cards"        : [
-        "Bomb",
-        "Bomb",
-        "Bomb",
-        "Bomb",
-        "Bomb",
-        "Bomb",
-        "Bomb",
-        "Bomb",
-        "Bomb"
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하"
       ]
     }
   ],

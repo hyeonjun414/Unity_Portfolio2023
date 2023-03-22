@@ -48,5 +48,10 @@ namespace Presenter
             Model = null;
             View.DestroyView();
         }
+
+        public int GetCost()
+        {
+            return Model.Cost;
+        }
     }
 }

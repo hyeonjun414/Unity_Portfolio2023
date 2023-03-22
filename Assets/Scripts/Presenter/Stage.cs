@@ -148,14 +148,18 @@ namespace Presenter
         private async UniTask CardAttack(Enemy enemy)
         {
             IsAction = true;
-            await user.UseCard(_selectedCard, enemy);
-            UnTargetEnemy(enemy);
-            if (enemy.Model.IsDead)
+            if (user.UserHero.GetActionCount() >= _selectedCard.GetCost())
             {
-                await CheckEnemies();
-            }
+                await user.UseCard(_selectedCard, enemy);
+                UnTargetEnemy(enemy);
+                if (enemy.Model.IsDead)
+                {
+                    await CheckEnemies();
+                }
 
-            await HandToGrave(_selectedCard);
+                await HandToGrave(_selectedCard);
+            }
+            
             IsAction = false;
         }
         private async UniTask EnemyAttack(Entity atker)

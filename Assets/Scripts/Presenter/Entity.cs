@@ -116,5 +116,10 @@ namespace Presenter
             Model.ActionCount -= cost;
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
         }
+
+        public int GetActionCount()
+        {
+            return Model.ActionCount;
+        }
     }
 }

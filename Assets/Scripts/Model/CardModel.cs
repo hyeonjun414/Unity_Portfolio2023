@@ -21,6 +21,7 @@ namespace Model
             Name = mc.Name;
             Desc = mc.Desc;
             Effect = mc.Effect;
+            Cost = mc.Cost;
             Function = Util.ToObject<CardFunc>(mc.Function);
         }
     }

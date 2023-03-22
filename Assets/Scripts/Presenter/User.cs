@@ -49,6 +49,7 @@ namespace Presenter
         public async UniTask UseCard(Card card, Enemy target)
         {
             var position = target.View.transform.position;
+            UserHero.UseActionCount(card.GetCost());
             await UserHero.PrepareAttack(position);
             await UserHero.PlayAttack();
             await card.CardActivate(target);

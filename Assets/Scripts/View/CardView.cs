@@ -19,7 +19,7 @@ namespace View
         public GameObject back;
         public TextMeshProUGUI Text_Name;
         public TextMeshProUGUI Text_Desc;
-        public TextMeshProUGUI Text_Damage;
+        public TextMeshProUGUI Text_Cost;
         public ParticleSystem CardEffect;
 
         private void Update()
@@ -35,6 +35,7 @@ namespace View
             var data = card.Model;
             Text_Name.SetText(data.Name);
             Text_Desc.SetText(data.Desc);
+            Text_Cost.SetText(data.Cost.ToString());
             CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
         }
 
