@@ -27,4 +27,11 @@ namespace Model
             await actor.EndAttack();
         }
     }
+
+    public class EaWait : EnemyAction
+    {
+        public override async UniTask Activate(Enemy actor, Entity entity)
+        {
+        }
+    }
 }

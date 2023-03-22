@@ -118,6 +118,7 @@ namespace Presenter
                 var curAct = em.GetCurAction();
                 UseActionCount(curAct.Cost);
                 await curAct.Activate(this, hero);
+                SetAction();
             }
         }
 

@@ -13,7 +13,18 @@
           "Type"  : "EaNormalAttack",
           "Cost"  : 1,
           "Damage": 5,
-          "Icon"  : "Attack"
+          "Icon"  : "Attack1"
+        },
+        {
+          "Type": "EaWait",
+          "Cost": 1,
+          "Icon": "Wait"
+        },
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 3,
+          "Damage": 20,
+          "Icon"  : "Attack2"
         }
       ]
     },
@@ -30,7 +41,18 @@
           "Type"  : "EaNormalAttack",
           "Cost"  : 1,
           "Damage": 5,
-          "Icon"  : "Attack"
+          "Icon"  : "Attack1"
+        },
+        {
+          "Type": "EaWait",
+          "Cost": 1,
+          "Icon": "Wait"
+        },
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 3,
+          "Damage": 20,
+          "Icon"  : "Attack2"
         }
       ]
     },
@@ -47,7 +69,18 @@
           "Type"  : "EaNormalAttack",
           "Cost"  : 1,
           "Damage": 5,
-          "Icon"  : "Attack"
+          "Icon"  : "Attack1"
+        },
+        {
+          "Type": "EaWait",
+          "Cost": 1,
+          "Icon": "Wait"
+        },
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 3,
+          "Damage": 20,
+          "Icon"  : "Attack2"
         }
       ]
     }
