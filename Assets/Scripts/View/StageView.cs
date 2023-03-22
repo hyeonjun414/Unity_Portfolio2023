@@ -64,7 +64,7 @@ namespace View
         public async UniTask BattleEnd()
         {
             _isBattleEnd = true;
-            await UniTask.Delay(1000);
+            await UniTask.Delay(500);
             foreach (var ev in EnemyViews)
             {
                 ev.Presenter.Dispose();
@@ -110,13 +110,13 @@ namespace View
 
         public async UniTask MoveStage()
         {
-            HeroView.transform.DOMove(doorPosition.position, 2f)
+            HeroView.transform.DOMove(doorPosition.position, 1f)
                 .OnStart(() => HeroView.animator.SetBool("Move", true))
                 .OnComplete(() => HeroView.animator.SetBool("Move", false));
-            await UniTask.Delay(2000);
+            await UniTask.Delay(1000);
             HeroView.animator.SetTrigger("DoorIn");
             await UniTask.Yield();
-            var clipLength = HeroView.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            var clipLength = HeroView.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / HeroView.animator.speed;
             HeroView.transform.DOScale(0.8f, clipLength)
                 .OnComplete(() => HeroView.gameObject.SetActive(false));
             
@@ -160,7 +160,7 @@ namespace View
             DeckCards.Remove(cardView);
             HandCards.Add(cardView);
 
-            cardView.transform.DOScale(1, 0.2f);
+            cardView.transform.DOScale(1, 0.2f).SetEase(Ease.OutExpo);
             cardView.transform.DORotate(Vector3.zero, 0.2f);
             cardView.transform.SetParent(handPos);
 
@@ -173,7 +173,8 @@ namespace View
             for (var index = 0; index < HandCards.Count; index++)
             {
                 var cv = HandCards[index];
-                cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.5f);
+                cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.2f)
+                    .SetEase(Ease.OutExpo);
             }
 
             await UniTask.Yield();
@@ -187,7 +188,7 @@ namespace View
                 GraveCards.Remove(cardView);
                 DeckCards.Add(cardView);
                 cardView.transform.SetParent(deckPos);
-                cardView.transform.DOMove(deckPos.position, 0.2f);
+                cardView.transform.DOMove(deckPos.position, 0.2f).SetEase(Ease.OutExpo);
                 cardView.transform.DORotate(new Vector3(0, 180, 0), 0.2f);
 
                 await UniTask.Delay(200);
@@ -204,7 +205,7 @@ namespace View
 
             cardView.transform.DOScale(0.5f, 0.2f);
             cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.2f);
-            cardView.transform.DOMove(gravePos.position, 0.5f);
+            cardView.transform.DOMove(gravePos.position, 0.2f).SetEase(Ease.OutExpo);
             cardView.transform.SetParent(gravePos);
 
             await ReplaceHandCard();

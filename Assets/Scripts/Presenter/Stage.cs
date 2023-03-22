@@ -178,7 +178,7 @@ namespace Presenter
             door.View.Open();
             await View.MoveStage();
             door.View.Close();
-            await UniTask.Delay(1000);
+            await UniTask.Delay(500);
             await GameManager.Instance.LoadStageScene(door.GetStageData());
         }
 

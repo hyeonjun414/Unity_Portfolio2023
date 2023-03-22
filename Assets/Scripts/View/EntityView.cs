@@ -80,7 +80,7 @@ namespace View
         public virtual async UniTask PrepareAttack(Vector3 targetPos)
         {
             var moveX = transform.position.x > targetPos.x ? -2 : 2;
-            transform.DOMoveX(targetPos.x - moveX, 0.5f)
+            transform.DOMoveX(targetPos.x - moveX, 0.2f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() =>
                 {
@@ -88,20 +88,20 @@ namespace View
                     animator.SetBool(STR_MOVE, true);
                 })
                 .OnComplete(() => animator.SetBool(STR_MOVE, false));
-            await UniTask.Delay(500);
+            await UniTask.Delay(200);
         }
 
         public virtual async UniTask PlayAttack()
         {
             animator.SetTrigger("Attack");
             await UniTask.Yield();
-            var playTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            var playTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / animator.speed;
             await UniTask.Delay((int)(playTime * 1000));
         }
 
         public virtual async UniTask EndAttack()
         {
-            transform.DOLocalMove(Vector3.zero, 0.5f)
+            transform.DOLocalMove(Vector3.zero, 0.2f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() => animator.SetBool(STR_MOVE, true))
                 .OnComplete(() =>
@@ -109,7 +109,7 @@ namespace View
                     uiCanvas.sortingOrder = sprite.sortingOrder = 4;
                     animator.SetBool(STR_MOVE, false);
                 });
-            await UniTask.Delay(500);
+            await UniTask.Delay(200);
         }
 
         public Vector3 GetPosition()
