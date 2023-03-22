@@ -13,9 +13,6 @@ namespace View
         public void Init(Door presenter)
         {
             Presenter = presenter;
-            var stageData = Presenter.GetStageData();
-            
-            
         }
 
         public void OnPointerClick(PointerEventData eventData)

@@ -104,7 +104,8 @@ namespace View
         public DoorView GenerateDoor()
         {
             var doorInst = Instantiate(doorPrefab, doorPosition);
-
+            doorInst.transform.localPosition = Vector3.down * 5;
+            doorInst.transform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
             return doorInst;
         }
 
