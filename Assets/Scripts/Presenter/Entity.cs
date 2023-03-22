@@ -94,4 +94,11 @@ namespace Presenter
 
         
     }
+
+    public class Hero : Entity
+    {
+        public Hero(HeroModel model, EntityView view) : base(model, view)
+        {
+        }
+    }
 }

@@ -37,10 +37,10 @@ namespace Presenter
         }
 
 
-        public async UniTask CardActivate(Entity entity)
+        public async UniTask CardActivate(Enemy enemy)
         {
-            await View.PlayCardEft(entity.View);
-            await Model.Function.Activate(entity);
+            await View.PlayCardEft(enemy.View);
+            await Model.Function.Activate(enemy);
         }
 
         public void Dispose()

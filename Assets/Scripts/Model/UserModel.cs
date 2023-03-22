@@ -6,7 +6,7 @@ namespace Model
 {
     public class UserModel
     {
-        public EntityModel Hero;
+        public HeroModel Hero;
         public List<CardModel> Cards = new();
 
         public int DrawCardCount;
@@ -14,7 +14,7 @@ namespace Model
         public void Init(MasterUser mu, MasterTable mt)
         {
             var hero = mt.MasterHeroes.First(target => target.Name == mu.Hero);
-            Hero = new EntityModel(hero);
+            Hero = new HeroModel(hero);
 
             DrawCardCount = mu.DrawCardCount;
             

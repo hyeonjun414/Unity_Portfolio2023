@@ -54,4 +54,11 @@ namespace Model
         {
         }
     }
+
+    public class HeroModel : EntityModel
+    {
+        public HeroModel(MasterEntity me) : base(me)
+        {
+        }
+    }
 }

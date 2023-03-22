@@ -13,7 +13,6 @@ namespace Presenter
         public StageModel Model;
         public StageView View;
 
-        public Entity Hero;
         public List<Enemy> Enemies = new();
 
         public bool IsAction;
@@ -39,8 +38,7 @@ namespace Presenter
 
         public void Init()
         {
-            Hero = user.Hero;
-            Hero.View = View.CreateHeroView(gm.User.GetHero());
+            user.UserHero.View = View.CreateHeroView(gm.User.GetHeroModel());
             
             var enemyModels = Model.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
@@ -80,7 +78,7 @@ namespace Presenter
 
         private async UniTask ActionPhase()
         {
-            if (Hero.GetActionReady())
+            if (user.UserHero.GetActionReady())
             {
                 await UserActionReady();
             }
@@ -158,16 +156,16 @@ namespace Presenter
         private async UniTask EnemyAttack(Entity atker)
         {
             IsAction = true;
-            await atker.PrepareAttack(Hero.View.GetPosition());
+            await atker.PrepareAttack(user.UserHero.View.GetPosition());
             await atker.PlayAttack();
-            await Hero.TakeDamage(atker.Model.Damage);
+            await user.UserHero.TakeDamage(atker.Model.Damage);
             await atker.EndAttack();
             IsAction = false;
         }
 
         private void UpdateActionGaugePhase()
         {
-            Hero.AddActionGauge();
+            user.UserHero.AddActionGauge();
 
             foreach (var enemy in GetAliveEnemies())
                 enemy.AddActionGauge();
@@ -186,7 +184,7 @@ namespace Presenter
 
         public void TargetEnemy(Enemy ep)
         {
-            if (Hero.GetActionReady())
+            if (user.UserHero.GetActionReady())
             {
                 _curTarget = ep;
                 View.SetTargetIndicator(ep);
@@ -206,7 +204,7 @@ namespace Presenter
 
         public void SelectCard(Card card)
         {
-            if (Hero.Model.IsActionReady)
+            if (user.UserHero.GetActionReady())
             {
                 _selectedCard = card;
                 card.Selected();

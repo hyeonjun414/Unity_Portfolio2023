@@ -13,14 +13,14 @@ namespace Presenter
         public UserView View;
 
         public List<Card> Cards = new();
-        public Entity Hero;
+        public Hero UserHero;
 
         public User(UserModel model, UserView view, MasterUser mu, MasterTable mt)
         {
             this.Model = model;
             
             Model.Init(mu, mt);
-            Hero = new Entity(Model.Hero, null);
+            UserHero = new Hero(Model.Hero, null);
             
             foreach (var cardModel in Model.Cards)
             {
@@ -31,7 +31,7 @@ namespace Presenter
             
         }
 
-        public EntityModel GetHero()
+        public HeroModel GetHeroModel()
         {
             return Model.Hero;
         }
@@ -49,10 +49,10 @@ namespace Presenter
         public async UniTask UseCard(Card card, Enemy target)
         {
             var position = target.View.transform.position;
-            await Hero.PrepareAttack(position);
-            await Hero.PlayAttack();
+            await UserHero.PrepareAttack(position);
+            await UserHero.PlayAttack();
             await card.CardActivate(target);
-            await Hero.EndAttack();
+            await UserHero.EndAttack();
         }
     }
 }

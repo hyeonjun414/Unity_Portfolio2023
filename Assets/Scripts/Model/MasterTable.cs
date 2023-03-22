@@ -8,8 +8,8 @@ namespace Model
     {
         public List<MasterUser> MasterUsers;
         public List<MasterStage> MasterStages;
-        public List<MasterEntity> MasterHeroes;
-        public List<MasterEntity> MasterEnemies;
+        public List<MasterHero> MasterHeroes;
+        public List<MasterEnemy> MasterEnemies;
         public List<MasterCard> MasterCards;
     }
 
@@ -36,6 +36,16 @@ namespace Model
         public float Damage;
         public float MaxActionGauge;
         public float ActionSpeed;
+    }
+
+    public class MasterEnemy : MasterEntity
+    {
+        
+    }
+
+    public class MasterHero : MasterEntity
+    {
+
     }
 
     public class MasterCard
