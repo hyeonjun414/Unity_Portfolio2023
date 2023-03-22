@@ -22,19 +22,7 @@ namespace Model
             Desc = mc.Desc;
             CardType = mc.CardType;
             Effect = mc.Effect;
-            Function = ToObject<CardFunction>(mc.Function);
-        }
-
-        public static T ToObject<T>(JObject data)
-        {
-            var type = typeof(CardFunction);
-            var domainPrefix = type.FullName;
-            domainPrefix = domainPrefix.Remove(domainPrefix.Length - type.Name.Length);
-            if (data["Type"] != null)
-            {
-                type = Type.GetType(domainPrefix + data["Type"]);
-            }
-            return (T)JsonConvert.DeserializeObject(data.ToString(), type);
+            Function = Util.ToObject<CardFunction>(mc.Function);
         }
     }
 
