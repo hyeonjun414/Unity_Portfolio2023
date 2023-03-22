@@ -50,8 +50,10 @@ namespace Model
     }
     public class EnemyModel : EntityModel
     {
-        public EnemyModel(MasterEntity me) : base(me)
+        public List<EnemyAction> Actions;
+        public EnemyModel(MasterEnemy me) : base(me)
         {
+            Actions = Util.ToObjectList<EnemyAction>(me.Actions);
         }
     }
 

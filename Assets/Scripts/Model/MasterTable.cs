@@ -40,7 +40,7 @@ namespace Model
 
     public class MasterEnemy : MasterEntity
     {
-        
+        public List<JObject> Actions;
     }
 
     public class MasterHero : MasterEntity
