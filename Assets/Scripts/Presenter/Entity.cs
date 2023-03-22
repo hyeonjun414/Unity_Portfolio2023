@@ -30,11 +30,12 @@ namespace Presenter
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
+            GameManager.Instance.CurStage.CreateFloatingText(((int)damage).ToString(), View.transform.position);
             if (Model.IsDead)
                 await View.Dead();
             else
                 View.PlayDamageEft();
-
+            
             View.UpdateHp(Model.CurHp, Model.MaxHp);
             await UniTask.Yield();
         }

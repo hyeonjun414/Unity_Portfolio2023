@@ -3110,6 +3110,7 @@ MonoBehaviour:
   GraveCards: []
   HandCards: []
   indicator: {fileID: 3096812688609979988}
+  floatingText: {fileID: 6727921090437483290, guid: 2bfea8716da41e64dbd33506b5c9ffb5, type: 3}
 --- !u!1 &3096812689606428397
 GameObject:
   m_ObjectHideFlags: 0

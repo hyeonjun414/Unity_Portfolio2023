@@ -150,8 +150,8 @@ namespace Presenter
             IsAction = true;
             if (user.UserHero.GetActionCount() >= _selectedCard.GetCost())
             {
-                await user.UseCard(_selectedCard, enemy);
                 UnTargetEnemy(enemy);
+                await user.UseCard(_selectedCard, enemy);
                 if (enemy.Model.IsDead)
                 {
                     await CheckEnemies();
@@ -225,6 +225,11 @@ namespace Presenter
 
                 
             }
+        }
+
+        public void CreateFloatingText(string str, Vector3 position)
+        {
+            View.CreateFloatingText(str, position);
         }
 
         

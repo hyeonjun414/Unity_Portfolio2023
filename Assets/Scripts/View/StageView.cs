@@ -31,7 +31,7 @@ namespace View
         public Transform cardPosition;
         public Transform handPos, deckPos, gravePos;
             
-
+        
         public EntityView HeroView;
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
@@ -39,6 +39,7 @@ namespace View
         public List<CardView> GraveCards = new();
         public List<CardView> HandCards = new();
         public GameObject indicator;
+        public FloatingTextView floatingText;
 
         private bool _isBattleEnd;
         
@@ -211,6 +212,11 @@ namespace View
             await ReplaceHandCard();
         }
 
-        
+
+        public void CreateFloatingText(string str, Vector3 position)
+        {
+            var textInst = Instantiate(floatingText);
+            textInst.SetFloatingText(str, position);
+        }
     }
 }

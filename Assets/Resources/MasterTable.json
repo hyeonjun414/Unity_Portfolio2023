@@ -7,7 +7,7 @@
       "Hp"            : 30,
       "Damage"        : 5,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 1,
+      "ActionSpeed"   : 2,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -35,7 +35,7 @@
       "Hp"            : 15,
       "Damage"        : 3,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 1.5,
+      "ActionSpeed"   : 2,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -63,7 +63,7 @@
       "Hp"            : 50,
       "Damage"        : 10,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 0.5,
+      "ActionSpeed"   : 2,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -106,25 +106,7 @@
       "Hp"            : 100,
       "Damage"        : 10,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 5
-    },
-    {
-      "Id"            : "Orc",
-      "Name"          : "Orc",
-      "Desc"          : "Orc",
-      "Hp"            : 7,
-      "Damage"        : 1,
-      "MaxActionGauge": 4,
-      "ActionSpeed"   : 1
-    },
-    {
-      "Id"            : "Skeleton",
-      "Name"          : "Skeleton",
-      "Desc"          : "Skeleton",
-      "Hp"            : 10,
-      "Damage"        : 1,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 1
+      "ActionSpeed"   : 2
     }
   ],
   "MasterUsers"  : [
