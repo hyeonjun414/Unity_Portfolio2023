@@ -25,5 +25,10 @@ namespace Model
         {
             return Enemies;
         }
+
+        public bool AreAllEnemiesDead()
+        {
+            return Enemies.All(target => target.IsDead);
+        }
     }
 }

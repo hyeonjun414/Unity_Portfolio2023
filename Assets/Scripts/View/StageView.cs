@@ -13,8 +13,8 @@ namespace View
 {
     public interface IStageView
     {
-        void CreateHeroView(EntityModel hero);
-        void CreateEnemyView(int index, EntityModel enemy);
+        EntityView CreateHeroView(EntityModel hero);
+        EnemyView CreateEnemyView(int index, EnemyModel enemy);
     }
     
     public class StageView : MonoBehaviour, IStageView
@@ -61,27 +61,34 @@ namespace View
             await Presenter.Update();
         }
 
-        public void BattleEnd()
+        public async UniTask BattleEnd()
         {
             _isBattleEnd = true;
+            await UniTask.Delay(1000);
+            foreach (var ev in EnemyViews)
+            {
+                ev.Presenter.Dispose();
+            }
         }
 
-        public void CreateHeroView(EntityModel hero)
+        public EntityView CreateHeroView(EntityModel hero)
         {
             HeroView = Instantiate(entityView, heroPosition);
             HeroView.Init(hero);
             HeroView.gameObject.SetActive(true);
+
+            return HeroView;
         }
         
-        public void CreateEnemyView(int index, EntityModel enemy)
+        public EnemyView CreateEnemyView(int index, EnemyModel enemy)
         {
             var enemyView = EnemyPrefabs.First(target => target.name == enemy.Name);
             var inst = Instantiate(enemyView, enemyPosList[index]);
-            inst.Init(enemy);
-            inst.sprite.flipX = !inst.sprite.flipX;
-            inst.gameObject.SetActive(true);
+            var enemyPresenter = new EnemyPresenter(enemy, inst);
+            enemyPresenter.Init();
             
             EnemyViews.Add(inst);
+            return inst;
         }
 
         public EntityView GetHeroView()
@@ -202,5 +209,7 @@ namespace View
 
             await ReplaceHandCard();
         }
+
+        
     }
 }

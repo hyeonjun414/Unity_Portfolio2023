@@ -16,8 +16,6 @@ namespace Presenter
         public EntityPresenter HeroPresenter;
         public List<EnemyPresenter> EnemyPresenters = new();
 
-        public List<DoorPresenter> Doors = new();
-        
         public bool IsAction;
         
 
@@ -40,26 +38,17 @@ namespace Presenter
 
         public void Init()
         {
-            View.CreateHeroView(gm.User.GetHero());
-            var heroView = View.GetHeroView();
             HeroPresenter = user.HeroPresenter;
-            heroView.Presenter = HeroPresenter;
-            HeroPresenter.View = heroView;
-
+            HeroPresenter.View = View.CreateHeroView(gm.User.GetHero());
+            
             var enemyModels = Model.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
             {
-                View.CreateEnemyView(index, enemyModels[index]);
-            }
-
-            var enemyViews = View.GetEnemyViews();
-            for (var index = 0; index < enemyViews.Count; index++)
-            {
-                var enemyPresenter = new EnemyPresenter(enemyModels[index], enemyViews[index]);
-                enemyViews[index].Presenter = enemyPresenter;
+                var enemyView = View.CreateEnemyView(index, enemyModels[index]);
+                var enemyPresenter = new EnemyPresenter(enemyModels[index], enemyView);
                 EnemyPresenters.Add(enemyPresenter);
             }
-
+            
             Deck = new List<CardPresenter>(gm.User.GetCards());
             View.SetUserCards(Deck);
         }
@@ -72,44 +61,39 @@ namespace Presenter
             await ActionPhase();
         }
 
-        private void CheckEnemies()
+        private async UniTask CheckEnemies()
         {
-            var allEnemyDead = EnemyPresenters.All(target => target.Model.IsDead);
-            if (allEnemyDead)
-            {
-                foreach (var enemy in EnemyPresenters)
-                {
-                    enemy.Dispose();
-                }
-
-                EnemyPresenters.Clear();
-                View.BattleEnd();
-
-                GenerateDoor();
-            }
+            if (!Model.AreAllEnemiesDead()) return;
+            
+            await View.BattleEnd();
+            GenerateDoor();
         }
 
         private void GenerateDoor()
         {
             var masterStage = gm.MasterTable.MasterStages[0];
             var doorModel = new DoorModel(masterStage);
-            var doorPresenter = new DoorPresenter(doorModel, View.GenerateDoor());
-            
-            Doors.Add(doorPresenter);
+            var doorView = View.GenerateDoor();
+            var doorPresenter = new DoorPresenter(doorModel, doorView);
         }
 
         private async UniTask ActionPhase()
         {
-            if (HeroPresenter.Model.IsActionReady)
+            if (HeroPresenter.GetActionReady())
             {
                 await UserActionReady();
             }
 
-            foreach (var enemy in EnemyPresenters)
+            foreach (var enemy in GetAliveEnemyPresenters())
             {
-                if (enemy.Model.IsActionReady && !enemy.Model.IsDead)
-                    await Attack(enemy, HeroPresenter);
+                if (enemy.GetActionReady())
+                    await EnemyAttack(enemy);
             }
+        }
+
+        private List<EnemyPresenter> GetAliveEnemyPresenters()
+        {
+            return EnemyPresenters.Where(enemy => !enemy.Model.IsDead).ToList();
         }
 
         private async UniTask UserActionReady()
@@ -121,7 +105,7 @@ namespace Presenter
 
         private async UniTask DrawCard()
         {
-            var drawCount = user.Model.DrawCardCount;
+            var drawCount = user.GetDrawCount();
             if (Deck.Count == 0)
             {
                 await GraveToDeck();
@@ -129,15 +113,14 @@ namespace Presenter
 
             while(drawCount > 0 && Deck.Count > 0)
             {
-                await DeckToHand();
+                await DeckToHand(Deck[0]);
                 await UniTask.Delay(200);
                 drawCount--;
             }
         }
 
-        private async UniTask DeckToHand()
+        private async UniTask DeckToHand(CardPresenter card)
         {
-            var card = Deck[0];
             Hand.Add(card);
             Deck.Remove(card);
             await View.DeckToHand(card);
@@ -158,40 +141,26 @@ namespace Presenter
         }
 
 
-        private async UniTask CardAttack(EntityPresenter target)
+        private async UniTask CardAttack(EnemyPresenter enemy)
         {
             IsAction = true;
-            await user.UseCard(_selectedCard, _curTarget);
-            if (target.Model.IsDead)
+            await user.UseCard(_selectedCard, enemy);
+            if (enemy.Model.IsDead)
             {
-                if (target == _curTarget)
-                {
-                    _curTarget = null;
-                    View.UnsetTargetIndicator();
-                }
-
-                CheckEnemies();
+                UnTargetEnemy(enemy);
+                await CheckEnemies();
             }
+
+            await HandToGrave(_selectedCard);
             IsAction = false;
         }
-        private async UniTask Attack(EntityPresenter atker, EntityPresenter target)
+        private async UniTask EnemyAttack(EntityPresenter atker)
         {
             IsAction = true;
-            await atker.PrepareAttack(target.View.GetPosition());
+            await atker.PrepareAttack(HeroPresenter.View.GetPosition());
             await atker.PlayAttack();
-            await target.TakeDamage(atker.Model.Damage);
-            if (target.Model.IsDead)
-            {
-                if (target == _curTarget)
-                {
-                    _curTarget = null;
-                    View.UnsetTargetIndicator();
-                }
-                CheckEnemies();
-            }
-                
-            
-            await atker.EndAttack(target.View.GetPosition());
+            await HeroPresenter.TakeDamage(atker.Model.Damage);
+            await atker.EndAttack();
             IsAction = false;
         }
 
@@ -199,19 +168,27 @@ namespace Presenter
         {
             HeroPresenter.AddActionGauge();
 
-            foreach (var enemy in EnemyPresenters.Where(target => !target.Model.IsDead))
+            foreach (var enemy in GetAliveEnemyPresenters())
                 enemy.AddActionGauge();
         }
 
-        public async UniTask MoveStage()
+        public async UniTask MoveStage(DoorPresenter door)
         {
+            door.View.Open();
             await View.MoveStage();
+            door.View.Close();
+            await UniTask.Delay(1000);
+            await GameManager.Instance.LoadStageScene(door.GetStageData());
         }
 
         public void TargetEnemy(EnemyPresenter ep)
         {
-            _curTarget = ep;
-            View.SetTargetIndicator(ep);
+            if (HeroPresenter.GetActionReady())
+            {
+                _curTarget = ep;
+                View.SetTargetIndicator(ep);
+            }
+            
         }
 
         public void UnTargetEnemy(EnemyPresenter ep)
@@ -240,15 +217,14 @@ namespace Presenter
                 if (_curTarget != null)
                 {
                     CardAttack(_curTarget);
-                    HandToGrave(_selectedCard);
-                    UnTargetEnemy(_curTarget);
                 }
                 else
                 {
                     _selectedCard.UnSelected();
+                    _selectedCard = null; 
                 }
 
-                _selectedCard = null; 
+                
             }
         }
 

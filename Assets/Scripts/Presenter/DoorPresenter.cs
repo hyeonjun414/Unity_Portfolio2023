@@ -24,11 +24,7 @@ namespace Presenter
 
         public async UniTaskVoid MoveStage()
         {
-            View.Open();
-            await GameManager.Instance.CurStage.MoveStage();
-            View.Close();
-            await UniTask.Delay(1000);
-            await GameManager.Instance.LoadStageScene(Model.stageData);
+            await GameManager.Instance.CurStage.MoveStage(this);
         }
     }
 }

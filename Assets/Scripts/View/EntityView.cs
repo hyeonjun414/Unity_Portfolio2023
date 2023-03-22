@@ -38,10 +38,12 @@ namespace View
         public Slider HpGauge;
         public TextMeshProUGUI HpText;
 
-        public void Init(EntityModel entity)
+        public virtual void Init(EntityModel entity)
         {
             InitHp(entity.CurHp, entity.MaxHp);
             InitActionGauge(entity.CurActionGauge, entity.MaxActionGauge);
+
+            
         }
 
         private void InitHp(float curHp, float maxHp)
@@ -99,9 +101,8 @@ namespace View
             await UniTask.Delay((int)(playTime * 1000));
         }
 
-        public virtual async UniTask EndAttack(Vector3 targetPos)
+        public virtual async UniTask EndAttack()
         {
-            var moveX = transform.position.x > targetPos.x ? -2 : 2;
             transform.DOLocalMove(Vector3.zero, 0.5f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() => animator.SetBool(STR_MOVE, true))

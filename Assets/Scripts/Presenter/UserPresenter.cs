@@ -41,13 +41,18 @@ namespace Presenter
             return Cards;
         }
 
+        public int GetDrawCount()
+        {
+            return Model.DrawCardCount;
+        }
+
         public async UniTask UseCard(CardPresenter card, EnemyPresenter target)
         {
             var position = target.View.transform.position;
             await HeroPresenter.PrepareAttack(position);
             await HeroPresenter.PlayAttack();
             await card.CardActivate(target);
-            await HeroPresenter.EndAttack(position);
+            await HeroPresenter.EndAttack();
         }
     }
 }

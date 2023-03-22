@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Model;
 using Presenter;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,17 @@ namespace View
     public class EnemyView : EntityView, IPointerEnterHandler, IPointerExitHandler
     {
         private float remainAttackAnimTime;
+
+        public override void Init(EntityModel entity)
+        {
+            base.Init(entity);
+            if (entity is EnemyModel em)
+            {
+                sprite.flipX = !sprite.flipX;
+                gameObject.SetActive(true);
+            }
+        }
+
         public override async UniTask PlayAttack()
         {
             animator.SetTrigger(STR_ATTACK);
@@ -22,11 +34,11 @@ namespace View
             remainAttackAnimTime = (attackPlayTime - attackPeekTime);
         }
 
-        public override async UniTask EndAttack(Vector3 targetPos)
+        public override async UniTask EndAttack()
         {
             await UniTask.Delay((int)(remainAttackAnimTime * 1000));
             remainAttackAnimTime = 0;
-            await base.EndAttack(targetPos);
+            await base.EndAttack();
         }
 
         public void OnPointerEnter(PointerEventData eventData)

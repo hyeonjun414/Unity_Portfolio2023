@@ -16,12 +16,17 @@ namespace Presenter
             View = view;
         }
 
-        public void UpdateEntityInfo()
+        public void Init()
         {
-            View.UpdateHp(Model.CurHp, Model.MaxHp);
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
+            View.Presenter = this;
+            View.Init(Model);
         }
 
+        public bool GetActionReady()
+        {
+            return Model.IsActionReady;
+        }
+        
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
@@ -47,9 +52,9 @@ namespace Presenter
             await View.PlayAttack();
         }
 
-        public async UniTask EndAttack(Vector3 targetPos)
+        public async UniTask EndAttack()
         {
-            await View.EndAttack(targetPos);
+            await View.EndAttack();
         }
 
         public void AddActionGauge()
@@ -86,5 +91,7 @@ namespace Presenter
             var stage = GameManager.Instance.CurStage;
             stage.UnTargetEnemy(this);
         }
+
+        
     }
 }
