@@ -16,7 +16,7 @@ namespace View
         void Init(EntityModel entity);
         void UpdateHp(float curHp, float maxHp);
 
-        void UpdateActionGauge(float curActionPoint, float maxActionPoint);
+        void UpdateActionGauge(float curActionPoint, float maxActionPoint, int actionCount);
 
         Vector3 GetPosition();
     }
@@ -36,22 +36,13 @@ namespace View
         public Canvas uiCanvas;
         public Slider ActionGauge;
         public Slider HpGauge;
+        public TextMeshProUGUI ActionCountText;
         public TextMeshProUGUI HpText;
 
         public virtual void Init(EntityModel entity)
         {
-            InitHp(entity.CurHp, entity.MaxHp);
-            InitActionGauge(entity.CurActionGauge, entity.MaxActionGauge);
-
-            
-        }
-
-        private void InitHp(float curHp, float maxHp)
-        {
-            HpGauge.maxValue = maxHp;
-            HpGauge.value = curHp;
-            
-            HpText.SetText($"{curHp} / {maxHp}");
+            UpdateHp(entity.CurHp, entity.MaxHp);
+            UpdateActionGauge(entity.CurActionGauge, entity.MaxActionGauge, entity.ActionCount);
         }
 
         public void UpdateHp(float curHp, float maxHp)
@@ -61,17 +52,18 @@ namespace View
 
             HpText.SetText($"{curHp} / {maxHp}");
         }
-
-        private void InitActionGauge(float curActionPoint, float maxActionPoint)
+        
+        public void UpdateActionGauge(float curActionPoint, float maxActionPoint, int actionCount)
         {
             ActionGauge.maxValue = maxActionPoint;
             ActionGauge.value = curActionPoint;
-        }
 
-        public void UpdateActionGauge(float curActionPoint, float maxActionPoint)
-        {
-            ActionGauge.maxValue = maxActionPoint;
-            ActionGauge.value = curActionPoint;
+            var actionCountStr = actionCount.ToString();
+            if (ActionCountText.text != actionCountStr)
+            {
+                ActionCountText.SetText(actionCountStr);
+                ActionCountText.transform.DOPunchScale(Vector3.one, 0.2f, 1);
+            }
         }
 
         public void PlayDamageEft()

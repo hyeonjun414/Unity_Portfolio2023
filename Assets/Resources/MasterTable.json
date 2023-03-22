@@ -7,7 +7,14 @@
       "Hp"            : 30,
       "Damage"        : 5,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 1
+      "ActionSpeed"   : 1,
+      "Actions"       : [
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 1,
+          "Damage": 5
+        }
+      ]
     },
     {
       "Id"            : "Cucumber",

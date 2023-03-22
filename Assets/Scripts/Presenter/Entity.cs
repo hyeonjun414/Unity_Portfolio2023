@@ -41,9 +41,9 @@ namespace Presenter
 
         public async UniTask PrepareAttack(Vector3 targetPos)
         {
-            Model.IsActionReady = false;
-            Model.CurActionGauge = 0;
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
+            //Model.IsActionReady = false;
+            //Model.CurActionGauge = 0;
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
             await View.PrepareAttack(targetPos);
         }
 
@@ -60,7 +60,7 @@ namespace Presenter
         public void AddActionGauge()
         {
             Model.AddActionGauge();
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge);
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
         }
 
         public void Dispose()

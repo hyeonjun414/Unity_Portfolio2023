@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Model
@@ -13,6 +14,7 @@ namespace Model
         public float MaxActionGauge;
         public float CurActionGauge;
         public float ActionSpeed;
+        public int ActionCount;
         public bool IsActionReady;
         public bool IsDead;
 
@@ -26,6 +28,7 @@ namespace Model
             MaxActionGauge = me.MaxActionGauge;
             CurActionGauge = 0;
             ActionSpeed = me.ActionSpeed;
+            ActionCount = 0;
         }
 
         public void AddActionGauge()
@@ -33,8 +36,9 @@ namespace Model
             CurActionGauge += ActionSpeed * Time.deltaTime;
             if (CurActionGauge >= MaxActionGauge)
             {
-                CurActionGauge = MaxActionGauge;
-                IsActionReady = true;
+                ActionCount++;
+                CurActionGauge = 0;
+                //IsActionReady = true;
             }
         }
         
