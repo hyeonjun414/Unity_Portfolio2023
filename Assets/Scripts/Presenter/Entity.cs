@@ -143,14 +143,7 @@ namespace Presenter
 
         public bool CanDrawCard()
         {
-            return Model.ActionCount > 1;
+            return Model.ActionCount >= 1;
         }
-
-        public void DrawCard()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        
     }
 }

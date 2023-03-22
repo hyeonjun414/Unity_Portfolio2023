@@ -55,5 +55,10 @@ namespace Presenter
             await card.CardActivate(target);
             await UserHero.EndAttack();
         }
+
+        public bool CanUseThisCard(Card selectedCard)
+        {
+            return UserHero.GetActionCount() >= selectedCard.GetCost();
+        }
     }
 }

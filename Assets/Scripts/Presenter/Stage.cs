@@ -213,12 +213,13 @@ namespace Presenter
         {
             if (_selectedCard == card)
             {
-                if (_curTarget != null && !IsAction)
+                if (_curTarget != null && !IsAction && user.CanUseThisCard(_selectedCard))
                 {
                     CardAttack(_curTarget);
                 }
                 else
                 {
+                    View.UnsetTargetIndicator(); 
                     _selectedCard.UnSelected();
                     _selectedCard = null; 
                 }
