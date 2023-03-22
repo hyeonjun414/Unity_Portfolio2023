@@ -102,20 +102,25 @@ namespace Presenter
 
         }
 
-        private async UniTask DrawCard()
+        public async UniTask DrawCard()
         {
-            var drawCount = user.GetDrawCount();
-            if (Deck.Count == 0)
+            if (user.UserHero.CanDrawCard())
             {
-                await GraveToDeck();
-            }
+                user.UserHero.UseActionCount(1);
+                var drawCount = user.GetDrawCount();
+                if (Deck.Count == 0)
+                {
+                    await GraveToDeck();
+                }
 
-            while(drawCount > 0 && Deck.Count > 0)
-            {
-                await DeckToHand(Deck[0]);
-                await UniTask.Delay(200);
-                drawCount--;
+                while (drawCount > 0 && Deck.Count > 0)
+                {
+                    await DeckToHand(Deck[0]);
+                    await UniTask.Delay(200);
+                    drawCount--;
+                }
             }
+            
         }
 
         private async UniTask DeckToHand(Card card)
@@ -144,9 +149,9 @@ namespace Presenter
         {
             IsAction = true;
             await user.UseCard(_selectedCard, enemy);
+            UnTargetEnemy(enemy);
             if (enemy.Model.IsDead)
             {
-                UnTargetEnemy(enemy);
                 await CheckEnemies();
             }
 
@@ -184,11 +189,10 @@ namespace Presenter
 
         public void TargetEnemy(Enemy ep)
         {
-            if (user.UserHero.GetActionReady())
-            {
-                _curTarget = ep;
-                View.SetTargetIndicator(ep);
-            }
+            if (IsAction) return;
+            
+            _curTarget = ep;
+            View.SetTargetIndicator(ep);
             
         }
 
@@ -204,11 +208,10 @@ namespace Presenter
 
         public void SelectCard(Card card)
         {
-            if (user.UserHero.GetActionReady())
-            {
-                _selectedCard = card;
-                card.Selected();
-            }
+            if (IsAction) return;
+            
+            _selectedCard = card;
+            card.Selected();
         }
 
         public void UnSelectCard(Card card)

@@ -100,5 +100,21 @@ namespace Presenter
         public Hero(HeroModel model, EntityView view) : base(model, view)
         {
         }
+
+        public bool CanDrawCard()
+        {
+            return Model.ActionCount > 1;
+        }
+
+        public void DrawCard()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UseActionCount(int cost)
+        {
+            Model.ActionCount -= cost;
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
+        }
     }
 }
