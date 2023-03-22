@@ -27,7 +27,8 @@ namespace Presenter
         public List<CardPresenter> Hand = new();
         public List<CardPresenter> Deck = new();
         public List<CardPresenter> Grave = new();
-        
+        private bool hasMovedToNextStage;
+
         public StagePresenter(StageModel model, StageView view)
         {
             this.Model = model;
@@ -174,6 +175,8 @@ namespace Presenter
 
         public async UniTask MoveStage(DoorPresenter door)
         {
+            if (hasMovedToNextStage) return;
+            hasMovedToNextStage = true;
             door.View.Open();
             await View.MoveStage();
             door.View.Close();
