@@ -107,7 +107,7 @@ namespace Presenter
             if (Model is EnemyModel em)
             {
                 em.SetAction();
-                View.SetActionView(em.GetCurAction());
+                ((EnemyView)View).SetActionView(em.GetCurAction());
             }
         }
 
@@ -115,7 +115,7 @@ namespace Presenter
         {
             if (Model is EnemyModel em)
             {
-                
+
                 var curAct = em.GetCurAction();
                 UseActionCount(curAct.Cost);
                 await curAct.Activate(this, hero);

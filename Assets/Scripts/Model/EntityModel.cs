@@ -66,6 +66,7 @@ namespace Model
         public void SetAction()
         {
             _curAction = _actions[Random.Range(0, _actions.Count)];
+            _curAction.Init();
         }
 
         public EnemyAction GetCurAction()
