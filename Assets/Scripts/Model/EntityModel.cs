@@ -54,10 +54,23 @@ namespace Model
     }
     public class EnemyModel : EntityModel
     {
-        public List<EnemyAction> Actions;
+        private List<EnemyAction> _actions;
+        private EnemyAction _curAction;
         public EnemyModel(MasterEnemy me) : base(me)
         {
-            Actions = Util.ToObjectList<EnemyAction>(me.Actions);
+            _actions = Util.ToObjectList<EnemyAction>(me.Actions);
+            if(_actions.Count != 0)
+                SetAction();
+        }
+
+        public void SetAction()
+        {
+            _curAction = _actions[Random.Range(0, _actions.Count)];
+        }
+
+        public EnemyAction GetCurAction()
+        {
+            return _curAction;
         }
     }
 

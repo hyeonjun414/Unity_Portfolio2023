@@ -69,7 +69,16 @@ namespace Presenter
             View.DestroyView();
         }
 
-        
+        public void UseActionCount(int cost)
+        {
+            Model.ActionCount -= cost;
+            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
+        }
+
+        public int GetActionCount()
+        {
+            return Model.ActionCount;
+        }
     }
 
     public class Enemy : Entity
@@ -92,7 +101,36 @@ namespace Presenter
             stage.UnTargetEnemy(this);
         }
 
-        
+        public void SetAction()
+        {
+            if (Model is EnemyModel em)
+            {
+                em.SetAction();
+                View.SetActionView(em.GetCurAction());
+            }
+        }
+
+        public async UniTask ExecuteAction(Hero hero)
+        {
+            if (Model is EnemyModel em)
+            {
+                
+                var curAct = em.GetCurAction();
+                UseActionCount(curAct.Cost);
+                await curAct.Activate(this, hero);
+            }
+        }
+
+
+        public bool IsActExecutable()
+        {
+            if (Model is EnemyModel em)
+            {
+                return em.ActionCount >= em.GetCurAction().Cost;
+            }
+
+            return false;
+        }
     }
 
     public class Hero : Entity
@@ -111,15 +149,6 @@ namespace Presenter
             throw new System.NotImplementedException();
         }
 
-        public void UseActionCount(int cost)
-        {
-            Model.ActionCount -= cost;
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
-        }
-
-        public int GetActionCount()
-        {
-            return Model.ActionCount;
-        }
+        
     }
 }

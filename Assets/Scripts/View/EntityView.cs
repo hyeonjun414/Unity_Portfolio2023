@@ -39,6 +39,9 @@ namespace View
         public TextMeshProUGUI ActionCountText;
         public TextMeshProUGUI HpText;
 
+        public Image actIcon;
+        public TextMeshProUGUI actCost;
+
         public virtual void Init(EntityModel entity)
         {
             UpdateHp(entity.CurHp, entity.MaxHp);
@@ -125,6 +128,12 @@ namespace View
         public void DestroyView()
         {
             Destroy(gameObject);
+        }
+
+        public void SetActionView(EnemyAction action)
+        {
+            actIcon.sprite = Resources.Load<Sprite>($"ActionIcon/{action.Icon}");
+            actCost.text = action.Cost.ToString();
         }
     }
 

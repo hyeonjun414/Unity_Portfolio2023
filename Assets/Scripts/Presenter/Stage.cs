@@ -45,6 +45,7 @@ namespace Presenter
             {
                 var enemyView = View.CreateEnemyView(index, enemyModels[index]);
                 var enemyPresenter = new Enemy(enemyModels[index], enemyView);
+                enemyPresenter.SetAction();
                 Enemies.Add(enemyPresenter);
             }
             
@@ -78,15 +79,14 @@ namespace Presenter
 
         private async UniTask ActionPhase()
         {
-            if (user.UserHero.GetActionReady())
-            {
-                await UserActionReady();
-            }
-
             foreach (var enemy in GetAliveEnemies())
             {
-                if (enemy.GetActionReady())
-                    await EnemyAttack(enemy);
+                if (enemy.IsActExecutable())
+                {
+                    IsAction = true;
+                    await enemy.ExecuteAction(user.UserHero);
+                    IsAction = false;
+                }
             }
         }
 
@@ -160,15 +160,6 @@ namespace Presenter
                 await HandToGrave(_selectedCard);
             }
             
-            IsAction = false;
-        }
-        private async UniTask EnemyAttack(Entity atker)
-        {
-            IsAction = true;
-            await atker.PrepareAttack(user.UserHero.View.GetPosition());
-            await atker.PlayAttack();
-            await user.UserHero.TakeDamage(atker.Model.Damage);
-            await atker.EndAttack();
             IsAction = false;
         }
 

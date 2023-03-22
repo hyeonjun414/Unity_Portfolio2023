@@ -12,7 +12,8 @@
         {
           "Type"  : "EaNormalAttack",
           "Cost"  : 1,
-          "Damage": 5
+          "Damage": 5,
+          "Icon"  : "Attack"
         }
       ]
     },
@@ -23,7 +24,15 @@
       "Hp"            : 15,
       "Damage"        : 3,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 1.5
+      "ActionSpeed"   : 1.5,
+      "Actions"       : [
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 1,
+          "Damage": 5,
+          "Icon"  : "Attack"
+        }
+      ]
     },
     {
       "Id"            : "Big Guy",
@@ -32,14 +41,22 @@
       "Hp"            : 50,
       "Damage"        : 10,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 0.5
+      "ActionSpeed"   : 0.5,
+      "Actions"       : [
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 1,
+          "Damage": 5,
+          "Icon"  : "Attack"
+        }
+      ]
     }
   ],
   "MasterCards"  : [
     {
       "Id"      : "폭탄 투하",
       "Name"    : "폭탄 투하",
-      "Desc"    : "적에게 15의 피해를 줍니다.",
+      "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
       "Effect"  : "Explosion",
       "Cost"    : 1,
       "Function": {
