@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
 using Presenter;
+using Scriptable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,7 +19,14 @@ namespace View
             base.Init(entity);
             if (entity is EnemyModel em)
             {
-                sprite.flipX = !sprite.flipX;
+                // Set AnimationController
+                var enemyData = Resources.Load<EnemyData>($"EnemyData/{entity.Name}");
+                if (enemyData != null)
+                {
+                    animator.runtimeAnimatorController = enemyData.enemyAnim;
+                    sprite.flipX = !enemyData.isAlreadyLeft;
+                }
+
                 gameObject.SetActive(true);
             }
         }

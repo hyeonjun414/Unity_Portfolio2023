@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
 using Presenter;
+using Scriptable;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

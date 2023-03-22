@@ -24,6 +24,7 @@ namespace View
         public EntityView entityView;
         public DoorView doorPrefab;
         public CardView cardPrefab;
+        public EnemyView enemyPrefab;
         public List<Transform> enemyPosList;
         public Transform heroPosition;
         public Transform doorPosition;
@@ -33,7 +34,6 @@ namespace View
 
         public EntityView HeroView;
         public List<EnemyView> EnemyViews;
-        public List<EnemyView> EnemyPrefabs;
         public List<CardView> UserCards = new();
         public List<CardView> DeckCards = new();
         public List<CardView> GraveCards = new();
@@ -82,8 +82,7 @@ namespace View
         
         public EnemyView CreateEnemyView(int index, EnemyModel enemy)
         {
-            var enemyView = EnemyPrefabs.First(target => target.name == enemy.Name);
-            var inst = Instantiate(enemyView, enemyPosList[index]);
+            var inst = Instantiate(enemyPrefab, enemyPosList[index]);
             var enemyPresenter = new Enemy(enemy, inst);
             enemyPresenter.Init();
             
