@@ -49,7 +49,10 @@ namespace View
             var value = action.GetValue();
             actValue.gameObject.SetActive(value != 0);
             actValue.SetText(value.ToString());
-            
+            actIcon.transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 5, 0.2f);
+            actCost.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 0.2f);
+            actValue.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 0.2f);
+
         }
 
         public override async UniTask PlayAttack()
