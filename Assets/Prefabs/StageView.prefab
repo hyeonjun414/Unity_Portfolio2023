@@ -3091,7 +3091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityView: {fileID: 7542503442980021705, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
   doorPrefab: {fileID: 4957955070667770164, guid: 95c81c2a36d4dd642952e3e169cf4d9f, type: 3}
-  cardPrefab: {fileID: 5086097357055239924, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
+  cardPrefab: {fileID: 1838747165363412935, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
   enemyPrefab: {fileID: 6966354741140356193, guid: fa0620281adc68e4a8d42f25c6c54071, type: 3}
   enemyPosList:
   - {fileID: 3096812689606428387}
