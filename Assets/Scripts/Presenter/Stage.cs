@@ -213,7 +213,7 @@ namespace Presenter
         {
             if (_selectedCard == card)
             {
-                if (_curTarget != null)
+                if (_curTarget != null && !IsAction)
                 {
                     CardAttack(_curTarget);
                 }
