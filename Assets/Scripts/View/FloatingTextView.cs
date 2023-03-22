@@ -14,7 +14,7 @@ namespace View
             text.SetText(str);
             transform.DOPunchScale(Vector3.one, 0.5f, 5, 0.2f);
             transform.DOMoveY(0.5f, 1f).SetRelative();
-            text.DOColor(Color.clear, 1f).SetEase(Ease.InExpo);
+            text.DOColor(Color.clear, 1f).SetEase(Ease.InExpo).OnComplete(() => Destroy(gameObject));
         }
     }
 }
