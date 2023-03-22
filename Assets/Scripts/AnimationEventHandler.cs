@@ -7,7 +7,5 @@ public class AnimationEventHandler : MonoBehaviour
 
     void RemoveFromStage()
     {
-        var entity = GetComponentInParent<EntityView>();
-        entity.RemoveFromStage();
     }
 }

@@ -118,15 +118,7 @@ namespace View
         {
             return transform.position;
         }
-
-        public void RemoveFromStage()
-        {
-            //Destroy(gameObject);
-            //transform.DOScale(Vector3.one * 0.8f, 0.5f);
-            //sprite.DOColor()
-            //transform.DOLocalMoveY(-1, 0.5f);
-        }
-
+        
         public async UniTask Dead()
         {
             animator.SetBool("Dead", true);
