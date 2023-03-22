@@ -31,6 +31,12 @@ namespace View
             }
         }
 
+        public override async UniTask Dead()
+        {
+            await base.Dead();
+            actIcon.gameObject.SetActive(false);
+        }
+
         public override async UniTask PlayAttack()
         {
             animator.SetTrigger(STR_ATTACK);
