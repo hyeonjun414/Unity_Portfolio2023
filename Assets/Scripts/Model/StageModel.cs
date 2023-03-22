@@ -10,7 +10,6 @@ namespace Model
 
         public StageModel(MasterStage ms, MasterTable mt)
         {
-            //User = user;
             Enemies = new List<EnemyModel>();
             
             foreach (var enemyId in ms.StageEnemies)

@@ -5,12 +5,12 @@ using View;
 
 namespace Presenter
 {
-    public class DoorPresenter
+    public class Door
     {
         public DoorModel Model;
         public DoorView View;
         
-        public DoorPresenter(DoorModel model, DoorView view)
+        public Door(DoorModel model, DoorView view)
         {
             Model = model;
             View = view;

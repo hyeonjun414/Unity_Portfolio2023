@@ -4,12 +4,12 @@ using View;
 
 namespace Presenter
 {
-    public class SceneSwitchPresenter
+    public class SceneSwitcher
     {
-        public SceneSwitchModel Model;
-        public SceneSwitchView View;
+        public SceneSwitcherModel Model;
+        public SceneSwitcherView View;
 
-        public SceneSwitchPresenter(SceneSwitchModel model, SceneSwitchView view)
+        public SceneSwitcher(SceneSwitcherModel model, SceneSwitcherView view)
         {
             this.Model = model;
             this.View = view;

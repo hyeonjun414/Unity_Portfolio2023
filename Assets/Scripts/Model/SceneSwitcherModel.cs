@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace Model
 {
-    public class SceneSwitchModel
+    public class SceneSwitcherModel
     {
         public async UniTask AsyncSceneLoad(string sceneName)
         {

@@ -19,7 +19,7 @@ namespace View
     
     public class StageView : MonoBehaviour, IStageView
     {
-        public StagePresenter Presenter;
+        public Stage Presenter;
 
         public EntityView entityView;
         public DoorView doorPrefab;
@@ -84,7 +84,7 @@ namespace View
         {
             var enemyView = EnemyPrefabs.First(target => target.name == enemy.Name);
             var inst = Instantiate(enemyView, enemyPosList[index]);
-            var enemyPresenter = new EnemyPresenter(enemy, inst);
+            var enemyPresenter = new Enemy(enemy, inst);
             enemyPresenter.Init();
             
             EnemyViews.Add(inst);
@@ -124,7 +124,7 @@ namespace View
             
         }
 
-        public void SetTargetIndicator(EnemyPresenter ep)
+        public void SetTargetIndicator(Enemy ep)
         {
             var targetView = EnemyViews.FirstOrDefault(target => target.Presenter == ep);
             if (targetView != null)
@@ -139,7 +139,7 @@ namespace View
             indicator.SetActive(false);
         }
 
-        public void SetUserCards(List<CardPresenter> Cards)
+        public void SetUserCards(List<Card> Cards)
         {
             foreach (var card in Cards)
             {
@@ -152,7 +152,7 @@ namespace View
             }
         }
 
-        public async UniTask DeckToHand(CardPresenter card)
+        public async UniTask DeckToHand(Card card)
         {
             var cardView = card.View;
             if (cardView == null) return;
@@ -179,7 +179,7 @@ namespace View
             await UniTask.Yield();
         }
 
-        public async UniTask GraveToDeck(List<CardPresenter> deck)
+        public async UniTask GraveToDeck(List<Card> deck)
         {
             foreach (var card in deck)
             {
@@ -194,7 +194,7 @@ namespace View
             }
         }
 
-        public async UniTask HandToGrave(CardPresenter card)
+        public async UniTask HandToGrave(Card card)
         {
             var cardView = card.View;
             if (cardView == null) return;

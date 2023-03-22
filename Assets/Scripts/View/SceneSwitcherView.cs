@@ -7,16 +7,16 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class SceneSwitchView : MonoBehaviour
+    public class SceneSwitcherView : MonoBehaviour
     {
         [SerializeField] private Image loadingScreen;
-        public SceneSwitchPresenter Presenter;
+        public SceneSwitcher Presenter;
 
         private void Start()
         {
             if (Presenter == null)
             {
-                Presenter = GameManager.Instance.SceneSwitchPresenter;
+                Presenter = GameManager.Instance.SceneSwitcher;
                 Presenter.View = this;
             }
         }

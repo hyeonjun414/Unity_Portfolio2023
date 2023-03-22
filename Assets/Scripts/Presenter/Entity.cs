@@ -5,12 +5,12 @@ using View;
 
 namespace Presenter
 {
-    public class EntityPresenter
+    public class Entity
     {
         public EntityModel Model;
         public EntityView View;
 
-        public EntityPresenter(EntityModel model, EntityView view)
+        public Entity(EntityModel model, EntityView view)
         {
             Model = model;
             View = view;
@@ -72,9 +72,9 @@ namespace Presenter
         
     }
 
-    public class EnemyPresenter : EntityPresenter
+    public class Enemy : Entity
     {
-        public EnemyPresenter(EnemyModel model, EntityView view) : base(model, view)
+        public Enemy(EnemyModel model, EntityView view) : base(model, view)
         {
         }
 

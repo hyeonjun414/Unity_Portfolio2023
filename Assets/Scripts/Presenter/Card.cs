@@ -5,12 +5,12 @@ using View;
 
 namespace Presenter
 {
-    public class CardPresenter
+    public class Card
     {
         public CardModel Model;
         public CardView View;
 
-        public CardPresenter(CardModel model, CardView view)
+        public Card(CardModel model, CardView view)
         {
             Model = model;
             View = view;
@@ -37,7 +37,7 @@ namespace Presenter
         }
 
 
-        public async UniTask CardActivate(EntityPresenter entity)
+        public async UniTask CardActivate(Entity entity)
         {
             await View.PlayCardEft(entity.View);
             await Model.Function.Activate(entity);

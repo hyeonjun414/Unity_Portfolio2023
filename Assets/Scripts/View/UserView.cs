@@ -11,7 +11,7 @@ namespace View
     }
     public class UserView : MonoBehaviour, IUserView
     {
-        public UserPresenter Presenter;
+        public User Presenter;
 
        
         public EntityModel GetHero()

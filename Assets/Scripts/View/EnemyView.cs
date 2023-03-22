@@ -45,7 +45,7 @@ namespace View
         {
             if (eventData.pointerPress != null)
             {
-                if (Presenter is EnemyPresenter ep)
+                if (Presenter is Enemy ep)
                 {
                     ep.Targeted();
                 }
@@ -56,7 +56,7 @@ namespace View
         {
             if (eventData.pointerPress != null)
             {
-                if (Presenter is EnemyPresenter ep)
+                if (Presenter is Enemy ep)
                 {
                     ep.UnTargeted();
                 }

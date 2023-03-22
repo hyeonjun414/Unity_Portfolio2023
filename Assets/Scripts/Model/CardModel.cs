@@ -42,7 +42,7 @@ namespace Model
     {
         public string Type;
 
-        public virtual async UniTask Activate(EntityPresenter entity)
+        public virtual async UniTask Activate(Entity entity)
         {
         }
 
@@ -52,7 +52,7 @@ namespace Model
     {
         public float Damage;
         
-        public override async UniTask Activate(EntityPresenter entity)
+        public override async UniTask Activate(Entity entity)
         {
             await entity.TakeDamage(Damage);
         }

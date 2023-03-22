@@ -7,24 +7,24 @@ using View;
 
 namespace Presenter
 {
-    public class UserPresenter
+    public class User
     {
         public UserModel Model;
         public UserView View;
 
-        public List<CardPresenter> Cards = new();
-        public EntityPresenter HeroPresenter;
+        public List<Card> Cards = new();
+        public Entity Hero;
 
-        public UserPresenter(UserModel model, UserView view, MasterUser mu, MasterTable mt)
+        public User(UserModel model, UserView view, MasterUser mu, MasterTable mt)
         {
             this.Model = model;
             
             Model.Init(mu, mt);
-            HeroPresenter = new EntityPresenter(Model.Hero, null);
+            Hero = new Entity(Model.Hero, null);
             
             foreach (var cardModel in Model.Cards)
             {
-                var card = new CardPresenter(cardModel, null);
+                var card = new Card(cardModel, null);
                 Cards.Add(card);
             }
             this.View = view;
@@ -36,7 +36,7 @@ namespace Presenter
             return Model.Hero;
         }
 
-        public List<CardPresenter> GetCards()
+        public List<Card> GetCards()
         {
             return Cards;
         }
@@ -46,13 +46,13 @@ namespace Presenter
             return Model.DrawCardCount;
         }
 
-        public async UniTask UseCard(CardPresenter card, EnemyPresenter target)
+        public async UniTask UseCard(Card card, Enemy target)
         {
             var position = target.View.transform.position;
-            await HeroPresenter.PrepareAttack(position);
-            await HeroPresenter.PlayAttack();
+            await Hero.PrepareAttack(position);
+            await Hero.PlayAttack();
             await card.CardActivate(target);
-            await HeroPresenter.EndAttack();
+            await Hero.EndAttack();
         }
     }
 }

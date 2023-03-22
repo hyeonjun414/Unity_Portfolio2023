@@ -26,7 +26,7 @@ namespace View
         protected const string STR_ATTACK = "Attack";
         protected const string STR_HIT = "Hit";
 
-        public EntityPresenter Presenter;
+        public Entity Presenter;
 
         public Animator animator;
         

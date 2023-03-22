@@ -7,10 +7,10 @@ namespace View
 {
     public class DoorView : MonoBehaviour, IPointerClickHandler
     {
-        public DoorPresenter Presenter;
+        public Door Presenter;
         public Animator animator;
 
-        public void Init(DoorPresenter presenter)
+        public void Init(Door presenter)
         {
             Presenter = presenter;
             var stageData = Presenter.GetStageData();

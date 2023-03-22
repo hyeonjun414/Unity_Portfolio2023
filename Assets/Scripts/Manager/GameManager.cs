@@ -12,11 +12,11 @@ namespace View
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-        public SceneSwitchPresenter SceneSwitchPresenter;
+        public SceneSwitcher SceneSwitcher;
         public MasterTable MasterTable;
 
-        public StagePresenter CurStage;
-        public UserPresenter User;
+        public Stage CurStage;
+        public User User;
         
         private void Awake()
         {
@@ -27,10 +27,10 @@ namespace View
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
-                SceneSwitchPresenter = new SceneSwitchPresenter(new SceneSwitchModel(), null);
+                SceneSwitcher = new SceneSwitcher(new SceneSwitcherModel(), null);
                 
                 var userView = gameObject.AddComponent<UserView>();
-                User = new UserPresenter(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
+                User = new User(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
                 userView.Presenter = User;
                 
                 GenerateStage(MasterTable.MasterStages[0]);
@@ -43,13 +43,13 @@ namespace View
 
         public void GenerateStage(MasterStage ms)
         {
-            CurStage = new StagePresenter(new StageModel(ms, MasterTable), null);
+            CurStage = new Stage(new StageModel(ms, MasterTable), null);
         }
 
         public async UniTask LoadStageScene(MasterStage ms)
         {
-            CurStage = new StagePresenter(new StageModel(ms, MasterTable), null);
-            await SceneSwitchPresenter.AsyncSceneLoad("InGameScene");
+            CurStage = new Stage(new StageModel(ms, MasterTable), null);
+            await SceneSwitcher.AsyncSceneLoad("InGameScene");
         }
     }
 }

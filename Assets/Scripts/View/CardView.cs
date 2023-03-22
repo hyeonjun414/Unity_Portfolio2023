@@ -12,7 +12,7 @@ namespace View
 {
     public class CardView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
-        public CardPresenter Presenter;
+        public Card Presenter;
 
         public Image CardImage;
         public GameObject front;
@@ -29,7 +29,7 @@ namespace View
             back.SetActive(forward.z <= 0);
         }
 
-        public void SetView(CardPresenter card)
+        public void SetView(Card card)
         {
             Presenter = card;
             var data = card.Model;
