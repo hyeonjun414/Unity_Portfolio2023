@@ -33,11 +33,11 @@
       "Id"      : "Bomb",
       "Name"    : "Bomb",
       "Desc"    : "Bomb",
-      "CardType": "CfBomb",
       "Effect"  : "Explosion",
+      "Cost"    : 1,
       "Function": {
         "Type"  : "CfBomb",
-        "Damage": 5
+        "Damage": 15
       }
     }
   ],

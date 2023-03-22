@@ -11,8 +11,8 @@ namespace Model
         public string Id;
         public string Name;
         public string Desc;
-        public string CardType;
         public string Effect;
+        public int Cost;
         public CardFunc Function;
 
         public CardModel(MasterCard mc)
@@ -20,7 +20,6 @@ namespace Model
             Id = mc.Id;
             Name = mc.Name;
             Desc = mc.Desc;
-            CardType = mc.CardType;
             Effect = mc.Effect;
             Function = Util.ToObject<CardFunc>(mc.Function);
         }

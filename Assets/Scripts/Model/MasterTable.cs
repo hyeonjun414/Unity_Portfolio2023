@@ -53,8 +53,8 @@ namespace Model
         public string Id;
         public string Name;
         public string Desc;
-        public string CardType;
         public string Effect;
+        public int Cost;
         public JObject Function;
     }
 
