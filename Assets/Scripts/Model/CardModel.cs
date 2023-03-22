@@ -13,7 +13,7 @@ namespace Model
         public string Desc;
         public string CardType;
         public string Effect;
-        public CardFunction Function;
+        public CardFunc Function;
 
         public CardModel(MasterCard mc)
         {
@@ -22,27 +22,7 @@ namespace Model
             Desc = mc.Desc;
             CardType = mc.CardType;
             Effect = mc.Effect;
-            Function = Util.ToObject<CardFunction>(mc.Function);
-        }
-    }
-
-    public class CardFunction
-    {
-        public string Type;
-
-        public virtual async UniTask Activate(Entity entity)
-        {
-        }
-
-    }
-
-    public class CfBomb : CardFunction
-    {
-        public float Damage;
-        
-        public override async UniTask Activate(Entity entity)
-        {
-            await entity.TakeDamage(Damage);
+            Function = Util.ToObject<CardFunc>(mc.Function);
         }
     }
 }
