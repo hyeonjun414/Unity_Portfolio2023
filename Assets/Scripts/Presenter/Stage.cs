@@ -27,6 +27,7 @@ namespace Presenter
         public List<Card> Deck = new();
         public List<Card> Grave = new();
         private bool hasMovedToNextStage;
+        private bool rewardGiven;
 
         public Stage(StageModel model, StageView view)
         {
@@ -233,6 +234,17 @@ namespace Presenter
             View.CreateFloatingText(str, position);
         }
 
-        
+
+        public async UniTask OpenReward(ChestView chest)
+        {
+            if (rewardGiven) return;
+
+            await chest.Open();
+            await OpenRewardPanel();
+        }
+
+        private async UniTask OpenRewardPanel()
+        {
+        }
     }
 }
