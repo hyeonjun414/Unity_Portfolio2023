@@ -40,6 +40,7 @@ namespace View
         public List<CardView> HandCards = new();
         public GameObject indicator;
         public FloatingTextView floatingText;
+        public RewardView rewardView;
 
         private bool _isBattleEnd;
         
@@ -217,6 +218,16 @@ namespace View
         {
             var textInst = Instantiate(floatingText);
             textInst.SetFloatingText(str, position);
+        }
+
+        public void OpenRewardPanel()
+        {
+            rewardView.gameObject.SetActive(true);
+        }
+
+        public void CloseRewardPanel()
+        {
+            rewardView.gameObject.SetActive(false);
         }
     }
 }

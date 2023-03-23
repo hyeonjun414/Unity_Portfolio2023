@@ -60,5 +60,11 @@ namespace Presenter
         {
             return UserHero.GetActionCount() >= selectedCard.GetCost();
         }
+
+        public void AddCard(Card card)
+        {
+            Model.Cards.Add(card.Model);
+            Cards.Add(card);
+        }
     }
 }

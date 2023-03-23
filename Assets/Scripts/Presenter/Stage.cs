@@ -243,8 +243,26 @@ namespace Presenter
             await OpenRewardPanel();
         }
 
+        public async UniTask CloseReward(Card card)
+        {
+            if (card != null)
+            {
+                user.AddCard(card);
+                rewardGiven = true;
+            }
+
+            
+            await CloseRewardPanel();
+        }
+
+        private async UniTask CloseRewardPanel()
+        {
+            View.CloseRewardPanel();
+        }
+
         private async UniTask OpenRewardPanel()
         {
+            View.OpenRewardPanel();
         }
     }
 }
