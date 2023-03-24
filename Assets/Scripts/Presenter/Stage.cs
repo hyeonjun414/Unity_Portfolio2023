@@ -22,6 +22,7 @@ namespace Presenter
         private User user;
         private Enemy _curTarget;
         private Card _selectedCard;
+        private Reward _reward;
 
         public List<Card> Hand = new();
         public List<Card> Deck = new();
@@ -65,9 +66,26 @@ namespace Presenter
         private async UniTask CheckEnemies()
         {
             if (!Model.AreAllEnemiesDead()) return;
-            
+
+            GenerateReward();
             await View.BattleEnd();
             GenerateDoor();
+        }
+
+        private void GenerateReward()
+        {
+            var data = new RewardModel();
+            var cards = new List<Card>();
+            var cardTable = gm.MasterTable.MasterCards;
+            for (var i = 0; i < 3; i++)
+            {
+                var cardModel = new CardModel(cardTable[Random.Range(0, cardTable.Count)]);
+                var card = new Card(cardModel, null);
+                cards.Add(card);
+            }
+            _reward = new Reward(data, null);
+            _reward.Init(cards);
+            View.GenerateReward(_reward);
         }
 
         private void GenerateDoor()

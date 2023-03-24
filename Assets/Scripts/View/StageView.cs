@@ -229,5 +229,11 @@ namespace View
         {
             rewardView.gameObject.SetActive(false);
         }
+
+        public void GenerateReward(Reward reward)
+        {
+            rewardView.gameObject.SetActive(true);
+            rewardView.Init(reward);
+        }
     }
 }

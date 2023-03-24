@@ -414,6 +414,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2208123004634285846, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3096812689600103000, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
       propertyPath: rewardView
       value: 
@@ -466,6 +470,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3286742649799173463, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
+      propertyPath: cardPrefabs
+      value: 
+      objectReference: {fileID: 1838747165363412935, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
 --- !u!114 &3096812690465981755 stripped
