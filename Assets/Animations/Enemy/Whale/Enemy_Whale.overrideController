@@ -6,18 +6,18 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy_BaldPirate
+  m_Name: Enemy_Whale
   m_Controller: {fileID: 9100000, guid: c0fb3b6d2d3529446b26786d1c7e496b, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 83aa72a8fbfbbfe42b6389f92597094e, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 83aa72a8fbfbbfe42b6389f92597094e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e60c1a0cd54956643afdfab374ec6e33, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 3f2c513a65982674db5373eba341e7a6, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 3f2c513a65982674db5373eba341e7a6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bc7ce73723100ea4e835cbe7816a4fc5, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 4038274b96f640543a3e72ff6e86d3f5, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 4038274b96f640543a3e72ff6e86d3f5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 067af31113ba47f488cce21413dd77c7, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 560fffd62d656b047b41c1a1ac82b5a2, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 560fffd62d656b047b41c1a1ac82b5a2, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 4e6bdcc510e8d8940ad45d472ad50566, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 4e6bdcc510e8d8940ad45d472ad50566, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6234a7515de823b4bbe5a06abd577d68, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 0f05d4ff9c79a0949a4507a75773b845, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 0f05d4ff9c79a0949a4507a75773b845, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 086b39c4e89b7f04ea95c54a94b0a009, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4e6bdcc510e8d8940ad45d472ad50566, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a605c7abdab904047b25fd2dd46ac367, type: 2}
