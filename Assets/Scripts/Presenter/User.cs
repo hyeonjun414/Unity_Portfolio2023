@@ -12,7 +12,7 @@ namespace Presenter
         public UserModel Model;
         public UserView View;
 
-        public List<Card> Cards = new();
+        public List<BattleCard> Cards = new();
         public Hero UserHero;
 
         public User(UserModel model, UserView view, MasterUser mu, MasterTable mt)
@@ -24,7 +24,7 @@ namespace Presenter
             
             foreach (var cardModel in Model.Cards)
             {
-                var card = new Card(cardModel, null);
+                var card = new BattleCard(cardModel, null);
                 Cards.Add(card);
             }
             this.View = view;
@@ -36,7 +36,7 @@ namespace Presenter
             return Model.Hero;
         }
 
-        public List<Card> GetCards()
+        public List<BattleCard> GetCards()
         {
             return Cards;
         }
@@ -46,8 +46,7 @@ namespace Presenter
             return Model.DrawCardCount;
         }
 
-        public async UniTask UseCard(Card card, Enemy target)
-        {
+        public async UniTask UseCard(BattleCard card, Enemy target) {
             var position = target.View.transform.position;
             UserHero.UseActionCount(card.GetCost());
             await UserHero.PrepareAttack(position);
@@ -56,12 +55,12 @@ namespace Presenter
             await UserHero.EndAttack();
         }
 
-        public bool CanUseThisCard(Card selectedCard)
+        public bool CanUseThisCard(BattleCard selectedCard)
         {
             return UserHero.GetActionCount() >= selectedCard.GetCost();
         }
 
-        public void AddCard(Card card)
+        public void AddCard(BattleCard card)
         {
             Model.Cards.Add(card.Model);
             Cards.Add(card);

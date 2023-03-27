@@ -15,34 +15,6 @@ namespace Presenter
             Model = model;
             View = view;
         }
-
-        public void SelectCard()
-        {
-            var curStage = GameManager.Instance.CurStage;
-            curStage.SelectCard(this);
-        }
-        public void UnSelectCard()
-        {
-            var curStage = GameManager.Instance.CurStage;
-            curStage.UnSelectCard(this);
-        }
-        public void Selected()
-        {
-            View.Selected();
-        }
-
-        public void UnSelected()
-        {
-            View.UnSelected();
-        }
-
-
-        public async UniTask CardActivate(Enemy enemy)
-        {
-            await View.PlayCardEft(enemy.View);
-            await Model.Function.Activate(enemy);
-        }
-
         public void Dispose()
         {
             Model = null;
@@ -52,6 +24,58 @@ namespace Presenter
         public int GetCost()
         {
             return Model.Cost;
+        }
+    }
+
+    public class BattleCard : Card
+    {
+        public BattleCard(CardModel model, CardView view) : base(model, view)
+        {
+        }
+
+        public void SelectCard()
+        {
+            var curStage = GameManager.Instance.CurStage;
+            curStage.SelectCard(this);
+        }
+
+        public void UnSelectCard()
+        {
+            var curStage = GameManager.Instance.CurStage;
+            curStage.UnSelectCard(this);
+        }
+
+        public void Selected()
+        {
+            if (View is BattleCardView bcv)
+            {
+                bcv.Selected();
+            }
+        }
+
+        public void UnSelected()
+        {
+            if (View is BattleCardView bcv)
+            {
+                bcv.UnSelected();
+            }
+        }
+        
+        public async UniTask CardActivate(Enemy enemy)
+        {
+            if (View is BattleCardView bcv)
+            {
+                bcv.UnSelected();
+                await bcv.PlayCardEft(enemy.View);
+                await Model.Function.Activate(enemy);
+            }
+        }
+    }
+
+    public class RewardCard : Card
+    {
+        public RewardCard(CardModel model, CardView view) : base(model, view)
+        {
         }
     }
 }

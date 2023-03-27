@@ -21,12 +21,12 @@ namespace Presenter
         private GameManager gm;
         private User user;
         private Enemy _curTarget;
-        private Card _selectedCard;
+        private BattleCard _selectedCard;
         private Reward _reward;
 
-        public List<Card> Hand = new();
-        public List<Card> Deck = new();
-        public List<Card> Grave = new();
+        public List<BattleCard> Hand = new();
+        public List<BattleCard> Deck = new();
+        public List<BattleCard> Grave = new();
         private bool hasMovedToNextStage;
         private bool rewardGiven;
 
@@ -51,7 +51,7 @@ namespace Presenter
                 Enemies.Add(enemyPresenter);
             }
             
-            Deck = new List<Card>(gm.User.GetCards());
+            Deck = new List<BattleCard>(gm.User.GetCards());
             View.SetUserCards(Deck);
         }
 
@@ -142,7 +142,7 @@ namespace Presenter
             
         }
 
-        private async UniTask DeckToHand(Card card)
+        private async UniTask DeckToHand(BattleCard card)
         {
             Hand.Add(card);
             Deck.Remove(card);
@@ -156,7 +156,7 @@ namespace Presenter
             await View.GraveToDeck(Deck);
         }
 
-        private async UniTask HandToGrave(Card card)
+        private async UniTask HandToGrave(BattleCard card)
         {
             Grave.Add(card);
             Hand.Remove(card);
@@ -220,7 +220,7 @@ namespace Presenter
             
         }
 
-        public void SelectCard(Card card)
+        public void SelectCard(BattleCard card)
         {
             if (IsAction) return;
             
@@ -228,7 +228,7 @@ namespace Presenter
             card.Selected();
         }
 
-        public void UnSelectCard(Card card)
+        public void UnSelectCard(BattleCard card)
         {
             if (_selectedCard == card)
             {
@@ -261,7 +261,7 @@ namespace Presenter
             await OpenRewardPanel();
         }
 
-        public async UniTask CloseReward(Card card)
+        public async UniTask CloseReward(BattleCard card)
         {
             if (card != null)
             {

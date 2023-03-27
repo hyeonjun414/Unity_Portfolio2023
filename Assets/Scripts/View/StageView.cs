@@ -142,7 +142,7 @@ namespace View
             indicator.SetActive(false);
         }
 
-        public void SetUserCards(List<Card> Cards)
+        public void SetUserCards(List<BattleCard> Cards)
         {
             foreach (var card in Cards)
             {
@@ -183,7 +183,7 @@ namespace View
             await UniTask.Yield();
         }
 
-        public async UniTask GraveToDeck(List<Card> deck)
+        public async UniTask GraveToDeck(List<BattleCard> deck)
         {
             foreach (var card in deck)
             {
@@ -198,7 +198,7 @@ namespace View
             }
         }
 
-        public async UniTask HandToGrave(Card card)
+        public async UniTask HandToGrave(BattleCard card)
         {
             var cardView = card.View;
             if (cardView == null) return;

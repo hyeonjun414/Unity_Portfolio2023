@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class CardView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+    public class CardView : MonoBehaviour
     {
         public Card Presenter;
 
@@ -29,7 +29,7 @@ namespace View
             back.SetActive(forward.z <= 0);
         }
 
-        public void SetView(Card card)
+        public virtual void SetView(Card card)
         {
             Presenter = card;
             var data = card.Model;
@@ -44,34 +44,6 @@ namespace View
             Destroy(gameObject);
         }
         
-        public void Selected()
-        {
-            transform.DOScale(1.2f, 0.1f);
-            transform.DOMoveY(50, 0.1f).SetRelative();
-        }
-
-        public void UnSelected()
-        {
-            transform.DOScale(1f, 0.1f);
-            transform.DOMoveY(-50, 0.1f).SetRelative();
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            Presenter.SelectCard();
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            Presenter.UnSelectCard();
-        }
-
-        public async UniTask PlayCardEft(EntityView ev)
-        {
-            var eft = Instantiate(CardEffect, ev.transform);
-            eft.transform.position += Vector3.up;
-            Destroy(eft.gameObject, eft.main.duration);
-            await UniTask.Yield();
-        }
+       
     }
 }
