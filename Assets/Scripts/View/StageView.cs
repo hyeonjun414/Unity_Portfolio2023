@@ -41,6 +41,7 @@ namespace View
         public GameObject indicator;
         public FloatingTextView floatingText;
         public RewardView rewardView;
+        public ChestView chestPrefab;
 
         private bool _isBattleEnd;
         
@@ -232,7 +233,7 @@ namespace View
 
         public void GenerateReward(Reward reward)
         {
-            rewardView.gameObject.SetActive(true);
+            Instantiate(chestPrefab);
             rewardView.Init(reward);
         }
     }
