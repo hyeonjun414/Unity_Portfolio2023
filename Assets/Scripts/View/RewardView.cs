@@ -12,7 +12,7 @@ namespace View
         public Button skipButton;
 
         public Transform rewardPivot;
-        public CardView cardPrefabs;
+        public RewardCardView cardPrefabs;
         private void Start()
         {
             skipButton.onClick.AsObservable().Subscribe(async _ =>

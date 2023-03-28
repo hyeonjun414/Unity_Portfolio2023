@@ -20,7 +20,7 @@ namespace View
         public TextMeshProUGUI Text_Name;
         public TextMeshProUGUI Text_Desc;
         public TextMeshProUGUI Text_Cost;
-        public ParticleSystem CardEffect;
+        
 
         private void Update()
         {
@@ -32,11 +32,12 @@ namespace View
         public virtual void SetView(Card card)
         {
             Presenter = card;
+            
             var data = card.Model;
             Text_Name.SetText(data.Name);
             Text_Desc.SetText(data.Desc);
             Text_Cost.SetText(data.Cost.ToString());
-            CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
+            
         }
 
         public void DestroyView()

@@ -72,7 +72,11 @@ namespace Presenter
                 Enemies.Add(enemyPresenter);
             }
 
-            Deck = new List<BattleCard>(gm.User.GetCards());
+            var userCardData = gm.User.GetCards();
+            foreach (var cardData in userCardData)
+            {
+                Deck.Add(new BattleCard(cardData, null));
+            }
             bsView.SetUserCards(Deck);
         }
 
@@ -282,7 +286,7 @@ namespace Presenter
             await OpenRewardPanel();
         }
 
-        public async UniTask CloseReward(BattleCard card)
+        public async UniTask CloseReward(Card card)
         {
             if (card != null)
             {

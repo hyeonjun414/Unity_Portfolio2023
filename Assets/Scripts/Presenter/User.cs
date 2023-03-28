@@ -12,7 +12,7 @@ namespace Presenter
         public UserModel Model;
         public UserView View;
 
-        public List<BattleCard> Cards = new();
+        public List<Card> Cards = new();
         public Hero UserHero;
 
         public User(UserModel model, UserView view, MasterUser mu, MasterTable mt)
@@ -36,9 +36,9 @@ namespace Presenter
             return Model.Hero;
         }
 
-        public List<BattleCard> GetCards()
+        public List<CardModel> GetCards()
         {
-            return Cards;
+            return Model.Cards;
         }
 
         public int GetDrawCount()
@@ -60,7 +60,7 @@ namespace Presenter
             return UserHero.GetActionCount() >= selectedCard.GetCost();
         }
 
-        public void AddCard(BattleCard card)
+        public void AddCard(Card card)
         {
             Model.Cards.Add(card.Model);
             Cards.Add(card);

@@ -8,6 +8,15 @@ namespace View
 {
     public class BattleCardView : CardView, IPointerUpHandler, IPointerDownHandler
     {
+        public ParticleSystem CardEffect;
+        
+        public override void SetView(Card card)
+        {
+            base.SetView(card);
+            var data = card.Model;
+            CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
+        }
+
         public void Selected()
         {
             transform.DOScale(1.2f, 0.1f);
