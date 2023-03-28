@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using UnityEngine;
 using View;
+using View.StageView;
 
 namespace Presenter
 {
@@ -12,23 +14,10 @@ namespace Presenter
     {
         public StageModel Model;
         public StageView View;
-
-        public List<Enemy> Enemies = new();
-
-        public bool IsAction;
         
-
-        private GameManager gm;
-        private User user;
-        private Enemy _curTarget;
-        private BattleCard _selectedCard;
-        private Reward _reward;
-
-        public List<BattleCard> Hand = new();
-        public List<BattleCard> Deck = new();
-        public List<BattleCard> Grave = new();
-        private bool hasMovedToNextStage;
-        private bool rewardGiven;
+        protected GameManager gm;
+        protected User user;
+        
 
         public Stage(StageModel model, StageView view)
         {
@@ -38,37 +27,69 @@ namespace Presenter
             user = gm.User;
         }
 
-        public void Init()
+        public virtual void Init()
         {
-            user.UserHero.View = View.CreateHeroView(gm.User.GetHeroModel());
             
-            var enemyModels = Model.GetEnemies();
+        }
+
+        public virtual async UniTask Update()
+        {
+            await UniTask.Yield();
+        }
+    }
+
+    public class BattleStage : Stage
+    {
+        private BattleStageModel bsModel => Model as BattleStageModel;
+        private BattleStageView bsView => View as BattleStageView;
+
+        private Enemy _curTarget;
+        private BattleCard _selectedCard;
+        private Reward _reward;
+        public bool IsAction;
+        public List<Enemy> Enemies = new();
+        public List<BattleCard> Hand = new();
+        public List<BattleCard> Deck = new();
+        public List<BattleCard> Grave = new();
+        private bool hasMovedToNextStage;
+        private bool rewardGiven;
+        
+        public BattleStage(StageModel model, StageView view) : base(model, view)
+        {
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            
+            user.UserHero.View = bsView.CreateHeroView(gm.User.GetHeroModel());
+            var enemyModels = ((BattleStageModel)Model).GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
             {
-                var enemyView = View.CreateEnemyView(index, enemyModels[index]);
+                var enemyView = bsView.CreateEnemyView(index, enemyModels[index]);
                 var enemyPresenter = new Enemy(enemyModels[index], enemyView);
                 enemyPresenter.SetAction();
                 Enemies.Add(enemyPresenter);
             }
-            
+
             Deck = new List<BattleCard>(gm.User.GetCards());
-            View.SetUserCards(Deck);
+            bsView.SetUserCards(Deck);
         }
 
-        public async UniTask Update()
+        public override async UniTask Update()
         {
             if (IsAction) return;
-            
+
             UpdateActionGaugePhase();
             await ActionPhase();
         }
-
+        
         private async UniTask CheckEnemies()
         {
-            if (!Model.AreAllEnemiesDead()) return;
+            if (Model is BattleStageModel sn && !sn.AreAllEnemiesDead()) return;
 
             GenerateReward();
-            await View.BattleEnd();
+            await bsView.BattleEnd();
             GenerateDoor();
         }
 
@@ -85,14 +106,14 @@ namespace Presenter
             }
             _reward = new Reward(data, null);
             _reward.Init(cards);
-            View.GenerateReward(_reward);
+            bsView.GenerateReward(_reward);
         }
 
         private void GenerateDoor()
         {
             var masterStage = gm.MasterTable.MasterStages[0];
             var doorModel = new DoorModel(masterStage);
-            var doorView = View.GenerateDoor();
+            var doorView = bsView.GenerateDoor();
             var door = new Door(doorModel, doorView);
         }
 
@@ -146,21 +167,21 @@ namespace Presenter
         {
             Hand.Add(card);
             Deck.Remove(card);
-            await View.DeckToHand(card);
+            await bsView.DeckToHand(card);
         }
 
         private async UniTask GraveToDeck()
         {
             Deck.AddRange(Grave);
             Grave.Clear();
-            await View.GraveToDeck(Deck);
+            await bsView.GraveToDeck(Deck);
         }
 
         private async UniTask HandToGrave(BattleCard card)
         {
             Grave.Add(card);
             Hand.Remove(card);
-            await View.HandToGrave(card);
+            await bsView.HandToGrave(card);
         }
 
 
@@ -195,7 +216,7 @@ namespace Presenter
             if (hasMovedToNextStage) return;
             hasMovedToNextStage = true;
             door.View.Open();
-            await View.MoveStage();
+            await bsView.MoveStage();
             door.View.Close();
             await UniTask.Delay(500);
             await GameManager.Instance.LoadStageScene(door.GetStageData());
@@ -206,7 +227,7 @@ namespace Presenter
             if (IsAction) return;
             
             _curTarget = ep;
-            View.SetTargetIndicator(ep);
+            bsView.SetTargetIndicator(ep);
             
         }
 
@@ -214,7 +235,7 @@ namespace Presenter
         {
             if (_curTarget == ep)
             {
-                View.UnsetTargetIndicator(); 
+                bsView.UnsetTargetIndicator(); 
                 _curTarget = null;
             }
             
@@ -238,7 +259,7 @@ namespace Presenter
                 }
                 else
                 {
-                    View.UnsetTargetIndicator(); 
+                    bsView.UnsetTargetIndicator(); 
                     _selectedCard.UnSelected();
                     _selectedCard = null; 
                 }
@@ -249,7 +270,7 @@ namespace Presenter
 
         public void CreateFloatingText(string str, Vector3 position)
         {
-            View.CreateFloatingText(str, position);
+            bsView.CreateFloatingText(str, position);
         }
 
 
@@ -275,12 +296,12 @@ namespace Presenter
 
         private async UniTask CloseRewardPanel()
         {
-            View.CloseRewardPanel();
+            bsView.CloseRewardPanel();
         }
 
         private async UniTask OpenRewardPanel()
         {
-            View.OpenRewardPanel();
+            bsView.OpenRewardPanel();
         }
     }
 }

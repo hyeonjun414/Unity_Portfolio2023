@@ -1,4 +1,5 @@
 using System;
+using Manager;
 using Presenter;
 using UniRx;
 using UnityEngine;
@@ -16,7 +17,11 @@ namespace View
         {
             skipButton.onClick.AsObservable().Subscribe(async _ =>
             {
-                await GameManager.Instance.CurStage.CloseReward(null);
+                var stage = GameManager.Instance.CurStage as BattleStage;
+                if (stage != null)
+                {
+                    await stage.CloseReward(null);
+                }
             });
         }
 

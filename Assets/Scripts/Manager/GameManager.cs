@@ -1,13 +1,11 @@
-using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Model;
 using Newtonsoft.Json;
 using Presenter;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using View;
 
-namespace View
+namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
@@ -32,8 +30,8 @@ namespace View
                 var userView = gameObject.AddComponent<UserView>();
                 User = new User(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
                 userView.Presenter = User;
-                
-                GenerateStage(MasterTable.MasterStages[0]);
+
+                CurStage = GenerateStage(MasterTable.MasterStages[0]);
             }
             else
             {
@@ -41,14 +39,23 @@ namespace View
             }
         }
 
-        public void GenerateStage(MasterStage ms)
+        public Stage GenerateStage(MasterStage ms)
         {
-            CurStage = new Stage(new StageModel(ms, MasterTable), null);
+            var stageInfo = Util.ToObject<StageInfo>(ms.StageInfo);
+            Stage genStage = null;
+            switch (stageInfo.Type)
+            {
+                case nameof(BattleStageInfo):
+                    genStage = new BattleStage(new BattleStageModel(stageInfo, MasterTable), null);
+                    break;
+            }
+
+            return genStage;
         }
 
         public async UniTask LoadStageScene(MasterStage ms)
         {
-            CurStage = new Stage(new StageModel(ms, MasterTable), null);
+            CurStage = GenerateStage(ms);
             await SceneSwitcher.AsyncSceneLoad("InGameScene");
         }
     }

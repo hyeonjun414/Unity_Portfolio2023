@@ -1,4 +1,6 @@
 using System;
+using Manager;
+using Presenter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +14,12 @@ namespace View.UI
         {
             button.onClick.AsObservable().Subscribe(async _ =>
             {
-                await GameManager.Instance.CurStage.DrawCard();
+                var stage = GameManager.Instance.CurStage as BattleStage;
+                if (stage != null)
+                {
+                    await stage.DrawCard();
+                }
+                
             });
         }
     }

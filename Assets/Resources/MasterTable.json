@@ -11,18 +11,18 @@
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 1,
+          "Cost"  : 2,
           "Damage": 5,
           "Icon"  : "Attack1"
         },
         {
           "Type": "EaWait",
-          "Cost": 1,
+          "Cost": 2,
           "Icon": "Wait"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 3,
+          "Cost"  : 4,
           "Damage": 20,
           "Icon"  : "Attack2"
         }
@@ -39,18 +39,18 @@
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 1,
+          "Cost"  : 2,
           "Damage": 5,
           "Icon"  : "Attack1"
         },
         {
           "Type": "EaWait",
-          "Cost": 1,
+          "Cost": 2,
           "Icon": "Wait"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 3,
+          "Cost"  : 4,
           "Damage": 20,
           "Icon"  : "Attack2"
         }
@@ -67,18 +67,74 @@
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 1,
+          "Cost"  : 2,
           "Damage": 5,
           "Icon"  : "Attack1"
         },
         {
           "Type": "EaWait",
-          "Cost": 1,
+          "Cost": 2,
           "Icon": "Wait"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 3,
+          "Cost"  : 4,
+          "Damage": 20,
+          "Icon"  : "Attack2"
+        }
+      ]
+    },
+    {
+      "Id"            : "Captain",
+      "Name"          : "Captain",
+      "Desc"          : "Captain",
+      "Hp"            : 50,
+      "Damage"        : 10,
+      "MaxActionGauge": 5,
+      "ActionSpeed"   : 2,
+      "Actions"       : [
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 2,
+          "Damage": 5,
+          "Icon"  : "Attack1"
+        },
+        {
+          "Type": "EaWait",
+          "Cost": 2,
+          "Icon": "Wait"
+        },
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 4,
+          "Damage": 20,
+          "Icon"  : "Attack2"
+        }
+      ]
+    },
+    {
+      "Id"            : "Whale",
+      "Name"          : "Whale",
+      "Desc"          : "Whale",
+      "Hp"            : 50,
+      "Damage"        : 10,
+      "MaxActionGauge": 5,
+      "ActionSpeed"   : 2,
+      "Actions"       : [
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 2,
+          "Damage": 5,
+          "Icon"  : "Attack1"
+        },
+        {
+          "Type": "EaWait",
+          "Cost": 2,
+          "Icon": "Wait"
+        },
+        {
+          "Type"  : "EaNormalAttack",
+          "Cost"  : 4,
           "Damage": 20,
           "Icon"  : "Attack2"
         }
@@ -131,24 +187,48 @@
   ],
   "MasterStages" : [
     {
-      "Id"          : "Normal1",
-      "Name"        : "Normal1",
-      "StageEnemies": [
-        "Bald Pirate",
-        "Cucumber",
-        "Big Guy"
-      ]
+      "Id"       : "Normal1",
+      "Name"     : "Normal1",
+      "StageInfo": {
+        "Type"   : "BattleStageInfo",
+        "Enemies": [
+          "Bald Pirate",
+          "Cucumber",
+          "Big Guy"
+        ]
+      }
+    },
+    {
+      "Id"       : "Normal1",
+      "Name"     : "Normal2",
+      "StageInfo": {
+        "Type"   : "BattleStageInfo",
+        "Enemies": [
+          "Bald Pirate",
+          "Cucumber",
+          "Big Guy"
+        ]
+      }
+    },
+    {
+      "Id"       : "Normal3",
+      "Name"     : "Normal3",
+      "StageInfo": {
+        "Type"   : "BattleStageInfo",
+        "Enemies": [
+          "Bald Pirate",
+          "Cucumber",
+          "Big Guy"
+        ]
+      }
     }
   ],
   "MasterMaps"   : [
     {
-      "Id"          : "Normal1",
-      "Name"        : "Normal1",
-      "StageEnemies": [
-        "Bald Pirate",
-        "Cucumber",
-        "Big Guy"
-      ]
+      "Id"   : "Normal1",
+      "Name" : "Normal1",
+      "Step" : 10,
+      "Width": 4
     }
   ]
 }

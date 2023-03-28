@@ -1,38 +1,28 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Manager;
 using Model;
 using Presenter;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace View
+namespace View.StageView
 {
-    public interface IStageView
+    public class BattleStageView : StageView
     {
-        EntityView CreateHeroView(EntityModel hero);
-        EnemyView CreateEnemyView(int index, EnemyModel enemy);
-    }
-    
-    public class StageView : MonoBehaviour, IStageView
-    {
-        public Stage Presenter;
-
+        private BattleStage bsPresenter => Presenter as BattleStage;
+        
         public EntityView entityView;
         public DoorView doorPrefab;
         public CardView cardPrefab;
         public EnemyView enemyPrefab;
+        public ChestView chestPrefab;
         public List<Transform> enemyPosList;
         public Transform heroPosition;
         public Transform doorPosition;
-        public Transform cardPosition;
         public Transform handPos, deckPos, gravePos;
             
-        
-        public EntityView HeroView;
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
         public List<CardView> DeckCards = new();
@@ -41,8 +31,9 @@ namespace View
         public GameObject indicator;
         public FloatingTextView floatingText;
         public RewardView rewardView;
-        public ChestView chestPrefab;
-
+        
+        
+        private EntityView HeroView;
         private bool _isBattleEnd;
         
         public void Start()

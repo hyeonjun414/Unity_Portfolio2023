@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using Manager;
+using Presenter;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,7 +11,11 @@ namespace View
         public Animator animator;
         public void OnPointerClick(PointerEventData eventData)
         {
-            GameManager.Instance.CurStage.OpenReward(this);
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            if (stage != null)
+            {
+                stage.OpenReward(this);
+            }
         }
 
         public async UniTask Open()

@@ -6266,8 +6266,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3096812689600103003}
   - component: {fileID: 3096812689600103000}
+  - component: {fileID: 6858248282943542013}
   m_Layer: 0
-  m_Name: StageView
+  m_Name: BattleStageView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6304,21 +6305,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792817cfd5aec7a4392824db048649b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6858248282943542013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3096812689600103002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd921350594bb241904a9f92a759d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   entityView: {fileID: 7542503442980021705, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
   doorPrefab: {fileID: 4957955070667770164, guid: 95c81c2a36d4dd642952e3e169cf4d9f, type: 3}
   cardPrefab: {fileID: 3722710471373260347, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
   enemyPrefab: {fileID: 6966354741140356193, guid: fa0620281adc68e4a8d42f25c6c54071, type: 3}
+  chestPrefab: {fileID: 2640308600369331074, guid: 697d9a48fd2fe054ab70943d54029546, type: 3}
   enemyPosList:
   - {fileID: 3096812689606428387}
   - {fileID: 3096812688632402882}
   - {fileID: 3096812690166906247}
   heroPosition: {fileID: 3096812690376355737}
   doorPosition: {fileID: 3096812689811405805}
-  cardPosition: {fileID: 3096812688746397200}
   handPos: {fileID: 3096812688423091493}
   deckPos: {fileID: 3096812689805856855}
   gravePos: {fileID: 3096812690425163800}
-  HeroView: {fileID: 0}
   EnemyViews: []
   UserCards: []
   DeckCards: []
@@ -6327,7 +6339,6 @@ MonoBehaviour:
   indicator: {fileID: 3096812688609979988}
   floatingText: {fileID: 6727921090437483290, guid: 2bfea8716da41e64dbd33506b5c9ffb5, type: 3}
   rewardView: {fileID: 3286742649799173463}
-  chestPrefab: {fileID: 2640308600369331074, guid: 697d9a48fd2fe054ab70943d54029546, type: 3}
 --- !u!1 &3096812689606428397
 GameObject:
   m_ObjectHideFlags: 0

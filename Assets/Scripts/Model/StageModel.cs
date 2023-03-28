@@ -6,17 +6,25 @@ namespace Model
 {
     public class StageModel
     {
-        public List<EnemyModel> Enemies;
-
-        public StageModel(MasterStage ms, MasterTable mt)
+        public StageModel(StageInfo stageInfo, MasterTable mt)
         {
-            Enemies = new List<EnemyModel>();
-            
-            foreach (var enemyId in ms.StageEnemies)
+        }
+    }
+
+    public class BattleStageModel : StageModel
+    {
+        public List<EnemyModel> Enemies = new();
+
+        public BattleStageModel(StageInfo stageInfo, MasterTable mt) : base(stageInfo, mt)
+        {
+            if (stageInfo is BattleStageInfo info)
             {
-                var masterEnemy = mt.MasterEnemies.First(target => target.Id == enemyId);
-                var enemy = new EnemyModel(masterEnemy);
-                Enemies.Add(enemy);
+                foreach (var enemyId in info.Enemies)
+                {
+                    var masterEnemy = mt.MasterEnemies.First(target => target.Id == enemyId);
+                    var enemy = new EnemyModel(masterEnemy);
+                    Enemies.Add(enemy);
+                }
             }
         }
 

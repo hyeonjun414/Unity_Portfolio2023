@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using UnityEngine;
 using View;
@@ -35,14 +36,14 @@ namespace Presenter
 
         public void SelectCard()
         {
-            var curStage = GameManager.Instance.CurStage;
-            curStage.SelectCard(this);
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.SelectCard(this);
         }
 
         public void UnSelectCard()
         {
-            var curStage = GameManager.Instance.CurStage;
-            curStage.UnSelectCard(this);
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.UnSelectCard(this);
         }
 
         public void Selected()

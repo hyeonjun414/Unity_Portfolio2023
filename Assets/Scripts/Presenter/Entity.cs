@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using UnityEngine;
 using View;
@@ -30,7 +31,8 @@ namespace Presenter
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
-            GameManager.Instance.CurStage.CreateFloatingText(((int)damage).ToString(), View.transform.position);
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            stage?.CreateFloatingText(((int)damage).ToString(), View.transform.position);
             if (Model.IsDead)
                 await View.Dead();
             else
@@ -91,15 +93,15 @@ namespace Presenter
         public void Targeted()
         {
             if (Model.IsDead) return;
-            var stage = GameManager.Instance.CurStage;
-            stage.TargetEnemy(this);
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            stage?.TargetEnemy(this);
         }
 
         public void UnTargeted()
         {
             if (Model.IsDead) return;
-            var stage = GameManager.Instance.CurStage;
-            stage.UnTargetEnemy(this);
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            stage?.UnTargetEnemy(this);
         }
 
         public void SetAction()

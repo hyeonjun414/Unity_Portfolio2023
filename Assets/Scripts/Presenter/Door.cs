@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using UnityEngine;
 using View;
@@ -24,7 +25,11 @@ namespace Presenter
 
         public async UniTaskVoid MoveStage()
         {
-            await GameManager.Instance.CurStage.MoveStage(this);
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            if (stage != null)
+            {
+                await stage.MoveStage(this);
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Model
     }
     public class MasterStage
     {
-        public List<string> StageEnemies;
+        public JObject StageInfo;
     }
 
     public class MasterEntity
