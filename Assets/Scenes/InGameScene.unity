@@ -357,14 +357,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2208123004634285846, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3096812689600103000, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
-      propertyPath: rewardView
-      value: 
-      objectReference: {fileID: 3096812690465981755}
     - target: {fileID: 3096812689600103002, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
       propertyPath: m_Name
       value: StageView
@@ -413,20 +405,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3286742649799173463, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
-      propertyPath: cardPrefabs
-      value: 
-      objectReference: {fileID: 1838747165363412935, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
---- !u!114 &3096812690465981755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3286742649799173463, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
-  m_PrefabInstance: {fileID: 3096812690465981754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4380d2886815b0946abd64a8b60d4f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

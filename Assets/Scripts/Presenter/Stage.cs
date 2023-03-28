@@ -75,12 +75,12 @@ namespace Presenter
         private void GenerateReward()
         {
             var data = new RewardModel();
-            var cards = new List<Card>();
+            var cards = new List<RewardCard>();
             var cardTable = gm.MasterTable.MasterCards;
             for (var i = 0; i < 3; i++)
             {
                 var cardModel = new CardModel(cardTable[Random.Range(0, cardTable.Count)]);
-                var card = new Card(cardModel, null);
+                var card = new RewardCard(cardModel, null);
                 cards.Add(card);
             }
             _reward = new Reward(data, null);

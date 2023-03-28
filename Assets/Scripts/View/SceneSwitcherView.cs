@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Manager;
 using Model;
 using Presenter;
 using UnityEngine;

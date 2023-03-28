@@ -10,7 +10,7 @@ namespace Presenter
         public RewardModel Model;
         public RewardView View;
 
-        public List<Card> Cards;
+        public List<RewardCard> Cards;
         
         public Reward(RewardModel model, RewardView view)
         {
@@ -18,7 +18,7 @@ namespace Presenter
             View = view;
         }
 
-        public void Init(List<Card> cards)
+        public void Init(List<RewardCard> cards)
         {
             Cards = cards;
         }

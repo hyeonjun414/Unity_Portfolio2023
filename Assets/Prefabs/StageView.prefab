@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skipButton: {fileID: 8793652690067432662}
   rewardPivot: {fileID: 416592486974713049}
-  cardPrefabs: {fileID: 0}
+  cardPrefabs: {fileID: -6858358744626933766, guid: 1857b143bfe601c44bc5754a7f8bccdd, type: 3}
 --- !u!1 &3096812688377174209
 GameObject:
   m_ObjectHideFlags: 0

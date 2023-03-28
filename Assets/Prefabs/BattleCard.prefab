@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1838747165363412928}
   - component: {fileID: 3722710471373260347}
   m_Layer: 0
-  m_Name: Card
+  m_Name: BattleCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
