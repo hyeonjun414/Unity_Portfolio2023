@@ -7,7 +7,7 @@
       "Hp"            : 30,
       "Damage"        : 5,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 2,
+      "ActionSpeed"   : 1,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -35,7 +35,7 @@
       "Hp"            : 15,
       "Damage"        : 3,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 2,
+      "ActionSpeed"   : 1,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -63,7 +63,7 @@
       "Hp"            : 50,
       "Damage"        : 10,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 2,
+      "ActionSpeed"   : 1,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -91,7 +91,7 @@
       "Hp"            : 50,
       "Damage"        : 10,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 2,
+      "ActionSpeed"   : 1,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -119,7 +119,7 @@
       "Hp"            : 50,
       "Damage"        : 10,
       "MaxActionGauge": 5,
-      "ActionSpeed"   : 2,
+      "ActionSpeed"   : 1,
       "Actions"       : [
         {
           "Type"  : "EaNormalAttack",
@@ -146,11 +146,12 @@
       "Id"      : "폭탄 투하",
       "Name"    : "폭탄 투하",
       "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
+      "Image"   : "Explosion",
       "Effect"  : "Explosion",
       "Cost"    : 1,
       "Function": {
         "Type"  : "CfBomb",
-        "Damage": 50
+        "Damage": 15
       }
     }
   ],
