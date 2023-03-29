@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Manager;
 using Presenter;
 using UniRx;
@@ -13,24 +14,27 @@ namespace View
 
         public Transform rewardPivot;
         public RewardCardView cardPrefabs;
+
+        private List<RewardCardView> cardInstances = new();
         private void Start()
         {
-            skipButton.onClick.AsObservable().Subscribe(async _ =>
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            if (curStage != null)
             {
-                var stage = GameManager.Instance.CurStage as BattleStage;
-                if (stage != null)
+                skipButton.onClick.AsObservable().Subscribe(async _ =>
                 {
-                    await stage.CloseReward(null);
-                }
-            });
+                    await curStage.CloseReward(null);
+                });
+            }
         }
 
         public void Init(Reward reward)
         {
-            foreach (var card in reward.Cards)
+            for (var i = 0; i < reward.Cards.Count; i++)
             {
                 var cardInst = Instantiate(cardPrefabs, rewardPivot);
-                cardInst.SetView(card);
+                cardInstances.Add(cardInst);
+                cardInst.SetView(reward.Cards[i]);
             }
         }
     }
