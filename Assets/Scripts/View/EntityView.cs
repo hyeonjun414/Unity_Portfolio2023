@@ -32,7 +32,8 @@ namespace View
 
         public Animator animator;
         public StatusEffectView statusEffectPrefab;
-        public List<StatusEffectView> StatusList = new();
+        public List<StatusEffectView> StatEftList = new();
+        public Transform statEftPivot;
         [Header("EntityUI")] 
         public SpriteRenderer sprite;
 
@@ -131,11 +132,14 @@ namespace View
         }
 
 
-        public async UniTask AddStatusEffect(StatusEffectModel effectModel)
+        public async UniTask AddStatusEffect(StatusEffectModel eftModel)
         {
+            var eftInst = Instantiate(statusEffectPrefab, statEftPivot);
+            eftInst.SetView(eftModel);
+            StatEftList.Add(eftInst);
         }
 
-        public async UniTask StatusEffectActivate(List<StatusEffectModel> modelStatusEffects)
+        public async UniTask StatusEffectActivate(List<StatusEffect> statEft)
         {
         }
     }

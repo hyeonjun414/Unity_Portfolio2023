@@ -17,6 +17,10 @@ namespace Model
         public virtual async UniTask Activate(Entity entity)
         {
         }
+
+        public int GetTurn() => Turn;
+        public string GetIconName() => Icon;
+        public int GetValue() => Value;
     }
 
     public class SE_Burn : StatusEffectModel
@@ -26,7 +30,7 @@ namespace Model
 
         public override async UniTask Activate(Entity entity)
         {
-            
+            await entity.TakeDamage(Damage);
         }
     }
      

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
@@ -11,6 +12,8 @@ namespace Presenter
     {
         public EntityModel Model;
         public EntityView View;
+
+        public List<StatusEffect> StatusEffects = new();
 
         public Entity(EntityModel model, EntityView view)
         {
@@ -65,7 +68,7 @@ namespace Presenter
         {
             Model.AddActionGauge(out var isActionUp);
             if (isActionUp)
-                await View.StatusEffectActivate(Model.StatusEffects);
+                await View.StatusEffectActivate(StatusEffects);
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
         }
 
@@ -86,10 +89,10 @@ namespace Presenter
             return Model.ActionCount;
         }
 
-        public async UniTask AddStatusEffect(StatusEffectModel effectModel)
+        public async UniTask AddStatusEffect(StatusEffect statEft)
         {
-            Model.AddStatusEffect(effectModel);
-            await View.AddStatusEffect(effectModel);
+            StatusEffects.Add(statEft);
+            await View.AddStatusEffect(statEft.Model);
         }
     }
 

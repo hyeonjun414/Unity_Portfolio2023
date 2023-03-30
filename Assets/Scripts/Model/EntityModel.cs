@@ -18,7 +18,7 @@ namespace Model
         public bool IsActionReady;
         public bool IsDead;
 
-        public List<StatusEffectModel> StatusEffects = new();
+        
 
         public EntityModel(MasterEntity me)
         {
@@ -57,10 +57,7 @@ namespace Model
             }
         }
 
-        public void AddStatusEffect(StatusEffectModel effectModel)
-        {
-            StatusEffects.Add(effectModel);
-        }
+        
     }
     public class EnemyModel : EntityModel
     {
