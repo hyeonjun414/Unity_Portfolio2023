@@ -798,6 +798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5954922040366782471}
+  statusEffectPrefab: {fileID: 2605068761325402233, guid: 7d28b25b02f034c4f8a110fb1a8d8bdc, type: 3}
+  StatusList: []
   sprite: {fileID: 7542503441936597618}
   uiCanvas: {fileID: 7542503441789463490}
   ActionGauge: {fileID: 7542503442475874370}

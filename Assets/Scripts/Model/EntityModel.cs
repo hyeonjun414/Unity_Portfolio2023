@@ -18,6 +18,8 @@ namespace Model
         public bool IsActionReady;
         public bool IsDead;
 
+        public List<StatusEffectModel> StatusEffects;
+
         public EntityModel(MasterEntity me)
         {
             Id = me.Id;
@@ -31,15 +33,18 @@ namespace Model
             ActionCount = 0;
         }
 
-        public void AddActionGauge()
+        public void AddActionGauge(out bool isActionUp)
         {
             CurActionGauge += ActionSpeed * Time.deltaTime;
             if (CurActionGauge >= MaxActionGauge)
             {
                 ActionCount++;
                 CurActionGauge = 0;
+                isActionUp = true;
                 //IsActionReady = true;
             }
+
+            isActionUp = false;
         }
         
         public void TakeDamage(float damage)
@@ -50,6 +55,11 @@ namespace Model
                 CurHp = 0;
                 IsDead = true;
             }
+        }
+
+        public void AddStatusEffect(StatusEffectModel effectModel)
+        {
+            StatusEffects.Add(effectModel);
         }
     }
     public class EnemyModel : EntityModel

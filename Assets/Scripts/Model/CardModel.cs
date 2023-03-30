@@ -1,7 +1,6 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Presenter;
 
 namespace Model
@@ -13,7 +12,7 @@ namespace Model
         public string Desc;
         public string Effect;
         public int Cost;
-        public CardFunc Function;
+        public List<CardFunc> Function;
 
         public CardModel(MasterCard mc)
         {
@@ -22,7 +21,15 @@ namespace Model
             Desc = mc.Desc;
             Effect = mc.Effect;
             Cost = mc.Cost;
-            Function = Util.ToObject<CardFunc>(mc.Function);
+            Function = Util.ToObjectList<CardFunc>(mc.Function);
+        }
+
+        public async UniTask CardActivate(Enemy enemy)
+        {
+            foreach (var func in Function)
+            {
+                await func.Activate(enemy);
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Presenter
             {
                 bcv.UnSelected();
                 await bcv.PlayCardEft(enemy.View);
-                await Model.Function.Activate(enemy);
+                await Model.CardActivate(enemy);
             }
         }
     }

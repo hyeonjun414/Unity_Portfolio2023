@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Presenter;
 
 namespace Model
@@ -13,6 +14,16 @@ namespace Model
 
     }
 
+    public class CfStatusEffect : CardFunc
+    {
+        public JObject statusEffect;
+
+        public override async UniTask Activate(Entity entity)
+        {
+            var effect = Util.ToObject<StatusEffectModel>(statusEffect);
+            await entity.AddStatusEffect(effect);
+        }
+    }
     public class CfBomb : CardFunc
     {
         public float Damage;
@@ -22,4 +33,12 @@ namespace Model
             await entity.TakeDamage(Damage);
         }
     }
+
+    // public class CfDefence : CardFunc
+    // {
+    //     public override async UniTask Activate(Entity entity)
+    //     {
+    //         return 
+    //     }
+    // }
 }

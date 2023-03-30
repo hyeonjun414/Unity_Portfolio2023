@@ -55,7 +55,7 @@ namespace Model
         public string Desc;
         public string Effect;
         public int Cost;
-        public JObject Function;
+        public List<JObject> Function;
     }
 
     

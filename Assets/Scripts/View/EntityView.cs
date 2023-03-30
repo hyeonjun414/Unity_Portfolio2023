@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -30,7 +31,8 @@ namespace View
         public Entity Presenter;
 
         public Animator animator;
-        
+        public StatusEffectView statusEffectPrefab;
+        public List<StatusEffectView> StatusList = new();
         [Header("EntityUI")] 
         public SpriteRenderer sprite;
 
@@ -128,7 +130,14 @@ namespace View
             Destroy(gameObject);
         }
 
-        
+
+        public async UniTask AddStatusEffect(StatusEffectModel effectModel)
+        {
+        }
+
+        public async UniTask StatusEffectActivate(List<StatusEffectModel> modelStatusEffects)
+        {
+        }
     }
 
     

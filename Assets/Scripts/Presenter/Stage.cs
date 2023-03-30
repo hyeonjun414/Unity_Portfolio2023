@@ -84,7 +84,7 @@ namespace Presenter
         {
             if (IsAction) return;
 
-            UpdateActionGaugePhase();
+            await UpdateActionGaugePhase();
             await ActionPhase();
         }
         
@@ -207,12 +207,12 @@ namespace Presenter
             IsAction = false;
         }
 
-        private void UpdateActionGaugePhase()
+        private async UniTask UpdateActionGaugePhase()
         {
-            user.UserHero.AddActionGauge();
+            await user.UserHero.AddActionGauge();
 
             foreach (var enemy in GetAliveEnemies())
-                enemy.AddActionGauge();
+                await enemy.AddActionGauge();
         }
 
         public async UniTask MoveStage(Door door)

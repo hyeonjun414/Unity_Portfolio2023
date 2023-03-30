@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
@@ -60,9 +61,11 @@ namespace Presenter
             await View.EndAttack();
         }
 
-        public void AddActionGauge()
+        public async UniTask AddActionGauge()
         {
-            Model.AddActionGauge();
+            Model.AddActionGauge(out var isActionUp);
+            if (isActionUp)
+                await View.StatusEffectActivate(Model.StatusEffects);
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
         }
 
@@ -81,6 +84,12 @@ namespace Presenter
         public int GetActionCount()
         {
             return Model.ActionCount;
+        }
+
+        public async UniTask AddStatusEffect(StatusEffectModel effectModel)
+        {
+            Model.AddStatusEffect(effectModel);
+            await View.AddStatusEffect(effectModel);
         }
     }
 
