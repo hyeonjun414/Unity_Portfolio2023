@@ -149,10 +149,22 @@
       "Image"   : "Explosion",
       "Effect"  : "Explosion",
       "Cost"    : 1,
-      "Function": {
-        "Type"  : "CfBomb",
-        "Damage": 15
-      }
+      "Function": [
+        {
+          "Type"  : "CfBomb",
+          "Damage": 15
+        },
+        {
+          "Type"        : "CfStatusEffect",
+          "StatusEffect": {
+            "Type"    : "SE_Burn",
+            "Turn"    : 3,
+            "Icon"    : "SeIcon_Burn",
+            "Damage"  : 5,
+            "Particle": "Burn"
+          }
+        }
+      ]
     }
   ],
   "MasterHeroes" : [

@@ -16,11 +16,11 @@ namespace Model
 
     public class CfStatusEffect : CardFunc
     {
-        public JObject statusEffect;
+        public JObject StatusEffect;
 
         public override async UniTask Activate(Entity entity)
         {
-            var effect = Util.ToObject<StatusEffectModel>(statusEffect);
+            var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
             await entity.AddStatusEffect(effect);
         }
     }
