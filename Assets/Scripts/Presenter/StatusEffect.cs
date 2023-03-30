@@ -19,7 +19,7 @@ namespace Presenter
         public virtual async UniTask Activate(Entity entity)
         {
             await Model.Activate(entity);
-            await View.Activate(Model.GetValue());
+            await View.Activate(Model.GetTurn());
         }
     }
 }

@@ -33,18 +33,18 @@ namespace Model
             ActionCount = 0;
         }
 
-        public void AddActionGauge(out bool isActionUp)
+        public List<StatusEffectModel> StatusEffects = new();
+        public bool IsActionCountUp;
+
+        public void AddActionGauge()
         {
             CurActionGauge += ActionSpeed * Time.deltaTime;
             if (CurActionGauge >= MaxActionGauge)
             {
                 ActionCount++;
                 CurActionGauge = 0;
-                isActionUp = true;
-                //IsActionReady = true;
+                IsActionCountUp = true;
             }
-
-            isActionUp = false;
         }
         
         public void TakeDamage(float damage)

@@ -8,6 +8,7 @@ namespace Model
         public int Turn;
         public string Icon;
         public int Value;
+        private bool IsEnd = false;
 
         public virtual void Init()
         {
@@ -16,6 +17,11 @@ namespace Model
         
         public virtual async UniTask Activate(Entity entity)
         {
+            Turn--;
+            if (Turn <= 0)
+            {
+                IsEnd = true;
+            }
         }
 
         public int GetTurn() => Turn;
@@ -30,6 +36,7 @@ namespace Model
 
         public override async UniTask Activate(Entity entity)
         {
+            await base.Activate(entity);
             await entity.TakeDamage(Damage);
         }
     }

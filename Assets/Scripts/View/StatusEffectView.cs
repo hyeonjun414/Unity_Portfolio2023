@@ -18,14 +18,18 @@ namespace View
         
         public List<Sprite> iconImages;
 
-        public void SetView(StatusEffectModel model)
+        public void SetView(StatusEffect statEft)
         {
-            turnText.SetText(model.GetTurn().ToString());
-            icon.sprite = iconImages.Find(t => t.name == model.GetIconName());
+            Presenter = statEft;
+            
+            turnText.SetText(Presenter.Model.GetTurn().ToString());
+            icon.sprite = iconImages.Find(t => t.name == Presenter.Model.GetIconName());
         }
         
-        public async UniTask Activate(int model)
+        public async UniTask Activate(int remainTurn)
         {
+            turnText.SetText(remainTurn.ToString());
+            await UniTask.Delay(200);
         }
     }
 }

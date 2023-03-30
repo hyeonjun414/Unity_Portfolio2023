@@ -21,8 +21,8 @@ namespace Model
         public override async UniTask Activate(Entity entity)
         {
             var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
-            var eftPresenter = new StatusEffect(effect, null);
-            await entity.AddStatusEffect(eftPresenter);
+            
+            await entity.AddStatusEffect(effect);
         }
     }
     public class CfBomb : CardFunc

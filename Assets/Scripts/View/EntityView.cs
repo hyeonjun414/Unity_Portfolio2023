@@ -132,15 +132,13 @@ namespace View
         }
 
 
-        public async UniTask AddStatusEffect(StatusEffectModel eftModel)
+        public async UniTask AddStatusEffect(StatusEffect eft)
         {
             var eftInst = Instantiate(statusEffectPrefab, statEftPivot);
-            eftInst.SetView(eftModel);
+            eftInst.SetView(eft);
+            eft.View = eftInst;
             StatEftList.Add(eftInst);
-        }
-
-        public async UniTask StatusEffectActivate(List<StatusEffect> statEft)
-        {
+            await UniTask.Yield();
         }
     }
 

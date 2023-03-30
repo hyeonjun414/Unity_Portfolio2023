@@ -13,15 +13,16 @@ namespace Presenter
         public EntityModel Model;
         public EntityView View;
 
-        public List<StatusEffect> StatusEffects = new();
+        public List<StatusEffect> StatusEffects;
 
         public Entity(EntityModel model, EntityView view)
         {
             Model = model;
             View = view;
+            StatusEffects = new List<StatusEffect>();
         }
 
-        public void Init()
+        public virtual void Init()
         {
             View.Presenter = this;
             View.Init(Model);
@@ -66,9 +67,7 @@ namespace Presenter
 
         public async UniTask AddActionGauge()
         {
-            Model.AddActionGauge(out var isActionUp);
-            if (isActionUp)
-                await View.StatusEffectActivate(StatusEffects);
+            Model.AddActionGauge();
             View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
         }
 
@@ -89,10 +88,24 @@ namespace Presenter
             return Model.ActionCount;
         }
 
-        public async UniTask AddStatusEffect(StatusEffect statEft)
+        public virtual async UniTask AddStatusEffect(StatusEffectModel statEft)
         {
-            StatusEffects.Add(statEft);
-            await View.AddStatusEffect(statEft.Model);
+            var eftPresenter = new StatusEffect(statEft, null);
+            StatusEffects.Add(eftPresenter);
+            Model.StatusEffects.Add(statEft);
+            await View.AddStatusEffect(eftPresenter);
+        }
+
+        public virtual async UniTask StatusEffectActivate()
+        {
+            if (Model.IsActionCountUp)
+            {
+                Model.IsActionCountUp = false;
+                foreach (var statEft in StatusEffects)
+                {
+                    await statEft.Activate(this);
+                }
+            }
         }
     }
 
@@ -100,6 +113,13 @@ namespace Presenter
     {
         public Enemy(EnemyModel model, EntityView view) : base(model, view)
         {
+            Debug.Log("Enemy Gen");
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            SetAction();
         }
 
         public void Targeted()

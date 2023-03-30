@@ -85,9 +85,21 @@ namespace Presenter
             if (IsAction) return;
 
             await UpdateActionGaugePhase();
+            await StatusEffectPhase();
             await ActionPhase();
         }
-        
+
+        private async UniTask StatusEffectPhase()
+        {
+            await user.UserHero.StatusEffectActivate();
+            foreach (var enemy in GetAliveEnemies())
+            {
+                IsAction = true;
+                await enemy.StatusEffectActivate();
+                IsAction = false;
+            }
+        }
+
         private async UniTask CheckEnemies()
         {
             if (Model is BattleStageModel sn && !sn.AreAllEnemiesDead()) return;
