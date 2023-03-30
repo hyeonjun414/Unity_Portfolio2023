@@ -74,12 +74,9 @@ namespace View.StageView
             return HeroView;
         }
         
-        public EnemyView CreateEnemyView(int index, EnemyModel enemy)
+        public EnemyView CreateEnemyView(int index)
         {
             var inst = Instantiate(enemyPrefab, enemyPosList[index]);
-            var enemyPresenter = new Enemy(enemy, inst);
-            enemyPresenter.Init();
-            
             EnemyViews.Add(inst);
             return inst;
         }

@@ -66,9 +66,9 @@ namespace Presenter
             var enemyModels = ((BattleStageModel)Model).GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
             {
-                var enemyView = bsView.CreateEnemyView(index, enemyModels[index]);
+                var enemyView = bsView.CreateEnemyView(index);
                 var enemyPresenter = new Enemy(enemyModels[index], enemyView);
-                enemyPresenter.SetAction();
+                enemyPresenter.Init();
                 Enemies.Add(enemyPresenter);
             }
 
