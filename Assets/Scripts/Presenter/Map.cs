@@ -13,5 +13,9 @@ namespace Presenter
             Model = model;
             View = view;
         }
+
+        public void Init()
+        {
+        }
     }
 }

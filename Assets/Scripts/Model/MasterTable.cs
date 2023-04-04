@@ -11,6 +11,7 @@ namespace Model
         public List<MasterHero> MasterHeroes;
         public List<MasterEnemy> MasterEnemies;
         public List<MasterCard> MasterCards;
+        public List<MasterMap> MasterMaps;
     }
 
     public class MasterUser
@@ -56,6 +57,14 @@ namespace Model
         public string Effect;
         public int Cost;
         public List<JObject> Function;
+    }
+
+    public class MasterMap
+    {
+        public string Id;
+        public string Name;
+        public int Step;
+        public int Width;
     }
 
     

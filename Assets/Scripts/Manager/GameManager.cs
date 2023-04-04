@@ -42,6 +42,7 @@ namespace Manager
             userView.Presenter = User;
             
             var mapModel = new MapModel();
+            mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
             CurMap = new Map(mapModel, null);
 
             await SceneSwitcher.AsyncSceneLoad("MapScene");
