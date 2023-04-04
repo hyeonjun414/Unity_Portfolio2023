@@ -15,6 +15,7 @@ namespace Manager
 
         public Stage CurStage;
         public User User;
+        public Map CurMap;
         
         private void Awake()
         {
@@ -27,16 +28,23 @@ namespace Manager
 
                 SceneSwitcher = new SceneSwitcher(new SceneSwitcherModel(), null);
                 
-                var userView = gameObject.AddComponent<UserView>();
-                User = new User(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
-                userView.Presenter = User;
-
-                CurStage = GenerateStage(MasterTable.MasterStages[0]);
             }
             else
             {
                 Destroy(gameObject);
             }
+        }
+
+        public async UniTask GameStart()
+        {
+            var userView = gameObject.AddComponent<UserView>();
+            User = new User(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
+            userView.Presenter = User;
+            
+            var mapModel = new MapModel();
+            CurMap = new Map(mapModel, null);
+
+            await SceneSwitcher.AsyncSceneLoad("MapScene");
         }
 
         public Stage GenerateStage(MasterStage ms)
