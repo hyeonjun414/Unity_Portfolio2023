@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using Random = UnityEngine.Random;
 
 namespace Model
@@ -32,5 +31,8 @@ namespace Model
 
             Maps = mapList;
         }
+
+        public int GetStep() => Maps.Count;
+        public int GetStepWidth(int step) => Maps[step].Count;
     }
 }
