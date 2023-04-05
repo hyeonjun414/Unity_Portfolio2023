@@ -23,13 +23,27 @@ namespace Model
                 for (var j = 0; j < width; j++)
                 {
                     var randomStage = stageList.OrderBy(t => Random.value).First();
-                    var stage = new StageModel(Util.ToObject<StageInfo>(randomStage.StageInfo), mt);
+                    var stage = GenerateStage(randomStage, mt);
                     stepStages.Add(stage);
                 }
                 mapList.Add(stepStages);
             }
 
             Maps = mapList;
+        }
+
+        public StageModel GenerateStage(MasterStage ms, MasterTable mt)
+        {
+            var stageInfo = Util.ToObject<StageInfo>(ms.StageInfo);
+            StageModel genStage = null;
+            switch (stageInfo.Type)
+            {
+                case nameof(BattleStageInfo):
+                    genStage = new BattleStageModel(stageInfo, mt);
+                    break;
+            }
+
+            return genStage;
         }
 
         public int GetStep() => Maps.Count;

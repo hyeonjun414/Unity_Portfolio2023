@@ -1,5 +1,8 @@
+using Manager;
 using Presenter;
+using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace View
 {
@@ -7,10 +10,15 @@ namespace View
     {
         public Stage Presenter;
 
-
+        public Button button;
         public void Init(Stage stage)
         {
             Presenter = stage;
+
+            button.onClick.AsObservable().Subscribe(async _ =>
+            {
+                await Presenter.LoadStage();
+            });
         }
     }
 }

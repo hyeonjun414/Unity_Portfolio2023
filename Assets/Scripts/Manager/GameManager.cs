@@ -62,9 +62,9 @@ namespace Manager
             return genStage;
         }
 
-        public async UniTask LoadStageScene(MasterStage ms)
+        public async UniTask LoadStageScene(Stage stage)
         {
-            CurStage = GenerateStage(ms);
+            CurStage = stage;
             await SceneSwitcher.AsyncSceneLoad("InGameScene");
         }
     }

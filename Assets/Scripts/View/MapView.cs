@@ -43,7 +43,7 @@ namespace View
                     var node = Instantiate(nodePrefab, nodePivot);
                     node.transform.localPosition += new Vector3(
                         (-totalWidth / 2) + (j + 0.5f) * 150f,
-                        (-totalHeight / 2) + i * 200f,
+                        (-totalHeight / 2) + i * 200f + 100f,
                         0);
                     node.Init(stages[i][j]);
                     stageStep.Add(node);

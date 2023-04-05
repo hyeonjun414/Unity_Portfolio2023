@@ -36,6 +36,11 @@ namespace Presenter
         {
             await UniTask.Yield();
         }
+
+        public virtual async UniTask LoadStage()
+        {
+            await GameManager.Instance.LoadStageScene(this);
+        }
     }
 
     public class BattleStage : Stage
@@ -235,7 +240,7 @@ namespace Presenter
             await bsView.MoveStage();
             door.View.Close();
             await UniTask.Delay(500);
-            await GameManager.Instance.LoadStageScene(door.GetStageData());
+            //await GameManager.Instance.LoadStageScene(door.GetStageData());
         }
 
         public void TargetEnemy(Enemy ep)
