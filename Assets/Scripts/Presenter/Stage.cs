@@ -36,11 +36,6 @@ namespace Presenter
         {
             await UniTask.Yield();
         }
-
-        public virtual async UniTask LoadStage()
-        {
-            await GameManager.Instance.LoadStageScene(this);
-        }
     }
 
     public class BattleStage : Stage

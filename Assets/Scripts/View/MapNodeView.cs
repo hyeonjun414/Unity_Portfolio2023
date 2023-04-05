@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class StageNodeView : MonoBehaviour
+    public class MapNodeView : MonoBehaviour
     {
-        public Stage Presenter;
+        public MapNode Presenter;
 
         public Button button;
-        public void Init(Stage stage)
+        public void Init(MapNode mapNode)
         {
-            Presenter = stage;
+            Presenter = mapNode;
+            Presenter.View = this;
 
             button.onClick.AsObservable().Subscribe(async _ =>
             {

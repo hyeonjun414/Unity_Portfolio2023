@@ -48,9 +48,8 @@ namespace Manager
             await SceneSwitcher.AsyncSceneLoad("MapScene");
         }
 
-        public Stage GenerateStage(MasterStage ms)
+        public Stage GenerateStage(StageInfo stageInfo)
         {
-            var stageInfo = Util.ToObject<StageInfo>(ms.StageInfo);
             Stage genStage = null;
             switch (stageInfo.Type)
             {
@@ -62,9 +61,9 @@ namespace Manager
             return genStage;
         }
 
-        public async UniTask LoadStageScene(Stage stage)
+        public async UniTask LoadStageScene(MapNode mapNode)
         {
-            CurStage = stage;
+            CurStage = GenerateStage(mapNode.Model.StageData);
             await SceneSwitcher.AsyncSceneLoad("InGameScene");
         }
     }

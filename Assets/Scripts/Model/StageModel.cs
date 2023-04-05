@@ -6,8 +6,16 @@ namespace Model
 {
     public class StageModel
     {
+        public List<StageModel> NextStages;
+        
         public StageModel(StageInfo stageInfo, MasterTable mt)
         {
+            NextStages = new List<StageModel>();
+        }
+
+        public void AddNextStage(StageModel stage)
+        {
+            NextStages.Add(stage);
         }
     }
 

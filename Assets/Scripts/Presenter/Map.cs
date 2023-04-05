@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Model;
 using Sirenix.Serialization;
 using View;
@@ -12,7 +13,7 @@ namespace Presenter
         public MapView View;
 
 
-        public List<List<Stage>> Stages;
+        public List<List<MapNode>> MapNodes;
         public Map(MapModel model, MapView view)
         {
             Model = model;
@@ -21,31 +22,40 @@ namespace Presenter
 
         public void Init()
         {
-            var stages = Model.Maps;
-            var stagePresenters = new List<List<Stage>>();
+            var stages = Model.MapNodes;
+            var stagePresenters = new List<List<MapNode>>();
             for (var i = 0; i < stages.Count; i++)
             {
-                var stageStep = new List<Stage>();
+                var stageStep = new List<MapNode>();
                 for (var j = 0; j < stages[i].Count; j++)
                 {
-                    Stage stageNode = null;
-                    switch (stages[i][j].GetType())
-                    {
-                        case Type t when t == typeof(BattleStageModel):
-                            stageNode = new BattleStage(stages[i][j], null);
-                            break;
-                        default:
-                            stageNode = stageNode = new Stage(stages[i][j], null);
-                            break;
-                    }
-                    stageStep.Add(stageNode);
+                    var curMapNode = stages[i][j];
+
+                    stageStep.Add(curMapNode == null ? null : new MapNode(curMapNode, null));
                 }
                 stagePresenters.Add(stageStep);
             }
 
-            Stages = stagePresenters;
+            MapNodes = stagePresenters;
 
-            View.GenerateStageNodes(Stages);
+            View.GenerateStageNodes(MapNodes);
+
+            for (var i = 0; i < MapNodes.Count-1; i++)
+            {
+                for (var j = 0; j < MapNodes[i].Count; j++)
+                {
+                    var curNode = MapNodes[i][j];
+                    if (curNode == null) continue;
+                    foreach (var nextNode in curNode.Model.NextNodes)
+                    {
+                        var targetNode = MapNodes[i + 1].FirstOrDefault(target => target != null && target.Model == nextNode);
+                        if (targetNode == null) continue;
+                        
+                        View.GeneratePath(curNode.View, targetNode.View);
+                    }
+                }
+            }
+            
         }
     }
 }
