@@ -12,8 +12,11 @@ namespace Presenter
         public MapModel Model;
         public MapView View;
 
-
+        public MapNode StartNode;
+        public MapNode EndNode;
         public List<List<MapNode>> MapNodes;
+
+        public MapNode CurNode;
         public Map(MapModel model, MapView view)
         {
             Model = model;
@@ -24,6 +27,10 @@ namespace Presenter
         {
             var stages = Model.MapNodes;
             var stagePresenters = new List<List<MapNode>>();
+            StartNode = new MapNode(Model.StartNode, null);
+            EndNode = new MapNode(Model.EndNode, null);
+
+            CurNode = StartNode;
             for (var i = 0; i < stages.Count; i++)
             {
                 var stageStep = new List<MapNode>();
@@ -54,6 +61,14 @@ namespace Presenter
                         View.GeneratePath(curNode.View, targetNode.View);
                     }
                 }
+            }
+
+            foreach (var nextNode in CurNode.Model.NextNodes )
+            {
+                var targetNode = MapNodes[0].FirstOrDefault(target => target != null && target.Model == nextNode);
+                if (targetNode == null) continue;
+                
+                View.ActivateNextNodes(targetNode.View);
             }
             
         }

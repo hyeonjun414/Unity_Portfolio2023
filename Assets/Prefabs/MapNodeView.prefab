@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 6602259297351105408}
   - component: {fileID: 6602259297351105409}
   m_Layer: 5
-  m_Name: StageNodeView
+  m_Name: MapNodeView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,4 +334,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14bb1a9f48d0be4998704921e4c9738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 6602259297065580745}
   button: {fileID: 1156474320926490822}

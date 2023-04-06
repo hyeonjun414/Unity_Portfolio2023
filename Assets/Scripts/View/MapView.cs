@@ -69,5 +69,10 @@ namespace View
             var path = Instantiate(pathPrefab, pathPivot);
             path.SetPath(start, end);
         }
+
+        public void ActivateNextNodes(MapNodeView targetNode)
+        {
+            targetNode.ActiveNode(true);
+        }
     }
 }

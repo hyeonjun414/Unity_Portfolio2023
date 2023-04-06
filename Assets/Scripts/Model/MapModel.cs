@@ -7,6 +7,8 @@ namespace Model
 {
     public class MapModel
     {
+        public MapNodeModel StartNode;
+        public MapNodeModel EndNode;
         public List<List<MapNodeModel>> MapNodes;
 
         public void GenerateMap(MasterMap mm, MasterTable mt)
@@ -14,6 +16,8 @@ namespace Model
             var step = mm.Step;
             var width = mm.Width;
 
+            StartNode = new MapNodeModel();
+            EndNode = new MapNodeModel();
             var mapList = new List<List<MapNodeModel>>();
             
             for (var i = 0; i < step; i++)
@@ -32,15 +36,16 @@ namespace Model
         public void ArrangeMap(MasterTable mt)
         {
             var stageList = mt.MasterStages;
-            
-            for (var i = 0; i < MapNodes[0].Count; i++)
+
+            var firstStepNodes = MapNodes.First();
+            for (var i = 0; i < firstStepNodes.Count; i++)
             {
-                MapNodes[0][i] = new MapNodeModel();
+                firstStepNodes[i] = new MapNodeModel();
                 var randomStage = stageList.OrderBy(t => Random.value).First();
-                MapNodes[0][i].StageData = Util.ToObject<StageInfo>(randomStage.StageInfo);
-                MapNodes[0][i].LinkCount++;
+                firstStepNodes[i].StageData = Util.ToObject<StageInfo>(randomStage.StageInfo);
+                StartNode.AddNextStage(firstStepNodes[i]);
             }
-            
+
             for (var i = 0; i < MapNodes.Count-1; i++)
             { 
                 for (var j = 0; j < MapNodes[i].Count; j++)
@@ -64,8 +69,13 @@ namespace Model
                         curNode.AddNextStage(nextNode);
                     }
                 }
-
             }
+
+            foreach (var node in MapNodes.Last())
+            {
+                node?.AddNextStage(EndNode);
+            }
+            
         }
 
         public StageModel GenerateStage(MasterStage ms, MasterTable mt)
