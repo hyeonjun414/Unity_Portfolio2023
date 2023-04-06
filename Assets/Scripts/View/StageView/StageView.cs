@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 namespace View.StageView
 {
     
-    public class StageView : MonoBehaviour
+    public class StageView : SceneView
     {
         public Stage Presenter;
 

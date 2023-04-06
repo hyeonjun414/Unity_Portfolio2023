@@ -221,7 +221,7 @@ namespace View.StageView
 
         public void GenerateReward(Reward reward)
         {
-            Instantiate(chestPrefab);
+            Instantiate(chestPrefab, transform);
             rewardView.Init(reward);
         }
     }

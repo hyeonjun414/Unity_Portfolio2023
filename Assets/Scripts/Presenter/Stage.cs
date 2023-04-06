@@ -36,6 +36,12 @@ namespace Presenter
         {
             await UniTask.Yield();
         }
+
+        public virtual async UniTask StageClear()
+        {
+            await UniTask.Yield();
+            await GameManager.Instance.LoadMapScene();
+        }
     }
 
     public class BattleStage : Stage
@@ -96,6 +102,8 @@ namespace Presenter
             {
                 IsAction = true;
                 await enemy.StatusEffectActivate();
+                if (enemy.Model.IsDead)
+                    await CheckEnemies();
                 IsAction = false;
             }
         }
@@ -235,7 +243,7 @@ namespace Presenter
             await bsView.MoveStage();
             door.View.Close();
             await UniTask.Delay(500);
-            //await GameManager.Instance.LoadStageScene(door.GetStageData());
+            await base.StageClear();
         }
 
         public void TargetEnemy(Enemy ep)

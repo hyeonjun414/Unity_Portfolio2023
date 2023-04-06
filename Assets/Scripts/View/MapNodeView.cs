@@ -20,7 +20,7 @@ namespace View
             button.interactable = false;
             button.onClick.AsObservable().Subscribe(async _ =>
             {
-                await Presenter.LoadStage();
+                await Presenter.SelectMapNode();
             });
         }
 

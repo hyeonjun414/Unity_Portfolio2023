@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace View
 {
-    public class MapView : MonoBehaviour
+    public class MapView : SceneView
     {
         public Map Presenter;
 

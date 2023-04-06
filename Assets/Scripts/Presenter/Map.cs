@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using Sirenix.Serialization;
 using View;
@@ -17,6 +20,7 @@ namespace Presenter
         public List<List<MapNode>> MapNodes;
 
         public MapNode CurNode;
+        public int CurStep;
         public Map(MapModel model, MapView view)
         {
             Model = model;
@@ -31,6 +35,7 @@ namespace Presenter
             EndNode = new MapNode(Model.EndNode, null);
 
             CurNode = StartNode;
+            CurStep = -1;
             for (var i = 0; i < stages.Count; i++)
             {
                 var stageStep = new List<MapNode>();
@@ -63,14 +68,25 @@ namespace Presenter
                 }
             }
 
-            foreach (var nextNode in CurNode.Model.NextNodes )
+            ActiveNextNodes();
+            
+        }
+
+        public void ActiveNextNodes()
+        {
+            foreach (var nextNode in CurNode.Model.NextNodes)
             {
-                var targetNode = MapNodes[0].FirstOrDefault(target => target != null && target.Model == nextNode);
+                var targetNode = MapNodes[CurStep+1].FirstOrDefault(target => target != null && target.Model == nextNode);
                 if (targetNode == null) continue;
-                
+
                 View.ActivateNextNodes(targetNode.View);
             }
-            
+        }
+        public async UniTask SelectNode(MapNode mapNode)
+        {
+            CurNode = mapNode;
+            CurStep = CurNode.Model.Step;
+            await GameManager.Instance.LoadStageScene(CurNode);
         }
     }
 }

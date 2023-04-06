@@ -16,8 +16,8 @@ namespace Model
             var step = mm.Step;
             var width = mm.Width;
 
-            StartNode = new MapNodeModel();
-            EndNode = new MapNodeModel();
+            StartNode = new MapNodeModel(-1);
+            EndNode = new MapNodeModel(step);
             var mapList = new List<List<MapNodeModel>>();
             
             for (var i = 0; i < step; i++)
@@ -40,7 +40,7 @@ namespace Model
             var firstStepNodes = MapNodes.First();
             for (var i = 0; i < firstStepNodes.Count; i++)
             {
-                firstStepNodes[i] = new MapNodeModel();
+                firstStepNodes[i] = new MapNodeModel(0);
                 var randomStage = stageList.OrderBy(t => Random.value).First();
                 firstStepNodes[i].StageData = Util.ToObject<StageInfo>(randomStage.StageInfo);
                 StartNode.AddNextStage(firstStepNodes[i]);
@@ -62,7 +62,7 @@ namespace Model
                         var randomStage = stageList.OrderBy(t => Random.value).First();
                         if (MapNodes[i + 1][moveIndex] == null)
                         {
-                            MapNodes[i + 1][moveIndex] = new MapNodeModel();
+                            MapNodes[i + 1][moveIndex] = new MapNodeModel(i+1);
                             MapNodes[i + 1][moveIndex].StageData = Util.ToObject<StageInfo>(randomStage.StageInfo);
                         }
                         var nextNode = MapNodes[i + 1][moveIndex];

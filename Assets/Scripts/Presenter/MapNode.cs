@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
@@ -17,9 +18,9 @@ namespace Presenter
             View = view;
         }
 
-        public virtual async UniTask LoadStage()
+        public async UniTask SelectMapNode()
         {
-            await GameManager.Instance.LoadStageScene(this);
+            await GameManager.Instance.CurMap.SelectNode(this);
         }
     }
 }

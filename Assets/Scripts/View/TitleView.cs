@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class TitleView : MonoBehaviour
+    public class TitleView : SceneView
     {
         public Button GameStartBtn;
 

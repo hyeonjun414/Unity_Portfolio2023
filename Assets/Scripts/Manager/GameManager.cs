@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Model;
 using Newtonsoft.Json;
@@ -9,9 +11,9 @@ namespace Manager
 {
     public static class SceneType
     {
-        public const string Title = "TitleScene";
-        public const string Map = "MapScene";
-        public const string Stage = "InGameScene";
+        public const string Title = "TitleView";
+        public const string Map = "MapView";
+        public const string BattleStage = "BattleStageView";
     }
     public class GameManager : MonoBehaviour
     {
@@ -22,6 +24,8 @@ namespace Manager
         public Stage CurStage;
         public User User;
         public Map CurMap;
+        public List<SceneView> scenePrefabs;
+        public SceneView curScene;
         
         private void Awake()
         {
@@ -33,7 +37,8 @@ namespace Manager
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
                 SceneSwitcher = new SceneSwitcher(new SceneSwitcherModel(), null);
-                
+
+                CreateScene(SceneType.Title);
             }
             else
             {
@@ -51,7 +56,27 @@ namespace Manager
             mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
             CurMap = new Map(mapModel, null);
 
-            await SceneSwitcher.AsyncSceneLoad(SceneType.Map);
+            CreateScene(SceneType.Map);
+            //await LoadScene(SceneType.Map);
+        }
+
+        public void CreateScene(string sceneType)
+        {
+            var titlePrefab = scenePrefabs.First(t => t.name == sceneType);
+            var newScene = Instantiate(titlePrefab);
+            newScene.SetParent(curScene);
+            curScene = newScene;
+        }
+
+        public void DestroyCurScene()
+        {
+            var destroyScene = curScene;
+            curScene = destroyScene.Parent;
+            Destroy(destroyScene.gameObject);
+            if (curScene != null)
+            {
+                curScene.gameObject.SetActive(true);
+            }
         }
 
         public Stage GenerateStage(StageInfo stageInfo)
@@ -67,10 +92,24 @@ namespace Manager
             return genStage;
         }
 
+        public async UniTask LoadMapScene()
+        {
+            DestroyCurScene();
+            await LoadScene(SceneType.Map);
+            CurMap.ActiveNextNodes();
+            
+        }
         public async UniTask LoadStageScene(MapNode mapNode)
         {
             CurStage = GenerateStage(mapNode.Model.StageData);
-            await SceneSwitcher.AsyncSceneLoad(SceneType.Stage);
+            CreateScene(SceneType.BattleStage);
+            //await LoadScene(SceneType.Stage);
+        }
+
+        public async UniTask LoadScene(string sceneType)
+        {
+            
+            //await SceneSwitcher.AsyncSceneLoad(sceneType);
         }
     }
 }
