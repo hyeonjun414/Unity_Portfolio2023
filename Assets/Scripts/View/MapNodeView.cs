@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Presenter;
 using UniRx;
@@ -12,10 +14,14 @@ namespace View
 
         public Image icon;
         public Button button;
+        public List<Sprite> iconSprites;
         public void Init(MapNode mapNode)
         {
             Presenter = mapNode;
             Presenter.View = this;
+
+            var iconImage = iconSprites.FirstOrDefault(t => t.name == mapNode.GetIconName());
+            icon.sprite = iconImage;
             icon.color = Color.black;
             button.interactable = false;
             button.onClick.AsObservable().Subscribe(async _ =>

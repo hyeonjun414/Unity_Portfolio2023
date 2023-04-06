@@ -204,6 +204,7 @@
       "Name"     : "Normal1",
       "StageInfo": {
         "Type"   : "BattleStageInfo",
+        "Icon"   : "Stage_Battle",
         "Enemies": [
           "Bald Pirate",
           "Cucumber",
@@ -216,6 +217,7 @@
       "Name"     : "Normal2",
       "StageInfo": {
         "Type"   : "BattleStageInfo",
+        "Icon"   : "Stage_Battle",
         "Enemies": [
           "Bald Pirate",
           "Cucumber",
@@ -228,6 +230,7 @@
       "Name"     : "Normal3",
       "StageInfo": {
         "Type"   : "BattleStageInfo",
+        "Icon"   : "Stage_Battle",
         "Enemies": [
           "Bald Pirate",
           "Cucumber",
@@ -238,8 +241,8 @@
   ],
   "MasterMaps"   : [
     {
-      "Id"   : "Normal1",
-      "Name" : "Normal1",
+      "Id"   : "Small",
+      "Name" : "Small",
       "Step" : 10,
       "Width": 4
     }

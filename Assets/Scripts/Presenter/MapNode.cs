@@ -22,5 +22,8 @@ namespace Presenter
         {
             await GameManager.Instance.CurMap.SelectNode(this);
         }
+
+        public string GetIconName() => Model.StageData.Icon;
+        
     }
 }
