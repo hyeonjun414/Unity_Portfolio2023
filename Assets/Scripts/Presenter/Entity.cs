@@ -111,6 +111,8 @@ namespace Presenter
 
     public class Enemy : Entity
     {
+        public EnemyModel eModel => Model as EnemyModel;
+        public EnemyView eView => View as EnemyView;
         public Enemy(EnemyModel model, EntityView view) : base(model, view)
         {
             Debug.Log("Enemy Gen");
@@ -138,39 +140,29 @@ namespace Presenter
 
         public void SetAction()
         {
-            if (Model is EnemyModel em)
-            {
-                em.SetAction();
-                ((EnemyView)View).SetActionView(em.GetCurAction());
-            }
+            eModel.SetAction();
+            eView.SetActionView(eModel.GetCurAction());
         }
 
         public async UniTask ExecuteAction(Hero hero)
         {
-            if (Model is EnemyModel em)
-            {
-
-                var curAct = em.GetCurAction();
-                UseActionCount(curAct.Cost);
-                await curAct.Activate(this, hero);
-                SetAction();
-            }
+            var curAct = eModel.GetCurAction();
+            UseActionCount(curAct.Cost);
+            await curAct.Activate(this, hero);
+            SetAction();
         }
 
 
         public bool IsActExecutable()
         {
-            if (Model is EnemyModel em)
-            {
-                return em.ActionCount >= em.GetCurAction().Cost;
-            }
-
-            return false;
+            return eModel.ActionCount >= eModel.GetCurAction().Cost;
         }
     }
 
     public class Hero : Entity
     {
+        public HeroModel hModel => Model as HeroModel;
+        public HeroView hView => View as HeroView;
         public Hero(HeroModel model, EntityView view) : base(model, view)
         {
         }
