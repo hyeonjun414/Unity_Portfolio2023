@@ -69,13 +69,17 @@ namespace Presenter
             base.Init();
             
             user.UserHero.View = bsView.CreateHeroView(gm.User.GetHeroModel());
-            var enemyModels = ((BattleStageModel)Model).GetEnemies();
+            var enemyModels = bsModel.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
             {
-                var enemyView = bsView.CreateEnemyView(index);
-                var enemyPresenter = new Enemy(enemyModels[index], enemyView);
-                enemyPresenter.Init();
+                var enemyPresenter = new Enemy(enemyModels[index], null);
                 Enemies.Add(enemyPresenter);
+            }
+
+            bsView.SetEnemyViews(Enemies);
+            foreach (var enemy in Enemies)
+            {
+                enemy.Init();
             }
 
             var userCardData = gm.User.GetCards();

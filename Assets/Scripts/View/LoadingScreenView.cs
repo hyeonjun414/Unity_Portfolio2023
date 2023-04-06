@@ -8,19 +8,9 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class SceneSwitcherView : MonoBehaviour
+    public class LoadingScreenView : MonoBehaviour
     {
         [SerializeField] private Image loadingScreen;
-        public SceneSwitcher Presenter;
-
-        private void Start()
-        {
-            if (Presenter == null)
-            {
-                Presenter = GameManager.Instance.SceneSwitcher;
-                Presenter.View = this;
-            }
-        }
 
         public async UniTask FadeOut()
         {

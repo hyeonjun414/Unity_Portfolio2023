@@ -73,14 +73,6 @@ namespace View.StageView
 
             return HeroView;
         }
-        
-        public EnemyView CreateEnemyView(int index)
-        {
-            var inst = Instantiate(enemyPrefab, enemyPosList[index]);
-            EnemyViews.Add(inst);
-            return inst;
-        }
-
         public EntityView GetHeroView()
         {
             return HeroView;
@@ -223,6 +215,18 @@ namespace View.StageView
         {
             Instantiate(chestPrefab, transform);
             rewardView.Init(reward);
+        }
+
+        public void SetEnemyViews(List<Enemy> enemies)
+        {
+            for (var i = 0; i < enemies.Count; i++)
+            {
+                var inst = Instantiate(enemyPrefab, enemyPosList[i]);
+                enemies[i].View = inst;
+                inst.Presenter = enemies[i];
+                EnemyViews.Add(inst);
+                
+            }
         }
     }
 }

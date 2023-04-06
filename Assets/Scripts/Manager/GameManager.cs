@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -18,7 +19,6 @@ namespace Manager
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-        public SceneSwitcher SceneSwitcher;
         public MasterTable MasterTable;
 
         public Stage CurStage;
@@ -26,6 +26,7 @@ namespace Manager
         public Map CurMap;
         public List<SceneView> scenePrefabs;
         public SceneView curScene;
+        public LoadingScreenView loadingScreen;
         
         private void Awake()
         {
@@ -35,8 +36,6 @@ namespace Manager
                 DontDestroyOnLoad(gameObject);
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
-
-                SceneSwitcher = new SceneSwitcher(new SceneSwitcherModel(), null);
 
                 CreateScene(SceneType.Title);
             }
@@ -56,20 +55,24 @@ namespace Manager
             mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
             CurMap = new Map(mapModel, null);
 
-            CreateScene(SceneType.Map);
+            await CreateScene(SceneType.Map);
             //await LoadScene(SceneType.Map);
         }
 
-        public void CreateScene(string sceneType)
+        public async UniTask CreateScene(string sceneType)
         {
+            await loadingScreen.FadeOut();
             var titlePrefab = scenePrefabs.First(t => t.name == sceneType);
             var newScene = Instantiate(titlePrefab);
             newScene.SetParent(curScene);
             curScene = newScene;
+            await loadingScreen.FadeIn();
+            
         }
 
-        public void DestroyCurScene()
+        public async UniTask DestroyCurScene()
         {
+            await loadingScreen.FadeOut();
             var destroyScene = curScene;
             curScene = destroyScene.Parent;
             Destroy(destroyScene.gameObject);
@@ -77,6 +80,8 @@ namespace Manager
             {
                 curScene.gameObject.SetActive(true);
             }
+
+            await loadingScreen.FadeIn();
         }
 
         public Stage GenerateStage(StageInfo stageInfo)
@@ -94,22 +99,15 @@ namespace Manager
 
         public async UniTask LoadMapScene()
         {
-            DestroyCurScene();
-            await LoadScene(SceneType.Map);
+            await DestroyCurScene();
             CurMap.ActiveNextNodes();
             
         }
         public async UniTask LoadStageScene(MapNode mapNode)
         {
             CurStage = GenerateStage(mapNode.Model.StageData);
-            CreateScene(SceneType.BattleStage);
+            await CreateScene(SceneType.BattleStage);
             //await LoadScene(SceneType.Stage);
-        }
-
-        public async UniTask LoadScene(string sceneType)
-        {
-            
-            //await SceneSwitcher.AsyncSceneLoad(sceneType);
         }
     }
 }

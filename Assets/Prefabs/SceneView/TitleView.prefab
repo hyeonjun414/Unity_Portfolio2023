@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2625732b2cc1e48a8a762d36dada8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  Child: {fileID: 0}
   GameStartBtn: {fileID: 7678261100654601835}
 --- !u!1 &7678261100654601833
 GameObject:
@@ -328,7 +330,6 @@ GameObject:
   - component: {fileID: 7678261100654601837}
   - component: {fileID: 7678261100654601834}
   - component: {fileID: 7678261100654601835}
-  - component: {fileID: 7678261100654601836}
   m_Layer: 5
   m_Name: Btn_Start
   m_TagString: Untagged
@@ -439,20 +440,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7678261100654601836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7678261100654601833}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e7cbdd68579d4a46a0dada3646dbb22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: InGameScene
-  button: {fileID: 7678261100654601835}
 --- !u!1 &7678261100803207328
 GameObject:
   m_ObjectHideFlags: 0
