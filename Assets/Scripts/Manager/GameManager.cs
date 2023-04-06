@@ -7,6 +7,12 @@ using View;
 
 namespace Manager
 {
+    public static class SceneType
+    {
+        public const string Title = "TitleScene";
+        public const string Map = "MapScene";
+        public const string Stage = "InGameScene";
+    }
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
@@ -45,7 +51,7 @@ namespace Manager
             mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
             CurMap = new Map(mapModel, null);
 
-            await SceneSwitcher.AsyncSceneLoad("MapScene");
+            await SceneSwitcher.AsyncSceneLoad(SceneType.Map);
         }
 
         public Stage GenerateStage(StageInfo stageInfo)
@@ -64,7 +70,7 @@ namespace Manager
         public async UniTask LoadStageScene(MapNode mapNode)
         {
             CurStage = GenerateStage(mapNode.Model.StageData);
-            await SceneSwitcher.AsyncSceneLoad("InGameScene");
+            await SceneSwitcher.AsyncSceneLoad(SceneType.Stage);
         }
     }
 }
