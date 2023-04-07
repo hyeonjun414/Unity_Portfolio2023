@@ -42,6 +42,8 @@ namespace Presenter
             await UniTask.Yield();
             await GameManager.Instance.LoadMapScene();
         }
+
+        
     }
 
     public class BattleStage : Stage
@@ -69,6 +71,8 @@ namespace Presenter
             base.Init();
             
             user.UserHero.View = bsView.CreateHeroView(gm.User.GetHeroModel());
+            user.SetEnergy();
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             var enemyModels = bsModel.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
             {
@@ -88,6 +92,7 @@ namespace Presenter
                 Deck.Add(new BattleCard(cardData, null));
             }
             bsView.SetUserCards(Deck);
+            DrawCard(user.GetDrawCount());
         }
 
         public override async UniTask Update()
@@ -163,31 +168,35 @@ namespace Presenter
             return Enemies.Where(enemy => !enemy.Model.IsDead).ToList();
         }
 
-        private async UniTask UserActionReady()
+        public async UniTask DrawCard(int drawCount)
         {
-            IsAction = true;
-            await DrawCard();
-
-        }
-
-        public async UniTask DrawCard()
-        {
-            if (user.UserHero.CanDrawCard())
+            if (Deck.Count == 0)
             {
-                user.UserHero.UseActionCount(1);
-                var drawCount = user.GetDrawCount();
-                if (Deck.Count == 0)
-                {
-                    await GraveToDeck();
-                }
-
-                while (drawCount > 0 && Deck.Count > 0)
-                {
-                    await DeckToHand(Deck[0]);
-                    await UniTask.Delay(200);
-                    drawCount--;
-                }
+                await GraveToDeck();
             }
+            
+            while (drawCount > 0 && Deck.Count > 0)
+            {
+                await DeckToHand(Deck[0]);
+                await UniTask.Delay(200);
+                drawCount--;
+            }
+            // if (user.UserHero.CanDrawCard())
+            // {
+            //     user.UserHero.UseActionCount(1);
+            //     var drawCount = user.GetDrawCount();
+            //     if (Deck.Count == 0)
+            //     {
+            //         await GraveToDeck();
+            //     }
+            //
+            //     while (drawCount > 0 && Deck.Count > 0)
+            //     {
+            //         await DeckToHand(Deck[0]);
+            //         await UniTask.Delay(200);
+            //         drawCount--;
+            //     }
+            // }
             
         }
 
@@ -213,12 +222,14 @@ namespace Presenter
         }
 
 
-        private async UniTask CardAttack(Enemy enemy)
+        private async UniTask UseCard(Enemy enemy)
         {
             IsAction = true;
-            if (user.UserHero.GetActionCount() >= _selectedCard.GetCost())
+            if (user.CurEnergy >= _selectedCard.GetCost())
             {
                 UnTargetEnemy(enemy);
+                user.UseEnergy(_selectedCard.GetCost());
+                bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
                 await user.UseCard(_selectedCard, enemy);
                 if (enemy.Model.IsDead)
                 {
@@ -283,7 +294,7 @@ namespace Presenter
             {
                 if (_curTarget != null && !IsAction && user.CanUseThisCard(_selectedCard))
                 {
-                    CardAttack(_curTarget);
+                    UseCard(_curTarget);
                 }
                 else
                 {
@@ -330,6 +341,25 @@ namespace Presenter
         private async UniTask OpenRewardPanel()
         {
             bsView.OpenRewardPanel();
+        }
+
+        public async UniTask TurnEnd()
+        {
+            foreach (var enemy in GetAliveEnemies())
+            {
+                await enemy.StatusEffectActivate();
+                if (enemy.Model.IsDead)
+                    await CheckEnemies();
+                else
+                {
+                    await enemy.ExecuteAction(user.UserHero);
+                }
+            }
+
+            foreach (var enemy in GetAliveEnemies())
+            {
+                enemy.SetAction();
+            }
         }
     }
 }

@@ -5,14 +5,19 @@ using DG.Tweening;
 using Manager;
 using Model;
 using Presenter;
+using TMPro;
+using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace View.StageView
 {
     public class BattleStageView : StageView
     {
         private BattleStage bsPresenter => Presenter as BattleStage;
-        
+
+
+        public TextMeshProUGUI energyText;
         public EntityView entityView;
         public DoorView doorPrefab;
         public CardView cardPrefab;
@@ -31,6 +36,8 @@ namespace View.StageView
         public GameObject indicator;
         public FloatingTextView floatingText;
         public RewardView rewardView;
+
+        public Button turnEndButton; 
         
         
         private EntityView HeroView;
@@ -46,13 +53,18 @@ namespace View.StageView
             Presenter = GameManager.Instance.CurStage;
             Presenter.View = this;
             Presenter.Init();
+
+            turnEndButton.onClick.AsObservable().Subscribe(async _ =>
+            {
+                await bsPresenter.TurnEnd();
+            });
         }
 
         private async void Update()
         {
-            if (_isBattleEnd) return;
-            
-            await Presenter.Update();
+            // if (_isBattleEnd) return;
+            //
+            // await Presenter.Update();
         }
 
         public async UniTask BattleEnd()
@@ -227,6 +239,11 @@ namespace View.StageView
                 EnemyViews.Add(inst);
                 
             }
+        }
+
+        public void SetEnergyText(int userCurEnergy, int userMaxEnergy)
+        {
+            energyText.SetText($"{userCurEnergy} / {userMaxEnergy}");
         }
     }
 }

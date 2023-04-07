@@ -35,11 +35,11 @@ namespace Model
         }
     }
 
-    // public class CfDefence : CardFunc
-    // {
-    //     public override async UniTask Activate(Entity entity)
-    //     {
-    //         return 
-    //     }
-    // }
+    public class CfDefence : CardFunc
+    {
+        // public override async UniTask Activate(Entity entity)
+        // {
+        //     return 
+        // }
+    }
 }

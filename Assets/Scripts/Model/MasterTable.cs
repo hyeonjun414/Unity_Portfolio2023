@@ -20,6 +20,7 @@ namespace Model
         public string Name;
         public string Desc;
         public string Hero;
+        public int Energy;
         public int DrawCardCount;
         public List<string> Cards;
     }

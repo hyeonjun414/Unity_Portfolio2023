@@ -46,9 +46,14 @@ namespace Presenter
             return Model.DrawCardCount;
         }
 
+        public void UseEnergy(int cost)
+        {
+            Model.CurEnergy -= cost;
+        }
         public async UniTask UseCard(BattleCard card, Enemy target) {
             var position = target.View.transform.position;
-            UserHero.UseActionCount(card.GetCost());
+            //UserHero.UseActionCount(card.GetCost());
+            //Model.CurEnergy -= card.GetCost();
             await UserHero.PrepareAttack(position);
             await UserHero.PlayAttack();
             await card.CardActivate(target);
@@ -57,7 +62,7 @@ namespace Presenter
 
         public bool CanUseThisCard(BattleCard selectedCard)
         {
-            return UserHero.GetActionCount() >= selectedCard.GetCost();
+            return CurEnergy >= selectedCard.GetCost();
         }
 
         public void AddCard(Card card)
@@ -65,5 +70,13 @@ namespace Presenter
             Model.Cards.Add(card.Model);
             Cards.Add(card);
         }
+
+        public void SetEnergy()
+        {
+            Model.CurEnergy = Model.MaxEnergy;
+        }
+
+        public int CurEnergy => Model.CurEnergy;
+        public int MaxEnergy => Model.MaxEnergy;
     }
 }

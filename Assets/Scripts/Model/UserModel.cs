@@ -8,6 +8,8 @@ namespace Model
     {
         public HeroModel Hero;
         public List<CardModel> Cards = new();
+        public int MaxEnergy;
+        public int CurEnergy;
 
         public int DrawCardCount;
 
@@ -16,6 +18,7 @@ namespace Model
             var hero = mt.MasterHeroes.First(target => target.Name == mu.Hero);
             Hero = new HeroModel(hero);
 
+            MaxEnergy = mu.Energy;
             DrawCardCount = mu.DrawCardCount;
             
             foreach (var cardId in mu.Cards)

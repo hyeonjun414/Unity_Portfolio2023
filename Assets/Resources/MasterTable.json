@@ -145,10 +145,76 @@
     {
       "Id"      : "폭탄 투하",
       "Name"    : "폭탄 투하",
-      "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
+      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다.",
       "Image"   : "Explosion",
       "Effect"  : "Explosion",
       "Cost"    : 1,
+      "Function": [
+        {
+          "Type"  : "CfBomb",
+          "Damage": 3
+        }
+      ]
+    },
+    {
+      "Id"      : "폭탄 투하",
+      "Name"    : "폭탄 투하",
+      "Desc"    : "적에게 <color=red>6</color>의 피해를 줍니다.",
+      "Image"   : "Explosion",
+      "Effect"  : "Explosion",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"  : "CfBomb",
+          "Damage": 6
+        }
+      ]
+    },
+    {
+      "Id"      : "폭탄 투하",
+      "Name"    : "폭탄 투하",
+      "Desc"    : "적에게 <color=red>9</color>의 피해를 줍니다. 화상 피해를 한턴",
+      "Image"   : "Explosion",
+      "Effect"  : "Explosion",
+      "Cost"    : 3,
+      "Function": [
+        {
+          "Type"  : "CfBomb",
+          "Damage": 6
+        },
+        {
+          "Type"        : "CfStatusEffect",
+          "StatusEffect": {
+            "Type"    : "SE_Burn",
+            "Turn"    : 1,
+            "Icon"    : "SeIcon_Burn",
+            "Damage"  : 5,
+            "Particle": "Burn"
+          }
+        }
+      ]
+    },
+    {
+      "Id"      : "폭탄 투하",
+      "Name"    : "폭탄 투하",
+      "Desc"    : "적에게 <color=red>12</color>의 피해를 줍니다.",
+      "Image"   : "Explosion",
+      "Effect"  : "Explosion",
+      "Cost"    : 4,
+      "Function": [
+        {
+          "Type"  : "CfBomb",
+          "Damage": 12
+        }
+      ]
+    },
+    {
+      "Id"      : "폭탄 투하",
+      "Name"    : "폭탄 투하",
+      "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
+      "Image"   : "Explosion",
+      "Effect"  : "Explosion",
+      "Cost"    : 5,
       "Function": [
         {
           "Type"  : "CfBomb",
@@ -184,7 +250,8 @@
       "Name"         : "Char1",
       "Desc"         : "Normal",
       "Hero"         : "Hero",
-      "DrawCardCount": 2,
+      "DrawCardCount": 5,
+      "Energy"       : 5,
       "Cards"        : [
         "폭탄 투하",
         "폭탄 투하",

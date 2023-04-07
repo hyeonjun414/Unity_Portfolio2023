@@ -147,9 +147,9 @@ namespace Presenter
         public async UniTask ExecuteAction(Hero hero)
         {
             var curAct = eModel.GetCurAction();
-            UseActionCount(curAct.Cost);
+            //UseActionCount(curAct.Cost);
             await curAct.Activate(this, hero);
-            SetAction();
+            //SetAction();
         }
 
 
