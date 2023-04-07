@@ -54,7 +54,6 @@ namespace Presenter
         private Enemy _curTarget;
         private BattleCard _selectedCard;
         private Reward _reward;
-        public bool IsAction;
         public List<Enemy> Enemies = new();
         public List<BattleCard> Hand = new();
         public List<BattleCard> Deck = new();
@@ -94,26 +93,15 @@ namespace Presenter
             bsView.SetUserCards(Deck);
             DrawCard(user.GetDrawCount());
         }
-
-        public override async UniTask Update()
-        {
-            if (IsAction) return;
-
-            await UpdateActionGaugePhase();
-            await StatusEffectPhase();
-            await ActionPhase();
-        }
-
+        
         private async UniTask StatusEffectPhase()
         {
             await user.UserHero.StatusEffectActivate();
             foreach (var enemy in GetAliveEnemies())
             {
-                IsAction = true;
                 await enemy.StatusEffectActivate();
                 if (enemy.Model.IsDead)
                     await CheckEnemies();
-                IsAction = false;
             }
         }
 
@@ -154,12 +142,7 @@ namespace Presenter
         {
             foreach (var enemy in GetAliveEnemies())
             {
-                if (enemy.IsActExecutable())
-                {
-                    IsAction = true;
-                    await enemy.ExecuteAction(user.UserHero);
-                    IsAction = false;
-                }
+                await enemy.ExecuteAction(user.UserHero);
             }
         }
 
@@ -224,7 +207,6 @@ namespace Presenter
 
         private async UniTask UseCard(Enemy enemy)
         {
-            IsAction = true;
             if (user.CurEnergy >= _selectedCard.GetCost())
             {
                 UnTargetEnemy(enemy);
@@ -238,16 +220,6 @@ namespace Presenter
 
                 await HandToGrave(_selectedCard);
             }
-            
-            IsAction = false;
-        }
-
-        private async UniTask UpdateActionGaugePhase()
-        {
-            await user.UserHero.AddActionGauge();
-
-            foreach (var enemy in GetAliveEnemies())
-                await enemy.AddActionGauge();
         }
 
         public async UniTask MoveStage(Door door)
@@ -263,8 +235,6 @@ namespace Presenter
 
         public void TargetEnemy(Enemy ep)
         {
-            if (IsAction) return;
-            
             _curTarget = ep;
             bsView.SetTargetIndicator(ep);
             
@@ -282,8 +252,6 @@ namespace Presenter
 
         public void SelectCard(BattleCard card)
         {
-            if (IsAction) return;
-            
             _selectedCard = card;
             card.Selected();
         }
@@ -292,7 +260,7 @@ namespace Presenter
         {
             if (_selectedCard == card)
             {
-                if (_curTarget != null && !IsAction && user.CanUseThisCard(_selectedCard))
+                if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
                 {
                     UseCard(_curTarget);
                 }

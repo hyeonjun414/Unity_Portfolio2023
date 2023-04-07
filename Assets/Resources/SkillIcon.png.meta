@@ -1440,7 +1440,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkillIcon_63
+      name: Icon_Attack
       rect:
         serializedVersion: 2
         x: 480
@@ -2910,7 +2910,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkillIcon_133
+      name: Icon_Wait
       rect:
         serializedVersion: 2
         x: 480
@@ -6093,7 +6093,6 @@ TextureImporter:
     nameFileIdTable:
       SkillIcon_237: 668376832
       SkillIcon_1: -35726405
-      SkillIcon_63: -1250418495
       SkillIcon_113: -2035222342
       SkillIcon_96: -1754281079
       SkillIcon_81: -1184075923
@@ -6102,6 +6101,7 @@ TextureImporter:
       SkillIcon_241: -104060733
       SkillIcon_48: 2030999574
       SkillIcon_186: -859584011
+      Icon_Attack: -1250418495
       SkillIcon_138: -603218038
       SkillIcon_2: 1833433737
       SkillIcon_250: -700604638
@@ -6308,7 +6308,6 @@ TextureImporter:
       SkillIcon_233: -1786328175
       SkillIcon_30: -514445407
       SkillIcon_6: 1129197515
-      SkillIcon_133: 1370682379
       SkillIcon_151: 1575497767
       SkillIcon_149: -551834889
       SkillIcon_205: -949941229
@@ -6340,6 +6339,7 @@ TextureImporter:
       SkillIcon_276: -2122135940
       SkillIcon_79: -1557849176
       SkillIcon_84: -582071370
+      Icon_Wait: 1370682379
       SkillIcon_224: -399908989
       SkillIcon_73: -814530103
       SkillIcon_115: -636961896

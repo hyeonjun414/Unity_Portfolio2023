@@ -54,10 +54,10 @@ namespace Presenter
             var position = target.View.transform.position;
             //UserHero.UseActionCount(card.GetCost());
             //Model.CurEnergy -= card.GetCost();
-            await UserHero.PrepareAttack(position);
+            //await UserHero.PrepareAttack(position);
             await UserHero.PlayAttack();
             await card.CardActivate(target);
-            await UserHero.EndAttack();
+            //await UserHero.EndAttack();
         }
 
         public bool CanUseThisCard(BattleCard selectedCard)

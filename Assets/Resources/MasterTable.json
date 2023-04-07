@@ -1,142 +1,107 @@
 {
   "MasterEnemies": [
     {
-      "Id"            : "Bald Pirate",
-      "Name"          : "Bald Pirate",
-      "Desc"          : "Bald Pirate",
-      "Hp"            : 30,
-      "Damage"        : 5,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 1,
-      "Actions"       : [
+      "Id"     : "Bald Pirate",
+      "Name"   : "Bald Pirate",
+      "Desc"   : "Bald Pirate",
+      "Hp"     : 30,
+      "Damage" : 5,
+      "Actions": [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 2,
-          "Damage": 5,
-          "Icon"  : "Attack1"
-        },
-        {
-          "Type": "EaWait",
-          "Cost": 2,
-          "Icon": "Wait"
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 4,
-          "Damage": 20,
-          "Icon"  : "Attack2"
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     },
     {
-      "Id"            : "Cucumber",
-      "Name"          : "Cucumber",
-      "Desc"          : "Cucumber",
-      "Hp"            : 15,
-      "Damage"        : 3,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 1,
-      "Actions"       : [
+      "Id"     : "Cucumber",
+      "Name"   : "Cucumber",
+      "Desc"   : "Cucumber",
+      "Hp"     : 15,
+      "Damage" : 3,
+      "Actions": [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 2,
-          "Damage": 5,
-          "Icon"  : "Attack1"
-        },
-        {
-          "Type": "EaWait",
-          "Cost": 2,
-          "Icon": "Wait"
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 4,
-          "Damage": 20,
-          "Icon"  : "Attack2"
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     },
     {
-      "Id"            : "Big Guy",
-      "Name"          : "Big Guy",
-      "Desc"          : "Big Guy",
-      "Hp"            : 50,
-      "Damage"        : 10,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 1,
-      "Actions"       : [
+      "Id"     : "Big Guy",
+      "Name"   : "Big Guy",
+      "Desc"   : "Big Guy",
+      "Hp"     : 50,
+      "Damage" : 10,
+      "Actions": [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 2,
-          "Damage": 5,
-          "Icon"  : "Attack1"
-        },
-        {
-          "Type": "EaWait",
-          "Cost": 2,
-          "Icon": "Wait"
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 4,
-          "Damage": 20,
-          "Icon"  : "Attack2"
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     },
     {
-      "Id"            : "Captain",
-      "Name"          : "Captain",
-      "Desc"          : "Captain",
-      "Hp"            : 50,
-      "Damage"        : 10,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 1,
-      "Actions"       : [
+      "Id"     : "Captain",
+      "Name"   : "Captain",
+      "Desc"   : "Captain",
+      "Hp"     : 50,
+      "Damage" : 10,
+      "Actions": [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 2,
-          "Damage": 5,
-          "Icon"  : "Attack1"
-        },
-        {
-          "Type": "EaWait",
-          "Cost": 2,
-          "Icon": "Wait"
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 4,
-          "Damage": 20,
-          "Icon"  : "Attack2"
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     },
     {
-      "Id"            : "Whale",
-      "Name"          : "Whale",
-      "Desc"          : "Whale",
-      "Hp"            : 50,
-      "Damage"        : 10,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 1,
-      "Actions"       : [
+      "Id"     : "Whale",
+      "Name"   : "Whale",
+      "Desc"   : "Whale",
+      "Hp"     : 50,
+      "Damage" : 10,
+      "Actions": [
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 2,
-          "Damage": 5,
-          "Icon"  : "Attack1"
-        },
-        {
-          "Type": "EaWait",
-          "Cost": 2,
-          "Icon": "Wait"
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
           "Type"  : "EaNormalAttack",
-          "Cost"  : 4,
-          "Damage": 20,
-          "Icon"  : "Attack2"
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     }
@@ -235,13 +200,11 @@
   ],
   "MasterHeroes" : [
     {
-      "Id"            : "Hero",
-      "Name"          : "Hero",
-      "Desc"          : "Hero",
-      "Hp"            : 100,
-      "Damage"        : 10,
-      "MaxActionGauge": 5,
-      "ActionSpeed"   : 2
+      "Id"    : "Hero",
+      "Name"  : "Hero",
+      "Desc"  : "Hero",
+      "Hp"    : 100,
+      "Damage": 10
     }
   ],
   "MasterUsers"  : [

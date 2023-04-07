@@ -14,11 +14,9 @@ namespace View
 {
     public class EnemyView : EntityView, IPointerEnterHandler, IPointerExitHandler
     {
-        private float remainAttackAnimTime;
-        public Image actIcon;
-        public TextMeshProUGUI actCost;
-        public TextMeshProUGUI actValue;
+        public EnemyActionView actionView;
         
+        private float remainAttackAnimTime;
         public override void Init(EntityModel entity)
         {
             base.Init(entity);
@@ -39,19 +37,20 @@ namespace View
         public override async UniTask Dead()
         {
             await base.Dead();
-            actIcon.gameObject.SetActive(false);
+            actionView.gameObject.SetActive(false);
         }
 
         public void SetActionView(EnemyAction action)
         {
-            actIcon.sprite = Resources.Load<Sprite>($"ActionIcon/{action.Icon}");
-            actCost.text = action.Cost.ToString();
-            var value = action.GetValue();
-            actValue.gameObject.SetActive(value != 0);
-            actValue.SetText(value.ToString());
-            actIcon.transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 5, 0.2f);
-            actCost.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 0.2f);
-            actValue.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 0.2f);
+            actionView.SetView(action);
+            // actIcon.sprite = Resources.Load<Sprite>($"ActionIcon/{action.Icon}");
+            // actCost.text = action.Cost.ToString();
+            // var value = action.GetValue();
+            // actValue.gameObject.SetActive(value != 0);
+            // actValue.SetText(value.ToString());
+            // actIcon.transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 5, 0.2f);
+            // actCost.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 0.2f);
+            // actValue.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 0.2f);
 
         }
 

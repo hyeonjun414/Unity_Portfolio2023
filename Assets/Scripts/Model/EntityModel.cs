@@ -11,14 +11,9 @@ namespace Model
         public float MaxHp;
         public float CurHp;
         public float Damage;
-        public float MaxActionGauge;
-        public float CurActionGauge;
-        public float ActionSpeed;
-        public int ActionCount;
-        public bool IsActionReady;
         public bool IsDead;
 
-        
+        public List<StatusEffectModel> StatusEffects = new();
 
         public EntityModel(MasterEntity me)
         {
@@ -27,24 +22,6 @@ namespace Model
             Desc = me.Desc;
             MaxHp = CurHp = me.Hp;
             Damage = me.Damage;
-            MaxActionGauge = me.MaxActionGauge;
-            CurActionGauge = 0;
-            ActionSpeed = me.ActionSpeed;
-            ActionCount = 0;
-        }
-
-        public List<StatusEffectModel> StatusEffects = new();
-        public bool IsActionCountUp;
-
-        public void AddActionGauge()
-        {
-            CurActionGauge += ActionSpeed * Time.deltaTime;
-            if (CurActionGauge >= MaxActionGauge)
-            {
-                ActionCount++;
-                CurActionGauge = 0;
-                IsActionCountUp = true;
-            }
         }
         
         public void TakeDamage(float damage)
@@ -73,7 +50,7 @@ namespace Model
         public void SetAction()
         {
             _curAction = _actions[Random.Range(0, _actions.Count)];
-            _curAction.Init();
+            _curAction.Init(this);
         }
 
         public EnemyAction GetCurAction()

@@ -13,16 +13,7 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public interface IEntityView
-    {
-        void Init(EntityModel entity);
-        void UpdateHp(float curHp, float maxHp);
-
-        void UpdateActionGauge(float curActionPoint, float maxActionPoint, int actionCount);
-
-        Vector3 GetPosition();
-    }
-    public class EntityView : MonoBehaviour, IEntityView
+    public class EntityView : MonoBehaviour
     {
         protected const string STR_MOVE = "Move";
         protected const string STR_ATTACK = "Attack";
@@ -38,15 +29,12 @@ namespace View
         public SpriteRenderer sprite;
 
         public Canvas uiCanvas;
-        public Slider ActionGauge;
         public Slider HpGauge;
-        public TextMeshProUGUI ActionCountText;
         public TextMeshProUGUI HpText;
 
         public virtual void Init(EntityModel entity)
         {
             UpdateHp(entity.CurHp, entity.MaxHp);
-            UpdateActionGauge(entity.CurActionGauge, entity.MaxActionGauge, entity.ActionCount);
         }
 
         public void UpdateHp(float curHp, float maxHp)
@@ -57,21 +45,6 @@ namespace View
             HpText.SetText($"{curHp} / {maxHp}");
         }
         
-        public void UpdateActionGauge(float curActionPoint, float maxActionPoint, int actionCount)
-        {
-            ActionGauge.maxValue = maxActionPoint;
-            ActionGauge.value = curActionPoint;
-
-            var actionCountStr = actionCount.ToString();
-            if (ActionCountText.text != actionCountStr)
-            {
-                ActionCountText.SetText(actionCountStr);
-                ActionCountText.transform.DOKill();
-                ActionCountText.transform.localScale = Vector3.one;
-                ActionCountText.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 1, 0.5f);
-            }
-        }
-
         public void PlayDamageEft()
         {
             animator.SetTrigger(STR_HIT);

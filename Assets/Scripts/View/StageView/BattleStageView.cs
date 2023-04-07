@@ -60,13 +60,6 @@ namespace View.StageView
             });
         }
 
-        private async void Update()
-        {
-            // if (_isBattleEnd) return;
-            //
-            // await Presenter.Update();
-        }
-
         public async UniTask BattleEnd()
         {
             _isBattleEnd = true;

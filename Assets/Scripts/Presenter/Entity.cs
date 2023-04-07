@@ -28,11 +28,6 @@ namespace Presenter
             View.Init(Model);
         }
 
-        public bool GetActionReady()
-        {
-            return Model.IsActionReady;
-        }
-        
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
@@ -49,9 +44,6 @@ namespace Presenter
 
         public async UniTask PrepareAttack(Vector3 targetPos)
         {
-            //Model.IsActionReady = false;
-            //Model.CurActionGauge = 0;
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
             await View.PrepareAttack(targetPos);
         }
 
@@ -65,27 +57,10 @@ namespace Presenter
             await View.EndAttack();
         }
 
-        public async UniTask AddActionGauge()
-        {
-            Model.AddActionGauge();
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
-        }
-
         public void Dispose()
         {
             Model = null;
             View.DestroyView();
-        }
-
-        public void UseActionCount(int cost)
-        {
-            Model.ActionCount -= cost;
-            View.UpdateActionGauge(Model.CurActionGauge, Model.MaxActionGauge, Model.ActionCount);
-        }
-
-        public int GetActionCount()
-        {
-            return Model.ActionCount;
         }
 
         public virtual async UniTask AddStatusEffect(StatusEffectModel statEft)
@@ -98,13 +73,9 @@ namespace Presenter
 
         public virtual async UniTask StatusEffectActivate()
         {
-            if (Model.IsActionCountUp)
+            foreach (var statEft in StatusEffects)
             {
-                Model.IsActionCountUp = false;
-                foreach (var statEft in StatusEffects)
-                {
-                    await statEft.Activate(this);
-                }
+                await statEft.Activate(this);
             }
         }
     }
@@ -151,12 +122,6 @@ namespace Presenter
             await curAct.Activate(this, hero);
             //SetAction();
         }
-
-
-        public bool IsActExecutable()
-        {
-            return eModel.ActionCount >= eModel.GetCurAction().Cost;
-        }
     }
 
     public class Hero : Entity
@@ -165,11 +130,6 @@ namespace Presenter
         public HeroView hView => View as HeroView;
         public Hero(HeroModel model, EntityView view) : base(model, view)
         {
-        }
-
-        public bool CanDrawCard()
-        {
-            return Model.ActionCount >= 1;
         }
     }
 }

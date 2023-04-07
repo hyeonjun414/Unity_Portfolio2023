@@ -6,13 +6,13 @@ namespace Model
     public class EnemyAction
     {
         public string Type;
-        public int Cost;
+        public int Turn;
         public string Icon;
         public string ActionType;
 
         protected int ActionValue;
 
-        public virtual void Init()
+        public virtual void Init(EnemyModel enemy)
         {
         }
         
@@ -32,10 +32,10 @@ namespace Model
     {
         public float Damage;
 
-        public override void Init()
+        public override void Init(EnemyModel enemy)
         {
-            base.Init();
-            ActionValue = (int)Damage;
+            base.Init(enemy);
+            ActionValue = (int)(enemy.Damage * Damage);
         }
 
         public override async UniTask Activate(Enemy actor, Entity entity)
@@ -44,13 +44,6 @@ namespace Model
             await actor.PlayAttack();
             await entity.TakeDamage(Damage);
             await actor.EndAttack();
-        }
-    }
-
-    public class EaWait : EnemyAction
-    {
-        public override async UniTask Activate(Enemy actor, Entity entity)
-        {
         }
     }
 }
