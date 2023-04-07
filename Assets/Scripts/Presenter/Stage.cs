@@ -153,34 +153,19 @@ namespace Presenter
 
         public async UniTask DrawCard(int drawCount)
         {
-            if (Deck.Count == 0)
+            while (drawCount > 0)
             {
-                await GraveToDeck();
+                if (Deck.Count > 0)
+                {
+                    await DeckToHand(Deck[0]);
+                    await UniTask.Delay(50);
+                    drawCount--;
+                }
+                else if (Grave.Count > 0)
+                {
+                    await GraveToDeck();
+                }
             }
-            
-            while (drawCount > 0 && Deck.Count > 0)
-            {
-                await DeckToHand(Deck[0]);
-                await UniTask.Delay(200);
-                drawCount--;
-            }
-            // if (user.UserHero.CanDrawCard())
-            // {
-            //     user.UserHero.UseActionCount(1);
-            //     var drawCount = user.GetDrawCount();
-            //     if (Deck.Count == 0)
-            //     {
-            //         await GraveToDeck();
-            //     }
-            //
-            //     while (drawCount > 0 && Deck.Count > 0)
-            //     {
-            //         await DeckToHand(Deck[0]);
-            //         await UniTask.Delay(200);
-            //         drawCount--;
-            //     }
-            // }
-            
         }
 
         private async UniTask DeckToHand(BattleCard card)
@@ -313,6 +298,11 @@ namespace Presenter
 
         public async UniTask TurnEnd()
         {
+            for (int i = Hand.Count-1; i >= 0; i--)
+            {
+                await HandToGrave(Hand[i]);
+            }
+            
             foreach (var enemy in GetAliveEnemies())
             {
                 await enemy.StatusEffectActivate();
@@ -324,10 +314,10 @@ namespace Presenter
                 }
             }
 
-            foreach (var enemy in GetAliveEnemies())
-            {
-                enemy.SetAction();
-            }
+            user.SetEnergy();
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            await DrawCard(user.GetDrawCount());
+            
         }
     }
 }

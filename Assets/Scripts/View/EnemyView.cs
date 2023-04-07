@@ -40,9 +40,10 @@ namespace View
             actionView.gameObject.SetActive(false);
         }
 
-        public void SetActionView(EnemyAction action)
+        public async UniTask SetActionView(EnemyAction action)
         {
             actionView.SetView(action);
+            await UniTask.Yield();
             // actIcon.sprite = Resources.Load<Sprite>($"ActionIcon/{action.Icon}");
             // actCost.text = action.Cost.ToString();
             // var value = action.GetValue();
@@ -92,6 +93,12 @@ namespace View
                     ep.UnTargeted();
                 }
             }
+        }
+
+        public async UniTask Wait()
+        {
+            gameObject.transform.DOShakePosition(0.5f, Vector3.one * 0.2f);
+            await UniTask.Delay(500);
         }
     }
 }

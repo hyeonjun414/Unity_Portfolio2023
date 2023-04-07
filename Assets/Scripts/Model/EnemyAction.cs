@@ -42,7 +42,7 @@ namespace Model
         {
             await actor.PrepareAttack(entity.View.GetPosition());
             await actor.PlayAttack();
-            await entity.TakeDamage(Damage);
+            await entity.TakeDamage(ActionValue);
             await actor.EndAttack();
         }
     }

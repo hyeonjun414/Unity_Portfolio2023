@@ -109,18 +109,29 @@ namespace Presenter
             stage?.UnTargetEnemy(this);
         }
 
-        public void SetAction()
+        public async UniTask SetAction()
         {
-            eModel.SetAction();
-            eView.SetActionView(eModel.GetCurAction());
+            if(IsExecutable())
+                eModel.SetAction();
+            await eView.SetActionView(eModel.GetCurAction());
         }
 
         public async UniTask ExecuteAction(Hero hero)
         {
             var curAct = eModel.GetCurAction();
-            //UseActionCount(curAct.Cost);
-            await curAct.Activate(this, hero);
-            //SetAction();
+            if(IsExecutable())
+                await curAct.Activate(this, hero);
+            else
+            {
+                curAct.Turn--;
+                await SetAction();
+                await eView.Wait();
+            }
+        }
+
+        public bool IsExecutable()
+        {
+            return eModel.GetCurAction().Turn == 0;
         }
     }
 

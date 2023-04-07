@@ -148,8 +148,8 @@ namespace View.StageView
             DeckCards.Remove(cardView);
             HandCards.Add(cardView);
 
-            cardView.transform.DOScale(1, 0.2f).SetEase(Ease.OutExpo);
-            cardView.transform.DORotate(Vector3.zero, 0.2f);
+            cardView.transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad);
+            cardView.transform.DORotate(Vector3.zero, 0.3f);
             cardView.transform.SetParent(handPos);
 
             await ReplaceHandCard();
@@ -161,8 +161,8 @@ namespace View.StageView
             for (var index = 0; index < HandCards.Count; index++)
             {
                 var cv = HandCards[index];
-                cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.2f)
-                    .SetEase(Ease.OutExpo);
+                cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.3f)
+                    .SetEase(Ease.OutQuad);
             }
 
             await UniTask.Yield();
@@ -176,10 +176,10 @@ namespace View.StageView
                 GraveCards.Remove(cardView);
                 DeckCards.Add(cardView);
                 cardView.transform.SetParent(deckPos);
-                cardView.transform.DOMove(deckPos.position, 0.2f).SetEase(Ease.OutExpo);
-                cardView.transform.DORotate(new Vector3(0, 180, 0), 0.2f);
+                cardView.transform.DOMove(deckPos.position, 0.2f).SetEase(Ease.OutQuad);
+                cardView.transform.DORotate(new Vector3(0, 180, 0), 0.3f);
 
-                await UniTask.Delay(200);
+                await UniTask.Delay(300);
             }
         }
 
@@ -192,8 +192,8 @@ namespace View.StageView
             GraveCards.Add(cardView);
 
             cardView.transform.DOScale(0.5f, 0.2f);
-            cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.2f);
-            cardView.transform.DOMove(gravePos.position, 0.2f).SetEase(Ease.OutExpo);
+            cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.3f);
+            cardView.transform.DOMove(gravePos.position, 0.3f).SetEase(Ease.OutQuad);
             cardView.transform.SetParent(gravePos);
 
             await ReplaceHandCard();
