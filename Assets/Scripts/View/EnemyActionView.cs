@@ -16,7 +16,7 @@ namespace View
         
         public void SetView(EnemyAction ea)
         {
-            if (ea.Turn > 0)
+            if (ea.Turn > 1)
             {
                 valueText.gameObject.SetActive(false);
                 valueText.SetText(ea.GetValue().ToString());

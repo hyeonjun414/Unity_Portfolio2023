@@ -131,7 +131,7 @@ namespace Presenter
 
         public bool IsExecutable()
         {
-            return eModel.GetCurAction().Turn == 0;
+            return eModel.GetCurAction().Turn <= 1;
         }
     }
 
