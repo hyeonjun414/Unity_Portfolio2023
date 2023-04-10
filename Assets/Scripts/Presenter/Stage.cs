@@ -52,12 +52,12 @@ namespace Presenter
         private BattleStageView bsView => View as BattleStageView;
 
         private Enemy _curTarget;
-        private BattleCard _selectedCard;
+        private Card _selectedCard;
         private Reward _reward;
         public List<Enemy> Enemies = new();
-        public List<BattleCard> Hand = new();
-        public List<BattleCard> Deck = new();
-        public List<BattleCard> Grave = new();
+        public List<Card> Hand = new();
+        public List<Card> Deck = new();
+        public List<Card> Grave = new();
         private bool hasMovedToNextStage;
         private bool rewardGiven;
         
@@ -88,7 +88,9 @@ namespace Presenter
             var userCardData = gm.User.GetCards();
             foreach (var cardData in userCardData)
             {
-                Deck.Add(new BattleCard(cardData, null));
+                var card = new Card(cardData, null);
+                card.SetState(new CardBattleState());
+                Deck.Add(card);
             }
             bsView.SetUserCards(Deck);
             DrawCard(user.GetDrawCount());
@@ -168,7 +170,7 @@ namespace Presenter
             }
         }
 
-        private async UniTask DeckToHand(BattleCard card)
+        private async UniTask DeckToHand(Card card)
         {
             Hand.Add(card);
             Deck.Remove(card);
@@ -182,7 +184,7 @@ namespace Presenter
             await bsView.GraveToDeck(Deck);
         }
 
-        private async UniTask HandToGrave(BattleCard card)
+        private async UniTask HandToGrave(Card card)
         {
             Grave.Add(card);
             Hand.Remove(card);
@@ -235,13 +237,13 @@ namespace Presenter
             
         }
 
-        public void SelectCard(BattleCard card)
+        public void SelectCard(Card card)
         {
             _selectedCard = card;
             card.Selected();
         }
 
-        public void UnSelectCard(BattleCard card)
+        public void UnSelectCard(Card card)
         {
             if (_selectedCard == card)
             {

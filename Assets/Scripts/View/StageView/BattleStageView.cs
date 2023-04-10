@@ -127,7 +127,7 @@ namespace View.StageView
             indicator.SetActive(false);
         }
 
-        public void SetUserCards(List<BattleCard> Cards)
+        public void SetUserCards(List<Card> Cards)
         {
             foreach (var card in Cards)
             {
@@ -168,7 +168,7 @@ namespace View.StageView
             await UniTask.Yield();
         }
 
-        public async UniTask GraveToDeck(List<BattleCard> deck)
+        public async UniTask GraveToDeck(List<Card> deck)
         {
             foreach (var card in deck)
             {
@@ -183,7 +183,7 @@ namespace View.StageView
             }
         }
 
-        public async UniTask HandToGrave(BattleCard card)
+        public async UniTask HandToGrave(Card card)
         {
             var cardView = card.View;
             if (cardView == null) return;

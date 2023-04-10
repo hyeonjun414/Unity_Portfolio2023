@@ -24,7 +24,7 @@ namespace Presenter
             
             foreach (var cardModel in Model.Cards)
             {
-                var card = new BattleCard(cardModel, null);
+                var card = new Card(cardModel, null);
                 Cards.Add(card);
             }
             this.View = view;
@@ -50,7 +50,7 @@ namespace Presenter
         {
             Model.CurEnergy -= cost;
         }
-        public async UniTask UseCard(BattleCard card, Enemy target) {
+        public async UniTask UseCard(Card card, Enemy target) {
             var position = target.View.transform.position;
             //UserHero.UseActionCount(card.GetCost());
             //Model.CurEnergy -= card.GetCost();
@@ -60,7 +60,7 @@ namespace Presenter
             //await UserHero.EndAttack();
         }
 
-        public bool CanUseThisCard(BattleCard selectedCard)
+        public bool CanUseThisCard(Card selectedCard)
         {
             return CurEnergy >= selectedCard.GetCost();
         }

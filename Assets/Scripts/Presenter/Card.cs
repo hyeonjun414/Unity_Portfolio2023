@@ -6,16 +6,71 @@ using View;
 
 namespace Presenter
 {
+    public interface ICardState
+    {
+        void EnterState(Card card);
+        void OnClick(Card card);
+        void OnHover(Card card);
+        void OnUnhover(Card card);
+    }
+    public class CardBattleState : ICardState
+    {
+        public void EnterState(Card card)
+        {
+        }
+
+        public void OnClick(Card card)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnHover(Card card)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.SelectCard(card);
+        }
+
+        public void OnUnhover(Card card)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.UnSelectCard(card);
+        }
+    }
     public class Card
     {
         public CardModel Model;
         public CardView View;
+
+        private ICardState _state;
+
 
         public Card(CardModel model, CardView view)
         {
             Model = model;
             View = view;
         }
+
+        public void SetState(ICardState newState)
+        {
+            _state = newState;
+            _state.EnterState(this);
+        }
+
+        public void OnClick()
+        {
+            _state.OnClick(this);
+        }
+
+        public void OnHover()
+        {
+            _state.OnHover(this);
+        }
+
+        public void OnUnhover()
+        {
+            _state.OnUnhover(this);
+        }
+
         public void Dispose()
         {
             Model = null;
@@ -25,6 +80,23 @@ namespace Presenter
         public int GetCost()
         {
             return Model.Cost;
+        }
+        
+        public void Selected()
+        {
+            View.Selected();
+        }
+
+        public void UnSelected()
+        {
+            View.UnSelected();
+        }
+
+        public async UniTask CardActivate(Enemy enemy)
+        {
+            View.UnSelected();
+            await View.PlayCardEft(enemy.View);
+            await Model.CardActivate(enemy);
         }
     }
 
