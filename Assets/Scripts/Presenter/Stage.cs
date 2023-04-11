@@ -240,26 +240,28 @@ namespace Presenter
         public void SelectCard(Card card)
         {
             _selectedCard = card;
-            card.Selected();
+            bsView.ReplaceHandCard(card.View);
         }
 
         public void UnSelectCard(Card card)
         {
-            if (_selectedCard == card)
-            {
-                if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
-                {
-                    UseCard(_curTarget);
-                }
-                else
-                {
-                    bsView.UnsetTargetIndicator(); 
-                    _selectedCard.UnSelected();
-                    _selectedCard = null; 
-                }
-
-                
-            }
+            _selectedCard = null;
+            bsView.ReplaceHandCard();
+            // if (_selectedCard == card)
+            // {
+            //     if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
+            //     {
+            //         UseCard(_curTarget);
+            //     }
+            //     else
+            //     {
+            //         bsView.UnsetTargetIndicator(); 
+            //         _selectedCard.UnSelected();
+            //         _selectedCard = null; 
+            //     }
+            //
+            //     
+            // }
         }
 
         public void CreateFloatingText(string str, Vector3 position)

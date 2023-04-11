@@ -21,17 +21,20 @@ namespace Presenter
 
         public void OnClick(Card card)
         {
-            throw new System.NotImplementedException();
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.SelectCard(card);
         }
 
         public void OnHover(Card card)
         {
+            card.View.Selected();
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.SelectCard(card);
         }
 
         public void OnUnhover(Card card)
         {
+            card.View.UnSelected();
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.UnSelectCard(card);
         }

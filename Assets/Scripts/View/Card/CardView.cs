@@ -15,6 +15,7 @@ namespace View
         public Card Presenter;
 
         public Image CardImage;
+        public Transform content;
         public GameObject front;
         public GameObject back;
         public TextMeshProUGUI Text_Name;
@@ -65,14 +66,20 @@ namespace View
 
         public void Selected()
         {
-            transform.DOScale(1.2f, 0.1f);
-            transform.DOMoveY(50, 0.1f).SetRelative();
+            content.DOScale(1.2f, 0.1f);
+            content.DOLocalMoveY(50, 0.1f);
         }
 
         public void UnSelected()
         {
-            transform.DOScale(1f, 0.1f);
-            transform.DOMoveY(-50, 0.1f).SetRelative();
+            content.DOScale(1f, 0.1f);
+            content.DOLocalMoveY(0, 0.1f);
+        }
+
+        public void RollBack()
+        {
+            content.SetParent(transform);
+            
         }
 
         public async UniTask PlayCardEft(EntityView ev)

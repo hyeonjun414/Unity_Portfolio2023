@@ -27,6 +27,7 @@ namespace View.StageView
         public Transform heroPosition;
         public Transform doorPosition;
         public Transform handPos, deckPos, gravePos;
+        public Transform cardForwardPivot;
             
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
@@ -42,6 +43,7 @@ namespace View.StageView
         
         private EntityView HeroView;
         private bool _isBattleEnd;
+        private CardView _hoveredCard;
         
         public void Start()
         {
@@ -155,14 +157,23 @@ namespace View.StageView
             await ReplaceHandCard();
         }
 
-        public async UniTask ReplaceHandCard()
+        public async UniTask ReplaceHandCard(CardView selectedCard = null)
         {
             var cardStartPos = (HandCards.Count -1)*100 * 0.5f;
+            var selectedCardIndex = HandCards.IndexOf(selectedCard);
             for (var index = 0; index < HandCards.Count; index++)
             {
                 var cv = HandCards[index];
-                cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.3f)
-                    .SetEase(Ease.OutQuad);
+                if (selectedCardIndex == -1)
+                {
+                    cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.3f)
+                        .SetEase(Ease.OutQuad);
+                }
+                else
+                {
+                    cv.transform.DOMove(selectedCard.transform.position + (Vector3.right * ((index - selectedCardIndex) * 100)), 0.3f)
+                        .SetEase(Ease.OutQuad);
+                }
             }
 
             await UniTask.Yield();
