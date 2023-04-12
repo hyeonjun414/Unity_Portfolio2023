@@ -12,6 +12,8 @@ namespace Presenter
         void OnClick(Card card);
         void OnHover(Card card);
         void OnUnhover(Card card);
+        void OnClickDown(Card card);
+        void OnClickUp(Card card);
     }
     public class CardBattleState : ICardState
     {
@@ -21,20 +23,28 @@ namespace Presenter
 
         public void OnClick(Card card)
         {
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.SelectCard(card);
+            // var curStage = GameManager.Instance.CurStage as BattleStage;
+            // curStage?.SelectCard(card);
         }
 
         public void OnHover(Card card)
         {
-            card.View.Selected();
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.SelectCard(card);
+            card.View.Hovered();
         }
 
         public void OnUnhover(Card card)
         {
-            card.View.UnSelected();
+            card.View.Unhovered();
+        }
+
+        public void OnClickDown(Card card)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.SelectCard(card);
+        }
+
+        public void OnClickUp(Card card)
+        {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.UnSelectCard(card);
         }
@@ -74,6 +84,16 @@ namespace Presenter
             _state.OnUnhover(this);
         }
 
+        public void OnClickDown()
+        {
+            _state.OnClickDown(this);
+        }
+
+        public void OnClickUp()
+        {
+            _state.OnClickUp(this);
+        }
+
         public void Dispose()
         {
             Model = null;
@@ -85,16 +105,6 @@ namespace Presenter
             return Model.Cost;
         }
         
-        public void Selected()
-        {
-            View.Selected();
-        }
-
-        public void UnSelected()
-        {
-            View.UnSelected();
-        }
-
         public async UniTask CardActivate(Enemy enemy)
         {
             View.UnSelected();
@@ -121,22 +131,6 @@ namespace Presenter
             curStage?.UnSelectCard(this);
         }
 
-        public void Selected()
-        {
-            if (View is BattleCardView bcv)
-            {
-                bcv.Selected();
-            }
-        }
-
-        public void UnSelected()
-        {
-            if (View is BattleCardView bcv)
-            {
-                bcv.UnSelected();
-            }
-        }
-        
         public async UniTask CardActivate(Enemy enemy)
         {
             if (View is BattleCardView bcv)

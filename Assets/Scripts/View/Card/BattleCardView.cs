@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace View
 {
-    public class BattleCardView : CardView, IPointerUpHandler, IPointerDownHandler
+    public class BattleCardView : CardView
     {
         public ParticleSystem CardEffect;
         
@@ -15,43 +15,6 @@ namespace View
             base.SetView(card);
             var data = card.Model;
             CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
-        }
-
-        public void Selected()
-        {
-            transform.DOScale(1.2f, 0.1f);
-            transform.DOMoveY(50, 0.1f).SetRelative();
-        }
-
-        public void UnSelected()
-        {
-            transform.DOScale(1f, 0.1f);
-            transform.DOMoveY(-50, 0.1f).SetRelative();
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (Presenter is BattleCard bc)
-            {
-                bc.SelectCard();
-            }
-            
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (Presenter is BattleCard bc)
-            {
-                bc.UnSelectCard();
-            }
-        }
-
-        public async UniTask PlayCardEft(EntityView ev)
-        {
-            var eft = Instantiate(CardEffect, ev.transform);
-            eft.transform.position += Vector3.up;
-            Destroy(eft.gameObject, eft.main.duration);
-            await UniTask.Yield();
         }
     }
 }

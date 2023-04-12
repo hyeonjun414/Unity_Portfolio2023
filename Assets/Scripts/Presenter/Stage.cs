@@ -239,29 +239,33 @@ namespace Presenter
 
         public void SelectCard(Card card)
         {
+            Debug.Log("Card click");
             _selectedCard = card;
-            bsView.ReplaceHandCard(card.View);
+            card.View.Selected();
+            bsView.arrow.ActiveArrow(card.View.transform);
+            //bsView.ReplaceHandCard();
         }
 
         public void UnSelectCard(Card card)
         {
-            _selectedCard = null;
-            bsView.ReplaceHandCard();
-            // if (_selectedCard == card)
-            // {
-            //     if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
-            //     {
-            //         UseCard(_curTarget);
-            //     }
-            //     else
-            //     {
-            //         bsView.UnsetTargetIndicator(); 
-            //         _selectedCard.UnSelected();
-            //         _selectedCard = null; 
-            //     }
-            //
-            //     
-            // }
+            card.View.UnSelected();
+            bsView.arrow.gameObject.SetActive(false);
+            //bsView.ReplaceHandCard();
+            if (_selectedCard == card)
+            {
+                if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
+                {
+                    UseCard(_curTarget);
+                }
+                else
+                {
+                    bsView.UnsetTargetIndicator(); 
+                    //_selectedCard.UnSelected();
+                    _selectedCard = null; 
+                }
+            
+                
+            }
         }
 
         public void CreateFloatingText(string str, Vector3 position)

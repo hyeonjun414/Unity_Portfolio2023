@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -7,10 +8,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 namespace View
 {
-    public class CardView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class CardView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
+        IPointerUpHandler, IPointerDownHandler
     {
         public Card Presenter;
 
@@ -48,7 +51,7 @@ namespace View
             Destroy(gameObject);
         }
 
-
+        
         public void OnPointerClick(PointerEventData eventData)
         {
             Presenter.OnClick();
@@ -64,22 +67,43 @@ namespace View
             Presenter.OnUnhover();
         }
 
-        public void Selected()
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            Presenter.OnClickUp();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            Presenter.OnClickDown();
+        }
+
+        public void Hovered()
         {
             content.DOScale(1.2f, 0.1f);
             content.DOLocalMoveY(50, 0.1f);
         }
 
-        public void UnSelected()
+        public void Unhovered()
         {
             content.DOScale(1f, 0.1f);
             content.DOLocalMoveY(0, 0.1f);
+        }
+        public void Selected()
+        {
+            content.DOScale(1.3f, 0.1f);
+            content.DOLocalMoveY(75, 0.1f);
+        }
+
+        public void UnSelected()
+        {
+            RollBack();
         }
 
         public void RollBack()
         {
             content.SetParent(transform);
-            
+            content.DOLocalMove(Vector3.zero, 0.1f);
+            content.DOScale(1f, 0.1f);
         }
 
         public async UniTask PlayCardEft(EntityView ev)
@@ -89,5 +113,7 @@ namespace View
             Destroy(eft.gameObject, eft.main.duration);
             await UniTask.Yield();
         }
+
+        
     }
 }

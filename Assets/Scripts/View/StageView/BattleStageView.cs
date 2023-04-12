@@ -38,7 +38,8 @@ namespace View.StageView
         public FloatingTextView floatingText;
         public RewardView rewardView;
 
-        public Button turnEndButton; 
+        public Button turnEndButton;
+        public TargetArrow arrow;
         
         
         private EntityView HeroView;
@@ -157,23 +158,14 @@ namespace View.StageView
             await ReplaceHandCard();
         }
 
-        public async UniTask ReplaceHandCard(CardView selectedCard = null)
+        public async UniTask ReplaceHandCard()
         {
             var cardStartPos = (HandCards.Count -1)*100 * 0.5f;
-            var selectedCardIndex = HandCards.IndexOf(selectedCard);
             for (var index = 0; index < HandCards.Count; index++)
             {
                 var cv = HandCards[index];
-                if (selectedCardIndex == -1)
-                {
-                    cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 100)), 0.3f)
+                    cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 150)), 0.3f)
                         .SetEase(Ease.OutQuad);
-                }
-                else
-                {
-                    cv.transform.DOMove(selectedCard.transform.position + (Vector3.right * ((index - selectedCardIndex) * 100)), 0.3f)
-                        .SetEase(Ease.OutQuad);
-                }
             }
 
             await UniTask.Yield();
