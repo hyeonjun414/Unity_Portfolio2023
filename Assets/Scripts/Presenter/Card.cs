@@ -146,39 +146,4 @@ namespace Presenter
             await Model.CardActivate(enemy);
         }
     }
-
-    public class BattleCard : Card
-    {
-        public BattleCard(CardModel model, CardView view) : base(model, view)
-        {
-        }
-
-        public void SelectCard()
-        {
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.SelectCard(this);
-        }
-
-        public void UnSelectCard()
-        {
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.UnSelectCard(this);
-        }
-
-        public async UniTask CardActivate(Enemy enemy)
-        {
-            if (View is BattleCardView bcv)
-            {
-                await bcv.PlayCardEft(enemy.View);
-                await Model.CardActivate(enemy);
-            }
-        }
-    }
-
-    public class RewardCard : Card
-    {
-        public RewardCard(CardModel model, CardView view) : base(model, view)
-        {
-        }
-    }
 }
