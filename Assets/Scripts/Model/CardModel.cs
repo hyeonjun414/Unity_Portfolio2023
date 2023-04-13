@@ -10,6 +10,7 @@ namespace Model
         public string Id;
         public string Name;
         public string Desc;
+        public string Icon;
         public string Effect;
         public int Cost;
         public List<CardFunc> Function;
@@ -19,6 +20,7 @@ namespace Model
             Id = mc.Id;
             Name = mc.Name;
             Desc = mc.Desc;
+            Icon = mc.Icon;
             Effect = mc.Effect;
             Cost = mc.Cost;
             Function = Util.ToObjectList<CardFunc>(mc.Function);

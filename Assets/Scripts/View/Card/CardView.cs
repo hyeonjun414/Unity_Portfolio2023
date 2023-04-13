@@ -42,7 +42,7 @@ namespace View
             Text_Name.SetText(data.Name);
             Text_Desc.SetText(data.Desc);
             Text_Cost.SetText(data.Cost.ToString());
-
+            CardImage.sprite = Resources.Load<Sprite>($"CardImage/{data.Icon}");
             CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
             
         }

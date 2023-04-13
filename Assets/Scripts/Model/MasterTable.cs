@@ -53,6 +53,7 @@ namespace Model
         public string Id;
         public string Name;
         public string Desc;
+        public string Icon;
         public string Effect;
         public int Cost;
         public List<JObject> Function;
