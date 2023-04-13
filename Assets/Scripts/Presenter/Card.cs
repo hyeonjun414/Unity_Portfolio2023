@@ -30,18 +30,19 @@ namespace Presenter
         public void OnHover(Card card)
         {
             if (IsSelected) return;
-            card.View.Hovered();
+            card.View.Hovered(this);
         }
 
         public void OnUnhover(Card card)
         {
             if (IsSelected) return;
-            card.View.Unhovered();
+            card.View.Unhovered(this);
         }
 
         public void OnClickDown(Card card)
         {
             IsSelected = true;
+            card.View.Selected(this);
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.SelectCard(card);
         }
@@ -49,8 +50,38 @@ namespace Presenter
         public void OnClickUp(Card card)
         {
             IsSelected = false;
+            card.View.UnSelected(this);
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.UnSelectCard(card);
+        }
+    }
+
+    public class CardRewardState : ICardState
+    {
+        public void EnterState(Card card)
+        {
+        }
+
+        public void OnClick(Card card)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.CloseReward(card);
+        }
+
+        public void OnHover(Card card)
+        {
+        }
+
+        public void OnUnhover(Card card)
+        {
+        }
+
+        public void OnClickDown(Card card)
+        {
+        }
+
+        public void OnClickUp(Card card)
+        {
         }
     }
     public class Card
@@ -111,7 +142,6 @@ namespace Presenter
         
         public async UniTask CardActivate(Enemy enemy)
         {
-            View.UnSelected();
             await View.PlayCardEft(enemy.View);
             await Model.CardActivate(enemy);
         }
@@ -139,7 +169,6 @@ namespace Presenter
         {
             if (View is BattleCardView bcv)
             {
-                bcv.UnSelected();
                 await bcv.PlayCardEft(enemy.View);
                 await Model.CardActivate(enemy);
             }

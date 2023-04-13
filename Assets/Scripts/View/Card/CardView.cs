@@ -77,24 +77,48 @@ namespace View
             Presenter.OnClickDown();
         }
 
-        public void Hovered()
+        public void Hovered(ICardState cardState)
         {
-            content.DOScale(1.2f, 0.1f);
-            content.DOLocalMoveY(50, 0.1f);
+            switch (cardState)
+            {
+                case CardBattleState:
+                    content.DOScale(1.2f, 0.1f);
+                    content.DOLocalMoveY(50, 0.1f);
+                    break;
+                case CardRewardState:
+                    content.DOScale(1.2f, 0.1f);
+                    break;
+            }
         }
 
-        public void Unhovered()
+        public void Unhovered(ICardState cardState)
         {
-            content.DOScale(1f, 0.1f);
-            content.DOLocalMoveY(0, 0.1f);
+            switch (cardState)
+            {
+                case CardBattleState :
+                    content.DOScale(1f, 0.1f);
+                    content.DOLocalMoveY(0, 0.1f);
+                    break;
+                case CardRewardState :
+                    content.DOScale(1f, 0.1f);
+                    break;
+            }
         }
-        public void Selected()
+        public void Selected(ICardState cardState)
         {
-            content.DOScale(1.3f, 0.1f);
-            content.DOLocalMoveY(75, 0.1f);
+            switch (cardState)
+            {
+                case CardBattleState:
+                    content.DOScale(1.3f, 0.1f);
+                    content.DOLocalMoveY(75, 0.1f);
+                    break;
+                case CardRewardState:
+                    content.DOScale(1.3f, 0.1f);
+                    break;
+            }
         }
 
-        public void UnSelected()
+        public void UnSelected(ICardState cardState)
         {
             RollBack();
         }

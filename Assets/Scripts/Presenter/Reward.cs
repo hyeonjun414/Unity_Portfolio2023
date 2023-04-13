@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using UnityEngine;
 using View;
@@ -10,7 +13,7 @@ namespace Presenter
         public RewardModel Model;
         public RewardView View;
 
-        public List<RewardCard> Cards;
+        public List<Card> Cards;
         
         public Reward(RewardModel model, RewardView view)
         {
@@ -18,9 +21,18 @@ namespace Presenter
             View = view;
         }
 
-        public void Init(List<RewardCard> cards)
+        public void Init(List<Card> cards)
         {
             Cards = cards;
+        }
+
+        public async UniTask Close()
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            if (curStage != null)
+            {
+                await curStage.CloseReward(null);
+            }
         }
     }
 

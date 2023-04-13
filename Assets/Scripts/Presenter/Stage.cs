@@ -119,12 +119,13 @@ namespace Presenter
         private void GenerateReward()
         {
             var data = new RewardModel();
-            var cards = new List<RewardCard>();
+            var cards = new List<Card>();
             var cardTable = gm.MasterTable.MasterCards;
             for (var i = 0; i < 3; i++)
             {
                 var cardModel = new CardModel(cardTable[Random.Range(0, cardTable.Count)]);
-                var card = new RewardCard(cardModel, null);
+                var card = new Card(cardModel, null);
+                card.SetState(new CardRewardState());
                 cards.Add(card);
             }
             _reward = new Reward(data, null);
@@ -241,16 +242,12 @@ namespace Presenter
         {
             Debug.Log("Card click");
             _selectedCard = card;
-            card.View.Selected();
             bsView.arrow.ActiveArrow(card.View.transform);
-            //bsView.ReplaceHandCard();
         }
 
         public void UnSelectCard(Card card)
         {
-            card.View.UnSelected();
             bsView.arrow.gameObject.SetActive(false);
-            //bsView.ReplaceHandCard();
             if (_selectedCard == card)
             {
                 if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
@@ -260,7 +257,6 @@ namespace Presenter
                 else
                 {
                     bsView.UnsetTargetIndicator(); 
-                    //_selectedCard.UnSelected();
                     _selectedCard = null; 
                 }
             

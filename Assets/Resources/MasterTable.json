@@ -117,7 +117,7 @@
       "Function": [
         {
           "Type"  : "CfBomb",
-          "Damage": 3
+          "Damage": 50
         }
       ]
     },

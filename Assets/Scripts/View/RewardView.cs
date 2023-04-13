@@ -10,22 +10,16 @@ namespace View
 {
     public class RewardView : MonoBehaviour
     {
+        public Reward Presenter;
         public Button skipButton;
 
         public Transform rewardPivot;
-        public RewardCardView cardPrefabs;
+        public CardView cardPrefabs;
 
-        private List<RewardCardView> cardInstances = new();
+        private List<CardView> cardInstances = new();
         private void Start()
         {
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            if (curStage != null)
-            {
-                skipButton.onClick.AsObservable().Subscribe(async _ =>
-                {
-                    await curStage.CloseReward(null);
-                });
-            }
+            skipButton.onClick.AsObservable().Subscribe(async _ => { await Presenter.Close(); });
         }
 
         public void Init(Reward reward)
