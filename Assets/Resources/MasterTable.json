@@ -120,6 +120,20 @@
           "Damage": 15
         }
       ]
+    },
+    {
+      "Id"      : "베기",
+      "Name"    : "베기",
+      "Desc"    : "적에게 <color=red>6</color>의 피해를 줍니다.",
+      "Icon"    : "Card_Slash",
+      "Effect"  : "Slash",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"  : "CfBomb",
+          "Damage": 6
+        }
+      ]
     }
   ],
   "MasterHeroes" : [
@@ -141,11 +155,11 @@
       "Energy"       : 5,
       "Cards"        : [
         "폭탄 투하",
+        "베기",
         "폭탄 투하",
+        "베기",
         "폭탄 투하",
-        "폭탄 투하",
-        "폭탄 투하",
-        "폭탄 투하",
+        "베기",
         "폭탄 투하",
         "폭탄 투하",
         "폭탄 투하"
