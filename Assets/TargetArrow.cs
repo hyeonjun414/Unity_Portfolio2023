@@ -13,7 +13,9 @@ public class TargetArrow : MonoBehaviour
     public void ActiveArrow(Transform start)
     {
         this.start = start;
-        mid.transform.position = start.position + Vector3.up * 1000f;
+        mid.transform.position = start.position + Vector3.up * 700f;
+        end.position = Input.mousePosition;
+        PlaceObjectOnBezierCurve();
         gameObject.SetActive(true);
     }
 
