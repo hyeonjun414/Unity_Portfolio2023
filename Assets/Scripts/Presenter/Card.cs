@@ -17,34 +17,38 @@ namespace Presenter
     }
     public class CardBattleState : ICardState
     {
+        public bool IsSelected;
         public void EnterState(Card card)
         {
+            IsSelected = false;
         }
 
         public void OnClick(Card card)
         {
-            // var curStage = GameManager.Instance.CurStage as BattleStage;
-            // curStage?.SelectCard(card);
         }
 
         public void OnHover(Card card)
         {
+            if (IsSelected) return;
             card.View.Hovered();
         }
 
         public void OnUnhover(Card card)
         {
+            if (IsSelected) return;
             card.View.Unhovered();
         }
 
         public void OnClickDown(Card card)
         {
+            IsSelected = true;
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.SelectCard(card);
         }
 
         public void OnClickUp(Card card)
         {
+            IsSelected = false;
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.UnSelectCard(card);
         }
