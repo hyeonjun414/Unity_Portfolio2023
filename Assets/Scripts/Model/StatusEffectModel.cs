@@ -8,11 +8,9 @@ namespace Model
         public int Turn;
         public string Icon;
         public int Value;
-        private bool IsEnd = false;
 
         public virtual void Init()
         {
-            
         }
         
         public virtual async UniTask Activate(Entity entity)
@@ -20,8 +18,9 @@ namespace Model
             Turn--;
             if (Turn <= 0)
             {
-                IsEnd = true;
             }
+
+            await UniTask.Yield();
         }
 
         public int GetTurn() => Turn;

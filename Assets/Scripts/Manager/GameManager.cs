@@ -37,7 +37,7 @@ namespace Manager
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
-                CreateScene(SceneType.Title);
+                var task = CreateScene(SceneType.Title);
             }
             else
             {

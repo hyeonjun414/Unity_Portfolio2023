@@ -92,7 +92,7 @@ namespace Presenter
         public override void Init()
         {
             base.Init();
-            SetAction();
+            var task = SetAction();
         }
 
         public void Targeted()

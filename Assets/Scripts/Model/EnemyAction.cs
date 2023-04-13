@@ -18,6 +18,7 @@ namespace Model
         
         public virtual async UniTask Activate(Enemy actor, Entity entity)
         {
+            await UniTask.Yield();
         }
 
         public int GetValue()

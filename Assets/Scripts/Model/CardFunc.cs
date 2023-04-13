@@ -10,6 +10,7 @@ namespace Model
 
         public virtual async UniTask Activate(Entity entity)
         {
+            await UniTask.Yield();
         }
 
     }

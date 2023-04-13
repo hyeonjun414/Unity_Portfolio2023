@@ -42,8 +42,7 @@ namespace View.StageView
         public TargetArrow arrow;
         
         
-        private EntityView HeroView;
-        private bool _isBattleEnd;
+        private EntityView _heroView;
         private CardView _hoveredCard;
         
         public void Start()
@@ -65,7 +64,6 @@ namespace View.StageView
 
         public async UniTask BattleEnd()
         {
-            _isBattleEnd = true;
             await UniTask.Delay(500);
             foreach (var ev in EnemyViews)
             {
@@ -75,15 +73,15 @@ namespace View.StageView
 
         public EntityView CreateHeroView(EntityModel hero)
         {
-            HeroView = Instantiate(entityView, heroPosition);
-            HeroView.Init(hero);
-            HeroView.gameObject.SetActive(true);
+            _heroView = Instantiate(entityView, heroPosition);
+            _heroView.Init(hero);
+            _heroView.gameObject.SetActive(true);
 
-            return HeroView;
+            return _heroView;
         }
         public EntityView GetHeroView()
         {
-            return HeroView;
+            return _heroView;
         }
 
         public List<EnemyView> GetEnemyViews()
@@ -101,15 +99,15 @@ namespace View.StageView
 
         public async UniTask MoveStage()
         {
-            HeroView.transform.DOMove(doorPosition.position, 1f)
-                .OnStart(() => HeroView.animator.SetBool("Move", true))
-                .OnComplete(() => HeroView.animator.SetBool("Move", false));
+            _heroView.transform.DOMove(doorPosition.position, 1f)
+                .OnStart(() => _heroView.animator.SetBool("Move", true))
+                .OnComplete(() => _heroView.animator.SetBool("Move", false));
             await UniTask.Delay(1000);
-            HeroView.animator.SetTrigger("DoorIn");
+            _heroView.animator.SetTrigger("DoorIn");
             await UniTask.Yield();
-            var clipLength = HeroView.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / HeroView.animator.speed;
-            HeroView.transform.DOScale(0.8f, clipLength)
-                .OnComplete(() => HeroView.gameObject.SetActive(false));
+            var clipLength = _heroView.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / _heroView.animator.speed;
+            _heroView.transform.DOScale(0.8f, clipLength)
+                .OnComplete(() => _heroView.gameObject.SetActive(false));
             
             await UniTask.Delay((int)(clipLength * 1000));
             

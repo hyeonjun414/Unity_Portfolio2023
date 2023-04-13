@@ -93,7 +93,7 @@ namespace Presenter
                 Deck.Add(card);
             }
             bsView.SetUserCards(Deck);
-            DrawCard(user.GetDrawCount());
+            var task = DrawCard(user.GetDrawCount());
         }
         
         private async UniTask StatusEffectPhase()
@@ -252,7 +252,7 @@ namespace Presenter
             {
                 if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
                 {
-                    UseCard(_curTarget);
+                    var task = UseCard(_curTarget);
                 }
                 else
                 {
@@ -275,7 +275,7 @@ namespace Presenter
             if (rewardGiven) return;
 
             await chest.Open();
-            await OpenRewardPanel();
+            OpenRewardPanel();
         }
 
         public async UniTask CloseReward(Card card)
@@ -286,16 +286,17 @@ namespace Presenter
                 rewardGiven = true;
             }
 
-            
-            await CloseRewardPanel();
+            CloseRewardPanel();
+
+            await UniTask.Yield();
         }
 
-        private async UniTask CloseRewardPanel()
+        private void CloseRewardPanel()
         {
             bsView.CloseRewardPanel();
         }
 
-        private async UniTask OpenRewardPanel()
+        private void OpenRewardPanel()
         {
             bsView.OpenRewardPanel();
         }

@@ -14,7 +14,7 @@ namespace View
             var stage = GameManager.Instance.CurStage as BattleStage;
             if (stage != null)
             {
-                stage.OpenReward(this);
+                var task = stage.OpenReward(this);
             }
         }
 
@@ -27,7 +27,7 @@ namespace View
 
         public async UniTask Close()
         {
-
+            await UniTask.Yield();
         }
 
         public float GetCurAnimationDuration()

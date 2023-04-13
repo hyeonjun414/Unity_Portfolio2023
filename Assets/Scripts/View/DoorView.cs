@@ -18,7 +18,7 @@ namespace View
         public void OnPointerClick(PointerEventData eventData)
         {
             print("Door Click!");
-            Presenter.MoveStage();
+            var task = Presenter.MoveStage();
         }
 
         public void Open()
