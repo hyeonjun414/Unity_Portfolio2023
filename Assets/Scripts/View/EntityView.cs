@@ -25,6 +25,7 @@ namespace View
         public StatusEffectView statusEffectPrefab;
         public List<StatusEffectView> StatEftList = new();
         public Transform statEftPivot;
+        public Transform content;
         [Header("EntityUI")] 
         public SpriteRenderer sprite;
 
@@ -53,7 +54,7 @@ namespace View
         public virtual async UniTask PrepareAttack(Vector3 targetPos)
         {
             var moveX = transform.position.x > targetPos.x ? -2 : 2;
-            transform.DOMoveX(targetPos.x - moveX, 0.2f)
+            content.DOMoveX(targetPos.x - moveX, 0.2f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() =>
                 {
@@ -74,7 +75,7 @@ namespace View
 
         public virtual async UniTask EndAttack()
         {
-            transform.DOLocalMove(Vector3.zero, 0.2f)
+            content.DOLocalMove(Vector3.zero, 0.2f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() => animator.SetBool(STR_MOVE, true))
                 .OnComplete(() =>
@@ -94,7 +95,7 @@ namespace View
         {
             animator.SetBool("Dead", true);
             animator.SetTrigger(STR_HIT);
-            transform.DOScale(Vector3.one * 0.8f, 0.5f);
+            content.DOScale(Vector3.one * 0.8f, 0.5f);
             sprite.DOColor(Color.gray, 0.5f);
             await UniTask.Yield();
         }

@@ -61,6 +61,39 @@ MonoBehaviour:
   m_Spacing: {x: 55, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
+--- !u!1 &6627060797980764287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5298964984899644569}
+  m_Layer: 0
+  m_Name: Content
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5298964984899644569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627060797980764287}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7542503441936597617}
+  - {fileID: 7542503441789463495}
+  m_Father: {fileID: 7542503442980021704}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6949283814943314694
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +280,7 @@ RectTransform:
   - {fileID: 7542503442745307440}
   - {fileID: 1559459594707347224}
   - {fileID: 786909899365329100}
-  m_Father: {fileID: 7542503442980021704}
+  m_Father: {fileID: 5298964984899644569}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -481,7 +514,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7542503442980021704}
+  m_Father: {fileID: 5298964984899644569}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7542503441936597618
@@ -842,8 +875,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7542503441936597617}
-  - {fileID: 7542503441789463495}
+  - {fileID: 5298964984899644569}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -865,9 +897,7 @@ MonoBehaviour:
   statEftPivot: {fileID: 786909899365329100}
   sprite: {fileID: 7542503441936597618}
   uiCanvas: {fileID: 7542503441789463490}
-  ActionGauge: {fileID: 7542503442475874370}
   HpGauge: {fileID: 7542503442745307441}
-  ActionCountText: {fileID: 1014170557153148439}
   HpText: {fileID: 7542503441906869154}
 --- !u!1 &7542503443000140837
 GameObject:

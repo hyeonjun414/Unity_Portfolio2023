@@ -64,16 +64,19 @@ namespace Presenter
 
         public void OnClick(Card card)
         {
+            card.View.Selected(this);
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.CloseReward(card);
         }
 
         public void OnHover(Card card)
         {
+            card.View.Hovered(this);
         }
 
         public void OnUnhover(Card card)
         {
+            card.View.Unhovered(this);
         }
 
         public void OnClickDown(Card card)

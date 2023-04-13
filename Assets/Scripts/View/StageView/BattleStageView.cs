@@ -23,11 +23,9 @@ namespace View.StageView
         public CardView cardPrefab;
         public EnemyView enemyPrefab;
         public ChestView chestPrefab;
-        public List<Transform> enemyPosList;
-        public Transform heroPosition;
-        public Transform doorPosition;
         public Transform handPos, deckPos, gravePos;
         public Transform cardForwardPivot;
+        public Transform HeroPivot, EnemyPivot, DoorPivot;
             
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
@@ -73,7 +71,7 @@ namespace View.StageView
 
         public EntityView CreateHeroView(EntityModel hero)
         {
-            _heroView = Instantiate(entityView, heroPosition);
+            _heroView = Instantiate(entityView, HeroPivot);
             _heroView.Init(hero);
             _heroView.gameObject.SetActive(true);
 
@@ -91,7 +89,7 @@ namespace View.StageView
 
         public DoorView GenerateDoor()
         {
-            var doorInst = Instantiate(doorPrefab, doorPosition);
+            var doorInst = Instantiate(doorPrefab, DoorPivot);
             doorInst.transform.localPosition = Vector3.down * 5;
             doorInst.transform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
             return doorInst;
@@ -99,7 +97,7 @@ namespace View.StageView
 
         public async UniTask MoveStage()
         {
-            _heroView.transform.DOMove(doorPosition.position, 1f)
+            _heroView.transform.DOMove(DoorPivot.position, 1f)
                 .OnStart(() => _heroView.animator.SetBool("Move", true))
                 .OnComplete(() => _heroView.animator.SetBool("Move", false));
             await UniTask.Delay(1000);
@@ -225,9 +223,12 @@ namespace View.StageView
 
         public void SetEnemyViews(List<Enemy> enemies)
         {
+            var xGap = 3f;
+            var mostLeft = -(enemies.Count - 1) * 0.5f * xGap;
             for (var i = 0; i < enemies.Count; i++)
             {
-                var inst = Instantiate(enemyPrefab, enemyPosList[i]);
+                var inst = Instantiate(enemyPrefab, EnemyPivot);
+                inst.transform.localPosition += Vector3.right * (mostLeft + i * xGap);
                 enemies[i].View = inst;
                 inst.Presenter = enemies[i];
                 EnemyViews.Add(inst);

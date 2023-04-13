@@ -36,6 +36,7 @@ namespace View
         public virtual void SetView(Card card)
         {
             Presenter = card;
+            Presenter.View = this;
             
             var data = card.Model;
             Text_Name.SetText(data.Name);
