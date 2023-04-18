@@ -69,8 +69,6 @@ namespace View
         {
             animator.SetTrigger("Attack");
             await UniTask.Yield();
-            var playTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / animator.speed;
-            await UniTask.Delay((int)(playTime * 1000));
         }
 
         public virtual async UniTask EndAttack()
