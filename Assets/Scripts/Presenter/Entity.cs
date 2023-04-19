@@ -24,8 +24,12 @@ namespace Presenter
 
         public virtual void Init()
         {
-            View.Presenter = this;
-            View.Init(Model);
+            View.Init(this);
+        }
+
+        public void AddAp(float deltaTime)
+        {
+            Model.AddAp(deltaTime);
         }
 
         public async UniTask TakeDamage(float damage)
@@ -142,5 +146,7 @@ namespace Presenter
         public Hero(HeroModel model, EntityView view) : base(model, view)
         {
         }
+
+        
     }
 }

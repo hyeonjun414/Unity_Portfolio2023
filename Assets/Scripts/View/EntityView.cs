@@ -33,9 +33,10 @@ namespace View
         public Slider HpGauge;
         public TextMeshProUGUI HpText;
 
-        public virtual void Init(EntityModel entity)
+        public virtual void Init(Entity entity)
         {
-            UpdateHp(entity.CurHp, entity.MaxHp);
+            entity.View = this;
+            UpdateHp(entity.Model.CurHp, entity.Model.MaxHp);
         }
 
         public void UpdateHp(float curHp, float maxHp)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -9,6 +10,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace View.StageView
 {
@@ -38,6 +40,7 @@ namespace View.StageView
 
         public Button turnEndButton;
         public TargetArrow arrow;
+        public ActionBar actionBar;
         
         
         private EntityView _heroView;
@@ -60,6 +63,11 @@ namespace View.StageView
             });
         }
 
+        private void Update()
+        {
+            bsPresenter.Update();
+        }
+
         public async UniTask BattleEnd()
         {
             await UniTask.Delay(500);
@@ -69,13 +77,13 @@ namespace View.StageView
             }
         }
 
-        public EntityView CreateHeroView(EntityModel hero)
+        public void CreateHeroView(Entity hero)
         {
-            _heroView = Instantiate(entityView, HeroPivot);
+            hero.View = Instantiate(entityView, HeroPivot);
+            _heroView = hero.View;
             _heroView.Init(hero);
             _heroView.gameObject.SetActive(true);
-
-            return _heroView;
+            actionBar.AddEntity(hero);
         }
         public EntityView GetHeroView()
         {

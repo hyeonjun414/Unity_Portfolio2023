@@ -4,8 +4,9 @@
       "Id"     : "Bald Pirate",
       "Name"   : "Bald Pirate",
       "Desc"   : "Bald Pirate",
-      "Hp"     : 30,
+      "Hp"     : 20,
       "Damage" : 5,
+      "Speed"  : 5,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -25,8 +26,9 @@
       "Id"     : "Cucumber",
       "Name"   : "Cucumber",
       "Desc"   : "Cucumber",
-      "Hp"     : 15,
+      "Hp"     : 12,
       "Damage" : 3,
+      "Speed"  : 10,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -46,8 +48,9 @@
       "Id"     : "Big Guy",
       "Name"   : "Big Guy",
       "Desc"   : "Big Guy",
-      "Hp"     : 50,
+      "Hp"     : 25,
       "Damage" : 10,
+      "Speed"  : 15,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -67,8 +70,9 @@
       "Id"     : "Captain",
       "Name"   : "Captain",
       "Desc"   : "Captain",
-      "Hp"     : 50,
-      "Damage" : 10,
+      "Hp"     : 20,
+      "Damage" : 7,
+      "Speed"  : 5,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -89,7 +93,8 @@
       "Name"   : "Whale",
       "Desc"   : "Whale",
       "Hp"     : 50,
-      "Damage" : 10,
+      "Damage" : 5,
+      "Speed"  : 5,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -142,7 +147,8 @@
       "Name"  : "Hero",
       "Desc"  : "Hero",
       "Hp"    : 100,
-      "Damage": 10
+      "Damage": 10,
+      "Speed" : 10
     }
   ],
   "MasterUsers"  : [

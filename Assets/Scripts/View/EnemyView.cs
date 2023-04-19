@@ -17,13 +17,13 @@ namespace View
         public EnemyActionView actionView;
         
         private float remainAttackAnimTime;
-        public override void Init(EntityModel entity)
+        public override void Init(Entity entity)
         {
             base.Init(entity);
-            if (entity is EnemyModel em)
+            if (entity is Enemy em)
             {
                 // Set AnimationController
-                var enemyData = Resources.Load<EnemyData>($"EnemyData/{entity.Name}");
+                var enemyData = Resources.Load<EnemyData>($"EnemyData/{entity.Model.Name}");
                 if (enemyData != null)
                 {
                     animator.runtimeAnimatorController = enemyData.enemyAnim;

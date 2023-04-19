@@ -69,7 +69,7 @@ namespace Presenter
         {
             base.Init();
             
-            user.UserHero.View = bsView.CreateHeroView(gm.User.GetHeroModel());
+            bsView.CreateHeroView(gm.User.UserHero);
             user.SetEnergy();
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             var enemyModels = bsModel.GetEnemies();
@@ -95,7 +95,20 @@ namespace Presenter
             bsView.SetUserCards(Deck);
             var task = DrawCard(user.GetDrawCount());
         }
-        
+
+        public override async UniTask Update()
+        {
+            await base.Update();
+
+            await AddEntityAp();
+        }
+
+        private async UniTask AddEntityAp()
+        {
+            var deltaTime = Time.deltaTime;
+            user.UserHero.AddAp(deltaTime);
+        }
+
         private async UniTask StatusEffectPhase()
         {
             await user.UserHero.StatusEffectActivate();

@@ -36,6 +36,7 @@ namespace Model
         public string Desc;
         public float Hp;
         public float Damage;
+        public float Speed;
     }
 
     public class MasterEnemy : MasterEntity

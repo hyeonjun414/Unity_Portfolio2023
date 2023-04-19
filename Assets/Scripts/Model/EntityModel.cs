@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace Model
@@ -11,9 +12,15 @@ namespace Model
         public float MaxHp;
         public float CurHp;
         public float Damage;
+        public float Speed;
+        public float MaxAp;
+        public float CurAp;
+        public bool IsReady;
         public bool IsDead;
 
         public List<StatusEffectModel> StatusEffects = new();
+        private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
+        public IReadOnlyReactiveProperty<float> ApRate => _aprate;
 
         public EntityModel(MasterEntity me)
         {
@@ -22,6 +29,9 @@ namespace Model
             Desc = me.Desc;
             MaxHp = CurHp = me.Hp;
             Damage = me.Damage;
+            Speed = me.Speed;
+            CurAp = 0;
+            MaxAp = 100;
         }
         
         public void TakeDamage(float damage)
@@ -34,7 +44,17 @@ namespace Model
             }
         }
 
-        
+
+        public void AddAp(float deltaTime)
+        {
+            CurAp += Speed * deltaTime;
+            _aprate.Value = CurAp / MaxAp;
+            if (CurAp >= MaxAp)
+            {
+                IsReady = true;
+                CurAp = MaxAp;
+            }
+        }
     }
     public class EnemyModel : EntityModel
     {
