@@ -1268,6 +1268,7 @@ MonoBehaviour:
   statusEffectPrefab: {fileID: 2193113193223331439, guid: 4ffae64816a00364fab283fe65273a50, type: 3}
   StatEftList: []
   statEftPivot: {fileID: 145239896273839530}
+  content: {fileID: 227318213345077128}
   sprite: {fileID: 6966354740047010051}
   uiCanvas: {fileID: 5351855923790456403}
   HpGauge: {fileID: 1051258319568169860}

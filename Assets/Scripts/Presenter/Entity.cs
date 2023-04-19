@@ -123,8 +123,12 @@ namespace Presenter
         public async UniTask ExecuteAction(Hero hero)
         {
             var curAct = eModel.GetCurAction();
-            if(IsExecutable())
+            if (IsExecutable())
+            {
+                Model.UseAp();
                 await curAct.Activate(this, hero);
+            }
+                
             else
             {
                 curAct.Turn--;

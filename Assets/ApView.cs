@@ -18,7 +18,7 @@ public class ApView : MonoBehaviour
         _end = end;
         entity.Model.ApRate.Subscribe(MoveView);
         _connectedView = entity.View;
-        _connectedView.gameObject.OnDestroyAsObservable().Subscribe(_ => Destroy(gameObject));
+        _connectedView.gameObject.OnDisableAsObservable().Subscribe(_ => gameObject.SetActive(false));
     }
 
     public void MoveView(float rate)

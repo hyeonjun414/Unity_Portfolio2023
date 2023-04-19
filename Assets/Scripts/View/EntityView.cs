@@ -95,7 +95,7 @@ namespace View
             animator.SetBool("Dead", true);
             animator.SetTrigger(STR_HIT);
             content.DOScale(Vector3.one * 0.8f, 0.5f);
-            sprite.DOColor(Color.gray, 0.5f);
+            sprite.DOColor(Color.gray, 0.5f).OnComplete(()=>gameObject.SetActive(false));
             await UniTask.Yield();
         }
 

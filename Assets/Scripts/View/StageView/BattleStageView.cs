@@ -45,7 +45,10 @@ namespace View.StageView
         
         private EntityView _heroView;
         private CardView _hoveredCard;
+
+        public bool isHeroAction;
         
+
         public void Start()
         {
             if (GameManager.Instance == null) 
@@ -65,6 +68,7 @@ namespace View.StageView
 
         private void Update()
         {
+            if (isHeroAction) return;
             bsPresenter.Update();
         }
 
@@ -240,7 +244,7 @@ namespace View.StageView
                 enemies[i].View = inst;
                 inst.Presenter = enemies[i];
                 EnemyViews.Add(inst);
-                
+                actionBar.AddEntity(enemies[i]);
             }
         }
 

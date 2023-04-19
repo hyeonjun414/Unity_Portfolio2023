@@ -55,6 +55,13 @@ namespace Model
                 CurAp = MaxAp;
             }
         }
+
+        public void UseAp()
+        {
+            CurAp = 0;
+            IsReady = false;
+            _aprate.Value = CurAp / MaxAp;
+        }
     }
     public class EnemyModel : EntityModel
     {

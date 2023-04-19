@@ -17,8 +17,9 @@ namespace Presenter
         
         protected GameManager gm;
         protected User user;
-        
 
+        private readonly Queue<UniTask> _queue = new Queue<UniTask>();
+        protected bool IsAction;
         public Stage(StageModel model, StageView view)
         {
             this.Model = model;
@@ -29,11 +30,31 @@ namespace Presenter
 
         public virtual void Init()
         {
-            
+        }
+
+        public void Enqueue(UniTask action)
+        {
+            _queue.Enqueue(action);
+        }
+
+        public async UniTask ExecuteAllAction()
+        {
+            while (_queue.Count > 0)
+            {
+                if (IsAction)
+                {
+                    await UniTask.WaitUntil(() => !IsAction);
+                }
+                var action = _queue.Dequeue();
+                IsAction = true;
+                await action;
+                IsAction = false;
+            }
         }
 
         public virtual async UniTask Update()
         {
+            await ExecuteAllAction();
             await UniTask.Yield();
         }
 
@@ -60,6 +81,8 @@ namespace Presenter
         public List<Card> Grave = new();
         private bool hasMovedToNextStage;
         private bool rewardGiven;
+
+        private bool _isHeroTurn;
         
         public BattleStage(StageModel model, StageView view) : base(model, view)
         {
@@ -70,7 +93,6 @@ namespace Presenter
             base.Init();
             
             bsView.CreateHeroView(gm.User.UserHero);
-            user.SetEnergy();
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             var enemyModels = bsModel.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
@@ -93,20 +115,44 @@ namespace Presenter
                 Deck.Add(card);
             }
             bsView.SetUserCards(Deck);
-            var task = DrawCard(user.GetDrawCount());
         }
 
         public override async UniTask Update()
         {
             await base.Update();
+        
+            if (_isHeroTurn || IsAction)
+            {
+                return;
+            }
 
             await AddEntityAp();
+            
         }
 
         private async UniTask AddEntityAp()
         {
-            var deltaTime = Time.deltaTime;
+            var deltaTime = Time.deltaTime * 5;
             user.UserHero.AddAp(deltaTime);
+            if (user.UserHero.Model.IsReady)
+            {
+                _isHeroTurn = true;
+                bsView.isHeroAction = true;
+                user.SetEnergy();
+                bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+                await DrawCard(user.GetDrawCount());
+                return;
+            }
+
+            foreach (var enemy in GetAliveEnemies())
+            {
+                enemy.AddAp(deltaTime);
+                if (enemy.Model.IsReady)
+                {
+                    Enqueue(enemy.ExecuteAction(user.UserHero));
+                }
+            }
+            
         }
 
         private async UniTask StatusEffectPhase()
@@ -320,22 +366,26 @@ namespace Presenter
             {
                 await HandToGrave(Hand[i]);
             }
-            
-            foreach (var enemy in GetAliveEnemies())
-            {
-                await enemy.StatusEffectActivate();
-                if (enemy.Model.IsDead)
-                    await CheckEnemies();
-                else
-                {
-                    await enemy.ExecuteAction(user.UserHero);
-                }
-            }
 
-            user.SetEnergy();
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-            await DrawCard(user.GetDrawCount());
-            
+            _isHeroTurn = false;
+            bsView.isHeroAction = false;
+            user.UserHero.hModel.UseAp();
+
+            // foreach (var enemy in GetAliveEnemies())
+            // {
+            //     await enemy.StatusEffectActivate();
+            //     if (enemy.Model.IsDead)
+            //         await CheckEnemies();
+            //     else
+            //     {
+            //         await enemy.ExecuteAction(user.UserHero);
+            //     }
+            // }
+
+            // user.SetEnergy();
+            // bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            // await DrawCard(user.GetDrawCount());
+
         }
     }
 }
