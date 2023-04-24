@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UniRx;
 using UnityEngine;
 
@@ -65,18 +66,18 @@ namespace Model
     }
     public class EnemyModel : EntityModel
     {
-        private List<EnemyAction> _actions;
+        private List<JObject> _actions;
         private EnemyAction _curAction;
         public EnemyModel(MasterEnemy me) : base(me)
         {
-            _actions = Util.ToObjectList<EnemyAction>(me.Actions);
+            _actions = me.Actions;
             if(_actions.Count != 0)
                 SetAction();
         }
 
         public void SetAction()
         {
-            _curAction = _actions[Random.Range(0, _actions.Count)];
+            _curAction = Util.ToObject<EnemyAction>(_actions[Random.Range(0, _actions.Count)]);
             _curAction.Init(this);
         }
 

@@ -64,12 +64,8 @@ namespace View.StageView
             {
                 await bsPresenter.TurnEnd();
             });
-        }
 
-        private void Update()
-        {
-            if (isHeroAction) return;
-            bsPresenter.Update();
+            bsPresenter.StageStart();
         }
 
         public async UniTask BattleEnd()

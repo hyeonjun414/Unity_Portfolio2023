@@ -32,29 +32,27 @@ namespace Presenter
         {
         }
 
-        public void Enqueue(UniTask action)
-        {
-            _queue.Enqueue(action);
-        }
-
-        public async UniTask ExecuteAllAction()
-        {
-            while (_queue.Count > 0)
-            {
-                if (IsAction)
-                {
-                    await UniTask.WaitUntil(() => !IsAction);
-                }
-                var action = _queue.Dequeue();
-                IsAction = true;
-                await action;
-                IsAction = false;
-            }
-        }
+        // public void Enqueue(UniTask action)
+        // {
+        //     Debug.Log("ViewAction Added");
+        //     _queue.Enqueue(action);
+        // }
+        //
+        // public async UniTask ExecuteAllAction()
+        // {
+        //     while (true)
+        //     {
+        //         await UniTask.Yield();
+        //         if (_queue.Count == 0) continue;
+        //         await UniTask.Delay(1000);
+        //         var action = _queue.Dequeue();
+        //         Debug.Log("ViewAction Execute");
+        //         await action;
+        //     }
+        // }
 
         public virtual async UniTask Update()
         {
-            await ExecuteAllAction();
             await UniTask.Yield();
         }
 
@@ -63,6 +61,7 @@ namespace Presenter
             await UniTask.Yield();
             await GameManager.Instance.LoadMapScene();
         }
+
 
         
     }
@@ -83,7 +82,8 @@ namespace Presenter
         private bool rewardGiven;
 
         private bool _isHeroTurn;
-        
+        private bool _isStageClear;
+
         public BattleStage(StageModel model, StageView view) : base(model, view)
         {
         }
@@ -117,27 +117,37 @@ namespace Presenter
             bsView.SetUserCards(Deck);
         }
 
+        public void StageStart()
+        {
+            var Modeltask = Update();
+        }
+
         public override async UniTask Update()
         {
-            await base.Update();
-        
-            if (_isHeroTurn || IsAction)
+            while (!_isStageClear)
             {
-                return;
-            }
+                await UniTask.Yield();
+                if (_isHeroTurn)
+                {
+                    continue;
+                }
+                else
+                {
+                    await AddEntityAp();
+                }
 
-            await AddEntityAp();
-            
+                
+            }
         }
 
         private async UniTask AddEntityAp()
         {
+            Debug.Log("AddEntityAp");
             var deltaTime = Time.deltaTime * 5;
             user.UserHero.AddAp(deltaTime);
             if (user.UserHero.Model.IsReady)
             {
                 _isHeroTurn = true;
-                bsView.isHeroAction = true;
                 user.SetEnergy();
                 bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
                 await DrawCard(user.GetDrawCount());
@@ -149,10 +159,13 @@ namespace Presenter
                 enemy.AddAp(deltaTime);
                 if (enemy.Model.IsReady)
                 {
-                    Enqueue(enemy.ExecuteAction(user.UserHero));
+                    Debug.Log($"Enemy Action : enemy name:{enemy.Model.Name}, turn : {enemy.eModel.GetCurAction().Turn}");
+                    await enemy.ExecuteAction(user.UserHero);
                 }
             }
-            
+
+            await UniTask.Yield();
+
         }
 
         private async UniTask StatusEffectPhase()
