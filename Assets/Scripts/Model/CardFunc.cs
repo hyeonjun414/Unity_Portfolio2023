@@ -26,7 +26,7 @@ namespace Model
             await entity.AddStatusEffect(effect);
         }
     }
-    public class CfBomb : CardFunc
+    public class Cf_Damage : CardFunc
     {
         public float Damage;
 
@@ -36,11 +36,13 @@ namespace Model
         }
     }
 
-    public class CfDefence : CardFunc
+    public class Cf_ApDown : CardFunc
     {
-        // public override async UniTask Activate(Entity entity)
-        // {
-        //     return 
-        // }
+        public float Value;
+        public override async UniTask Activate(Entity entity)
+        {
+            await entity.UseAp(Value);
+
+        }
     }
 }

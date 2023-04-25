@@ -121,7 +121,7 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"  : "CfBomb",
+          "Type"  : "Cf_Damage",
           "Damage": 15
         }
       ]
@@ -135,8 +135,26 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"  : "CfBomb",
+          "Type"  : "Cf_Damage",
           "Damage": 6
+        }
+      ]
+    },
+    {
+      "Id"      : "사슬 던지기",
+      "Name"    : "사슬 던지기",
+      "Desc"    : "적에게 <color=red>2</color>의 피해를 줍니다. AP를 30감소시킵니다.",
+      "Icon"    : "Card_Chain",
+      "Effect"  : "Smoke",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"  : "Cf_Damage",
+          "Damage": 2
+        },
+        {
+          "Type" : "Cf_ApDown",
+          "Value": 30
         }
       ]
     }
@@ -160,7 +178,7 @@
       "DrawCardCount": 5,
       "Energy"       : 5,
       "Cards"        : [
-        "폭탄 투하",
+        "사슬 던지기",
         "베기",
         "폭탄 투하",
         "베기",

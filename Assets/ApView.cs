@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Presenter;
 using UniRx;
 using UniRx.Triggers;
@@ -29,6 +30,7 @@ public class ApView : MonoBehaviour
 
     public void MoveView(float rate)
     {
-        transform.position = Vector3.Lerp(_start.position, _end.position, rate);
+        //transform.position = Vector3.Lerp(_start.position, _end.position, rate);
+        transform.DOMove(Vector3.Lerp(_start.position, _end.position, rate), 0.2f);
     }
 }

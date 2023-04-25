@@ -82,6 +82,12 @@ namespace Presenter
                 await statEft.Activate(this);
             }
         }
+
+        public async UniTask UseAp(float value)
+        {
+            Model.UseAp(value);
+            await UniTask.Yield();
+        }
     }
 
     public class Enemy : Entity
