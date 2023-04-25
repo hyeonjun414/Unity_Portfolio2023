@@ -77,9 +77,20 @@ namespace Presenter
 
         public virtual async UniTask StatusEffectActivate()
         {
+            var expiredEffect = new List<StatusEffect>();
             foreach (var statEft in StatusEffects)
             {
                 await statEft.Activate(this);
+                if (statEft.Model.Turn <= 0)
+                {
+                    expiredEffect.Add(statEft);
+                }
+            }
+
+            foreach (var expired in expiredEffect)
+            {
+                expired.Dispose();
+                StatusEffects.Remove(expired);
             }
         }
 

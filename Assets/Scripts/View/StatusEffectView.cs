@@ -31,5 +31,10 @@ namespace View
             turnText.SetText(remainTurn.ToString());
             await UniTask.Delay(200);
         }
+
+        public void DestroyView()
+        {
+            Destroy(gameObject);
+        }
     }
 }

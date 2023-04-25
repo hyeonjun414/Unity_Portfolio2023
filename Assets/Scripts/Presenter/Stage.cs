@@ -159,6 +159,9 @@ namespace Presenter
                 enemy.AddAp(deltaTime);
                 if (enemy.Model.IsReady)
                 {
+                    await enemy.StatusEffectActivate();
+                    if (enemy.Model.IsDead)
+                        continue;
                     await enemy.ExecuteAction(user.UserHero);
                 }
             }

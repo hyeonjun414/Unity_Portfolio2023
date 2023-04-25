@@ -157,6 +157,30 @@
           "Value": 30
         }
       ]
+    },
+    {
+      "Id"      : "불태우기",
+      "Name"    : "불태우기",
+      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 2턴간 5의 화상 피해를 줍니다.",
+      "Icon"    : "Card_Burn",
+      "Effect"  : "Burn",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"  : "Cf_Damage",
+          "Damage": 3
+        },
+        {
+          "Type"        : "CfStatusEffect",
+          "StatusEffect": {
+            "Type"    : "SE_Burn",
+            "Turn"    : 2,
+            "Icon"    : "SeIcon_Burn",
+            "Damage"  : 5,
+            "Particle": "Burn"
+          }
+        }
+      ]
     }
   ],
   "MasterHeroes" : [
@@ -181,7 +205,7 @@
         "사슬 던지기",
         "베기",
         "폭탄 투하",
-        "베기",
+        "불태우기",
         "폭탄 투하",
         "베기",
         "폭탄 투하",
