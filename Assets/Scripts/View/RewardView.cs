@@ -17,13 +17,11 @@ namespace View
         public CardView cardPrefabs;
 
         private List<CardView> cardInstances = new();
-        private void Start()
-        {
-            skipButton.onClick.AsObservable().Subscribe(async _ => { await Presenter.Close(); });
-        }
 
         public void Init(Reward reward)
         {
+            Presenter = reward;
+            skipButton.onClick.AsObservable().Subscribe(async _ => { await Presenter.Close(); });
             for (var i = 0; i < reward.Cards.Count; i++)
             {
                 var cardInst = Instantiate(cardPrefabs, rewardPivot);

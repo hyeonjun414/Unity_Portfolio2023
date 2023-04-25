@@ -12,13 +12,19 @@ public class ApView : MonoBehaviour
     private Transform _start, _end;
     private EntityView _connectedView;
 
+    private IDisposable _subcription;
+
     public void Init(Entity entity, Transform start, Transform end)
     {
         _start = start;
         _end = end;
-        entity.Model.ApRate.Subscribe(MoveView);
+        _subcription = entity.Model.ApRate.Subscribe(MoveView);
         _connectedView = entity.View;
-        _connectedView.gameObject.OnDisableAsObservable().Subscribe(_ => gameObject.SetActive(false));
+        _connectedView.gameObject.OnDisableAsObservable().Subscribe(_ =>
+        {
+            _subcription.Dispose();
+            gameObject.SetActive(false);
+        });
     }
 
     public void MoveView(float rate)

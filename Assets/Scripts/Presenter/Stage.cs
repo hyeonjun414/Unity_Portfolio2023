@@ -94,6 +94,7 @@ namespace Presenter
             
             bsView.CreateHeroView(gm.User.UserHero);
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            gm.User.UserHero.hModel.UseAp();
             var enemyModels = bsModel.GetEnemies();
             for (var index = 0; index < enemyModels.Count; index++)
             {
@@ -142,7 +143,6 @@ namespace Presenter
 
         private async UniTask AddEntityAp()
         {
-            Debug.Log("AddEntityAp");
             var deltaTime = Time.deltaTime * 5;
             user.UserHero.AddAp(deltaTime);
             if (user.UserHero.Model.IsReady)
@@ -159,7 +159,6 @@ namespace Presenter
                 enemy.AddAp(deltaTime);
                 if (enemy.Model.IsReady)
                 {
-                    Debug.Log($"Enemy Action : enemy name:{enemy.Model.Name}, turn : {enemy.eModel.GetCurAction().Turn}");
                     await enemy.ExecuteAction(user.UserHero);
                 }
             }
