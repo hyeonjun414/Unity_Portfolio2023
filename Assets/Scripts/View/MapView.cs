@@ -27,7 +27,7 @@ namespace View
         public void GenerateStageNodes(List<List<MapNode>> stages)
         {
             // set contents size
-            var totalHeight = stages.Count * 200f;
+            var totalHeight = stages.Count * 300f;
             nodePivot.sizeDelta = new Vector2(nodePivot.rect.width, totalHeight);
             nodePivot.position = new Vector2(0, totalHeight / 2);
             
@@ -37,7 +37,7 @@ namespace View
             for (var i = 0; i < stages.Count; i++)
             {
                 var stageStep = new List<MapNodeView>();
-                var totalWidth = stages[i].Count * 150f;
+                var totalWidth = stages[i].Count * 220;
 
                 for (var j = 0; j < stages[i].Count; j++)
                 {
@@ -51,8 +51,8 @@ namespace View
                     {
                         var node = Instantiate(nodePrefab, nodePivot);
                         node.transform.localPosition += new Vector3(
-                            (-totalWidth / 2) + (j + 0.5f) * 150f,
-                            (-totalHeight / 2) + i * 200f + 100f,
+                            (-totalWidth / 2) + (j + 0.5f) * 220f,
+                            (-totalHeight / 2) + i * 300f + 100f,
                             0);
                         node.Init(stages[i][j]);
                         stageStep.Add(node);

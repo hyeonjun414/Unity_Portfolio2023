@@ -178,7 +178,7 @@
       "Name"     : "Normal1",
       "StageInfo": {
         "Type"   : "BattleStageInfo",
-        "Icon"   : "Stage_Battle",
+        "Icon"   : "Stage_Level1",
         "Enemies": [
           "Bald Pirate",
           "Cucumber",
@@ -191,7 +191,7 @@
       "Name"     : "Normal2",
       "StageInfo": {
         "Type"   : "BattleStageInfo",
-        "Icon"   : "Stage_Battle",
+        "Icon"   : "Stage_Level1",
         "Enemies": [
           "Captain",
           "Whale"
@@ -203,7 +203,7 @@
       "Name"     : "Normal3",
       "StageInfo": {
         "Type"   : "BattleStageInfo",
-        "Icon"   : "Stage_Battle",
+        "Icon"   : "Stage_Level1",
         "Enemies": [
           "Cucumber",
           "Cucumber",
