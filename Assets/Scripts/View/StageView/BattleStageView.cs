@@ -248,5 +248,15 @@ namespace View.StageView
         {
             energyText.SetText($"{userCurEnergy} / {userMaxEnergy}");
         }
+
+        public void TurnEnded()
+        {
+            turnEndButton.interactable = false;
+        }
+
+        public void TurnStarted()
+        {
+            turnEndButton.interactable = true;
+        }
     }
 }

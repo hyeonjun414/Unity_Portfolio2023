@@ -150,6 +150,7 @@ namespace Presenter
                 _isHeroTurn = true;
                 user.SetEnergy();
                 bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+                bsView.TurnStarted();
                 await DrawCard(user.GetDrawCount());
                 return;
             }
@@ -383,24 +384,8 @@ namespace Presenter
             }
 
             _isHeroTurn = false;
-            bsView.isHeroAction = false;
             user.UserHero.hModel.UseAp();
-
-            // foreach (var enemy in GetAliveEnemies())
-            // {
-            //     await enemy.StatusEffectActivate();
-            //     if (enemy.Model.IsDead)
-            //         await CheckEnemies();
-            //     else
-            //     {
-            //         await enemy.ExecuteAction(user.UserHero);
-            //     }
-            // }
-
-            // user.SetEnergy();
-            // bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-            // await DrawCard(user.GetDrawCount());
-
+            bsView.TurnEnded();
         }
     }
 }
