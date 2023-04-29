@@ -1,3 +1,5 @@
+using System;
+using Manager;
 using UnityEngine;
 
 namespace View
@@ -6,6 +8,10 @@ namespace View
     {
         public SceneView Parent;
         public SceneView Child;
+
+        public Canvas canvas;
+        public RectTransform canvasRect;
+
 
         public void SetParent(SceneView parent)
         {
@@ -19,6 +25,14 @@ namespace View
         public void SetChild(SceneView child)
         {
             Child = child;
+        }
+
+        public void Init()
+        {
+            canvasRect = canvas.GetComponent<RectTransform>();
+            canvas.worldCamera = GameManager.Instance.mainCam;
+            canvas.sortingOrder = 10;
+            
         }
     }
 }

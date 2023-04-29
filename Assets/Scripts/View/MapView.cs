@@ -29,7 +29,7 @@ namespace View
             // set contents size
             var totalHeight = stages.Count * 300f;
             nodePivot.sizeDelta = new Vector2(nodePivot.rect.width, totalHeight);
-            nodePivot.position = new Vector2(0, totalHeight / 2);
+            nodePivot.localPosition = new Vector2(0, totalHeight / 2);
             
             var stageNodes = new List<List<MapNodeView>>();
             
@@ -67,7 +67,7 @@ namespace View
         public void GeneratePath(MapNodeView start, MapNodeView end)
         {
             var path = Instantiate(pathPrefab, pathPivot);
-            path.SetPath(start, end);
+            path.SetPath(start, end, canvasRect.localScale.x);
         }
 
         public void ActivateNextNodes(MapNodeView targetNode)

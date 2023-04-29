@@ -139,6 +139,10 @@ namespace View
             await UniTask.Yield();
         }
 
-        
+
+        public CardType GetCardType()
+        {
+            return Presenter.GetCardType();
+        }
     }
 }

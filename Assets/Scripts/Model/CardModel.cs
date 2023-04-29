@@ -13,6 +13,7 @@ namespace Model
         public string Icon;
         public string Effect;
         public int Cost;
+        public CardType CardType;
         public List<CardFunc> Function;
 
         public CardModel(MasterCard mc)
@@ -23,6 +24,7 @@ namespace Model
             Icon = mc.Icon;
             Effect = mc.Effect;
             Cost = mc.Cost;
+            CardType = CardType.Attack;
             Function = Util.ToObjectList<CardFunc>(mc.Function);
         }
 

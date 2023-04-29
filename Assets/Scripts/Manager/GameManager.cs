@@ -6,6 +6,7 @@ using Model;
 using Newtonsoft.Json;
 using Presenter;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using View;
 
 namespace Manager
@@ -27,6 +28,9 @@ namespace Manager
         public List<SceneView> scenePrefabs;
         public SceneView curScene;
         public LoadingScreenView loadingScreen;
+
+        public Physics2DRaycaster raycaster;
+        public Camera mainCam;
         
         private void Awake()
         {
@@ -65,6 +69,7 @@ namespace Manager
             var titlePrefab = scenePrefabs.First(t => t.name == sceneType);
             var newScene = Instantiate(titlePrefab);
             newScene.SetParent(curScene);
+            newScene.Init();
             curScene = newScene;
             await loadingScreen.FadeIn();
             

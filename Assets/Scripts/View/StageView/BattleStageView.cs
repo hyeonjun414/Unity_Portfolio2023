@@ -41,6 +41,8 @@ namespace View.StageView
         public Button turnEndButton;
         public TargetArrow arrow;
         public ActionBar actionBar;
+
+        public CardHolder cardHolder;
         
         
         private EntityView _heroView;
@@ -153,13 +155,14 @@ namespace View.StageView
             if (cardView == null) return;
             
             DeckCards.Remove(cardView);
+            cardHolder.DrawCard(cardView);
             HandCards.Add(cardView);
 
-            cardView.transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad);
-            cardView.transform.DORotate(Vector3.zero, 0.3f);
-            cardView.transform.SetParent(handPos);
+            // cardView.transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad);
+            // cardView.transform.DORotate(Vector3.zero, 0.3f);
+            // cardView.transform.SetParent(handPos);
 
-            await ReplaceHandCard();
+            //await ReplaceHandCard();
         }
 
         public async UniTask ReplaceHandCard()
@@ -195,15 +198,16 @@ namespace View.StageView
             var cardView = card.View;
             if (cardView == null) return;
 
+            cardHolder.DiscardCard(cardView);
             HandCards.Remove(cardView);
             GraveCards.Add(cardView);
 
-            cardView.transform.DOScale(0.5f, 0.2f);
-            cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.3f);
-            cardView.transform.DOMove(gravePos.position, 0.3f).SetEase(Ease.OutQuad);
-            cardView.transform.SetParent(gravePos);
-
-            await ReplaceHandCard();
+            // cardView.transform.DOScale(0.5f, 0.2f);
+            // cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.3f);
+            // cardView.transform.DOMove(gravePos.position, 0.3f).SetEase(Ease.OutQuad);
+            // cardView.transform.SetParent(gravePos);
+            //
+            // await ReplaceHandCard();
         }
 
 
@@ -252,11 +256,13 @@ namespace View.StageView
         public void TurnEnded()
         {
             turnEndButton.interactable = false;
+            cardHolder.SetControllable(false);
         }
 
         public void TurnStarted()
         {
             turnEndButton.interactable = true;
+            cardHolder.SetControllable(true);
         }
     }
 }

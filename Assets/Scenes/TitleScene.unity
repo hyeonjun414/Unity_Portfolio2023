@@ -401,6 +401,8 @@ MonoBehaviour:
   - {fileID: 7678261100617552132, guid: 8c0909ff542d0e24ca335b1e159f31e9, type: 3}
   curScene: {fileID: 0}
   loadingScreen: {fileID: 2098395159}
+  raycaster: {fileID: 530203834}
+  mainCam: {fileID: 530203830}
 --- !u!1 &837885848
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,17 +609,17 @@ Canvas:
   m_GameObject: {fileID: 2098395154}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 530203830}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &2098395158
 RectTransform:

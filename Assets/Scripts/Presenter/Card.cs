@@ -6,6 +6,11 @@ using View;
 
 namespace Presenter
 {
+    public enum CardType
+    {
+        Attack,
+        Magic
+    }
     public interface ICardState
     {
         void EnterState(Card card);
@@ -30,19 +35,19 @@ namespace Presenter
         public void OnHover(Card card)
         {
             if (IsSelected) return;
-            card.View.Hovered(this);
+            //card.View.Hovered(this);
         }
 
         public void OnUnhover(Card card)
         {
             if (IsSelected) return;
-            card.View.Unhovered(this);
+            //card.View.Unhovered(this);
         }
 
         public void OnClickDown(Card card)
         {
             IsSelected = true;
-            card.View.Selected(this);
+            //card.View.Selected(this);
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.SelectCard(card);
         }
@@ -50,7 +55,7 @@ namespace Presenter
         public void OnClickUp(Card card)
         {
             IsSelected = false;
-            card.View.UnSelected(this);
+            //card.View.UnSelected(this);
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.UnSelectCard(card);
         }
@@ -105,6 +110,11 @@ namespace Presenter
         {
             _state = newState;
             _state.EnterState(this);
+        }
+
+        public CardType GetCardType()
+        {
+            return Model.CardType;
         }
 
         public void OnClick()
