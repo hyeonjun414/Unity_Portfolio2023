@@ -22605,7 +22605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3096812688423091483
@@ -22674,8 +22674,8 @@ MonoBehaviour:
   distance: 2500
   mouseOverInterval: 100
   mouseOverScale: 1.2
-  mouseOverYSpacing: 100
-  selectedScale: 1.5
+  mouseOverYSpacing: 150
+  selectedScale: 1.3
   selectedYSpacing: 200
 --- !u!1 &3096812688473959891
 GameObject:

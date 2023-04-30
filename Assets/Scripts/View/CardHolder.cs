@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Manager;
 using Presenter;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
+using Random = UnityEngine.Random;
 
 namespace View
 {
@@ -14,35 +16,38 @@ namespace View
     {
         private const int Null = -1;
 
-        [Header("연결")] [SerializeField] private Physics2DRaycaster raycaster; // 마우스 오버된 카드를 찾기 위한 레이케스터
+        [Header("연결")] 
+        [SerializeField] private Physics2DRaycaster raycaster; // 마우스 오버된 카드를 찾기 위한 레이케스터
         [SerializeField] private RectTransform rectTransform; // 카드 홀더의 RectTransform
         [SerializeField] private TargetArrow bezierCurveDrawer; // 베지어 커브 드로어
-        [SerializeField] private BattleStage battleStage; // 배틀 매니저
+        private BattleStage battleStage; // 배틀 매니저
 
-        [Header("오브젝트")] [SerializeField] private HeroView player; // 플레이어 오브젝트
+        [Header("오브젝트")] 
+        [SerializeField] private HeroView player; // 플레이어 오브젝트
         [SerializeField] private EnemyView mouseOverEnemy; // 마우스 오버된 적 오브젝트
 
-        [Header("카드 뽑기/버림 위치")] [SerializeField]
-        private Transform drawPosition; // 카드를 뽑는 위치
-
+        [Header("카드 뽑기/버림 위치")] 
+        [SerializeField] private Transform drawPosition; // 카드를 뽑는 위치
         [SerializeField] private Transform discardPosition; // 카드를 버리는 위치
 
-        [Header("카드")] [SerializeField] private int selectedCardIndex; // 선택된 카드 인덱스
+        [Header("카드")] 
+        [SerializeField] private int selectedCardIndex; // 선택된 카드 인덱스
         [SerializeField] private int mouseOverCardIndex; // 마우스 오버된 카드의 인덱스
         [SerializeField] private List<CardView> cards; // 카드 리스트
 
-        [Header("일반 카드 수치")] [SerializeField] private float lerpTime; // lerp 정도
+        [Header("일반 카드 수치")] 
+        [SerializeField] private float lerpTime; // lerp 정도
         [SerializeField] private float angularInterval; // 각도 간격
         [SerializeField] private float zInterval; // z 간격
         [SerializeField] private float distance; // 삼각함수 계산 거리
 
-        [Header("마우스 오버 카드 수치")] [SerializeField]
-        private float mouseOverInterval; // 마우스 오버시 다른 카드들이 양옆으로 밀리는 간격
-
+        [Header("마우스 오버 카드 수치")] 
+        [SerializeField] private float mouseOverInterval; // 마우스 오버시 다른 카드들이 양옆으로 밀리는 간격
         [SerializeField] private float mouseOverScale; // 마우스 오버된 카드의 스케일
         [SerializeField] private float mouseOverYSpacing;
 
-        [Header("선택된 카드 수치")] [SerializeField] private float selectedScale; // 선택된 카드의 스케일
+        [Header("선택된 카드 수치")] 
+        [SerializeField] private float selectedScale; // 선택된 카드의 스케일
         [SerializeField] private float selectedYSpacing; // 선택된 카드의 y 보정값
 
         private bool isControllable; // 현재 컨트롤 가능 여부
@@ -63,9 +68,11 @@ namespace View
 
         private void Update()
         {
-            MouseOverDetection();
-            
-            if (isControllable) MouseClickDetection();
+            if (isControllable)
+            {
+                MouseOverDetection();
+                MouseClickDetection();
+            }
 
             ArrangeCards();
 
@@ -218,28 +225,19 @@ namespace View
 
         private void MouseClickDetection()
         {
-            // 좌클릭시,
             if (Input.GetMouseButtonDown(0))
             {
-                // 카드 선택 (마우스 오버된 카드가 있을 경우에만)
                 if (mouseOverCardIndex != Null)
                 {
-                    // 선택 카드 설정
                     selectedCardIndex = mouseOverCardIndex;
-                    // 마우스 오버 카드 초기화
                     mouseOverCardIndex = Null;
-                    // 효과음 재생
-                    //AudioManager.PlaySE(AudioManager.SE.SelectCard);
 
-                    // 공격 카드일 경우,
                     if (cards[selectedCardIndex].GetCardType() == CardType.Attack)
                     {
-                        //베지어 라인 활성화
                         bezierCurveDrawer.gameObject.SetActive(true);
                     }
                         
                 }
-                // 카드 사용 (선택된 카드가 있을 경우에만)
                 else if (selectedCardIndex != Null)
                 {
                     TryUseCard();
@@ -248,17 +246,13 @@ namespace View
             // 우클릭시,
             else if (Input.GetMouseButtonDown(1))
             {
-                // 선택된 카드 초기화
                 selectedCardIndex = Null;
-                // 베지어 라인 비활성화
                 bezierCurveDrawer.gameObject.SetActive(false);
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                // 선택된 카드 초기화
                 selectedCardIndex = Null;
-                // 베지어 라인 비활성화
                 bezierCurveDrawer.gameObject.SetActive(false);
             }
         }
@@ -266,135 +260,30 @@ namespace View
         private void TryUseCard()
         {
             var card = cards[selectedCardIndex];
-
-            // 에너지가 부족할 경우 종료
-            // if (card.CardCost > battleManager.energy)
-            // {
-            //     battleManager.EnergyShortage();
-            //     return;
-            // }
             
-            // 공격 카드인데, 마우스 오버된 적이 없을경우 종료
-            if (card.GetCardType() ==CardType.Attack && mouseOverEnemy == null)
-                return;
-            
-            // 에너지 소모
-            //battleManager.energy -= card.CardCost;
-            // 카드 사용
-            //cards[selectedCardIndex].Use(player, mouseOverEnemy);
-            // 사용한 카드 버림
-            //DiscardCard(selectedCardIndex);
-            // 선택된 카드 초기화
             selectedCardIndex = Null;
-            // 베지어 라인 비활성화
             bezierCurveDrawer.gameObject.SetActive(false);
         }
 
         public void DrawCard(CardView card)
         {
-            var cardTransform = card.transform;
+            var trans = card.transform;
+            trans.SetParent(transform);
+            trans.SetAsFirstSibling();
 
-            // 카드 부모를 카드 홀더로 설정
-            cardTransform.SetParent(transform);
-            // 카드 순서를 맨 처음으로 설정 
-            cardTransform.SetAsFirstSibling();
-
-            // 카드 위치/회전/스케일을 설정
-            cardTransform.position = drawPosition.position;
-            cardTransform.rotation = drawPosition.rotation;
-            cardTransform.localScale = drawPosition.localScale;
-
-            // 카드 활성화
-            cardTransform.gameObject.SetActive(true);
-            // 카드 리스트에 추가
             cards.Insert(0, card);
-
-            // 효과음 재생
-            //AudioManager.PlaySE(AudioManager.SE.DrawCard);
         }
-
-        private void DiscardCard(int cardIndex)
-        {
-            var card = cards[cardIndex];
-
-            // 카드를 리스트에서 지움
-            cards.Remove(card);
-            // 버린 카드더미에 추가
-            //battleManager.AddToDiscardPile(card);
-
-            // 효과음 재생
-            //AudioManager.PlaySE(AudioManager.SE.DiscardCard);
-
-            // 카드 버림 루틴 시작 (카드를 버리는 애니메이션)
-            StartCoroutine(DiscardRoutine(card.transform));
-        }
-
+        
         public void DiscardCard(CardView cardView)
         {
             var card = cards.Find(t => t == cardView);
-
-            // 카드를 리스트에서 지움
             cards.Remove(card);
-            // 버린 카드더미에 추가
-            //battleManager.AddToDiscardPile(card);
-
-            // 효과음 재생
-            //AudioManager.PlaySE(AudioManager.SE.DiscardCard);
-
-            // 카드 버림 루틴 시작 (카드를 버리는 애니메이션)
-            StartCoroutine(DiscardRoutine(card.transform));
-        }
-
-        public void DiscardAllCards()
-        {
-            StartCoroutine(DiscardAllRoutine());
-        }
-
-        private IEnumerator DiscardRoutine(Transform card)
-        {
-            while (true)
-            {
-                // lerp 정도
-                var lerpAmount = lerpTime * Time.deltaTime;
-
-                // 타겟 위치를 설정
-                var targetPos = discardPosition.localPosition;
-                // 타겟 회전을 버린 카드더미를 바라보는 방향으로 설정
-                var targetRot = Quaternion.FromToRotation(Vector3.up, (targetPos - card.localPosition).normalized);
-                // 타겟 스케일을 설정
-                var targetScl = discardPosition.localScale;
-
-                // Lerp로 최종 위치, 회전, 스케일 설정
-                card.localPosition = Vector3.Lerp(card.localPosition, targetPos, lerpAmount);
-                card.localRotation = Quaternion.Lerp(card.localRotation, targetRot, lerpAmount * 1.5f);
-                card.localScale = Vector3.Lerp(card.localScale, targetScl, lerpAmount * 0.5f);
-
-                // 카드가 버린 카드더미에 도달하면
-                if (Vector3.Distance(card.localPosition, targetPos) <= 1f)
-                {
-                    // 카드를 비활성화
-                    //card.gameObject.SetActive(false);
-
-                    // 루틴 종료
-                    yield break;
-                }
-
-                // 1프레임 대기
-                yield return null;
-            }
-        }
-
-        private IEnumerator DiscardAllRoutine()
-        {
-            // 전체 카드를 역으로 순회하면서,
-            for (var i = cards.Count - 1; i >= 0; i--)
-            {
-                // 카드를 버림
-                DiscardCard(i);
-
-                // 0.1초 대기
-                yield return new WaitForSeconds(0.1f);
-            }
+            
+            var trans = card.gameObject.transform;
+            trans.SetParent(discardPosition);
+            trans.DOMove(discardPosition.position, 0.5f).SetEase(Ease.OutExpo);
+            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-25, 25)), 0.5f).SetEase(Ease.OutQuart);
+            trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo);
         }
     }
 }

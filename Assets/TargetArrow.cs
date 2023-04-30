@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class TargetArrow : MonoBehaviour
 {
-    public Transform start, mid, end;
-
     [SerializeField] private List<RectTransform> points;
     [SerializeField] private List<RectTransform> arrows;
 
@@ -50,10 +48,10 @@ public class TargetArrow : MonoBehaviour
     {
         var color = enable ? highlightColor : baseColor;
 
-        // foreach (var arrow in arrows)
-        // {
-        //     arrow.GetComponent<Image>().color = color;
-        // }
+        foreach (var arrow in arrows)
+        {
+            arrow.GetComponent<Image>().color = color;
+        }
     }
 
     private Vector2 CurvePoint(float t)
@@ -103,40 +101,4 @@ public class TargetArrow : MonoBehaviour
         for (var i = 0; i < arrows.Count; i++)
             arrows[i].localScale = Vector3.one * (minScale + interval * i);
     }
-
-    public void ActiveArrow(Transform start)
-    {
-        // this.start = start;
-        // mid.transform.position = start.position + Vector3.up * 700f;
-        // end.position = Input.mousePosition;
-        // PlaceObjectOnBezierCurve();
-        // gameObject.SetActive(true);
-    }
-
-    // private void Update()
-    // {
-    //     end.position = Input.mousePosition;
-    //     PlaceObjectOnBezierCurve();
-    // }
-
-    // private void PlaceObjectOnBezierCurve()
-    // {
-    //     for (int i = 0; i < arrows.Count; i++)
-    //     {
-    //         var t = i / (float)(arrows.Count - 1);
-    //         var oneMinusT = 1 - t;
-    //         var oneMinusTSquared = oneMinusT * oneMinusT;
-    //
-    //         var pos = oneMinusTSquared * start.position + 2 * oneMinusT * t * mid.position + t * t * end.position;
-    //         arrows[i].transform.position = pos;
-    //         arrows[i].transform.localScale = Vector3.Lerp(Vector3.one * 0.3f, Vector3.one * 0.7f, t);
-    //     }
-    //
-    //     for (int i = 0; i < arrows.Count - 1; i++)
-    //     {
-    //         Vector3 dir = arrows[i + 1].transform.localPosition - arrows[i].transform.localPosition;
-    //         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-    //         arrows[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle -90));
-    //     }
-    // }
 }

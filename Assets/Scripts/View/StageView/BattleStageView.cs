@@ -33,7 +33,6 @@ namespace View.StageView
         public List<CardView> UserCards = new();
         public List<CardView> DeckCards = new();
         public List<CardView> GraveCards = new();
-        public List<CardView> HandCards = new();
         public GameObject indicator;
         public FloatingTextView floatingText;
         public RewardView rewardView;
@@ -44,12 +43,8 @@ namespace View.StageView
 
         public CardHolder cardHolder;
         
-        
         private EntityView _heroView;
         private CardView _hoveredCard;
-
-        public bool isHeroAction;
-        
 
         public void Start()
         {
@@ -156,26 +151,6 @@ namespace View.StageView
             
             DeckCards.Remove(cardView);
             cardHolder.DrawCard(cardView);
-            HandCards.Add(cardView);
-
-            // cardView.transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad);
-            // cardView.transform.DORotate(Vector3.zero, 0.3f);
-            // cardView.transform.SetParent(handPos);
-
-            //await ReplaceHandCard();
-        }
-
-        public async UniTask ReplaceHandCard()
-        {
-            var cardStartPos = (HandCards.Count -1)*100 * 0.5f;
-            for (var index = 0; index < HandCards.Count; index++)
-            {
-                var cv = HandCards[index];
-                    cv.transform.DOMove(handPos.position + (Vector3.right * (-cardStartPos + index * 150)), 0.3f)
-                        .SetEase(Ease.OutQuad);
-            }
-
-            await UniTask.Yield();
         }
 
         public async UniTask GraveToDeck(List<Card> deck)
@@ -199,15 +174,7 @@ namespace View.StageView
             if (cardView == null) return;
 
             cardHolder.DiscardCard(cardView);
-            HandCards.Remove(cardView);
             GraveCards.Add(cardView);
-
-            // cardView.transform.DOScale(0.5f, 0.2f);
-            // cardView.transform.DORotate(new Vector3(0, 180, Random.Range(-20, 20)), 0.3f);
-            // cardView.transform.DOMove(gravePos.position, 0.3f).SetEase(Ease.OutQuad);
-            // cardView.transform.SetParent(gravePos);
-            //
-            // await ReplaceHandCard();
         }
 
 

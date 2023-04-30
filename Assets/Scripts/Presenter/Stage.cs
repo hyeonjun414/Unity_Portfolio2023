@@ -317,7 +317,6 @@ namespace Presenter
         {
             Debug.Log("Card click");
             _selectedCard = card;
-            bsView.arrow.ActiveArrow(card.View.transform);
         }
 
         public void UnSelectCard(Card card)
