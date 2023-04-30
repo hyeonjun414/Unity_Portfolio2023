@@ -49,6 +49,19 @@ namespace Manager
             }
         }
 
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Equals))
+            {
+                Time.timeScale *= 2;
+            }
+            else if (Input.GetKeyDown(KeyCode.Minus))
+            {
+                Time.timeScale *= 0.5f;
+
+            }
+        }
+
         public async UniTask GameStart()
         {
             var userView = gameObject.AddComponent<UserView>();
