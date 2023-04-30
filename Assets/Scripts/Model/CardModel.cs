@@ -24,7 +24,7 @@ namespace Model
             Icon = mc.Icon;
             Effect = mc.Effect;
             Cost = mc.Cost;
-            CardType = CardType.Attack;
+            CardType = mc.CardType;
             Function = Util.ToObjectList<CardFunc>(mc.Function);
         }
 

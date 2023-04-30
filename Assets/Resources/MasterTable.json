@@ -118,6 +118,7 @@
       "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
       "Icon"    : "Card_Bomb",
       "Effect"  : "Explosion",
+      "CardType": "Attack",
       "Cost"    : 2,
       "Function": [
         {
@@ -132,6 +133,7 @@
       "Desc"    : "적에게 <color=red>6</color>의 피해를 줍니다.",
       "Icon"    : "Card_Slash",
       "Effect"  : "Slash",
+      "CardType": "Attack",
       "Cost"    : 1,
       "Function": [
         {
@@ -146,6 +148,7 @@
       "Desc"    : "적에게 <color=red>2</color>의 피해를 줍니다. AP를 30감소시킵니다.",
       "Icon"    : "Card_Chain",
       "Effect"  : "Smoke",
+      "CardType": "Attack",
       "Cost"    : 2,
       "Function": [
         {
@@ -164,6 +167,7 @@
       "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 2턴간 5의 화상 피해를 줍니다.",
       "Icon"    : "Card_Burn",
       "Effect"  : "Burn",
+      "CardType": "Attack",
       "Cost"    : 2,
       "Function": [
         {
@@ -174,7 +178,7 @@
           "Type"        : "CfStatusEffect",
           "StatusEffect": {
             "Type"    : "SE_Burn",
-            "Turn"    : 2,
+            "Turn"    : 1,
             "Icon"    : "SeIcon_Burn",
             "Damage"  : 5,
             "Particle": "Burn"

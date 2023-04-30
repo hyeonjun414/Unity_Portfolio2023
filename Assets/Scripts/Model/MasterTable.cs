@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using Presenter;
 
 namespace Model
 {
@@ -57,6 +58,7 @@ namespace Model
         public string Icon;
         public string Effect;
         public int Cost;
+        public CardType CardType;
         public List<JObject> Function;
     }
 

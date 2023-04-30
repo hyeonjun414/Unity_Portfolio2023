@@ -38,6 +38,10 @@ namespace Manager
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                settings.Converters.Add(new EnumConverter<CardType>());
+                
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 

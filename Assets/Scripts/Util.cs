@@ -30,3 +30,29 @@ public class Util
         return (T)JsonConvert.DeserializeObject(data.ToString(), type);
     }
 }
+
+public class EnumConverter<TEnum> : JsonConverter where TEnum : struct, Enum
+{
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        writer.WriteValue(value.ToString());
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        if (reader.TokenType == JsonToken.String)
+        {
+            var stringValue = (string)reader.Value;
+            if (Enum.TryParse<TEnum>(stringValue, out TEnum enumValue))
+            {
+                return enumValue;
+            }
+        }
+        throw new JsonSerializationException($"Cannot convert \"{reader.Value}\" to {typeof(TEnum).Name}.");
+    }
+
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(TEnum);
+    }
+}
