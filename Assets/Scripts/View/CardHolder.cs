@@ -114,7 +114,7 @@ namespace View
             else if (i == selectedCardIndex)
             {
                 // 공격 카드라면,
-                if (cards[i].GetCardType() is CardType.Attack or CardType.Magic)
+                if (cards[i].GetCardType() is CardType.Attack)// or CardType.Magic)
                 {
                     targetPos = new Vector3(0, selectedYSpacing, zInterval);
                     targetRot = Quaternion.identity;
@@ -203,8 +203,11 @@ namespace View
         {
             mouseOverCardIndex = Null;
             selectedCardIndex = cards.IndexOf(cardView);
-            bezierCurveDrawer.SetStartPoint(cardView.transform);
-            bezierCurveDrawer.gameObject.SetActive(true);
+            if (cardView.GetCardType() == CardType.Attack)
+            {
+                bezierCurveDrawer.SetStartPoint(cardView.transform);
+                bezierCurveDrawer.gameObject.SetActive(true);
+            }
         }
 
         public void CardUnSelected()

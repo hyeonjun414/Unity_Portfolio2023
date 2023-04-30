@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace View
         public TextMeshProUGUI Text_Cost;
         public ParticleSystem CardEffect;
 
+        public Image typeIcon;
+        public List<Sprite> typeImages;
+
+        public Image inputChecker;
+
         private void Update()
         {
             var forward = transform.forward;
@@ -44,13 +50,17 @@ namespace View
             Text_Cost.SetText(data.Cost.ToString());
             CardImage.sprite = Resources.Load<Sprite>($"CardImage/{data.Icon}");
             CardEffect = Resources.Load<ParticleSystem>($"Particle/{data.Effect}");
-            
+
+            typeIcon.sprite = typeImages[(int)GetCardType()];
+            SetInputChecker(true);
         }
 
         public void DestroyView()
         {
             Destroy(gameObject);
         }
+
+        public void SetInputChecker(bool value) => inputChecker.raycastTarget = value;
 
         
         public void OnPointerClick(PointerEventData eventData)

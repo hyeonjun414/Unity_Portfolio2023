@@ -242,11 +242,13 @@ namespace View.StageView
 
         public void CardSelected(CardView cardView)
         {
+            cardView.SetInputChecker(false);
             cardHolder.CardSelected(cardView);
         }
 
-        public void CardUnSelected()
+        public void CardUnSelected(CardView cardView)
         {
+            cardView.SetInputChecker(true);
             cardHolder.CardUnSelected();
         }
     }

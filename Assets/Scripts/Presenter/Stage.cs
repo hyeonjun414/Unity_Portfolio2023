@@ -83,6 +83,7 @@ namespace Presenter
 
         private bool _isHeroTurn;
         private bool _isStageClear;
+        private bool _inCardZone;
 
         public BattleStage(StageModel model, StageView view) : base(model, view)
         {
@@ -268,26 +269,29 @@ namespace Presenter
         }
 
 
-        private async UniTask UseCard(Entity target)
+        private async UniTask UseCard()
         {
-            if (user.CurEnergy >= _selectedCard.GetCost())
+            switch (_selectedCard.GetCardType())
             {
-                user.UseEnergy(_selectedCard.GetCost());
-                bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-                UnTargetEntity();
-                bsView.CardUnSelected();
-                await user.UseCard(_selectedCard, target);
-                
-                if (target is Enemy enemy)
-                {
-                    if (enemy.Model.IsDead)
+                case CardType.Attack:
+                    if (_curTarget == null) return;
+                    await user.UseCard(_selectedCard, _curTarget);
+                    if (_curTarget is Enemy enemy && enemy.Model.IsDead)
                     {
                         await CheckEnemies();
-                    } 
-                }
-                await HandToGrave(_selectedCard);
-                _selectedCard = null;
+                    }
+                    break;
+                case CardType.Magic:
+                    if(_inCardZone)
+                        await user.UseCard(_selectedCard, user.UserHero);
+                    break;
             }
+            user.UseEnergy(_selectedCard.GetCost());
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            UnTargetEntity();
+            bsView.CardUnSelected(_selectedCard.View);
+            await HandToGrave(_selectedCard);
+            _selectedCard = null;
         }
 
         public async UniTask MoveStage(Door door)
@@ -338,19 +342,15 @@ namespace Presenter
 
         public void UnSelectCard(Card card)
         {
-            bsView.arrow.gameObject.SetActive(false);
-            if (_selectedCard == card)
+            if (user.CanUseThisCard(_selectedCard))
             {
-                if (_curTarget != null&& user.CanUseThisCard(_selectedCard))
-                {
-                    var task = UseCard(_curTarget);
-                }
-                else
-                {
-                    bsView.UnsetTargetIndicator();
-                    bsView.CardUnSelected();
-                    _selectedCard = null;
-                }
+                var task = UseCard();
+            }
+            else
+            {
+                bsView.UnsetTargetIndicator();
+                bsView.CardUnSelected(_selectedCard.View);
+                _selectedCard = null;
             }
         }
 
@@ -403,6 +403,16 @@ namespace Presenter
             bsView.TurnEnded();
         }
 
-        
+
+        public void EnterCardZone()
+        {
+            if (_selectedCard == null) return;
+            _inCardZone = true;
+        }
+
+        public void ExitCardZone()
+        {
+            _inCardZone = false;
+        }
     }
 }
