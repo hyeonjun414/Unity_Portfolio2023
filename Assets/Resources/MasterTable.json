@@ -185,6 +185,21 @@
           }
         }
       ]
+    },
+    {
+      "Id"      : "럼주 한 병",
+      "Name"    : "럼주 한 병",
+      "Desc"    : "체력을 <color=green>15</color> 회복합니다.",
+      "Icon"    : "Card_Rum",
+      "Effect"  : "Burn",
+      "CardType": "Magic",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type" : "Cf_HpRecover",
+          "Value": 15
+        }
+      ]
     }
   ],
   "MasterHeroes" : [
@@ -206,7 +221,7 @@
       "DrawCardCount": 5,
       "Energy"       : 5,
       "Cards"        : [
-        "사슬 던지기",
+        "럼주 한 병",
         "베기",
         "폭탄 투하",
         "불태우기",

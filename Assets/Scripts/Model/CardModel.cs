@@ -28,11 +28,11 @@ namespace Model
             Function = Util.ToObjectList<CardFunc>(mc.Function);
         }
 
-        public async UniTask CardActivate(Enemy enemy)
+        public async UniTask CardActivate(Entity entity)
         {
             foreach (var func in Function)
             {
-                await func.Activate(enemy);
+                await func.Activate(entity);
             }
         }
     }

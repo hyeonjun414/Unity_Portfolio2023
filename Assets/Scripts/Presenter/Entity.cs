@@ -99,6 +99,26 @@ namespace Presenter
             Model.UseAp(value);
             await UniTask.Yield();
         }
+
+        public async UniTask HpRecover(float value)
+        {
+            Model.HpRecover(value);
+            await View.HpRecover(Model.CurHp, Model.MaxHp);
+        }
+
+        public virtual void Targeted()
+        {
+            if (Model.IsDead) return;
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            stage?.TargetEntity(this);
+        }
+
+        public virtual void UnTargeted()
+        {
+            if (Model.IsDead) return;
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            stage?.UnTargetEntity();
+        }
     }
 
     public class Enemy : Entity
@@ -114,20 +134,6 @@ namespace Presenter
         {
             base.Init();
             var task = SetAction();
-        }
-
-        public void Targeted()
-        {
-            if (Model.IsDead) return;
-            var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.TargetEnemy(this);
-        }
-
-        public void UnTargeted()
-        {
-            if (Model.IsDead) return;
-            var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.UnTargetEnemy(this);
         }
 
         public async UniTask SetAction()

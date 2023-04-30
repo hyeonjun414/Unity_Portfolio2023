@@ -68,19 +68,11 @@ namespace View
 
         private void Update()
         {
-            if (isControllable)
-            {
-                MouseOverDetection();
-                MouseClickDetection();
-            }
-
             ArrangeCards();
-
-            EnemySelectionTask();
         }
         
         private void ArrangeCards()
-    {
+        {
         // 시작 각도
         // *정 가운데 카드가 0도, 우측으로 갈수록 -각도, 좌측으로 갈수록 +각도가 된다. -> 각도가 반대이다.
         var startAngle =  angularInterval * 0.5f * (cards.Count - 1);
@@ -122,7 +114,7 @@ namespace View
             else if (i == selectedCardIndex)
             {
                 // 공격 카드라면,
-                if (cards[i].GetCardType() == CardType.Attack)
+                if (cards[i].GetCardType() is CardType.Attack or CardType.Magic)
                 {
                     targetPos = new Vector3(0, selectedYSpacing, zInterval);
                     targetRot = Quaternion.identity;
@@ -171,99 +163,8 @@ namespace View
         if(selectedCardIndex != Null)
             // 선택된 카드를 맨 앞에 배치
             cards[selectedCardIndex].transform.SetAsLastSibling();
-    }
-
-        private void EnemySelectionTask()
-        {
-            // 선택된 카드가 있고, 그 카드가 공격 카드라면,
-            if (selectedCardIndex != Null &&
-                cards[selectedCardIndex].GetCardType() == CardType.Attack)
-            {
-                // 베지어 곡선의 시작점을 선택된 카드의 위치로 설정
-                bezierCurveDrawer.SetStartPoint(cards[selectedCardIndex].transform.position);
-
-                // 마우스 오버된 적이 있다면 베지어 곡선을 강조하고, 없다면 강조 안함
-                bezierCurveDrawer.SetHighLight(mouseOverEnemy != null);
-            }
         }
 
-        private void MouseOverDetection()
-        {
-            // Physics2DRaycaster를 이용하여 화면상에서 마우스 오버된 UI 오브젝트를 레이캐스트한다.
-            var eventData = new PointerEventData(null) { position = Input.mousePosition };
-            var results = new List<RaycastResult>();
-            raycaster.Raycast(eventData, results);
-
-            // 마우스 오버된 카드, 적을 초기화한다.
-            mouseOverCardIndex = Null;
-            mouseOverEnemy = null;
-
-            // 마우스 오버된 오브젝트가 있을 경우,
-            if (results.Count > 0)
-            {
-                // 태그 비교로 카드/에너미 리스트로 분리한다.
-                var cardResults = results.Where(x => x.gameObject.CompareTag("Card")).ToList();
-                var enemyResults = results.Where(x => x.gameObject.CompareTag("Enemy")).ToList();
-            
-                // 선택된 카드가 없는 상태에서, 마우스 오버된 카드가 있을경우,
-                if (selectedCardIndex == Null && cardResults.Count > 0)
-                {
-                    // 카드중 가장 가까운 카드를 선택하여 (카드는 겹치므로)
-                    var result = cardResults.Aggregate((a, b) => a.distance > b.distance ? a : b);
-                    // 해당 카드의 인덱스를 얻는다.
-                    Debug.Log(result.gameObject.GetComponent<CardView>());
-                    mouseOverCardIndex = cards.IndexOf(result.gameObject.GetComponent<CardView>());
-                }
-                // 선택된 카드가 있는 상태에서, 마우스 오버된 적이 있을경우, 
-                else if (selectedCardIndex != Null && enemyResults.Count > 0)
-                {
-                    // 해당 적을 얻어온다. (적은 겹치지 않는다)
-                    mouseOverEnemy = enemyResults[0].gameObject.GetComponent<EnemyView>();
-                }
-            }
-        }
-
-        private void MouseClickDetection()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (mouseOverCardIndex != Null)
-                {
-                    selectedCardIndex = mouseOverCardIndex;
-                    mouseOverCardIndex = Null;
-
-                    if (cards[selectedCardIndex].GetCardType() == CardType.Attack)
-                    {
-                        bezierCurveDrawer.gameObject.SetActive(true);
-                    }
-                        
-                }
-                else if (selectedCardIndex != Null)
-                {
-                    TryUseCard();
-                }
-            }
-            // 우클릭시,
-            else if (Input.GetMouseButtonDown(1))
-            {
-                selectedCardIndex = Null;
-                bezierCurveDrawer.gameObject.SetActive(false);
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                selectedCardIndex = Null;
-                bezierCurveDrawer.gameObject.SetActive(false);
-            }
-        }
-
-        private void TryUseCard()
-        {
-            var card = cards[selectedCardIndex];
-            
-            selectedCardIndex = Null;
-            bezierCurveDrawer.gameObject.SetActive(false);
-        }
 
         public void DrawCard(CardView card)
         {
@@ -284,6 +185,32 @@ namespace View
             trans.DOMove(discardPosition.position, 0.5f).SetEase(Ease.OutExpo);
             trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-25, 25)), 0.5f).SetEase(Ease.OutQuart);
             trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo);
+        }
+
+        public void CardHovered(CardView cardView)
+        {
+            mouseOverCardIndex = cards.IndexOf(cardView);
+        }
+
+        public void CardUnHovered(CardView cardView)
+        {
+            var curCardIndex = cards.IndexOf(cardView);
+            if (mouseOverCardIndex == curCardIndex)
+                mouseOverCardIndex = Null;
+        }
+
+        public void CardSelected(CardView cardView)
+        {
+            mouseOverCardIndex = Null;
+            selectedCardIndex = cards.IndexOf(cardView);
+            bezierCurveDrawer.SetStartPoint(cardView.transform);
+            bezierCurveDrawer.gameObject.SetActive(true);
+        }
+
+        public void CardUnSelected()
+        {
+            selectedCardIndex = Null;
+            bezierCurveDrawer.gameObject.SetActive(false);
         }
     }
 }

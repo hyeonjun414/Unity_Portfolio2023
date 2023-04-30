@@ -45,4 +45,13 @@ namespace Model
 
         }
     }
+
+    public class Cf_HpRecover : CardFunc
+    {
+        public float Value;
+        public override async UniTask Activate(Entity entity)
+        {
+            await entity.HpRecover(Value);
+        }
+    }
 }

@@ -71,7 +71,7 @@ namespace Presenter
         private BattleStageModel bsModel => Model as BattleStageModel;
         private BattleStageView bsView => View as BattleStageView;
 
-        private Enemy _curTarget;
+        private Entity _curTarget;
         private Card _selectedCard;
         private Reward _reward;
         public List<Enemy> Enemies = new();
@@ -268,20 +268,25 @@ namespace Presenter
         }
 
 
-        private async UniTask UseCard(Enemy enemy)
+        private async UniTask UseCard(Entity target)
         {
             if (user.CurEnergy >= _selectedCard.GetCost())
             {
-                UnTargetEnemy(enemy);
                 user.UseEnergy(_selectedCard.GetCost());
                 bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-                await user.UseCard(_selectedCard, enemy);
-                if (enemy.Model.IsDead)
+                UnTargetEntity();
+                bsView.CardUnSelected();
+                await user.UseCard(_selectedCard, target);
+                
+                if (target is Enemy enemy)
                 {
-                    await CheckEnemies();
+                    if (enemy.Model.IsDead)
+                    {
+                        await CheckEnemies();
+                    } 
                 }
-
                 await HandToGrave(_selectedCard);
+                _selectedCard = null;
             }
         }
 
@@ -296,27 +301,36 @@ namespace Presenter
             await base.StageClear();
         }
 
-        public void TargetEnemy(Enemy ep)
+        public void TargetEntity(Entity entity)
         {
-            _curTarget = ep;
-            bsView.SetTargetIndicator(ep);
+            _curTarget = entity;
+            bsView.SetTargetIndicator(entity.View);
             
         }
 
-        public void UnTargetEnemy(Enemy ep)
+        public void UnTargetEntity()
         {
-            if (_curTarget == ep)
-            {
-                bsView.UnsetTargetIndicator(); 
-                _curTarget = null;
-            }
-            
+            bsView.UnsetTargetIndicator();
+            _curTarget = null;
         }
 
+        public void HoverCard(Card card)
+        {
+            if (_selectedCard != null) return; 
+            bsView.CardHovered(card.View);
+        }
+
+        public void UnHoverCard(Card card)
+        {
+            if (_selectedCard != null) return; 
+            bsView.CardUnHovered(card.View);
+        }
+        
         public void SelectCard(Card card)
         {
             Debug.Log("Card click");
             _selectedCard = card;
+            bsView.CardSelected(card.View);
         }
 
         public void UnSelectCard(Card card)
@@ -330,11 +344,10 @@ namespace Presenter
                 }
                 else
                 {
-                    bsView.UnsetTargetIndicator(); 
-                    _selectedCard = null; 
+                    bsView.UnsetTargetIndicator();
+                    bsView.CardUnSelected();
+                    _selectedCard = null;
                 }
-            
-                
             }
         }
 
@@ -386,5 +399,7 @@ namespace Presenter
             user.UserHero.hModel.UseAp();
             bsView.TurnEnded();
         }
+
+        
     }
 }

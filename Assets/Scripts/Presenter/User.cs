@@ -50,14 +50,10 @@ namespace Presenter
         {
             Model.CurEnergy -= cost;
         }
-        public async UniTask UseCard(Card card, Enemy target) {
-            var position = target.View.transform.position;
-            //UserHero.UseActionCount(card.GetCost());
-            //Model.CurEnergy -= card.GetCost();
-            //await UserHero.PrepareAttack(position);
+        public async UniTask UseCard(Card card, Entity target) 
+        {
             await UserHero.PlayAttack();
             await card.CardActivate(target);
-            //await UserHero.EndAttack();
         }
 
         public bool CanUseThisCard(Card selectedCard)

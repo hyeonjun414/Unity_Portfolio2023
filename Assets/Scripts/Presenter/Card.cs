@@ -34,14 +34,14 @@ namespace Presenter
 
         public void OnHover(Card card)
         {
-            if (IsSelected) return;
-            //card.View.Hovered(this);
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.HoverCard(card);
         }
 
         public void OnUnhover(Card card)
         {
-            if (IsSelected) return;
-            //card.View.Unhovered(this);
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.UnHoverCard(card);
         }
 
         public void OnClickDown(Card card)
@@ -153,10 +153,10 @@ namespace Presenter
             return Model.Cost;
         }
         
-        public async UniTask CardActivate(Enemy enemy)
+        public async UniTask CardActivate(Entity entity)
         {
-            await View.PlayCardEft(enemy.View);
-            await Model.CardActivate(enemy);
+            await View.PlayCardEft(entity.View);
+            await Model.CardActivate(entity);
         }
     }
 }

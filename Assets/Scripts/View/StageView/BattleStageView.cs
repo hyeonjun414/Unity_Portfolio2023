@@ -116,14 +116,12 @@ namespace View.StageView
             
         }
 
-        public void SetTargetIndicator(Enemy ep)
+        public void SetTargetIndicator(EntityView entity)
         {
-            var targetView = EnemyViews.FirstOrDefault(target => target.Presenter == ep);
-            if (targetView != null)
-            {
-                indicator.SetActive(true);
-                indicator.transform.position = targetView.transform.position + Vector3.up * 2.5f;
-            }
+            if (entity == null) return;
+            
+            indicator.SetActive(true);
+            indicator.transform.position = entity.transform.position + Vector3.up * 2.5f;
         }
 
         public void UnsetTargetIndicator()
@@ -230,6 +228,26 @@ namespace View.StageView
         {
             turnEndButton.interactable = true;
             cardHolder.SetControllable(true);
+        }
+
+        public void CardHovered(CardView cardView)
+        {
+            cardHolder.CardHovered(cardView);
+        }
+        public void CardUnHovered(CardView cardView)
+        {
+            cardHolder.CardUnHovered(cardView);
+        }
+
+
+        public void CardSelected(CardView cardView)
+        {
+            cardHolder.CardSelected(cardView);
+        }
+
+        public void CardUnSelected()
+        {
+            cardHolder.CardUnSelected();
         }
     }
 }

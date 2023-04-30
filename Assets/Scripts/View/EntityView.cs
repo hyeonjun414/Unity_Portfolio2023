@@ -36,6 +36,7 @@ namespace View
         public virtual void Init(Entity entity)
         {
             entity.View = this;
+            Presenter = entity;
             UpdateHp(entity.Model.CurHp, entity.Model.MaxHp);
         }
 
@@ -111,6 +112,12 @@ namespace View
             eftInst.SetView(eft);
             eft.View = eftInst;
             StatEftList.Add(eftInst);
+            await UniTask.Yield();
+        }
+
+        public async UniTask HpRecover(float curHp, float maxHp)
+        {
+            UpdateHp(curHp, maxHp);
             await UniTask.Yield();
         }
     }

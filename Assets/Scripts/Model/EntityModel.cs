@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using UniRx;
 using UnityEngine;
@@ -69,6 +70,11 @@ namespace Model
             CurAp = Mathf.Max(CurAp - value, 0);
             IsReady = false;
             _aprate.Value = CurAp / MaxAp;
+        }
+
+        public void HpRecover(float value)
+        {
+            CurHp = Mathf.Min(CurHp + value, MaxHp);
         }
     }
     public class EnemyModel : EntityModel
