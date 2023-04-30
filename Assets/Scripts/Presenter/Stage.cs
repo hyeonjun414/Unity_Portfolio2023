@@ -303,9 +303,12 @@ namespace Presenter
 
         public void TargetEntity(Entity entity)
         {
-            _curTarget = entity;
-            bsView.SetTargetIndicator(entity.View);
-            
+            if ((_selectedCard.GetCardType() is CardType.Attack && entity is Enemy) ||
+                (_selectedCard.GetCardType() is CardType.Magic && entity is Hero))
+            {
+                _curTarget = entity;
+                bsView.SetTargetIndicator(entity.View);
+            }
         }
 
         public void UnTargetEntity()
