@@ -354,9 +354,9 @@ namespace Presenter
             }
         }
 
-        public void CreateFloatingText(string str, Vector3 position)
+        public void CreateFloatingText(string str, Vector3 position, TextType textType)
         {
-            bsView.CreateFloatingText(str, position);
+            bsView.CreateFloatingText(str, position, textType);
         }
 
 

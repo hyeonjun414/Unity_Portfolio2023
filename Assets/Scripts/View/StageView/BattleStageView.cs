@@ -176,10 +176,10 @@ namespace View.StageView
         }
 
 
-        public void CreateFloatingText(string str, Vector3 position)
+        public void CreateFloatingText(string str, Vector3 position, TextType textType)
         {
             var textInst = Instantiate(floatingText);
-            textInst.SetFloatingText(str, position);
+            textInst.SetFloatingText(str, position, textType);
         }
 
         public void OpenRewardPanel()

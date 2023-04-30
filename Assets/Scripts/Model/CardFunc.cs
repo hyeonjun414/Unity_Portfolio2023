@@ -1,9 +1,15 @@
 using Cysharp.Threading.Tasks;
+using Manager;
 using Newtonsoft.Json.Linq;
 using Presenter;
 
 namespace Model
 {
+    public enum TextType
+    {
+        Damage,
+        Heal,
+    }
     public class CardFunc
     {
         public string Type;
@@ -51,6 +57,8 @@ namespace Model
         public float Value;
         public override async UniTask Activate(Entity entity)
         {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            curStage?.CreateFloatingText(Value.ToString(), entity.View.transform.position, TextType.Heal);
             await entity.HpRecover(Value);
         }
     }

@@ -36,7 +36,7 @@ namespace Presenter
         {
             Model.TakeDamage(damage);
             var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.CreateFloatingText(((int)damage).ToString(), View.transform.position);
+            stage?.CreateFloatingText(((int)damage).ToString(), View.transform.position, TextType.Damage);
             if (Model.IsDead)
                 await View.Dead();
             else

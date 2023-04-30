@@ -191,7 +191,7 @@
       "Name"    : "럼주 한 병",
       "Desc"    : "체력을 <color=green>15</color> 회복합니다.",
       "Icon"    : "Card_Rum",
-      "Effect"  : "Burn",
+      "Effect"  : "HealthUp",
       "CardType": "Magic",
       "Cost"    : 2,
       "Function": [
