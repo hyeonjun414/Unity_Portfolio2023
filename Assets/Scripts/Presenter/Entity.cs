@@ -8,7 +8,12 @@ using View;
 
 namespace Presenter
 {
-    public class Entity
+    public interface IEntity
+    {
+        void AddObserver(IEntityObserver observer);
+        void RemoveObserver(IEntityObserver observer);
+    }
+    public class Entity : IEntity
     {
         public EntityModel Model;
         public EntityView View;
@@ -118,6 +123,16 @@ namespace Presenter
             if (Model.IsDead) return;
             var stage = GameManager.Instance.CurStage as BattleStage;
             stage?.UnTargetEntity();
+        }
+
+        public void AddObserver(IEntityObserver observer)
+        {
+            View.Observers.Add(observer);
+        }
+
+        public void RemoveObserver(IEntityObserver observer)
+        {
+            View.Observers.Remove(observer);
         }
     }
 

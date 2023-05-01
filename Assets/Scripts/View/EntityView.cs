@@ -13,6 +13,11 @@ using UnityEngine.UI;
 
 namespace View
 {
+    public interface IEntityObserver
+    {
+        void OnMouseEnterEntity();
+        void OnMouseExitEntity();
+    }
     public class EntityView : MonoBehaviour
     {
         protected const string STR_MOVE = "Move";
@@ -32,6 +37,9 @@ namespace View
         public Canvas uiCanvas;
         public Slider HpGauge;
         public TextMeshProUGUI HpText;
+
+        public List<IEntityObserver> Observers = new();
+        
 
         public virtual void Init(Entity entity)
         {
