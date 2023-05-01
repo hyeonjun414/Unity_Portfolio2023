@@ -52,6 +52,7 @@ namespace Presenter
         }
         public async UniTask UseCard(Card card, Entity target) 
         {
+            UseEnergy(card.GetCost());
             await UserHero.PlayAttack();
             await card.CardActivate(target);
         }

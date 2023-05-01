@@ -274,23 +274,27 @@ namespace Presenter
             switch (_selectedCard.GetCardType())
             {
                 case CardType.Attack:
-                    if (_curTarget == null) return;
+                    if (_curTarget == null) break;
                     await user.UseCard(_selectedCard, _curTarget);
+                    await HandToGrave(_selectedCard);
                     if (_curTarget is Enemy enemy && enemy.Model.IsDead)
                     {
                         await CheckEnemies();
                     }
                     break;
                 case CardType.Magic:
-                    if(_inCardZone)
+                    if (_inCardZone)
+                    {
                         await user.UseCard(_selectedCard, user.UserHero);
+                        await HandToGrave(_selectedCard);
+                    }
                     break;
             }
-            user.UseEnergy(_selectedCard.GetCost());
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            
             UnTargetEntity();
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.UnsetTargetIndicator();
             bsView.CardUnSelected(_selectedCard.View);
-            await HandToGrave(_selectedCard);
             _selectedCard = null;
         }
 
