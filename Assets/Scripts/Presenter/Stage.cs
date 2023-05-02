@@ -128,10 +128,16 @@ namespace Presenter
             {
                 GameOver();
             }
-            else if (sender is Enemy)
+            else if (sender is Enemy enemy)
             {
+                await RemoveEntityView(enemy);
                 await CheckEnemies();
             }
+        }
+
+        private async UniTask RemoveEntityView(Entity entity)
+        {
+            await bsView.EntityRemoved(entity);
         }
 
         private void GameOver()

@@ -42,6 +42,7 @@ namespace View.StageView
         public ActionBar actionBar;
 
         public CardHolder cardHolder;
+        public EntityHolder entityHolder;
         
         private EntityView _heroView;
         private CardView _hoveredCard;
@@ -76,10 +77,12 @@ namespace View.StageView
 
         public void CreateHeroView(Entity hero)
         {
-            hero.View = Instantiate(entityView, HeroPivot);
+            var inst = Instantiate(entityView);
+            hero.View = inst;
             _heroView = hero.View;
             _heroView.Init(hero);
             _heroView.gameObject.SetActive(true);
+            entityHolder.AddEntityView(inst);
             actionBar.AddEntity(hero);
         }
 
@@ -201,6 +204,7 @@ namespace View.StageView
                 inst.Presenter = enemies[i];
                 EnemyViews.Add(inst);
                 actionBar.AddEntity(enemies[i]);
+                entityHolder.AddEntityView(inst);
             }
         }
 
@@ -241,6 +245,11 @@ namespace View.StageView
         {
             cardView.SetInputChecker(true);
             cardHolder.CardUnSelected();
+        }
+
+        public async UniTask EntityRemoved(Entity entity)
+        {
+            await entityHolder.RemoveEntityView(entity.View);
         }
     }
 }

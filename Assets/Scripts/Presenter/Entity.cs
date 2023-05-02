@@ -48,7 +48,7 @@ namespace Presenter
             if (Model.IsDead)
             {
                 OnDeath?.Invoke(this, EventArgs.Empty);
-                await View.Dead();
+                //await View.Dead();
             }
             else
                 View.PlayDamageEft();
