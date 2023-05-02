@@ -106,13 +106,17 @@ namespace Manager
             await loadingScreen.FadeIn();
         }
 
-        public Stage GenerateStage(StageInfo stageInfo)
+        public Stage GenerateStage(MapNodeModel mapNode)
         {
             Stage genStage = null;
-            switch (stageInfo.Type)
+            switch (mapNode.StageData.Type)
             {
                 case nameof(BattleStageInfo):
-                    genStage = new BattleStage(new BattleStageModel(stageInfo, MasterTable), null);
+                    genStage = new BattleStage(new BattleStageModel(mapNode.StageData,
+                        mapNode.MinLevelValue,
+                        mapNode.MaxLevelValue,
+                        MasterTable),
+                        null);
                     break;
             }
 
@@ -127,7 +131,7 @@ namespace Manager
         }
         public async UniTask LoadStageScene(MapNode mapNode)
         {
-            CurStage = GenerateStage(mapNode.Model.StageData);
+            CurStage = GenerateStage(mapNode.Model);
             await CreateScene(SceneType.BattleStage);
             //await LoadScene(SceneType.Stage);
         }

@@ -15,10 +15,5 @@ namespace View
             var inst = Instantiate(apviewPrefab, transform);
             inst.Init(entity, start, end);
         }
-
-        public void RemoveEntity()
-        {
-            
-        }
     }
 }

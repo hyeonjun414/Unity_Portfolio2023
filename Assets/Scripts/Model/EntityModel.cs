@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Model
 {
@@ -81,9 +83,13 @@ namespace Model
     {
         private List<JObject> _actions;
         private EnemyAction _curAction;
-        public EnemyModel(MasterEnemy me) : base(me)
+        public EnemyModel(MasterEnemy me, float levelValue) : base(me)
         {
             _actions = me.Actions;
+
+            Damage = Mathf.Round(Damage * levelValue);
+            MaxHp = CurHp = Mathf.Round(CurHp * levelValue);
+            
             if(_actions.Count != 0)
                 SetAction();
         }

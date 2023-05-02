@@ -68,6 +68,8 @@ namespace Model
         public string Name;
         public int Step;
         public int Width;
+        public float MinLevelValue;
+        public float MaxLevelValue;
     }
 
     

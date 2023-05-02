@@ -9,11 +9,16 @@ namespace Model
         public int LinkCount;
         public int Step;
 
-        public MapNodeModel(int step)
+        public float MinLevelValue;
+        public float MaxLevelValue;
+
+        public MapNodeModel(int step, float minLevelValue, float maxLevelValue)
         {
             NextNodes = new List<MapNodeModel>();
             LinkCount = 0;
             Step = step;
+            MinLevelValue = minLevelValue;
+            MaxLevelValue = maxLevelValue;
         }
 
         public void AddNextStage(MapNodeModel node)

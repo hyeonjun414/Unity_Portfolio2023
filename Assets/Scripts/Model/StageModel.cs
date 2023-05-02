@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using View;
 
 namespace Model
@@ -23,14 +24,15 @@ namespace Model
     {
         public List<EnemyModel> Enemies = new();
 
-        public BattleStageModel(StageInfo stageInfo, MasterTable mt) : base(stageInfo, mt)
+        public BattleStageModel(StageInfo stageInfo, float minLevelValue, float maxLevelValue, MasterTable mt) : base(stageInfo, mt)
         {
             if (stageInfo is BattleStageInfo info)
             {
                 foreach (var enemyId in info.Enemies)
                 {
+                    var levelValue = Random.Range(minLevelValue, maxLevelValue);
                     var masterEnemy = mt.MasterEnemies.First(target => target.Id == enemyId);
-                    var enemy = new EnemyModel(masterEnemy);
+                    var enemy = new EnemyModel(masterEnemy, levelValue);
                     Enemies.Add(enemy);
                 }
             }

@@ -287,8 +287,6 @@ namespace Presenter
 
         private async UniTask UseCard()
         {
-            
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             bsView.CardUnSelected(_selectedCard.View);
             
             switch (_selectedCard.GetCardType())
@@ -307,7 +305,8 @@ namespace Presenter
                     }
                     break;
             }
-            
+
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             UnTargetEntity();
             _selectedCard = null;
         }

@@ -275,10 +275,28 @@
   ],
   "MasterMaps"   : [
     {
-      "Id"   : "Small",
-      "Name" : "Small",
-      "Step" : 10,
-      "Width": 4
+      "Id"           : "Level1",
+      "Name"         : "Level1",
+      "MinLevelValue": 0.8,
+      "MaxLevelValue": 1.2,
+      "Step"         : 10,
+      "Width"        : 4
+    },
+    {
+      "Id"           : "Level2",
+      "Name"         : "Level2",
+      "MinLevelValue": 1.2,
+      "MaxLevelValue": 1.6,
+      "Step"         : 10,
+      "Width"        : 4
+    },
+    {
+      "Id"           : "Level3",
+      "Name"         : "Level3",
+      "MinLevelValue": 1.6,
+      "MaxLevelValue": 2,
+      "Step"         : 10,
+      "Width"        : 4
     }
   ]
 }

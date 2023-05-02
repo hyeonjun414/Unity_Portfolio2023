@@ -82,15 +82,6 @@ namespace View.StageView
             _heroView.gameObject.SetActive(true);
             actionBar.AddEntity(hero);
         }
-        public EntityView GetHeroView()
-        {
-            return _heroView;
-        }
-
-        public List<EnemyView> GetEnemyViews()
-        {
-            return EnemyViews;
-        }
 
         public DoorView GenerateDoor()
         {
