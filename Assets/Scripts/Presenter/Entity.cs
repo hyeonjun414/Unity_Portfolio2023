@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace Presenter
         public EntityView View;
 
         public List<StatusEffect> StatusEffects;
+
+        public event EventHandler OnDeath;
 
         public Entity(EntityModel model, EntityView view)
         {
@@ -43,7 +46,10 @@ namespace Presenter
             var stage = GameManager.Instance.CurStage as BattleStage;
             stage?.CreateFloatingText(((int)damage).ToString(), View.transform.position, TextType.Damage);
             if (Model.IsDead)
+            {
+                OnDeath?.Invoke(this, EventArgs.Empty);
                 await View.Dead();
+            }
             else
                 View.PlayDamageEft();
             

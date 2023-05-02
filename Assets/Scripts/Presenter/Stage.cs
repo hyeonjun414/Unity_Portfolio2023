@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Model;
 using UnityEngine;
 using View;
 using View.StageView;
+using Random = UnityEngine.Random;
 
 namespace Presenter
 {
@@ -100,6 +102,7 @@ namespace Presenter
             for (var index = 0; index < enemyModels.Count; index++)
             {
                 var enemyPresenter = new Enemy(enemyModels[index], null);
+                enemyPresenter.OnDeath += OnDeath;
                 Enemies.Add(enemyPresenter);
             }
 
@@ -117,6 +120,23 @@ namespace Presenter
                 Deck.Add(card);
             }
             bsView.SetUserCards(Deck);
+        }
+
+        public async void OnDeath(object sender, EventArgs e)
+        {
+            if (sender is Hero)
+            {
+                GameOver();
+            }
+            else if (sender is Enemy)
+            {
+                await CheckEnemies();
+            }
+        }
+
+        private void GameOver()
+        {
+            throw new NotImplementedException();
         }
 
         public void StageStart()
@@ -171,25 +191,21 @@ namespace Presenter
             await UniTask.Yield();
 
         }
-
-        private async UniTask StatusEffectPhase()
-        {
-            await user.UserHero.StatusEffectActivate();
-            foreach (var enemy in GetAliveEnemies())
-            {
-                await enemy.StatusEffectActivate();
-                if (enemy.Model.IsDead)
-                    await CheckEnemies();
-            }
-        }
+        
 
         private async UniTask CheckEnemies()
         {
             if (Model is BattleStageModel sn && !sn.AreAllEnemiesDead()) return;
 
             GenerateReward();
-            await bsView.BattleEnd();
+            await BattleEnd();
             GenerateDoor();
+        }
+
+        private async UniTask BattleEnd()
+        {
+            user.UserHero.OnDeath -= OnDeath;
+            await bsView.BattleEnd();
         }
 
         private void GenerateReward()
@@ -271,16 +287,17 @@ namespace Presenter
 
         private async UniTask UseCard()
         {
+            
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.CardUnSelected(_selectedCard.View);
+            
             switch (_selectedCard.GetCardType())
             {
                 case CardType.Attack:
                     if (_curTarget == null) break;
                     await user.UseCard(_selectedCard, _curTarget);
                     await HandToGrave(_selectedCard);
-                    if (_curTarget is Enemy enemy && enemy.Model.IsDead)
-                    {
-                        await CheckEnemies();
-                    }
+                    
                     break;
                 case CardType.Magic:
                     if (_inCardZone)
@@ -292,9 +309,6 @@ namespace Presenter
             }
             
             UnTargetEntity();
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-            bsView.UnsetTargetIndicator();
-            bsView.CardUnSelected(_selectedCard.View);
             _selectedCard = null;
         }
 
