@@ -60,7 +60,7 @@ namespace Model
             }
         }
 
-        public void UseAp()
+        public virtual void UseAp()
         {
             CurAp = 0;
             IsReady = false;
@@ -119,6 +119,16 @@ namespace Model
 
             if (_actions.Count != 0)
                 SetAction();
+        }
+
+        public override void UseAp()
+        {
+            base.UseAp();
+            Turn--;
+            if (Turn <= 0)
+            {
+                IsDead = true;
+            }
         }
 
         public void SetAction()

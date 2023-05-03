@@ -47,7 +47,7 @@ namespace Presenter
             stage?.CreateFloatingText(((int)damage).ToString(), View.transform.position, TextType.Damage);
             if (Model.IsDead)
             {
-                OnDeath?.Invoke(this, EventArgs.Empty);
+                OnDeathEvent();
                 //await View.Dead();
             }
             else
@@ -60,6 +60,7 @@ namespace Presenter
         public async UniTask PrepareAttack(Vector3 targetPos)
         {
             await View.PrepareAttack(targetPos);
+            
         }
 
         public async UniTask PlayAttack()
@@ -145,6 +146,11 @@ namespace Presenter
         {
             View.Observers.Remove(observer);
         }
+
+        public virtual void OnDeathEvent()
+        {
+            OnDeath?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public class Enemy : Character
@@ -160,6 +166,7 @@ namespace Presenter
         {
             base.Init();
             var task = SetAction();
+            
         }
 
         public async UniTask SetAction()
@@ -231,6 +238,10 @@ namespace Presenter
                 curAct.Turn--;
                 await aView.SetActionView(curAct);
                 await aView.Wait();
+            }
+            if (Model.IsDead)
+            {
+                OnDeathEvent();
             }
         }
 
