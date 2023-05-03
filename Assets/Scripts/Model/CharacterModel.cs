@@ -8,19 +8,32 @@ using Random = UnityEngine.Random;
 
 namespace Model
 {
+    public struct CharacterStat
+    {
+        public float MaxHp;
+        public float CurHp;
+        public float Damage;
+        public float Speed;
+        public float HitRate;
+    }
     public class CharacterModel
     {
         public string Id;
         public string Name;
         public string Desc;
-        public float MaxHp;
-        public float CurHp;
-        public float Damage;
-        public float Speed;
-        public float MaxAp;
-        public float CurAp;
         public bool IsReady;
         public bool IsDead;
+        public float MaxAp;
+        public float CurAp;
+
+        public float MaxHp => Stats.MaxHp + BuffStats.MaxHp;
+        public float CurHp => Stats.CurHp + BuffStats.CurHp;
+        public float Damage => Stats.Damage + BuffStats.Damage;
+        public float Speed => Stats.Speed + BuffStats.Speed;
+        public float HitRate => Stats.HitRate + BuffStats.HitRate;
+        
+        public CharacterStat Stats = new();
+        public CharacterStat BuffStats = new();
 
         public List<StatusEffectModel> StatusEffects = new();
         private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
@@ -31,19 +44,22 @@ namespace Model
             Id = me.Id;
             Name = me.Name;
             Desc = me.Desc;
-            MaxHp = CurHp = me.Hp;
-            Damage = me.Damage;
-            Speed = me.Speed;
+            Stats.MaxHp = me.Hp;
+            Stats.CurHp = me.Hp;
+            Stats.Damage = me.Damage;
+            Stats.Speed = me.Speed;
+            Stats.HitRate = 1;
+            
             CurAp = 0;
             MaxAp = 100;
         }
         
         public void TakeDamage(float damage)
         {
-            CurHp -= damage;
-            if (CurHp <= 0)
+            Stats.CurHp -= damage;
+            if (Stats.CurHp <= 0)
             {
-                CurHp = 0;
+                Stats.CurHp = 0;
                 IsDead = true;
             }
         }
@@ -51,7 +67,7 @@ namespace Model
 
         public void AddAp(float deltaTime)
         {
-            CurAp += Speed * deltaTime;
+            CurAp += Stats.Speed * deltaTime;
             _aprate.Value = CurAp / MaxAp;
             if (CurAp >= MaxAp)
             {
@@ -76,7 +92,7 @@ namespace Model
 
         public void HpRecover(float value)
         {
-            CurHp = Mathf.Min(CurHp + value, MaxHp);
+            Stats.CurHp = Mathf.Min(Stats.CurHp + value, Stats.MaxHp);
         }
     }
     public class EnemyModel : CharacterModel
@@ -87,8 +103,8 @@ namespace Model
         {
             _actions = me.Actions;
 
-            Damage = Mathf.Round(Damage * levelValue);
-            MaxHp = CurHp = Mathf.Round(CurHp * levelValue);
+            Stats.Damage = Mathf.Round(Stats.Damage * levelValue);
+            Stats.MaxHp = Stats.CurHp = Mathf.Round(Stats.CurHp * levelValue);
             
             if(_actions.Count != 0)
                 SetAction();
