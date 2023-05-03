@@ -62,4 +62,19 @@ namespace Model
             await character.HpRecover(Value);
         }
     }
+
+    public class Cf_SummonAlly : CardFunc
+    {
+        public string Character;
+        public int LivingTurn;
+
+        public override async UniTask Activate(Character character)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            if (curStage != null)
+            {
+                await curStage.SummonAlly(Character, LivingTurn);
+            }
+        }
+    }
 }
