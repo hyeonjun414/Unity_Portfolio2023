@@ -82,7 +82,7 @@ namespace Model
     public class EnemyModel : CharacterModel
     {
         private List<JObject> _actions;
-        private EnemyAction _curAction;
+        private CharacterAction _curAction;
         public EnemyModel(MasterEnemy me, float levelValue) : base(me)
         {
             _actions = me.Actions;
@@ -96,11 +96,38 @@ namespace Model
 
         public void SetAction()
         {
-            _curAction = Util.ToObject<EnemyAction>(_actions[Random.Range(0, _actions.Count)]);
+            _curAction = Util.ToObject<CharacterAction>(_actions[Random.Range(0, _actions.Count)]);
             _curAction.Init(this);
         }
 
-        public EnemyAction GetCurAction()
+        public CharacterAction GetCurAction()
+        {
+            return _curAction;
+        }
+    }
+
+    public class AllyModel : CharacterModel
+    {
+        private List<JObject> _actions;
+        private CharacterAction _curAction;
+        
+        public int Turn;
+        public AllyModel(MasterAlly ma, int livingTurn) : base(ma)
+        {
+            _actions = ma.Actions;
+            Turn = livingTurn;
+
+            if (_actions.Count != 0)
+                SetAction();
+        }
+
+        public void SetAction()
+        {
+            _curAction = Util.ToObject<CharacterAction>(_actions[Random.Range(0, _actions.Count)]);
+            _curAction.Init(this);
+        }
+
+        public CharacterAction GetCurAction()
         {
             return _curAction;
         }

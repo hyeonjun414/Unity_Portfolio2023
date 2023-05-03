@@ -23499,6 +23499,7 @@ MonoBehaviour:
   canvasRect: {fileID: 0}
   energyText: {fileID: 1913537104676213848}
   characterView: {fileID: 1438007507274079348, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
+  allyView: {fileID: 7227543362852767417, guid: cd205cea03fe67b4fbe74ae7678a6965, type: 3}
   doorPrefab: {fileID: 4957955070667770164, guid: 95c81c2a36d4dd642952e3e169cf4d9f, type: 3}
   cardPrefab: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
   enemyPrefab: {fileID: 6966354741140356193, guid: fa0620281adc68e4a8d42f25c6c54071, type: 3}

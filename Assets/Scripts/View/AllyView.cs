@@ -1,18 +1,15 @@
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Model;
 using Presenter;
 using Scriptable;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace View
 {
-    public class EnemyView : CharacterView, IPointerEnterHandler, IPointerExitHandler
+    public class AllyView : CharacterView, IPointerEnterHandler, IPointerExitHandler
     {
         public CharacterActionView actionView;
         
@@ -20,16 +17,15 @@ namespace View
         public override void Init(Character character)
         {
             base.Init(character);
-            if (character is Enemy em)
+            if (character is Ally ally)
             {
-                // Set AnimationController
-                var enemyData = Resources.Load<CharacterData>($"CharacterData/{character.Model.Name}");
+                var enemyData = Resources.Load<CharacterData>($"CharacterData/{ally.Model.Name}");
                 if (enemyData != null)
                 {
                     animator.runtimeAnimatorController = enemyData.enemyAnim;
                     sprite.flipX = !enemyData.isAlreadyLeft;
                 }
-
+            
                 gameObject.SetActive(true);
             }
         }

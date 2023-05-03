@@ -8,7 +8,7 @@ using View;
 
 public class CharacterHolder : MonoBehaviour
 {
-    public List<CharacterView> heroViews;
+    public List<CharacterView> allyViews;
     public List<CharacterView> enemyViews;
 
     public Transform heroPivot;
@@ -29,7 +29,12 @@ public class CharacterHolder : MonoBehaviour
             case HeroView:
                 trans.SetParent(heroPivot);
                 trans.localPosition += new Vector3(-20, yOffset, 0);
-                heroViews.Add(ev);
+                allyViews.Insert(0,ev);
+                break;
+            case AllyView:
+                trans.SetParent(heroPivot);
+                trans.localPosition += new Vector3(-20, yOffset, 0);
+                allyViews.Insert(0,ev);
                 break;
             case EnemyView:
                 trans.SetParent(enemyPivot);
@@ -44,8 +49,9 @@ public class CharacterHolder : MonoBehaviour
         switch (ev)
         {
             case HeroView:
+            case AllyView:
                 await ev.Dead();
-                heroViews.Remove(ev);
+                allyViews.Remove(ev);
                 break;
             case EnemyView:
                 await ev.Dead();
@@ -62,13 +68,13 @@ public class CharacterHolder : MonoBehaviour
     private void SetEntityPosition()
     {
         var lerpAmount = lerpTime * Time.deltaTime;
-        for (var i = 0; i < heroViews.Count; i++)
+        for (var i = 0; i < allyViews.Count; i++)
         {
-            float offsetX = -areaDistance / 2f - (i - (heroViews.Count - 1) / 2f) * entityDistance;
+            float offsetX = -areaDistance / 2f - (i - (allyViews.Count - 1) / 2f) * entityDistance;
             targetPos = new Vector3(offsetX, yOffset, 0);
             targetRot = Quaternion.identity;
             targetScl = Vector3.one; 
-            var hvTrans = heroViews[i].transform;
+            var hvTrans = allyViews[i].transform;
             hvTrans.localPosition = Vector3.Lerp(hvTrans.localPosition, targetPos, lerpAmount);
             hvTrans.localRotation = targetRot;
             hvTrans.localScale = targetScl;
@@ -76,7 +82,7 @@ public class CharacterHolder : MonoBehaviour
 
         for (var i = 0; i < enemyViews.Count; i++)
         {
-            float offsetX = areaDistance / 2f - (i - (enemyViews.Count - 1) / 2f) * entityDistance;
+            float offsetX = areaDistance / 2f + (i - (enemyViews.Count - 1) / 2f) * entityDistance;
             targetPos = new Vector3(offsetX, yOffset, 0);
             targetRot = Quaternion.identity;
             targetScl = Vector3.one;

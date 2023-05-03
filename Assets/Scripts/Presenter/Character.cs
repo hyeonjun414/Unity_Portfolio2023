@@ -86,6 +86,11 @@ namespace Presenter
             await View.AddStatusEffect(eftPresenter);
         }
 
+        public virtual async UniTask ExecuteAction(Character target)
+        {
+            await UniTask.Yield();
+        }
+
         public virtual async UniTask StatusEffectActivate()
         {
             var expiredEffect = new List<StatusEffect>();
@@ -164,16 +169,16 @@ namespace Presenter
             await eView.SetActionView(eModel.GetCurAction());
         }
 
-        public async UniTask ExecuteAction(Hero hero)
+        public override async UniTask ExecuteAction(Character target)
         {
             var curAct = eModel.GetCurAction();
             Model.UseAp();
             if (IsExecutable())
             {
-                await curAct.Activate(this, hero);
+                await curAct.Activate(this, target);
                 await SetAction();
             }
-                
+
             else
             {
                 curAct.Turn--;
@@ -185,6 +190,53 @@ namespace Presenter
         public bool IsExecutable()
         {
             return eModel.GetCurAction().Turn <= 1;
+        }
+    }
+
+    public class Ally : Character
+    {
+        public AllyModel aModel => Model as AllyModel;
+        public AllyView aView => View as AllyView;
+
+        public Ally(AllyModel model, CharacterView view) : base(model, view)
+        {
+            Debug.Log("Ally Gen");
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            var task = SetAction();
+        }
+
+        public async UniTask SetAction()
+        {
+            if (IsExecutable())
+                aModel.SetAction();
+            await aView.SetActionView(aModel.GetCurAction());
+        }
+
+        public override async UniTask ExecuteAction(Character target)
+        {
+            var curAct = aModel.GetCurAction();
+            Model.UseAp();
+            if (IsExecutable())
+            {
+                await curAct.Activate(this, target);
+                await SetAction();
+            }
+
+            else
+            {
+                curAct.Turn--;
+                await aView.SetActionView(curAct);
+                await aView.Wait();
+            }
+        }
+
+        public bool IsExecutable()
+        {
+            return aModel.GetCurAction().Turn <= 1;
         }
     }
 

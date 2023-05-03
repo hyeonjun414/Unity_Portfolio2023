@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class EnemyActionView : MonoBehaviour
+    public class CharacterActionView : MonoBehaviour
     {
         public Image icon;
         public TextMeshProUGUI valueText;
@@ -14,7 +14,7 @@ namespace View
 
         private const string IconWait = "Icon_Wait";
         
-        public void SetView(EnemyAction ea)
+        public void SetView(CharacterAction ea)
         {
             if (ea.Turn > 1)
             {

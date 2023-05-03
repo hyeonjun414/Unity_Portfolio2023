@@ -12,6 +12,11 @@ using Random = UnityEngine.Random;
 
 namespace Presenter
 {
+    public enum CharacterType
+    {
+        Ally,
+        Enemy
+    }
     public class Stage
     {
         public StageModel Model;
@@ -76,7 +81,8 @@ namespace Presenter
         private Character _curTarget;
         private Card _selectedCard;
         private Reward _reward;
-        public List<Enemy> Enemies = new();
+        public List<Character> Allies = new();
+        public List<Character> Enemies = new();
         public List<Card> Hand = new();
         public List<Card> Deck = new();
         public List<Card> Grave = new();
@@ -96,6 +102,9 @@ namespace Presenter
             base.Init();
             
             bsView.CreateHeroView(gm.User.UserHero);
+            Allies.Add(gm.User.UserHero);
+            gm.User.UserHero.OnDeath += OnDeath;
+            
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             gm.User.UserHero.hModel.UseAp();
             var enemyModels = bsModel.GetEnemies();
@@ -122,11 +131,31 @@ namespace Presenter
             bsView.SetUserCards(Deck);
         }
 
+        public async UniTask SummonAlly(string character, int livingTurn)
+        {
+            var target = gm.MasterTable.MasterAllies.FirstOrDefault(t => t.Id == character);
+            if (target != null)
+            {
+                var ally = new Ally(new AllyModel(target, livingTurn), null);
+                ally.OnDeath += OnDeath;
+                Allies.Insert(0, ally);
+                bsView.SummonAlly(ally);
+                ally.Init();
+
+            }
+        }
+
         public async void OnDeath(object sender, EventArgs e)
         {
-            if (sender is Hero)
+            if (sender is Hero hero)
             {
+                Allies.Remove(hero);
                 GameOver();
+            }
+            else if (sender is Ally ally)
+            {
+                Allies.Remove(ally);
+                await RemoveEntityView(ally);
             }
             else if (sender is Enemy enemy)
             {
@@ -168,10 +197,35 @@ namespace Presenter
             }
         }
 
+        private Character GetTarget(CharacterType charType)
+        {
+            switch (charType)
+            {
+                case CharacterType.Ally:
+                    return Allies.First();
+                case CharacterType.Enemy:
+                    return Enemies.First();
+            }
+
+            return null;
+        }
         private async UniTask AddEntityAp()
         {
             var deltaTime = Time.deltaTime * 5;
-            user.UserHero.AddAp(deltaTime);
+
+            foreach (var character in Allies)
+            {
+                character.AddAp(deltaTime);
+                if (character is Ally ally && ally.Model.IsReady)
+                {
+                    await ally.StatusEffectActivate();
+                    if (ally.Model.IsDead)
+                        continue;
+                    var target = GetTarget(CharacterType.Enemy);
+                    await ally.ExecuteAction(target);
+                }
+            }
+            
             if (user.UserHero.Model.IsReady)
             {
                 _isHeroTurn = true;
@@ -190,7 +244,8 @@ namespace Presenter
                     await enemy.StatusEffectActivate();
                     if (enemy.Model.IsDead)
                         continue;
-                    await enemy.ExecuteAction(user.UserHero);
+                    var target = GetTarget(CharacterType.Ally);
+                    await enemy.ExecuteAction(target);
                 }
             }
 
@@ -247,7 +302,7 @@ namespace Presenter
             }
         }
 
-        private List<Enemy> GetAliveEnemies()
+        private List<Character> GetAliveEnemies()
         {
             return Enemies.Where(enemy => !enemy.Model.IsDead).ToList();
         }
@@ -437,5 +492,7 @@ namespace Presenter
         {
             _inCardZone = false;
         }
+
+        
     }
 }

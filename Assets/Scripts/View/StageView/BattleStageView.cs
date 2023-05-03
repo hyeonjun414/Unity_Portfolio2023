@@ -21,6 +21,7 @@ namespace View.StageView
 
         public TextMeshProUGUI energyText;
         public CharacterView characterView;
+        public AllyView allyView;
         public DoorView doorPrefab;
         public CardView cardPrefab;
         public EnemyView enemyPrefab;
@@ -84,6 +85,15 @@ namespace View.StageView
             _heroView.gameObject.SetActive(true);
             characterHolder.AddCharacterView(inst);
             actionBar.AddEntity(hero);
+        }
+
+        public void SummonAlly(Ally ally)
+        {
+            var inst = Instantiate(allyView);
+            inst.Init(ally);
+            inst.gameObject.SetActive(true);
+            characterHolder.AddCharacterView(inst);
+            actionBar.AddEntity(ally);
         }
 
         public DoorView GenerateDoor()
@@ -192,7 +202,7 @@ namespace View.StageView
             rewardView.Init(reward);
         }
 
-        public void SetEnemyViews(List<Enemy> enemies)
+        public void SetEnemyViews(List<Character> enemies)
         {
             var xGap = 3f;
             var mostLeft = -(enemies.Count - 1) * 0.5f * xGap;
@@ -251,5 +261,7 @@ namespace View.StageView
         {
             await characterHolder.RemoveCharacterView(character.View);
         }
+
+        
     }
 }

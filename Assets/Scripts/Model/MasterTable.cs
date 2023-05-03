@@ -11,6 +11,7 @@ namespace Model
         public List<MasterStage> MasterStages;
         public List<MasterHero> MasterHeroes;
         public List<MasterEnemy> MasterEnemies;
+        public List<MasterAlly> MasterAllies;
         public List<MasterCard> MasterCards;
         public List<MasterMap> MasterMaps;
     }
@@ -48,6 +49,11 @@ namespace Model
     public class MasterHero : MasterEntity
     {
 
+    }
+
+    public class MasterAlly : MasterEntity
+    {
+        public List<JObject> Actions;
     }
 
     public class MasterCard

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Card
   - Enemy
+  - CardZone
+  - Ally
   layers:
   - Default
   - TransparentFX
