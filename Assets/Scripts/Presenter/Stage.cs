@@ -73,7 +73,7 @@ namespace Presenter
         private BattleStageModel bsModel => Model as BattleStageModel;
         private BattleStageView bsView => View as BattleStageView;
 
-        private Entity _curTarget;
+        private Character _curTarget;
         private Card _selectedCard;
         private Reward _reward;
         public List<Enemy> Enemies = new();
@@ -135,9 +135,9 @@ namespace Presenter
             }
         }
 
-        private async UniTask RemoveEntityView(Entity entity)
+        private async UniTask RemoveEntityView(Character character)
         {
-            await bsView.EntityRemoved(entity);
+            await bsView.EntityRemoved(character);
         }
 
         private void GameOver()
@@ -328,13 +328,13 @@ namespace Presenter
             await base.StageClear();
         }
 
-        public void TargetEntity(Entity entity)
+        public void TargetEntity(Character character)
         {
-            if ((_selectedCard.GetCardType() is CardType.Attack && entity is Enemy) ||
-                (_selectedCard.GetCardType() is CardType.Magic && entity is Hero))
+            if ((_selectedCard.GetCardType() is CardType.Attack && character is Enemy) ||
+                (_selectedCard.GetCardType() is CardType.Magic && character is Hero))
             {
-                _curTarget = entity;
-                bsView.SetTargetIndicator(entity.View);
+                _curTarget = character;
+                bsView.SetTargetIndicator(character.View);
             }
         }
 

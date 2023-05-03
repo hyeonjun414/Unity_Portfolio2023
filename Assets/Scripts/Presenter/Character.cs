@@ -14,16 +14,16 @@ namespace Presenter
         void AddObserver(IEntityObserver observer);
         void RemoveObserver(IEntityObserver observer);
     }
-    public class Entity : IEntity
+    public class Character : IEntity
     {
-        public EntityModel Model;
-        public EntityView View;
+        public CharacterModel Model;
+        public CharacterView View;
 
         public List<StatusEffect> StatusEffects;
 
         public event EventHandler OnDeath;
 
-        public Entity(EntityModel model, EntityView view)
+        public Character(CharacterModel model, CharacterView view)
         {
             Model = model;
             View = view;
@@ -142,11 +142,11 @@ namespace Presenter
         }
     }
 
-    public class Enemy : Entity
+    public class Enemy : Character
     {
         public EnemyModel eModel => Model as EnemyModel;
         public EnemyView eView => View as EnemyView;
-        public Enemy(EnemyModel model, EntityView view) : base(model, view)
+        public Enemy(EnemyModel model, CharacterView view) : base(model, view)
         {
             Debug.Log("Enemy Gen");
         }
@@ -188,11 +188,11 @@ namespace Presenter
         }
     }
 
-    public class Hero : Entity
+    public class Hero : Character
     {
         public HeroModel hModel => Model as HeroModel;
         public HeroView hView => View as HeroView;
-        public Hero(HeroModel model, EntityView view) : base(model, view)
+        public Hero(HeroModel model, CharacterView view) : base(model, view)
         {
         }
 

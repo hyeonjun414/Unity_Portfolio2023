@@ -20,7 +20,7 @@ namespace View.StageView
 
 
         public TextMeshProUGUI energyText;
-        public EntityView entityView;
+        public CharacterView characterView;
         public DoorView doorPrefab;
         public CardView cardPrefab;
         public EnemyView enemyPrefab;
@@ -42,9 +42,9 @@ namespace View.StageView
         public ActionBar actionBar;
 
         public CardHolder cardHolder;
-        public EntityHolder entityHolder;
+        public CharacterHolder characterHolder;
         
-        private EntityView _heroView;
+        private CharacterView _heroView;
         private CardView _hoveredCard;
 
         public void Start()
@@ -75,14 +75,14 @@ namespace View.StageView
             }
         }
 
-        public void CreateHeroView(Entity hero)
+        public void CreateHeroView(Character hero)
         {
-            var inst = Instantiate(entityView);
+            var inst = Instantiate(characterView);
             hero.View = inst;
             _heroView = hero.View;
             _heroView.Init(hero);
             _heroView.gameObject.SetActive(true);
-            entityHolder.AddEntityView(inst);
+            characterHolder.AddCharacterView(inst);
             actionBar.AddEntity(hero);
         }
 
@@ -110,12 +110,12 @@ namespace View.StageView
             
         }
 
-        public void SetTargetIndicator(EntityView entity)
+        public void SetTargetIndicator(CharacterView character)
         {
-            if (entity == null) return;
+            if (character == null) return;
             
             indicator.SetActive(true);
-            indicator.transform.position = entity.transform.position + Vector3.up * 2.5f;
+            indicator.transform.position = character.transform.position + Vector3.up * 2.5f;
         }
 
         public void UnsetTargetIndicator()
@@ -204,7 +204,7 @@ namespace View.StageView
                 inst.Presenter = enemies[i];
                 EnemyViews.Add(inst);
                 actionBar.AddEntity(enemies[i]);
-                entityHolder.AddEntityView(inst);
+                characterHolder.AddCharacterView(inst);
             }
         }
 
@@ -247,9 +247,9 @@ namespace View.StageView
             cardHolder.CardUnSelected();
         }
 
-        public async UniTask EntityRemoved(Entity entity)
+        public async UniTask EntityRemoved(Character character)
         {
-            await entityHolder.RemoveEntityView(entity.View);
+            await characterHolder.RemoveCharacterView(character.View);
         }
     }
 }

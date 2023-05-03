@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace View
 {
-    public class HeroView : EntityView, IPointerEnterHandler, IPointerExitHandler
+    public class HeroView : CharacterView, IPointerEnterHandler, IPointerExitHandler
     {
         public void OnPointerEnter(PointerEventData eventData)
         {

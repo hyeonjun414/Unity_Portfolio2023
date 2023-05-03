@@ -50,7 +50,7 @@ namespace Presenter
         {
             Model.CurEnergy -= cost;
         }
-        public async UniTask UseCard(Card card, Entity target) 
+        public async UniTask UseCard(Card card, Character target) 
         {
             UseEnergy(card.GetCost());
             await UserHero.PlayAttack();

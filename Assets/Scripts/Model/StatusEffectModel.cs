@@ -13,7 +13,7 @@ namespace Model
         {
         }
         
-        public virtual async UniTask Activate(Entity entity)
+        public virtual async UniTask Activate(Character character)
         {
             Turn--;
             if (Turn <= 0)
@@ -33,10 +33,10 @@ namespace Model
         public float Damage;
         public string Particle;
 
-        public override async UniTask Activate(Entity entity)
+        public override async UniTask Activate(Character character)
         {
-            await base.Activate(entity);
-            await entity.TakeDamage(Damage);
+            await base.Activate(character);
+            await character.TakeDamage(Damage);
         }
     }
      

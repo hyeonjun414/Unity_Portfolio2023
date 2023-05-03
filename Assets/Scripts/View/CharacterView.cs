@@ -18,13 +18,13 @@ namespace View
         void OnMouseEnterEntity();
         void OnMouseExitEntity();
     }
-    public class EntityView : MonoBehaviour
+    public class CharacterView : MonoBehaviour
     {
         protected const string STR_MOVE = "Move";
         protected const string STR_ATTACK = "Attack";
         protected const string STR_HIT = "Hit";
 
-        public Entity Presenter;
+        public Character Presenter;
 
         public Animator animator;
         public StatusEffectView statusEffectPrefab;
@@ -41,11 +41,11 @@ namespace View
         public List<IEntityObserver> Observers = new();
         
 
-        public virtual void Init(Entity entity)
+        public virtual void Init(Character character)
         {
-            entity.View = this;
-            Presenter = entity;
-            UpdateHp(entity.Model.CurHp, entity.Model.MaxHp);
+            character.View = this;
+            Presenter = character;
+            UpdateHp(character.Model.CurHp, character.Model.MaxHp);
         }
 
         public void UpdateHp(float curHp, float maxHp)

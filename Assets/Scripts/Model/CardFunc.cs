@@ -14,7 +14,7 @@ namespace Model
     {
         public string Type;
 
-        public virtual async UniTask Activate(Entity entity)
+        public virtual async UniTask Activate(Character character)
         {
             await UniTask.Yield();
         }
@@ -25,29 +25,29 @@ namespace Model
     {
         public JObject StatusEffect;
 
-        public override async UniTask Activate(Entity entity)
+        public override async UniTask Activate(Character character)
         {
             var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
             
-            await entity.AddStatusEffect(effect);
+            await character.AddStatusEffect(effect);
         }
     }
     public class Cf_Damage : CardFunc
     {
         public float Damage;
 
-        public override async UniTask Activate(Entity entity)
+        public override async UniTask Activate(Character character)
         {
-            await entity.TakeDamage(Damage);
+            await character.TakeDamage(Damage);
         }
     }
 
     public class Cf_ApDown : CardFunc
     {
         public float Value;
-        public override async UniTask Activate(Entity entity)
+        public override async UniTask Activate(Character character)
         {
-            await entity.UseAp(Value);
+            await character.UseAp(Value);
 
         }
     }
@@ -55,11 +55,11 @@ namespace Model
     public class Cf_HpRecover : CardFunc
     {
         public float Value;
-        public override async UniTask Activate(Entity entity)
+        public override async UniTask Activate(Character character)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.CreateFloatingText(Value.ToString(), entity.View.transform.position, TextType.Heal);
-            await entity.HpRecover(Value);
+            curStage?.CreateFloatingText(Value.ToString(), character.View.transform.position, TextType.Heal);
+            await character.HpRecover(Value);
         }
     }
 }

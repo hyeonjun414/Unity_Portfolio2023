@@ -141,7 +141,7 @@ namespace View
             content.DOScale(1f, 0.1f);
         }
 
-        public async UniTask PlayCardEft(EntityView ev)
+        public async UniTask PlayCardEft(CharacterView ev)
         {
             var eft = Instantiate(CardEffect, ev.transform);
             eft.transform.position += Vector3.up;

@@ -12,18 +12,18 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class EnemyView : EntityView, IPointerEnterHandler, IPointerExitHandler
+    public class EnemyView : CharacterView, IPointerEnterHandler, IPointerExitHandler
     {
         public EnemyActionView actionView;
         
         private float remainAttackAnimTime;
-        public override void Init(Entity entity)
+        public override void Init(Character character)
         {
-            base.Init(entity);
-            if (entity is Enemy em)
+            base.Init(character);
+            if (character is Enemy em)
             {
                 // Set AnimationController
-                var enemyData = Resources.Load<EnemyData>($"EnemyData/{entity.Model.Name}");
+                var enemyData = Resources.Load<EnemyData>($"EnemyData/{character.Model.Name}");
                 if (enemyData != null)
                 {
                     animator.runtimeAnimatorController = enemyData.enemyAnim;

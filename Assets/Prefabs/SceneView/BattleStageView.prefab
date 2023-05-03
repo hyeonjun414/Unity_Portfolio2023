@@ -23498,7 +23498,7 @@ MonoBehaviour:
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   energyText: {fileID: 1913537104676213848}
-  entityView: {fileID: 1438007507274079348, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
+  characterView: {fileID: 1438007507274079348, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
   doorPrefab: {fileID: 4957955070667770164, guid: 95c81c2a36d4dd642952e3e169cf4d9f, type: 3}
   cardPrefab: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
   enemyPrefab: {fileID: 6966354741140356193, guid: fa0620281adc68e4a8d42f25c6c54071, type: 3}
@@ -23521,7 +23521,7 @@ MonoBehaviour:
   arrow: {fileID: 4237637174079188553}
   actionBar: {fileID: 7386259371807592848}
   cardHolder: {fileID: 2746682135639838586}
-  entityHolder: {fileID: 8452808065476809197}
+  characterHolder: {fileID: 8452808065476809197}
 --- !u!1 &3096812689606428397
 GameObject:
   m_ObjectHideFlags: 0
@@ -41290,7 +41290,7 @@ GameObject:
   - component: {fileID: 6260338371762292229}
   - component: {fileID: 8452808065476809197}
   m_Layer: 0
-  m_Name: EntityHolder
+  m_Name: CharacterHolder
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

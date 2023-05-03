@@ -16,7 +16,7 @@ namespace Model
         {
         }
         
-        public virtual async UniTask Activate(Enemy actor, Entity entity)
+        public virtual async UniTask Activate(Enemy actor, Character character)
         {
             await UniTask.Yield();
         }
@@ -39,11 +39,11 @@ namespace Model
             ActionValue = (int)(enemy.Damage * Damage);
         }
 
-        public override async UniTask Activate(Enemy actor, Entity entity)
+        public override async UniTask Activate(Enemy actor, Character character)
         {
-            await actor.PrepareAttack(entity.View.GetPosition());
+            await actor.PrepareAttack(character.View.GetPosition());
             await actor.PlayAttack();
-            await entity.TakeDamage(ActionValue);
+            await character.TakeDamage(ActionValue);
             await actor.EndAttack();
         }
     }

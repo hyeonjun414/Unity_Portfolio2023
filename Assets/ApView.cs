@@ -12,27 +12,27 @@ using View;
 public class ApView : MonoBehaviour, IEntityObserver
 {
     private Transform _start, _end;
-    private EntityView _connectedView;
+    private CharacterView _connectedView;
 
     private IDisposable _subcription;
     public Image icon; 
     public GameObject indicator;
 
-    public void Init(Entity entity, Transform start, Transform end)
+    public void Init(Character character, Transform start, Transform end)
     {
         _start = start;
         _end = end;
-        _subcription = entity.Model.ApRate.Subscribe(MoveView);
-        _connectedView = entity.View;
+        _subcription = character.Model.ApRate.Subscribe(MoveView);
+        _connectedView = character.View;
         _connectedView.gameObject.OnDisableAsObservable().Subscribe(_ =>
         {
             _subcription.Dispose();
             gameObject.SetActive(false);
-            entity.RemoveObserver(this);
+            character.RemoveObserver(this);
         });
-        var entityName = entity.Model.Name;
+        var entityName = character.Model.Name;
         icon.sprite = Resources.Load<Sprite>($"icon/{entityName}");
-        entity.AddObserver(this);
+        character.AddObserver(this);
     }
 
     public void MoveView(float rate)

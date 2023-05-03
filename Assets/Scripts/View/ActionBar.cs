@@ -10,10 +10,10 @@ namespace View
 
         public ApView apviewPrefab;
 
-        public void AddEntity(Entity entity)
+        public void AddEntity(Character character)
         {
             var inst = Instantiate(apviewPrefab, transform);
-            inst.Init(entity, start, end);
+            inst.Init(character, start, end);
         }
     }
 }

@@ -153,10 +153,10 @@ namespace Presenter
             return Model.Cost;
         }
         
-        public async UniTask CardActivate(Entity entity)
+        public async UniTask CardActivate(Character character)
         {
-            await View.PlayCardEft(entity.View);
-            await Model.CardActivate(entity);
+            await View.PlayCardEft(character.View);
+            await Model.CardActivate(character);
         }
     }
 }

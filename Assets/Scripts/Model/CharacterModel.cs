@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace Model
 {
-    public class EntityModel
+    public class CharacterModel
     {
         public string Id;
         public string Name;
@@ -26,7 +26,7 @@ namespace Model
         private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
         public IReadOnlyReactiveProperty<float> ApRate => _aprate;
 
-        public EntityModel(MasterEntity me)
+        public CharacterModel(MasterEntity me)
         {
             Id = me.Id;
             Name = me.Name;
@@ -79,7 +79,7 @@ namespace Model
             CurHp = Mathf.Min(CurHp + value, MaxHp);
         }
     }
-    public class EnemyModel : EntityModel
+    public class EnemyModel : CharacterModel
     {
         private List<JObject> _actions;
         private EnemyAction _curAction;
@@ -106,7 +106,7 @@ namespace Model
         }
     }
 
-    public class HeroModel : EntityModel
+    public class HeroModel : CharacterModel
     {
         public HeroModel(MasterEntity me) : base(me)
         {

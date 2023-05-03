@@ -16,9 +16,9 @@ namespace Presenter
             View = view;
         }
 
-        public virtual async UniTask Activate(Entity entity)
+        public virtual async UniTask Activate(Character character)
         {
-            await Model.Activate(entity);
+            await Model.Activate(character);
             await View.Activate(Model.GetTurn());
         }
 

@@ -6,10 +6,10 @@ using Presenter;
 using UnityEngine;
 using View;
 
-public class EntityHolder : MonoBehaviour
+public class CharacterHolder : MonoBehaviour
 {
-    public List<EntityView> heroViews;
-    public List<EntityView> enemyViews;
+    public List<CharacterView> heroViews;
+    public List<CharacterView> enemyViews;
 
     public Transform heroPivot;
     public Transform enemyPivot;
@@ -21,7 +21,7 @@ public class EntityHolder : MonoBehaviour
     private Vector3 targetPos, targetScl;
     private Quaternion targetRot;
     
-    public void AddEntityView(EntityView ev)
+    public void AddCharacterView(CharacterView ev)
     {
         var trans = ev.transform;
         switch (ev)
@@ -39,7 +39,7 @@ public class EntityHolder : MonoBehaviour
         }
     }
 
-    public async UniTask RemoveEntityView(EntityView ev)
+    public async UniTask RemoveCharacterView(CharacterView ev)
     {
         switch (ev)
         {
