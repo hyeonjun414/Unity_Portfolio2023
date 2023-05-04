@@ -8,11 +8,23 @@ namespace View
         public Transform start;
         public Transform end;
 
-        public ApView apviewPrefab;
+        public ApView enemyApViewPrefab;
+        public ApView allyApViewPrefab;
 
         public void AddEntity(Character character)
         {
-            var inst = Instantiate(apviewPrefab, transform);
+            ApView prefab = null;
+            switch (character)
+            {
+                case Hero:
+                case Ally:
+                    prefab = allyApViewPrefab;
+                    break;
+                case Enemy:
+                    prefab = enemyApViewPrefab;
+                    break;
+            }
+            var inst = Instantiate(prefab, transform);
             inst.Init(character, start, end);
         }
     }
