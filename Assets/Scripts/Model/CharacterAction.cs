@@ -43,7 +43,8 @@ namespace Model
         {
             await actor.PrepareAttack(target.View.GetPosition());
             await actor.PlayAttack();
-            await target.TakeDamage(ActionValue);
+            await actor.Attack(target, ActionValue);
+            //await target.TakeDamage(ActionValue);
             await actor.EndAttack();
         }
     }

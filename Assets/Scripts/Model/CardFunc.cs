@@ -9,6 +9,7 @@ namespace Model
     {
         Damage,
         Heal,
+        Miss,
     }
     public class CardFunc
     {

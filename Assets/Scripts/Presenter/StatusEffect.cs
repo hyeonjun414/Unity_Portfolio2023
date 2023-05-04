@@ -22,8 +22,9 @@ namespace Presenter
             await View.Activate(Model.GetTurn());
         }
 
-        public virtual void Dispose()
+        public virtual void Dispose(Character character)
         {
+            Model.Dispose(character);
             Model = null;
             View.DestroyView();
         }

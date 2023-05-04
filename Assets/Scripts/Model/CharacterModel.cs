@@ -28,9 +28,9 @@ namespace Model
 
         public float MaxHp => Stats.MaxHp + BuffStats.MaxHp;
         public float CurHp => Stats.CurHp + BuffStats.CurHp;
-        public float Damage => Stats.Damage + BuffStats.Damage;
-        public float Speed => Stats.Speed + BuffStats.Speed;
-        public float HitRate => Stats.HitRate + BuffStats.HitRate;
+        public float Damage => Stats.Damage + BuffStats.Damage < 0 ? 0 : Stats.Damage + BuffStats.Damage;
+        public float Speed => Stats.Speed + BuffStats.Speed < 0 ? 0 : Stats.Speed + BuffStats.Speed;
+        public float HitRate => Stats.HitRate + BuffStats.HitRate < 0 ? 0 : Stats.HitRate + BuffStats.HitRate;
         
         public CharacterStat Stats = new();
         public CharacterStat BuffStats = new();
@@ -93,6 +93,37 @@ namespace Model
         public void HpRecover(float value)
         {
             Stats.CurHp = Mathf.Min(Stats.CurHp + value, Stats.MaxHp);
+        }
+
+        public void AddStatusEffect(StatusEffectModel statEft)
+        {
+            StatusEffects.Add(statEft);
+        }
+
+        public void AddBuff(string statName, float value)
+        {
+            switch (statName)
+            {
+                case "Damage":
+                    BuffStats.Damage += value;
+                    break;
+                case "HitRate":
+                    BuffStats.HitRate += value;
+                    break;
+            }
+        }
+
+        public void RemoveBuff(string statName, float value)
+        {
+            switch (statName)
+            {
+                case "Damage":
+                    BuffStats.Damage -= value;
+                    break;
+                case "HitRate":
+                    BuffStats.HitRate -= value;
+                    break;
+            }
         }
     }
     public class EnemyModel : CharacterModel

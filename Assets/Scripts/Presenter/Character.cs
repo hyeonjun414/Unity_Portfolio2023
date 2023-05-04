@@ -6,6 +6,7 @@ using Manager;
 using Model;
 using UnityEngine;
 using View;
+using Random = UnityEngine.Random;
 
 namespace Presenter
 {
@@ -40,11 +41,24 @@ namespace Presenter
             Model.AddAp(deltaTime);
         }
 
+        public async UniTask Attack(Character target, int damage)
+        {
+            if (target.Model.HitRate >= Random.value)
+            {
+                await target.TakeDamage(damage);
+            }
+            else
+            {
+                var stage = GameManager.Instance.CurStage as BattleStage;
+                stage?.CreateFloatingText("MISS", target.WorldPosition, TextType.Damage);
+            }
+        }
+
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
             var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.CreateFloatingText(((int)damage).ToString(), View.transform.position, TextType.Damage);
+            stage?.CreateFloatingText(((int)damage).ToString(), WorldPosition, TextType.Damage);
             if (Model.IsDead)
             {
                 OnDeathEvent();
@@ -83,7 +97,8 @@ namespace Presenter
         {
             var eftPresenter = new StatusEffect(statEft, null);
             StatusEffects.Add(eftPresenter);
-            Model.StatusEffects.Add(statEft);
+            statEft.Init(this);
+            Model.AddStatusEffect(statEft);
             await View.AddStatusEffect(eftPresenter);
         }
 
@@ -106,7 +121,7 @@ namespace Presenter
 
             foreach (var expired in expiredEffect)
             {
-                expired.Dispose();
+                expired.Dispose(this);
                 StatusEffects.Remove(expired);
             }
         }
@@ -151,6 +166,18 @@ namespace Presenter
         {
             OnDeath?.Invoke(this, EventArgs.Empty);
         }
+
+        public void AddBuff(string statName, float value)
+        {
+            Model.AddBuff(statName, value);
+        }
+
+        public void RemoveBuff(string statName, float value)
+        {
+            Model.RemoveBuff(statName, value);
+        }
+
+        public Vector3 WorldPosition => View.GetPosition();
     }
 
     public class Enemy : Character

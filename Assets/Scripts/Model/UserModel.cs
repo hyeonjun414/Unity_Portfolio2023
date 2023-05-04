@@ -23,7 +23,6 @@ namespace Model
             
             foreach (var cardId in mu.Cards)
             {
-                Debug.Log(cardId);
                 var mc = mt.MasterCards.First(target => target.Id == cardId);
                 Cards.Add(new CardModel(mc));
             }
