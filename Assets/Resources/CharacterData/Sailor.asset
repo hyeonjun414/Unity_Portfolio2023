@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6e811d4d6f4984381dd3ea220b32bd, type: 3}
   m_Name: Sailor
   m_EditorClassIdentifier: 
-  enemyAnim: {fileID: 22100000, guid: d8bd96f6db08eb647adfb580fa718b3d, type: 2}
-  isAlreadyLeft: 0
+  enemyAnim: {fileID: 22100000, guid: dcc23c26aaad74e4b96a22b218b01a5c, type: 2}
+  isAlreadyLeft: 1
