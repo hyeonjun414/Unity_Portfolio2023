@@ -159,6 +159,7 @@ namespace Presenter
             }
             else if (sender is Enemy enemy)
             {
+                Enemies.Remove(enemy);
                 await RemoveEntityView(enemy);
                 await CheckEnemies();
             }
@@ -263,7 +264,16 @@ namespace Presenter
         private async UniTask BattleEnd()
         {
             user.UserHero.OnDeath -= OnDeath;
-            await bsView.BattleEnd();
+            foreach (var ally in Allies.Where(ally => ally is not Hero))
+            {
+                await RemoveEntityView(ally);
+                ally.Dispose();
+            }
+
+            for (int i = Hand.Count - 1; i >= 0; i--)
+            {
+                await HandToGrave(Hand[i]);
+            }
         }
 
         private void GenerateReward()
