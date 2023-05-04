@@ -55,6 +55,7 @@ MonoBehaviour:
   turnText: {fileID: 9218144436121001811}
   iconImages:
   - {fileID: 1670670476, guid: 1550a15ced9991e4fbdf64a497633777, type: 3}
+  - {fileID: -2008304058, guid: 9185e2a30d89d7b47939a9f5245f2e80, type: 3}
 --- !u!1 &4976290668343281360
 GameObject:
   m_ObjectHideFlags: 0

@@ -218,11 +218,10 @@ namespace Presenter
                 character.AddAp(deltaTime);
                 if (character is Ally ally && ally.Model.IsReady)
                 {
-                    await ally.StatusEffectActivate();
-                    if (ally.Model.IsDead)
-                        continue;
                     var target = GetTarget(CharacterType.Enemy);
+                    await ally.PrepareAction();
                     await ally.ExecuteAction(target);
+                    ally.EndAction();
                 }
             }
             
@@ -241,11 +240,10 @@ namespace Presenter
                 enemy.AddAp(deltaTime);
                 if (enemy.Model.IsReady)
                 {
-                    await enemy.StatusEffectActivate();
-                    if (enemy.Model.IsDead)
-                        continue;
                     var target = GetTarget(CharacterType.Ally);
+                    await enemy.PrepareAction();
                     await enemy.ExecuteAction(target);
+                    enemy.EndAction();
                 }
             }
 
@@ -253,7 +251,6 @@ namespace Presenter
 
         }
         
-
         private async UniTask CheckEnemies()
         {
             if (Model is BattleStageModel sn && !sn.AreAllEnemiesDead()) return;
@@ -292,14 +289,6 @@ namespace Presenter
             var doorModel = new DoorModel(masterStage);
             var doorView = bsView.GenerateDoor();
             var door = new Door(doorModel, doorView);
-        }
-
-        private async UniTask ActionPhase()
-        {
-            foreach (var enemy in GetAliveEnemies())
-            {
-                await enemy.ExecuteAction(user.UserHero);
-            }
         }
 
         private List<Character> GetAliveEnemies()

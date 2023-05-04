@@ -21,6 +21,7 @@ namespace Presenter
         public CharacterView View;
 
         public List<StatusEffect> StatusEffects;
+        private List<StatusEffect> _expiredEffect = new();
 
         public event EventHandler OnDeath;
 
@@ -43,7 +44,7 @@ namespace Presenter
 
         public async UniTask Attack(Character target, int damage)
         {
-            if (target.Model.HitRate >= Random.value)
+            if (Model.HitRate >= Random.value)
             {
                 await target.TakeDamage(damage);
             }
@@ -104,7 +105,30 @@ namespace Presenter
 
         public virtual async UniTask ExecuteAction(Character target)
         {
+            if (Model.IsDead) return;
             await UniTask.Yield();
+        }
+
+        public virtual async UniTask PrepareAction()
+        {
+            foreach (var statEft in StatusEffects)
+            {
+                await statEft.Activate(this);
+                if (statEft.Model.Turn <= 0)
+                {
+                    _expiredEffect.Add(statEft);
+                }
+            }
+        }
+
+        public virtual void EndAction()
+        {
+            foreach (var expired in _expiredEffect)
+            {
+                expired.Dispose(this);
+                StatusEffects.Remove(expired);
+            }
+            _expiredEffect.Clear();
         }
 
         public virtual async UniTask StatusEffectActivate()
