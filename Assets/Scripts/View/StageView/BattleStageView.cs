@@ -28,7 +28,7 @@ namespace View.StageView
         public ChestView chestPrefab;
         public Transform handPos, deckPos, gravePos;
         public Transform cardForwardPivot;
-        public Transform HeroPivot, EnemyPivot, DoorPivot;
+        public Transform HeroPivot, EnemyPivot, DoorPivot, chestPivot;
             
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
@@ -198,7 +198,7 @@ namespace View.StageView
 
         public void GenerateReward(Reward reward)
         {
-            Instantiate(chestPrefab, transform);
+            Instantiate(chestPrefab, chestPivot);
             rewardView.Init(reward);
         }
 
