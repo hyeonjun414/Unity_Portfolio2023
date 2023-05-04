@@ -26330,7 +26330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 7892316021333172455}
   end: {fileID: 8709277799207361066}
-  enemyApviewPrefab: {fileID: 4746977762773399490}
+  enemyApViewPrefab: {fileID: 4746977762773399490}
   allyApViewPrefab: {fileID: 8001921977859547019}
 --- !u!1 &3200850672218785432
 GameObject:
