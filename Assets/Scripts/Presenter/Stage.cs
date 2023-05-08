@@ -214,7 +214,7 @@ namespace Presenter
         {
             var deltaTime = Time.deltaTime * 5;
 
-            foreach (var character in Allies)
+            foreach (var character in Allies.ToList())
             {
                 character.AddAp(deltaTime);
                 if (character is Ally ally && ally.Model.IsReady)
