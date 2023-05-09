@@ -262,6 +262,11 @@ namespace View.StageView
             await characterHolder.RemoveCharacterView(character.View);
         }
 
-        
+
+        public void PositionSwitched(Character character, int targetIndex, int moveIndex)
+        {
+            characterHolder.PositionSwitched(character, targetIndex, moveIndex);
+            
+        }
     }
 }

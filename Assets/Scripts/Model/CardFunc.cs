@@ -78,4 +78,18 @@ namespace Model
             }
         }
     }
+
+    public class Cf_PositionSwitch : CardFunc
+    {
+        public int MoveIndex;
+
+        public override async UniTask Activate(Character character)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            if (curStage != null)
+            {
+                await curStage.PositionSwitch(character, MoveIndex);
+            }
+        }
+    }
 }

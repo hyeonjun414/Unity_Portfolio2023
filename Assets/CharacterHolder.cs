@@ -92,4 +92,23 @@ public class CharacterHolder : MonoBehaviour
             evTrans.localScale = targetScl;
         }
     }
+
+    public void PositionSwitched(Character character, int targetIndex, int moveIndex)
+    {
+        CharacterView tempView;
+        switch (character)
+        {
+            case Ally:
+            case Hero:
+                tempView = allyViews[moveIndex];
+                allyViews[moveIndex] = allyViews[targetIndex];
+                allyViews[targetIndex] = tempView;
+                break;
+            case Enemy:
+                tempView = enemyViews[moveIndex];
+                enemyViews[moveIndex] = enemyViews[targetIndex];
+                enemyViews[targetIndex] = tempView;
+                break;
+        }
+    }
 }
