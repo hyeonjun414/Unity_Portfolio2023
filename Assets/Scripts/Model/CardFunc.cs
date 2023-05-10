@@ -36,10 +36,27 @@ namespace Model
     public class Cf_Damage : CardFunc
     {
         public float Damage;
+        public bool IsAll;
 
         public override async UniTask Activate(Character character)
         {
-            await character.TakeDamage(Damage);
+            if (IsAll)
+            {
+                var curStage = GameManager.Instance.CurStage as BattleStage;
+                if (curStage != null)
+                {
+                    var targetList = character is Enemy ? curStage.Enemies : curStage.Allies;
+                    foreach (var target in targetList)
+                    {
+                        await target.TakeDamage(Damage);
+                    }
+                }
+            }
+            else
+            {
+                await character.TakeDamage(Damage); 
+            }
+            
         }
     }
 
