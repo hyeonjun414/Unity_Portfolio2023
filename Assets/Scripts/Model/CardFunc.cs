@@ -1,3 +1,4 @@
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Newtonsoft.Json.Linq;
@@ -45,7 +46,7 @@ namespace Model
                 var curStage = GameManager.Instance.CurStage as BattleStage;
                 if (curStage != null)
                 {
-                    var targetList = character is Enemy ? curStage.Enemies : curStage.Allies;
+                    var targetList = character is Enemy ? curStage.Enemies.ToList() : curStage.Allies.ToList();
                     foreach (var target in targetList)
                     {
                         await target.TakeDamage(Damage);
