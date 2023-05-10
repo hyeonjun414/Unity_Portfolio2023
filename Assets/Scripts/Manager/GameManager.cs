@@ -95,6 +95,12 @@ namespace Manager
         public async UniTask DestroyCurScene()
         {
             await loadingScreen.FadeOut();
+            DestroyScene();
+            await loadingScreen.FadeIn();
+        }
+
+        public void DestroyScene()
+        {
             var destroyScene = curScene;
             curScene = destroyScene.Parent;
             Destroy(destroyScene.gameObject);
@@ -102,7 +108,15 @@ namespace Manager
             {
                 curScene.gameObject.SetActive(true);
             }
+        }
 
+        public async UniTask ReturnToMain()
+        {
+            await loadingScreen.FadeOut();
+            while (curScene is not TitleView)
+            {
+                DestroyScene();
+            }
             await loadingScreen.FadeIn();
         }
 

@@ -37,6 +37,7 @@ namespace View.StageView
         public GameObject indicator;
         public FloatingTextView floatingText;
         public RewardView rewardView;
+        public GameOverView gameOverView;
 
         public Button turnEndButton;
         public TargetArrow arrow;
@@ -267,6 +268,11 @@ namespace View.StageView
         {
             characterHolder.PositionSwitched(character, targetIndex, moveIndex);
             
+        }
+
+        public void GameOvered()
+        {
+            gameOverView.gameObject.SetActive(true);
         }
     }
 }

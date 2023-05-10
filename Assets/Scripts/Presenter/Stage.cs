@@ -172,7 +172,8 @@ namespace Presenter
 
         private void GameOver()
         {
-            throw new NotImplementedException();
+            _isStageClear = true;
+            bsView.GameOvered();
         }
 
         public void StageStart()
