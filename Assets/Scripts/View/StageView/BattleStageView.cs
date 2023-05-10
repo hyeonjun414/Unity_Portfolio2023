@@ -26,9 +26,10 @@ namespace View.StageView
         public CardView cardPrefab;
         public EnemyView enemyPrefab;
         public ChestView chestPrefab;
+        public ArtifactView artifactPrefab;
         public Transform handPos, deckPos, gravePos;
         public Transform cardForwardPivot;
-        public Transform HeroPivot, EnemyPivot, DoorPivot, chestPivot;
+        public Transform HeroPivot, EnemyPivot, DoorPivot, chestPivot, artifactPivot;
             
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
@@ -273,6 +274,15 @@ namespace View.StageView
         public void GameOvered()
         {
             gameOverView.gameObject.SetActive(true);
+        }
+
+        public void SetUserArtifacts(List<Artifact> userArtifacts)
+        {
+            foreach (var artifact in userArtifacts)
+            {
+                var inst = Instantiate(artifactPrefab, artifactPivot);
+                inst.SetView(artifact);
+            }
         }
     }
 }

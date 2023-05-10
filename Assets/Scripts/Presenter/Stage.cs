@@ -128,7 +128,10 @@ namespace Presenter
                 card.SetState(new CardBattleState());
                 Deck.Add(card);
             }
+            
+            
             bsView.SetUserCards(Deck);
+            bsView.SetUserArtifacts(user.Artifacts);
         }
 
         public async UniTask SummonAlly(string character, int livingTurn)
@@ -213,7 +216,7 @@ namespace Presenter
         }
         private async UniTask AddEntityAp()
         {
-            var deltaTime = Time.deltaTime * 5;
+            var deltaTime = Time.deltaTime;
 
             foreach (var character in Allies.ToList())
             {
