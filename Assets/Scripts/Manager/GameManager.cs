@@ -41,6 +41,7 @@ namespace Manager
 
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.Converters.Add(new EnumConverter<CardType>());
+                settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
                 
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());

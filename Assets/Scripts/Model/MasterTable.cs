@@ -12,6 +12,7 @@ namespace Model
         public List<MasterHero> MasterHeroes;
         public List<MasterEnemy> MasterEnemies;
         public List<MasterAlly> MasterAllies;
+        public List<MasterArtifact> MasterArtifacts;
         public List<MasterCard> MasterCards;
         public List<MasterMap> MasterMaps;
     }
@@ -25,6 +26,7 @@ namespace Model
         public int Energy;
         public int DrawCardCount;
         public List<string> Cards;
+        public List<string> Artifacts;
     }
     public class MasterStage
     {
@@ -76,6 +78,16 @@ namespace Model
         public int Width;
         public float MinLevelValue;
         public float MaxLevelValue;
+    }
+
+    public class MasterArtifact
+    {
+        public string Id;
+        public string Name;
+        public string Desc;
+        public string Icon;
+        public ArtifactTrigger Trigger;
+        public List<JObject> Function;
     }
 
     

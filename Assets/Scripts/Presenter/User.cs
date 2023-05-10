@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace Presenter
         public UserView View;
 
         public List<Card> Cards = new();
+        public List<Artifact> Artifacts = new();
         public Hero UserHero;
 
         public User(UserModel model, UserView view, MasterUser mu, MasterTable mt)
         {
             this.Model = model;
+            this.View = view;
             
             Model.Init(mu, mt);
             UserHero = new Hero(Model.Hero, null);
@@ -27,8 +30,11 @@ namespace Presenter
                 var card = new Card(cardModel, null);
                 Cards.Add(card);
             }
-            this.View = view;
-            
+            foreach (var artifactModel in Model.Artifacts)
+            {
+                var artifact = new Artifact(artifactModel, null);
+                Artifacts.Add(artifact);
+            }
         }
 
         public HeroModel GetHeroModel()
@@ -49,6 +55,11 @@ namespace Presenter
         public void UseEnergy(int cost)
         {
             Model.CurEnergy -= cost;
+        }
+
+        public void AddEnergy(int value)
+        {
+            Model.CurEnergy += value;
         }
         public async UniTask UseCard(Card card, Character target) 
         {
@@ -71,6 +82,14 @@ namespace Presenter
         public void SetEnergy()
         {
             Model.CurEnergy = Model.MaxEnergy;
+        }
+
+        public async UniTask ActivateArtifacts(ArtifactTrigger trigger)
+        {
+            foreach (var artifact in Artifacts)
+            {
+                await artifact.Activate(trigger);
+            }
         }
 
         public int CurEnergy => Model.CurEnergy;

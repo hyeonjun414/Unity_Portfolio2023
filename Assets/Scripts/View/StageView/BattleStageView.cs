@@ -107,14 +107,14 @@ namespace View.StageView
 
         public async UniTask MoveStage()
         {
-            _heroView.transform.DOMove(DoorPivot.position, 1f)
+            _heroView.content.transform.DOMove(DoorPivot.position, 1f)
                 .OnStart(() => _heroView.animator.SetBool("Move", true))
                 .OnComplete(() => _heroView.animator.SetBool("Move", false));
             await UniTask.Delay(1000);
             _heroView.animator.SetTrigger("DoorIn");
             await UniTask.Yield();
             var clipLength = _heroView.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / _heroView.animator.speed;
-            _heroView.transform.DOScale(0.8f, clipLength)
+            _heroView.content.transform.DOScale(0.8f, clipLength)
                 .OnComplete(() => _heroView.gameObject.SetActive(false));
             
             await UniTask.Delay((int)(clipLength * 1000));

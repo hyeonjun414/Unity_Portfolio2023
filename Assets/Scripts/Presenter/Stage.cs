@@ -21,9 +21,9 @@ namespace Presenter
     {
         public StageModel Model;
         public StageView View;
-        
-        protected GameManager gm;
-        protected User user;
+
+        public GameManager gm;
+        public User user;
 
         private readonly Queue<UniTask> _queue = new Queue<UniTask>();
         protected bool IsAction;
@@ -231,8 +231,10 @@ namespace Presenter
             {
                 _isHeroTurn = true;
                 user.SetEnergy();
+                
                 bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
                 bsView.TurnStarted();
+                await user.ActivateArtifacts(ArtifactTrigger.TurnStarted);
                 await DrawCard(user.GetDrawCount());
                 return;
             }
@@ -522,6 +524,13 @@ namespace Presenter
                     }
                     break;
             }
+        }
+
+        public async UniTask AddEnergy(int value)
+        {
+            user.AddEnergy(value);
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            await UniTask.Yield();
         }
     }
 }

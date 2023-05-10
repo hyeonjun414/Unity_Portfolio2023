@@ -1,5 +1,5 @@
 {
-  "MasterEnemies": [
+  "MasterEnemies"  : [
     {
       "Id"     : "Bald Pirate",
       "Name"   : "Bald Pirate",
@@ -111,7 +111,7 @@
       ]
     }
   ],
-  "MasterAllies" : [
+  "MasterAllies"   : [
     {
       "Id"     : "Sailor",
       "Name"   : "Sailor",
@@ -129,7 +129,7 @@
       ]
     }
   ],
-  "MasterHeroes" : [
+  "MasterHeroes"   : [
     {
       "Id"    : "Hero",
       "Name"  : "Hero",
@@ -139,7 +139,35 @@
       "Speed" : 10
     }
   ],
-  "MasterCards"  : [
+  "MasterArtifacts": [
+    {
+      "Id"      : "견제 검",
+      "Name"    : "견제 검",
+      "Desc"    : "공격하려는 적을 공격하려고 할 때 적의 AP를 20감소 시킵니다.",
+      "Icon"    : "Icon_Battle",
+      "Trigger" : "EnemyDamaged",
+      "Function": [
+        {
+          "Type" : "Af_EnergyUp",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Id"      : "보조 배터리",
+      "Name"    : "보조 배터리",
+      "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.",
+      "Icon"    : "Icon_Booster",
+      "Trigger" : "TurnStarted",
+      "Function": [
+        {
+          "Type" : "Af_EnergyUp",
+          "Value": 1
+        }
+      ]
+    }
+  ],
+  "MasterCards"    : [
     {
       "Id"      : "폭탄 투하",
       "Name"    : "폭탄 투하",
@@ -321,7 +349,7 @@
       ]
     }
   ],
-  "MasterUsers"  : [
+  "MasterUsers"    : [
     {
       "Id"           : "Char1",
       "Name"         : "Char1",
@@ -329,6 +357,9 @@
       "Hero"         : "Hero",
       "DrawCardCount": 5,
       "Energy"       : 5,
+      "Artifacts"    : [
+        "보조 배터리"
+      ],
       "Cards"        : [
         "캐논 볼",
         "베기",
@@ -342,7 +373,7 @@
       ]
     }
   ],
-  "MasterStages" : [
+  "MasterStages"   : [
     {
       "Id"       : "Normal1",
       "Name"     : "Normal1",
@@ -382,7 +413,7 @@
       }
     }
   ],
-  "MasterMaps"   : [
+  "MasterMaps"     : [
     {
       "Id"           : "Level1",
       "Name"         : "Level1",
