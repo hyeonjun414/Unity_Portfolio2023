@@ -92,4 +92,18 @@ namespace Model
             }
         }
     }
+
+    public class Cf_DrawCard : CardFunc
+    {
+        public int DrawCount;
+
+        public override async UniTask Activate(Character character)
+        {
+            var curStage = GameManager.Instance.CurStage as BattleStage;
+            if (curStage != null)
+            {
+                await curStage.DrawCard(DrawCount);
+            }
+        }
+    }
 }

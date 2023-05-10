@@ -288,6 +288,21 @@
           "MoveIndex": 0
         }
       ]
+    },
+    {
+      "Id"      : "약탈",
+      "Name"    : "약탈",
+      "Desc"    : "카드를 1장 뽑습니다.",
+      "Icon"    : "Card_Loot",
+      "Effect"  : "Smoke",
+      "CardType": "Magic",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"     : "Cf_DrawCard",
+          "DrawCount": 1
+        }
+      ]
     }
   ],
   "MasterUsers"  : [
