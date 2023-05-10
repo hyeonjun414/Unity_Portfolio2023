@@ -6,7 +6,7 @@
       "Desc"   : "Bald Pirate",
       "Hp"     : 20,
       "Damage" : 5,
-      "Speed"  : 5,
+      "Speed"  : 60,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -28,7 +28,7 @@
       "Desc"   : "Cucumber",
       "Hp"     : 12,
       "Damage" : 3,
-      "Speed"  : 10,
+      "Speed"  : 100,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -50,7 +50,7 @@
       "Desc"   : "Big Guy",
       "Hp"     : 25,
       "Damage" : 10,
-      "Speed"  : 15,
+      "Speed"  : 40,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -72,7 +72,7 @@
       "Desc"   : "Captain",
       "Hp"     : 20,
       "Damage" : 7,
-      "Speed"  : 5,
+      "Speed"  : 70,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -94,7 +94,7 @@
       "Desc"   : "Whale",
       "Hp"     : 50,
       "Damage" : 5,
-      "Speed"  : 5,
+      "Speed"  : 30,
       "Actions": [
         {
           "Type"  : "EaNormalAttack",
@@ -136,7 +136,7 @@
       "Desc"  : "Hero",
       "Hp"    : 100,
       "Damage": 10,
-      "Speed" : 10
+      "Speed" : 85
     }
   ],
   "MasterArtifacts": [
