@@ -44,5 +44,11 @@ namespace View
             }
             
         }
+
+        public void ClearMapNode()
+        {
+            icon.DOColor(Color.gray, 0.5f)
+                .OnStart(() => button.interactable = false);
+        }
     }
 }

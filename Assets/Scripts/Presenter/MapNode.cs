@@ -23,6 +23,16 @@ namespace Presenter
             await GameManager.Instance.CurMap.SelectNode(this);
         }
 
+        public void CloseMapNode()
+        {
+            View.ActiveNode(false);
+        }
+
+        public void ClearMapNode()
+        {
+            View?.ClearMapNode();
+        }
+
         public string GetIconName() => Model.StageData.Icon;
         
     }

@@ -74,6 +74,7 @@ namespace Presenter
 
         public void ActiveNextNodes()
         {
+            CurNode.ClearMapNode();
             foreach (var nextNode in CurNode.Model.NextNodes)
             {
                 var targetNode = MapNodes[CurStep+1].FirstOrDefault(target => target != null && target.Model == nextNode);
@@ -86,6 +87,11 @@ namespace Presenter
         {
             CurNode = mapNode;
             CurStep = CurNode.Model.Step;
+            foreach (var node in MapNodes[CurStep])
+            {
+                if(node == mapNode) continue;
+                node.CloseMapNode();
+            }
             await GameManager.Instance.LoadStageScene(CurNode);
         }
     }
