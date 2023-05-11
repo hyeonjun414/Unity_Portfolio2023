@@ -29,7 +29,7 @@ namespace View
             // set contents size
             var totalHeight = stages.Count * 300f;
             nodePivot.sizeDelta = new Vector2(nodePivot.rect.width, totalHeight);
-            nodePivot.localPosition = new Vector2(0, totalHeight / 2);
+            nodePivot.localPosition = new Vector2(0, totalHeight / 2 + 50f);
             
             var stageNodes = new List<List<MapNodeView>>();
             
