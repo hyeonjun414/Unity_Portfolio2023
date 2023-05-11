@@ -32,4 +32,15 @@ namespace Model
             }
         }
     }
+    
+    public class Af_MaxEnergyUp : ArtifactFunc
+    {
+        public int Value;
+
+        public override async UniTask Init()
+        {
+            await base.Init();
+            GameManager.Instance.User.AddMaxEnergy(Value);
+        }
+    }
 }

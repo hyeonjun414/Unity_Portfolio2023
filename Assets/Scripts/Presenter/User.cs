@@ -37,11 +37,6 @@ namespace Presenter
             }
         }
 
-        public HeroModel GetHeroModel()
-        {
-            return Model.Hero;
-        }
-
         public List<CardModel> GetCards()
         {
             return Model.Cards;
@@ -60,6 +55,11 @@ namespace Presenter
         public void AddEnergy(int value)
         {
             Model.CurEnergy += value;
+        }
+
+        public void AddMaxEnergy(int value)
+        {
+            Model.MaxEnergy += value;
         }
         public async UniTask UseCard(Card card, Character target) 
         {

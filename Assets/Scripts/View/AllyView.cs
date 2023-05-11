@@ -64,28 +64,12 @@ namespace View
         {
             foreach (var observer in Observers)
                 observer.OnMouseEnterEntity();
-            
-            if (eventData.pointerPress != null)
-            {
-                if (Presenter is Enemy ep)
-                {
-                    ep.Targeted();
-                }
-            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             foreach (var observer in Observers)
                 observer.OnMouseExitEntity();
-            
-            if (eventData.pointerPress != null)
-            {
-                if (Presenter is Enemy ep)
-                {
-                    ep.UnTargeted();
-                }
-            }
         }
 
         public async UniTask Wait()

@@ -18,11 +18,6 @@ namespace Presenter
             View.Init(this);
         }
 
-        public MasterStage GetStageData()
-        {
-            return Model.stageData;
-        }
-
         public async UniTaskVoid MoveStage()
         {
             var stage = GameManager.Instance.CurStage as BattleStage;

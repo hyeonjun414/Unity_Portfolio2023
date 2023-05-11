@@ -14,6 +14,7 @@ namespace Presenter
 {
     public enum CharacterType
     {
+        Unset,
         Ally,
         Enemy
     }
@@ -24,9 +25,7 @@ namespace Presenter
 
         public GameManager gm;
         public User user;
-
-        private readonly Queue<UniTask> _queue = new Queue<UniTask>();
-        protected bool IsAction;
+        
         public Stage(StageModel model, StageView view)
         {
             this.Model = model;
@@ -38,26 +37,7 @@ namespace Presenter
         public virtual void Init()
         {
         }
-
-        // public void Enqueue(UniTask action)
-        // {
-        //     Debug.Log("ViewAction Added");
-        //     _queue.Enqueue(action);
-        // }
-        //
-        // public async UniTask ExecuteAllAction()
-        // {
-        //     while (true)
-        //     {
-        //         await UniTask.Yield();
-        //         if (_queue.Count == 0) continue;
-        //         await UniTask.Delay(1000);
-        //         var action = _queue.Dequeue();
-        //         Debug.Log("ViewAction Execute");
-        //         await action;
-        //     }
-        // }
-
+        
         public virtual async UniTask Update()
         {
             await UniTask.Yield();
@@ -68,9 +48,6 @@ namespace Presenter
             await UniTask.Yield();
             await GameManager.Instance.LoadMapScene();
         }
-
-
-        
     }
 
     public class BattleStage : Stage
@@ -202,17 +179,42 @@ namespace Presenter
             }
         }
 
-        private Character GetTarget(CharacterType charType)
+        public List<Character> GetTarget(Character target, TargetType targetType)
         {
-            switch (charType)
+            List<Character> targetList = new();
+            switch (target.CharType)
             {
                 case CharacterType.Ally:
-                    return Allies.First();
+                    targetList = Allies.ToList();
+                    break;
                 case CharacterType.Enemy:
-                    return Enemies.First();
+                    targetList = Enemies.ToList();
+                    break;
             }
 
-            return null;
+            switch (targetType)
+            {
+                case TargetType.Single:
+                    targetList = new List<Character> { target };
+                    break;
+                case TargetType.All:
+                    break;
+                case TargetType.Spread:
+                    var list = targetList;
+                    targetList = targetList.Where(t => Math.Abs(list.IndexOf(target)-list.IndexOf(t)) == 1).ToList();
+                    break;
+                case TargetType.Random:
+                    targetList = new List<Character> { targetList[Random.Range(0, targetList.Count)]};
+                    break;
+                case TargetType.Front:
+                    targetList = new List<Character> { targetList.First() };
+                    break;
+                case TargetType.Back:
+                    targetList = new List<Character> { targetList.Last() };
+                    break;
+            }
+
+            return targetList;
         }
         private async UniTask AddEntityAp()
         {
@@ -223,9 +225,8 @@ namespace Presenter
                 character.AddAp(deltaTime);
                 if (character is Ally ally && ally.Model.IsReady)
                 {
-                    var target = GetTarget(CharacterType.Enemy);
                     await ally.PrepareAction();
-                    await ally.ExecuteAction(target);
+                    await ally.ExecuteAction(Enemies.First());
                     ally.EndAction();
                 }
             }
@@ -247,9 +248,8 @@ namespace Presenter
                 enemy.AddAp(deltaTime);
                 if (enemy.Model.IsReady)
                 {
-                    var target = GetTarget(CharacterType.Ally);
                     await enemy.PrepareAction();
-                    await enemy.ExecuteAction(target);
+                    await enemy.ExecuteAction(Allies.First());
                     enemy.EndAction();
                 }
             }

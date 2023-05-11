@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace View
 {
+    public enum TextType
+    {
+        Damage,
+        Heal,
+        Miss,
+    }
+    
     public class FloatingTextView : MonoBehaviour
     {
         public TextMeshProUGUI text;

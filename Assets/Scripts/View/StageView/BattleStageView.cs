@@ -228,13 +228,11 @@ namespace View.StageView
         public void TurnEnded()
         {
             turnEndButton.interactable = false;
-            cardHolder.SetControllable(false);
         }
 
         public void TurnStarted()
         {
             turnEndButton.interactable = true;
-            cardHolder.SetControllable(true);
         }
 
         public void CardHovered(CardView cardView)

@@ -3,82 +3,76 @@ using Cysharp.Threading.Tasks;
 using Manager;
 using Newtonsoft.Json.Linq;
 using Presenter;
+using View;
 
 namespace Model
 {
-    public enum TextType
+    public enum TargetType
     {
-        Damage,
-        Heal,
-        Miss,
+        Single,
+        All,
+        Spread,
+        Random,
+        Front,
+        Back
     }
+    
     public class CardFunc
     {
         public string Type;
 
-        public virtual async UniTask Activate(Character character)
+        public virtual async UniTask Activate(Character target)
         {
             await UniTask.Yield();
         }
-
     }
 
-    public class CfStatusEffect : CardFunc
+    public class Cf_StatusEffect : CardFunc
     {
         public JObject StatusEffect;
 
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
             var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
             
-            await character.AddStatusEffect(effect);
+            await target.AddStatusEffect(effect);
         }
     }
     public class Cf_Damage : CardFunc
     {
         public float Damage;
-        public bool IsAll;
+        public TargetType TargetType;
 
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
-            if (IsAll)
+            if (GameManager.Instance.CurStage is BattleStage curStage)
             {
-                var curStage = GameManager.Instance.CurStage as BattleStage;
-                if (curStage != null)
+                var targetList = curStage.GetTarget(target, TargetType);
+                foreach (var t in targetList)
                 {
-                    var targetList = character is Enemy ? curStage.Enemies.ToList() : curStage.Allies.ToList();
-                    foreach (var target in targetList)
-                    {
-                        await target.TakeDamage(Damage);
-                    }
+                    await t.TakeDamage(Damage);
                 }
             }
-            else
-            {
-                await character.TakeDamage(Damage); 
-            }
-            
         }
     }
 
     public class Cf_ApDown : CardFunc
     {
         public float Value;
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
-            await character.UseAp(Value);
-
+            await target.UseAp(Value);
         }
     }
 
     public class Cf_HpRecover : CardFunc
     {
         public float Value;
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.CreateFloatingText(Value.ToString(), character.View.transform.position, TextType.Heal);
-            await character.HpRecover(Value);
+            curStage?.CreateFloatingText(Value.ToString(), target.WorldPosition, TextType.Heal);
+            await target.HpRecover(Value);
         }
     }
 
@@ -87,7 +81,7 @@ namespace Model
         public string Character;
         public int LivingTurn;
 
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
@@ -101,12 +95,12 @@ namespace Model
     {
         public int MoveIndex;
 
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
             {
-                await curStage.PositionSwitch(character, MoveIndex);
+                await curStage.PositionSwitch(target, MoveIndex);
             }
         }
     }
@@ -115,7 +109,7 @@ namespace Model
     {
         public int DrawCount;
 
-        public override async UniTask Activate(Character character)
+        public override async UniTask Activate(Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)

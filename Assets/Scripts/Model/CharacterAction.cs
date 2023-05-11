@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Manager;
 using Presenter;
 
 namespace Model
@@ -29,9 +30,10 @@ namespace Model
 
     }
 
-    public class EaNormalAttack : CharacterAction
+    public class Ca_NormalAttack : CharacterAction
     {
         public float Damage;
+        public TargetType TargetType;
 
         public override void Init(CharacterModel charModel)
         {
@@ -41,9 +43,15 @@ namespace Model
 
         public override async UniTask Activate(Character actor, Character target)
         {
-            await actor.PrepareAttack(target.View.GetPosition());
+            await actor.PrepareAttack(target.WorldPosition);
             await actor.PlayAttack();
-            await actor.Attack(target, ActionValue);
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                foreach (var t in curStage.GetTarget(target, TargetType))
+                {
+                    await actor.Attack(t, ActionValue);
+                }
+            }
             await actor.EndAttack();
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Presenter;
 using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -25,6 +26,7 @@ namespace Model
         public bool IsDead;
         public float MaxAp;
         public float CurAp;
+        public CharacterType CharType;
 
         public float MaxHp => Stats.MaxHp + BuffStats.MaxHp;
         public float CurHp => Stats.CurHp + BuffStats.CurHp;
@@ -132,6 +134,7 @@ namespace Model
         private CharacterAction _curAction;
         public EnemyModel(MasterEnemy me, float levelValue) : base(me)
         {
+            CharType = CharacterType.Enemy;
             _actions = me.Actions;
 
             Stats.Damage = Mathf.Round(Stats.Damage * levelValue);
@@ -161,6 +164,7 @@ namespace Model
         public int Turn;
         public AllyModel(MasterAlly ma, int livingTurn) : base(ma)
         {
+            CharType = CharacterType.Ally;
             _actions = ma.Actions;
             Turn = livingTurn;
 
@@ -194,6 +198,7 @@ namespace Model
     {
         public HeroModel(MasterEntity me) : base(me)
         {
+            CharType = CharacterType.Ally;
         }
     }
 }

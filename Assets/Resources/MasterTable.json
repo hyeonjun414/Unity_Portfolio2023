@@ -9,16 +9,18 @@
       "Speed"  : 60,
       "Actions": [
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 1,
+          "Damage"    : 1.2,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         },
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 2,
+          "Damage"    : 4,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         }
       ]
     },
@@ -31,16 +33,18 @@
       "Speed"  : 100,
       "Actions": [
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 1,
+          "Damage"    : 1.2,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         },
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 2,
+          "Damage"    : 4,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         }
       ]
     },
@@ -53,16 +57,18 @@
       "Speed"  : 40,
       "Actions": [
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 1,
+          "Damage"    : 1.2,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         },
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 2,
+          "Damage"    : 4,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         }
       ]
     },
@@ -75,16 +81,18 @@
       "Speed"  : 70,
       "Actions": [
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 1,
+          "Damage"    : 1.2,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         },
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 2,
+          "Damage"    : 4,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         }
       ]
     },
@@ -97,16 +105,18 @@
       "Speed"  : 30,
       "Actions": [
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 1,
+          "Damage"    : 1.2,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         },
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 2,
+          "Damage"    : 4,
+          "TargetType": "Single",
+          "Icon"      : "Icon_Attack"
         }
       ]
     }
@@ -118,13 +128,14 @@
       "Desc"   : "Sailor",
       "Hp"     : 20,
       "Damage" : 3,
-      "Speed"  : 15,
+      "Speed"  : 150,
       "Actions": [
         {
-          "Type"  : "EaNormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_NormalAttack",
+          "Turn"      : 1,
+          "Damage"    : 1.2,
+          "TargetType": "All",
+          "Icon"      : "Icon_Attack"
         }
       ]
     }
@@ -178,8 +189,9 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 15
+          "Type"      : "Cf_Damage",
+          "Damage"    : 15,
+          "TargetType": "Single"
         }
       ]
     },
@@ -193,8 +205,9 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 6
+          "Type"      : "Cf_Damage",
+          "Damage"    : 6,
+          "TargetType": "Single"
         }
       ]
     },
@@ -208,8 +221,9 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 2
+          "Type"      : "Cf_Damage",
+          "Damage"    : 2,
+          "TargetType": "Single"
         },
         {
           "Type" : "Cf_ApDown",
@@ -227,11 +241,12 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 3
+          "Type"      : "Cf_Damage",
+          "Damage"    : 3,
+          "TargetType": "Single"
         },
         {
-          "Type"        : "CfStatusEffect",
+          "Type"        : "Cf_StatusEffect",
           "StatusEffect": {
             "Type"    : "SE_Burn",
             "Turn"    : 1,
@@ -283,11 +298,12 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 3
+          "Type"      : "Cf_Damage",
+          "Damage"    : 3,
+          "TargetType": "Single"
         },
         {
-          "Type"        : "CfStatusEffect",
+          "Type"        : "Cf_StatusEffect",
           "StatusEffect": {
             "Type"    : "SE_StatBuff",
             "Turn"    : 1,
@@ -308,8 +324,9 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 3
+          "Type"      : "Cf_Damage",
+          "Damage"    : 3,
+          "TargetType": "Single"
         },
         {
           "Type"     : "Cf_PositionSwitch",
@@ -342,9 +359,9 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"  : "Cf_Damage",
-          "Damage": 10,
-          "IsAll" : true
+          "Type"      : "Cf_Damage",
+          "Damage"    : 10,
+          "TargetType": "All"
         }
       ]
     }

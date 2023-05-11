@@ -38,10 +38,11 @@ namespace Manager
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-
+                
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.Converters.Add(new EnumConverter<CardType>());
                 settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
+                settings.Converters.Add(new EnumConverter<TargetType>());
                 
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
@@ -63,7 +64,6 @@ namespace Manager
             else if (Input.GetKeyDown(KeyCode.Minus))
             {
                 Time.timeScale *= 0.5f;
-
             }
         }
 
@@ -78,7 +78,6 @@ namespace Manager
             CurMap = new Map(mapModel, null);
 
             await CreateScene(SceneType.Map);
-            //await LoadScene(SceneType.Map);
         }
 
         public async UniTask CreateScene(string sceneType)
@@ -148,7 +147,6 @@ namespace Manager
         {
             CurStage = GenerateStage(mapNode.Model);
             await CreateScene(SceneType.BattleStage);
-            //await LoadScene(SceneType.Stage);
         }
     }
 }

@@ -10,12 +10,12 @@ using Random = UnityEngine.Random;
 
 namespace Presenter
 {
-    public interface IEntity
+    public interface ICharacter
     {
         void AddObserver(IEntityObserver observer);
         void RemoveObserver(IEntityObserver observer);
     }
-    public class Character : IEntity
+    public class Character : ICharacter
     {
         public CharacterModel Model;
         public CharacterView View;
@@ -63,7 +63,6 @@ namespace Presenter
             if (Model.IsDead)
             {
                 OnDeathEvent();
-                //await View.Dead();
             }
             else
                 View.PlayDamageEft();
@@ -202,6 +201,7 @@ namespace Presenter
         }
 
         public Vector3 WorldPosition => View.GetPosition();
+        public CharacterType CharType => Model.CharType;
     }
 
     public class Enemy : Character
@@ -210,7 +210,6 @@ namespace Presenter
         public EnemyView eView => View as EnemyView;
         public Enemy(EnemyModel model, CharacterView view) : base(model, view)
         {
-            Debug.Log("Enemy Gen");
         }
 
         public override void Init()
@@ -258,7 +257,6 @@ namespace Presenter
 
         public Ally(AllyModel model, CharacterView view) : base(model, view)
         {
-            Debug.Log("Ally Gen");
         }
 
         public override void Init()

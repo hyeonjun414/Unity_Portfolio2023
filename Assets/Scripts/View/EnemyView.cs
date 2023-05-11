@@ -22,7 +22,6 @@ namespace View
             base.Init(character);
             if (character is Enemy em)
             {
-                // Set AnimationController
                 var enemyData = Resources.Load<CharacterData>($"CharacterData/{character.Model.Name}");
                 if (enemyData != null)
                 {
