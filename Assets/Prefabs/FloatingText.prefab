@@ -59,7 +59,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 15
   m_TargetDisplay: 0
 --- !u!114 &722190898774042753
 MonoBehaviour:
@@ -151,6 +151,7 @@ MonoBehaviour:
   - {r: 1, g: 0.6273585, b: 0.6273585, a: 1}
   - {r: 0.42257974, g: 1, b: 0.4198113, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.9845483, b: 0.4764151, a: 1}
 --- !u!1 &6154417342715879112
 GameObject:
   m_ObjectHideFlags: 0

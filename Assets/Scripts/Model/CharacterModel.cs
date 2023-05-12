@@ -130,13 +130,14 @@ namespace Model
     }
     public class EnemyModel : CharacterModel
     {
+        public int DropGold;
         private List<JObject> _actions;
         private CharacterAction _curAction;
         public EnemyModel(MasterEnemy me, float levelValue) : base(me)
         {
             CharType = CharacterType.Enemy;
             _actions = me.Actions;
-
+            DropGold = (int)(me.DropGold * levelValue);
             Stats.Damage = Mathf.Round(Stats.Damage * levelValue);
             Stats.MaxHp = Stats.CurHp = Mathf.Round(Stats.CurHp * levelValue);
             

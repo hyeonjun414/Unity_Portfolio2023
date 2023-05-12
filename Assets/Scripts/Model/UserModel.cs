@@ -13,6 +13,7 @@ namespace Model
         public int CurEnergy;
 
         public int DrawCardCount;
+        public int Gold;
 
         public void Init(MasterUser mu, MasterTable mt)
         {
@@ -21,7 +22,7 @@ namespace Model
 
             MaxEnergy = mu.Energy;
             DrawCardCount = mu.DrawCardCount;
-            
+            Gold = mu.InitGold;
             foreach (var cardId in mu.Cards)
             {
                 var mc = mt.MasterCards.First(target => target.Id == cardId);

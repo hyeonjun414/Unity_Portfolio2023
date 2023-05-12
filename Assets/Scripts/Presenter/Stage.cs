@@ -109,6 +109,9 @@ namespace Presenter
             
             bsView.SetUserCards(Deck);
             bsView.SetUserArtifacts(user.Artifacts);
+            bsView.SetUserGold(user.Gold);
+            
+            StageStart();
         }
 
         public async UniTask SummonAlly(string character, int livingTurn)
@@ -139,6 +142,8 @@ namespace Presenter
             }
             else if (sender is Enemy enemy)
             {
+                bsView.AddDropGold(user.Gold, enemy.DropGold);
+                user.AddGold(enemy.DropGold);
                 Enemies.Remove(enemy);
                 await RemoveEntityView(enemy);
                 await CheckEnemies();

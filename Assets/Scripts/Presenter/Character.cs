@@ -208,6 +208,8 @@ namespace Presenter
     {
         public EnemyModel eModel => Model as EnemyModel;
         public EnemyView eView => View as EnemyView;
+
+        public int DropGold => eModel.DropGold;
         public Enemy(EnemyModel model, CharacterView view) : base(model, view)
         {
         }

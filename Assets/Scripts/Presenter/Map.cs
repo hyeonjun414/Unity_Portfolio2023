@@ -89,7 +89,7 @@ namespace Presenter
             CurStep = CurNode.Model.Step;
             foreach (var node in MapNodes[CurStep])
             {
-                if(node == mapNode) continue;
+                if(node == null || node == CurNode) continue;
                 node.CloseMapNode();
             }
             await GameManager.Instance.LoadStageScene(CurNode);

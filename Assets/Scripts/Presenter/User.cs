@@ -94,5 +94,11 @@ namespace Presenter
 
         public int CurEnergy => Model.CurEnergy;
         public int MaxEnergy => Model.MaxEnergy;
+        public int Gold => Model.Gold;
+
+        public void AddGold(int amount)
+        {
+            Model.Gold += amount;
+        }
     }
 }

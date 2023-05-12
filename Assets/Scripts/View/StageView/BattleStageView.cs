@@ -27,9 +27,8 @@ namespace View.StageView
         public EnemyView enemyPrefab;
         public ChestView chestPrefab;
         public ArtifactView artifactPrefab;
-        public Transform handPos, deckPos, gravePos;
-        public Transform cardForwardPivot;
-        public Transform HeroPivot, EnemyPivot, DoorPivot, chestPivot, artifactPivot;
+        public Transform deckPos;
+        public Transform DoorPivot, chestPivot, artifactPivot;
             
         public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
@@ -41,11 +40,11 @@ namespace View.StageView
         public GameOverView gameOverView;
 
         public Button turnEndButton;
-        public TargetArrow arrow;
         public ActionBar actionBar;
 
         public CardHolder cardHolder;
         public CharacterHolder characterHolder;
+        public UserGoldView userGoldView;
         
         private CharacterView _heroView;
         private CardView _hoveredCard;
@@ -65,8 +64,6 @@ namespace View.StageView
             {
                 await bsPresenter.TurnEnd();
             });
-
-            bsPresenter.StageStart();
         }
 
         public async UniTask BattleEnd()
@@ -210,7 +207,7 @@ namespace View.StageView
             var mostLeft = -(enemies.Count - 1) * 0.5f * xGap;
             for (var i = 0; i < enemies.Count; i++)
             {
-                var inst = Instantiate(enemyPrefab, EnemyPivot);
+                var inst = Instantiate(enemyPrefab);
                 inst.transform.localPosition += Vector3.right * (mostLeft + i * xGap);
                 enemies[i].View = inst;
                 inst.Presenter = enemies[i];
@@ -281,6 +278,17 @@ namespace View.StageView
                 var inst = Instantiate(artifactPrefab, artifactPivot);
                 inst.SetView(artifact);
             }
+        }
+
+        public void SetUserGold(int userGold)
+        {
+            userGoldView.Init(userGold);
+        }
+
+        public void AddDropGold(int userGold, int dropGold)
+        {
+            CreateFloatingText(dropGold.ToString(), userGoldView.goldText.transform.position, TextType.Gold);
+            userGoldView.AddGold(userGold, dropGold);
         }
     }
 }

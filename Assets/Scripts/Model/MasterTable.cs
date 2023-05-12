@@ -24,6 +24,7 @@ namespace Model
         public string Desc;
         public string Hero;
         public int Energy;
+        public int InitGold;
         public int DrawCardCount;
         public List<string> Cards;
         public List<string> Artifacts;
@@ -45,6 +46,7 @@ namespace Model
 
     public class MasterEnemy : MasterEntity
     {
+        public int DropGold;
         public List<JObject> Actions;
     }
 

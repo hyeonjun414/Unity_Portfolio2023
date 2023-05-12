@@ -11,6 +11,7 @@ namespace View
         Damage,
         Heal,
         Miss,
+        Gold
     }
     
     public class FloatingTextView : MonoBehaviour
@@ -20,7 +21,7 @@ namespace View
         public List<Color> colors;
         public void SetFloatingText(string str, Vector3 position, TextType textType)
         {
-            transform.position = position + (Vector3)Random.insideUnitCircle * 0.5f + Vector3.up * 1.5f;
+            transform.position = position + (Vector3)Random.insideUnitCircle * 0.5f;
             text.SetText(str);
             text.color = colors[(int)textType];
             transform.DOPunchScale(Vector3.one, 0.5f, 5, 0.2f);

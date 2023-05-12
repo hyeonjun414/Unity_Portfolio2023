@@ -1,13 +1,14 @@
 {
   "MasterEnemies"  : [
     {
-      "Id"     : "Bald Pirate",
-      "Name"   : "Bald Pirate",
-      "Desc"   : "Bald Pirate",
-      "Hp"     : 20,
-      "Damage" : 5,
-      "Speed"  : 60,
-      "Actions": [
+      "Id"      : "Bald Pirate",
+      "Name"    : "Bald Pirate",
+      "Desc"    : "Bald Pirate",
+      "Hp"      : 20,
+      "Damage"  : 5,
+      "Speed"   : 60,
+      "DropGold": 17,
+      "Actions" : [
         {
           "Type"      : "Ca_NormalAttack",
           "Turn"      : 1,
@@ -25,13 +26,14 @@
       ]
     },
     {
-      "Id"     : "Cucumber",
-      "Name"   : "Cucumber",
-      "Desc"   : "Cucumber",
-      "Hp"     : 12,
-      "Damage" : 3,
-      "Speed"  : 100,
-      "Actions": [
+      "Id"      : "Cucumber",
+      "Name"    : "Cucumber",
+      "Desc"    : "Cucumber",
+      "Hp"      : 12,
+      "Damage"  : 3,
+      "Speed"   : 100,
+      "DropGold": 23,
+      "Actions" : [
         {
           "Type"      : "Ca_NormalAttack",
           "Turn"      : 1,
@@ -49,13 +51,14 @@
       ]
     },
     {
-      "Id"     : "Big Guy",
-      "Name"   : "Big Guy",
-      "Desc"   : "Big Guy",
-      "Hp"     : 25,
-      "Damage" : 10,
-      "Speed"  : 40,
-      "Actions": [
+      "Id"      : "Big Guy",
+      "Name"    : "Big Guy",
+      "Desc"    : "Big Guy",
+      "Hp"      : 25,
+      "Damage"  : 10,
+      "Speed"   : 40,
+      "DropGold": 15,
+      "Actions" : [
         {
           "Type"      : "Ca_NormalAttack",
           "Turn"      : 1,
@@ -73,13 +76,14 @@
       ]
     },
     {
-      "Id"     : "Captain",
-      "Name"   : "Captain",
-      "Desc"   : "Captain",
-      "Hp"     : 20,
-      "Damage" : 7,
-      "Speed"  : 70,
-      "Actions": [
+      "Id"      : "Captain",
+      "Name"    : "Captain",
+      "Desc"    : "Captain",
+      "Hp"      : 20,
+      "Damage"  : 7,
+      "Speed"   : 70,
+      "DropGold": 19,
+      "Actions" : [
         {
           "Type"      : "Ca_NormalAttack",
           "Turn"      : 1,
@@ -97,13 +101,14 @@
       ]
     },
     {
-      "Id"     : "Whale",
-      "Name"   : "Whale",
-      "Desc"   : "Whale",
-      "Hp"     : 50,
-      "Damage" : 5,
-      "Speed"  : 30,
-      "Actions": [
+      "Id"      : "Whale",
+      "Name"    : "Whale",
+      "Desc"    : "Whale",
+      "Hp"      : 50,
+      "Damage"  : 5,
+      "Speed"   : 30,
+      "DropGold": 17,
+      "Actions" : [
         {
           "Type"      : "Ca_NormalAttack",
           "Turn"      : 1,
@@ -373,6 +378,7 @@
       "Desc"         : "Normal",
       "Hero"         : "Hero",
       "DrawCardCount": 5,
+      "InitGold"     : 50,
       "Energy"       : 5,
       "Artifacts"    : [
         "보조 배터리"
