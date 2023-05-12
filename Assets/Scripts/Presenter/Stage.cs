@@ -512,26 +512,14 @@ namespace Presenter
             Character tempTarget;
             int targetIdx = 0;
             int moveIdx = 0;
-            switch (character)
-            {
-                case Ally:
-                case Hero:
-                    targetIdx = Allies.IndexOf(character);
-                    moveIdx = Math.Clamp(targetIdx + moveIndex, 0, Allies.Count);
-                    tempTarget = Allies[targetIdx];
-                    Allies[targetIdx] = Allies[moveIdx];
-                    Allies[moveIdx] = tempTarget;
-                    bsView.PositionSwitched(character, targetIdx, moveIdx);
-                    break;
-                case Enemy:
-                    targetIdx = Enemies.IndexOf(character);
-                    moveIdx = Math.Clamp(targetIdx + moveIndex, 0, Enemies.Count);
-                    tempTarget = Enemies[targetIdx];
-                    Enemies[targetIdx] = Enemies[moveIdx];
-                    Enemies[moveIdx] = tempTarget;
-                    bsView.PositionSwitched(character, targetIdx, moveIdx);
-                    break;
-            }
+            var targetList = character is Enemy ? Enemies : Allies;
+            targetIdx = targetList.IndexOf(character);
+            if (targetIdx == -1) return;
+            moveIdx = Math.Clamp(targetIdx + moveIndex, 0, targetList.Count);
+            tempTarget = targetList[targetIdx];
+            targetList[targetIdx] = targetList[moveIdx];
+            targetList[moveIdx] = tempTarget;
+            bsView.PositionSwitched(character, targetIdx, moveIdx);
         }
 
         public async UniTask AddEnergy(int value)
