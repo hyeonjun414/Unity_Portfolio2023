@@ -322,7 +322,7 @@
     {
       "Id"      : "그래플링 훅",
       "Name"    : "그래플링 훅",
-      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 공격한 적을 맨 앞으로 이동시킵니다.",
+      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 공격한 적을 한 칸 앞으로 이동시킵니다.",
       "Icon"    : "Card_Hook",
       "Effect"  : "Slash",
       "CardType": "Attack",
@@ -335,7 +335,7 @@
         },
         {
           "Type"     : "Cf_PositionSwitch",
-          "MoveIndex": 0
+          "MoveIndex": -1
         }
       ]
     },
@@ -385,6 +385,38 @@
           "TargetType": "All"
         }
       ]
+    },
+    {
+      "Id"      : "권총 사격",
+      "Name"    : "권총 사격",
+      "Desc"    : "대상에게 5의 피해를 줍니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_Damage",
+          "Damage"    : 5,
+          "TargetType": "Single"
+        }
+      ]
+    },
+    {
+      "Id"      : "퀵 슬래시",
+      "Name"    : "퀵 슬래시",
+      "Desc"    : "대상에게 3의 피해를 줍니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_Damage",
+          "Damage"    : 3,
+          "TargetType": "Single"
+        }
+      ]
     }
   ],
   "MasterUsers"    : [
@@ -402,8 +434,8 @@
       "Cards"        : [
         "사기 카드",
         "사기 카드",
+        "그래플링 훅",
         "선원 호출",
-        "불태우기",
         "폭탄 투하",
         "베기",
         "폭탄 투하",

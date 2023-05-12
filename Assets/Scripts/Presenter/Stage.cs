@@ -507,29 +507,26 @@ namespace Presenter
         public async UniTask PositionSwitch(Character character, int moveIndex)
         {
             Character tempTarget;
+            int targetIdx = 0;
+            int moveIdx = 0;
             switch (character)
             {
                 case Ally:
                 case Hero:
-                    if (Allies.Count >= moveIndex && Allies[moveIndex] != character)
-                    {
-                        var targetIndex = Allies.IndexOf(character);
-                        tempTarget = Allies[moveIndex];
-                        Allies[moveIndex] = Allies[targetIndex];
-                        Allies[targetIndex] = tempTarget;
-                        bsView.PositionSwitched(character, targetIndex, moveIndex);
-                    }
-                    
+                    targetIdx = Allies.IndexOf(character);
+                    moveIdx = Math.Clamp(targetIdx + moveIndex, 0, Allies.Count);
+                    tempTarget = Allies[targetIdx];
+                    Allies[targetIdx] = Allies[moveIdx];
+                    Allies[moveIdx] = tempTarget;
+                    bsView.PositionSwitched(character, targetIdx, moveIdx);
                     break;
                 case Enemy:
-                    if (Enemies.Count >= moveIndex && Enemies[moveIndex] != character)
-                    {
-                        var targetIndex = Enemies.IndexOf(character);
-                        tempTarget = Enemies[moveIndex];
-                        Enemies[moveIndex] = Enemies[targetIndex];
-                        Enemies[targetIndex] = tempTarget;
-                        bsView.PositionSwitched(character, targetIndex, moveIndex);
-                    }
+                    targetIdx = Enemies.IndexOf(character);
+                    moveIdx = Math.Clamp(targetIdx + moveIndex, 0, Enemies.Count);
+                    tempTarget = Enemies[targetIdx];
+                    Enemies[targetIdx] = Enemies[moveIdx];
+                    Enemies[moveIdx] = tempTarget;
+                    bsView.PositionSwitched(character, targetIdx, moveIdx);
                     break;
             }
         }
