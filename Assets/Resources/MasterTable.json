@@ -369,6 +369,22 @@
           "TargetType": "All"
         }
       ]
+    },
+    {
+      "Id"      : "사기 카드",
+      "Name"    : "사기 카드",
+      "Desc"    : "모든 적에게 <color=red>100</color>의 피해를 줍니다.",
+      "Icon"    : "Card_CannonBall",
+      "Effect"  : "Summon",
+      "CardType": "Attack",
+      "Cost"    : 0,
+      "Function": [
+        {
+          "Type"      : "Cf_Damage",
+          "Damage"    : 100,
+          "TargetType": "All"
+        }
+      ]
     }
   ],
   "MasterUsers"    : [
@@ -384,8 +400,8 @@
         "보조 배터리"
       ],
       "Cards"        : [
-        "캐논 볼",
-        "베기",
+        "사기 카드",
+        "사기 카드",
         "선원 호출",
         "불태우기",
         "폭탄 투하",
