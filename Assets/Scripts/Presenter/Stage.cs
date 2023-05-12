@@ -217,6 +217,9 @@ namespace Presenter
                 case TargetType.Back:
                     targetList = new List<Character> { targetList.Last() };
                     break;
+                case TargetType.Hero:
+                    targetList = new List<Character> { user.UserHero };
+                    break;
             }
 
             return targetList;

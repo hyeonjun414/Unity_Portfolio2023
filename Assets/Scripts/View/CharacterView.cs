@@ -37,7 +37,9 @@ namespace View
 
         public Canvas uiCanvas;
         public Slider HpGauge;
-        public TextMeshProUGUI HpText;
+        public Image defenceIcon;
+        public TextMeshProUGUI HpText, defenceText;
+       
 
         public List<IEntityObserver> Observers = new();
         
@@ -47,6 +49,7 @@ namespace View
             character.View = this;
             Presenter = character;
             UpdateHp(character.Model.CurHp, character.Model.MaxHp);
+            SetDefence(character.Model.Defence);
         }
 
         public void UpdateHp(float curHp, float maxHp)
@@ -130,6 +133,12 @@ namespace View
         {
             UpdateHp(curHp, maxHp);
             await UniTask.Yield();
+        }
+
+        public void SetDefence(float defence)
+        {
+            defenceIcon.gameObject.SetActive(defence != 0);
+            defenceText.SetText(defence.ToString());
         }
     }
 

@@ -231,8 +231,9 @@
           "TargetType": "Single"
         },
         {
-          "Type" : "Cf_ApDown",
-          "Value": 30
+          "Type"      : "Cf_ApDown",
+          "Value"     : 30,
+          "TargetType": "Single"
         }
       ]
     },
@@ -417,6 +418,68 @@
           "TargetType": "Single"
         }
       ]
+    },
+    {
+      "Id"      : "끈적이 투척",
+      "Name"    : "끈적이 투척",
+      "Desc"    : "모든 적에게 피해를 5 주고 속도를 20 감소시킵니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_Damage",
+          "Damage"    : 5,
+          "TargetType": "All"
+        },
+        {
+          "Type"      : "Cf_ApDown",
+          "Value"     : 30,
+          "TargetType": "All"
+        }
+      ]
+    },
+    {
+      "Id"      : "밀쳐내기",
+      "Name"    : "밀쳐내기",
+      "Desc"    : "대상을 가장 한 칸 뒤로 이동시키고, 15의 데미지를 준다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"      : "Cf_Damage",
+          "Damage"    : 15,
+          "TargetType": "Single"
+        },
+        {
+          "Type"     : "Cf_PositionSwitch",
+          "MoveIndex": 1
+        }
+      ]
+    },
+    {
+      "Id"      : "커틀라스 스트라이크",
+      "Name"    : "커틀라스 스트라이크",
+      "Desc"    : "피해를 2 입히고 방어력을 2 얻습니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_Damage",
+          "Damage"    : 2,
+          "TargetType": "Single"
+        },
+        {
+          "Type"      : "Cf_DefenceUp",
+          "Value"     : 2,
+          "TargetType": "Hero"
+        }
+      ]
     }
   ],
   "MasterUsers"    : [
@@ -433,9 +496,9 @@
       ],
       "Cards"        : [
         "사기 카드",
-        "사기 카드",
+        "끈적이 투척",
         "그래플링 훅",
-        "선원 호출",
+        "커틀라스 스트라이크",
         "폭탄 투하",
         "베기",
         "폭탄 투하",

@@ -16,6 +16,7 @@ namespace Model
         public float Damage;
         public float Speed;
         public float HitRate;
+        public float Defence;
     }
     public class CharacterModel
     {
@@ -33,6 +34,7 @@ namespace Model
         public float Damage => Stats.Damage + BuffStats.Damage < 0 ? 0 : Stats.Damage + BuffStats.Damage;
         public float Speed => Stats.Speed + BuffStats.Speed < 0 ? 0 : Stats.Speed + BuffStats.Speed;
         public float HitRate => Stats.HitRate + BuffStats.HitRate < 0 ? 0 : Stats.HitRate + BuffStats.HitRate;
+        public float Defence => Stats.Defence;
         
         public CharacterStat Stats = new();
         public CharacterStat BuffStats = new();
@@ -58,6 +60,10 @@ namespace Model
         
         public void TakeDamage(float damage)
         {
+            var prevDef = Stats.Defence;
+            Stats.Defence = Mathf.Max(Stats.Defence - damage, 0);
+            damage = Mathf.Max(damage - prevDef, 0);
+            if (damage == 0) return;
             Stats.CurHp -= damage;
             if (Stats.CurHp <= 0)
             {
@@ -126,6 +132,11 @@ namespace Model
                     BuffStats.HitRate -= value;
                     break;
             }
+        }
+
+        public void AddDefence(int value)
+        {
+            Stats.Defence += value;
         }
     }
     public class EnemyModel : CharacterModel

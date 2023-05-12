@@ -14,7 +14,8 @@ namespace Model
         Spread,
         Random,
         Front,
-        Back
+        Back,
+        Hero,
     }
     
     public class CardFunc
@@ -59,9 +60,17 @@ namespace Model
     public class Cf_ApDown : CardFunc
     {
         public float Value;
+        public TargetType TargetType;
         public override async UniTask Activate(Character target)
         {
-            await target.UseAp(Value);
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                var targetList = curStage.GetTarget(target, TargetType);
+                foreach (var t in targetList)
+                {
+                    await t.UseAp(Value);
+                }
+            }
         }
     }
 
@@ -115,6 +124,24 @@ namespace Model
             if (curStage != null)
             {
                 await curStage.DrawCard(DrawCount);
+            }
+        }
+    }
+
+    public class Cf_DefenceUp : CardFunc
+    {
+        public int Value;
+        public TargetType TargetType;
+
+        public override async UniTask Activate(Character target)
+        {
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                var targetList = curStage.GetTarget(target, TargetType);
+                foreach (var t in targetList)
+                {
+                    await t.AddDefence(Value);
+                }
             }
         }
     }

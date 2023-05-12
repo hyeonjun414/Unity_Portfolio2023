@@ -35,6 +35,7 @@ namespace Presenter
         public virtual void Init()
         {
             View.Init(this);
+            
         }
 
         public void AddAp(float deltaTime)
@@ -58,6 +59,7 @@ namespace Presenter
         public async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
+            View.SetDefence(Model.Defence);
             var stage = GameManager.Instance.CurStage as BattleStage;
             stage?.CreateFloatingText(((int)damage).ToString(), CenterPos, TextType.Damage);
             if (Model.IsDead)
@@ -203,6 +205,13 @@ namespace Presenter
         public Vector3 WorldPosition => View.GetPosition();
         public Vector3 CenterPos => View.CenterPos;
         public CharacterType CharType => Model.CharType;
+
+        public async UniTask AddDefence(int value)
+        {
+            Model.AddDefence(value);
+            View.SetDefence(Model.Defence);
+            await UniTask.Yield();
+        }
     }
 
     public class Enemy : Character
