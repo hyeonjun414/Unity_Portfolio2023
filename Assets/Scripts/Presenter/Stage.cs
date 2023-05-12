@@ -402,13 +402,11 @@ namespace Presenter
                 (_selectedCard.GetCardType() is CardType.Magic && character is Hero))
             {
                 _curTarget = character;
-                bsView.SetTargetIndicator(character.View);
             }
         }
 
         public void UnTargetEntity()
         {
-            bsView.UnsetTargetIndicator();
             _curTarget = null;
         }
 
@@ -439,7 +437,6 @@ namespace Presenter
             }
             else
             {
-                bsView.UnsetTargetIndicator();
                 bsView.CardUnSelected(_selectedCard.View);
                 _selectedCard = null;
             }

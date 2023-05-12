@@ -34,7 +34,6 @@ namespace View.StageView
         public List<CardView> UserCards = new();
         public List<CardView> DeckCards = new();
         public List<CardView> GraveCards = new();
-        public GameObject indicator;
         public FloatingTextView floatingText;
         public RewardView rewardView;
         public GameOverView gameOverView;
@@ -117,19 +116,6 @@ namespace View.StageView
             
             await UniTask.Delay((int)(clipLength * 1000));
             
-        }
-
-        public void SetTargetIndicator(CharacterView character)
-        {
-            if (character == null) return;
-            
-            indicator.SetActive(true);
-            indicator.transform.position = character.transform.position + Vector3.up * 2.5f;
-        }
-
-        public void UnsetTargetIndicator()
-        {
-            indicator.SetActive(false);
         }
 
         public void SetUserCards(List<Card> Cards)
