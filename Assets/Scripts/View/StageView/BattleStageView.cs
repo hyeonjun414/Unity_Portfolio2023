@@ -205,7 +205,7 @@ namespace View.StageView
 
         public void SetEnergyText(int userCurEnergy, int userMaxEnergy)
         {
-            energyText.SetText($"{userCurEnergy} / {userMaxEnergy}");
+            energyText.SetText($"{userCurEnergy}/{userMaxEnergy}");
         }
 
         public void TurnEnded()
