@@ -51,7 +51,7 @@ namespace Presenter
             else
             {
                 var stage = GameManager.Instance.CurStage as BattleStage;
-                stage?.CreateFloatingText("MISS", target.WorldPosition, TextType.Damage);
+                stage?.CreateFloatingText("MISS", target.CenterPos, TextType.Damage);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Presenter
         {
             Model.TakeDamage(damage);
             var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.CreateFloatingText(((int)damage).ToString(), WorldPosition, TextType.Damage);
+            stage?.CreateFloatingText(((int)damage).ToString(), CenterPos, TextType.Damage);
             if (Model.IsDead)
             {
                 OnDeathEvent();
@@ -201,6 +201,7 @@ namespace Presenter
         }
 
         public Vector3 WorldPosition => View.GetPosition();
+        public Vector3 CenterPos => View.CenterPos;
         public CharacterType CharType => Model.CharType;
     }
 

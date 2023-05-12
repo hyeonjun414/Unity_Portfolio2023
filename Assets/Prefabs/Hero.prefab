@@ -450,6 +450,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4731017193436504250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2279850718461464777}
+  m_Layer: 0
+  m_Name: Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2279850718461464777
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731017193436504250}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5298964984899644569}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5586464056995053240
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +663,7 @@ Transform:
   m_Children:
   - {fileID: 7542503441936597617}
   - {fileID: 7542503441789463495}
+  - {fileID: 2279850718461464777}
   m_Father: {fileID: 7542503442980021704}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1644,6 +1676,7 @@ MonoBehaviour:
   StatEftList: []
   statEftPivot: {fileID: 786909899365329100}
   content: {fileID: 5298964984899644569}
+  centerPivot: {fileID: 2279850718461464777}
   sprite: {fileID: 7542503441936597618}
   uiCanvas: {fileID: 7542503441789463490}
   HpGauge: {fileID: 8422419660825390626}

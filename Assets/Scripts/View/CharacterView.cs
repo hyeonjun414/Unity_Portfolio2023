@@ -31,6 +31,7 @@ namespace View
         public List<StatusEffectView> StatEftList = new();
         public Transform statEftPivot;
         public Transform content;
+        public Transform centerPivot;
         [Header("EntityUI")] 
         public SpriteRenderer sprite;
 
@@ -98,6 +99,8 @@ namespace View
         {
             return transform.position;
         }
+
+        public Vector3 CenterPos => centerPivot.transform.position;
         
         public virtual async UniTask Dead()
         {
