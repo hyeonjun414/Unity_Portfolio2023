@@ -60,18 +60,16 @@
       "DropGold": 15,
       "Actions" : [
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 1,
-          "Damage"    : 1.2,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 2,
-          "Damage"    : 4,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     },
@@ -85,18 +83,16 @@
       "DropGold": 19,
       "Actions" : [
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 1,
-          "Damage"    : 1.2,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 2,
-          "Damage"    : 4,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     },
@@ -110,18 +106,16 @@
       "DropGold": 17,
       "Actions" : [
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 1,
-          "Damage"    : 1.2,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         },
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 2,
-          "Damage"    : 4,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
         }
       ]
     }
@@ -136,11 +130,10 @@
       "Speed"  : 150,
       "Actions": [
         {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 1,
-          "Damage"    : 1.2,
-          "TargetType": "All",
-          "Icon"      : "Icon_Attack"
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
         }
       ]
     }
@@ -181,6 +174,9 @@
           "Value": 1
         }
       ]
+    },
+    {
+      "Icon": " "
     }
   ],
   "MasterCards"    : [
@@ -194,9 +190,8 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 15,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 15
         }
       ]
     },
@@ -210,9 +205,8 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 6,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 6
         }
       ]
     },
@@ -226,14 +220,12 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 2,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 2
         },
         {
-          "Type"      : "Cf_ApDown",
-          "Value"     : 30,
-          "TargetType": "Single"
+          "Type" : "Cf_ApDown",
+          "Value": 30
         }
       ]
     },
@@ -247,9 +239,8 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 3,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 3
         },
         {
           "Type"        : "Cf_StatusEffect",
@@ -257,6 +248,7 @@
             "Type"    : "SE_Burn",
             "Turn"    : 1,
             "Icon"    : "SeIcon_Burn",
+            "StatTag" : "Burn",
             "Damage"  : 5,
             "Particle": "Burn"
           }
@@ -304,9 +296,8 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 3,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 3
         },
         {
           "Type"        : "Cf_StatusEffect",
@@ -330,9 +321,8 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 3,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 3
         },
         {
           "Type"     : "Cf_PositionSwitch",
@@ -397,9 +387,8 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 5,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 5
         }
       ]
     },
@@ -413,9 +402,8 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 3,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 3
         }
       ]
     },
@@ -450,9 +438,8 @@
       "Cost"    : 2,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 15,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 15
         },
         {
           "Type"     : "Cf_PositionSwitch",
@@ -470,13 +457,28 @@
       "Cost"    : 1,
       "Function": [
         {
-          "Type"      : "Cf_Damage",
-          "Damage"    : 2,
-          "TargetType": "Single"
+          "Type"  : "Cf_Damage",
+          "Damage": 2
         },
         {
           "Type"      : "Cf_DefenceUp",
           "Value"     : 2,
+          "TargetType": "Hero"
+        }
+      ]
+    },
+    {
+      "Id"      : "패리",
+      "Name"    : "패리",
+      "Desc"    : "5 방어력을 얻고 다음 공격을 3 데미지로 반격합니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_DefenceUp",
+          "Value"     : 5,
           "TargetType": "Hero"
         }
       ]

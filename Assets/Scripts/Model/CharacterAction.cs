@@ -12,6 +12,7 @@ namespace Model
         public string ActionType;
 
         protected int ActionValue;
+        public TargetType TargetType = TargetType.Single;
 
         public virtual void Init(CharacterModel charModel)
         {
@@ -33,8 +34,7 @@ namespace Model
     public class Ca_NormalAttack : CharacterAction
     {
         public float Damage;
-        public TargetType TargetType;
-
+        
         public override void Init(CharacterModel charModel)
         {
             base.Init(charModel);

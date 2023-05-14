@@ -21,6 +21,7 @@ namespace Model
     public class CardFunc
     {
         public string Type;
+        public TargetType TargetType = TargetType.Single;
 
         public virtual async UniTask Activate(Character target)
         {
@@ -34,15 +35,20 @@ namespace Model
 
         public override async UniTask Activate(Character target)
         {
-            var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
-            
-            await target.AddStatusEffect(effect);
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
+                var targetList = curStage.GetTarget(target, TargetType);
+                foreach (var t in targetList)
+                {
+                    await t.AddStatusEffect(effect);
+                }
+            }
         }
     }
     public class Cf_Damage : CardFunc
     {
         public float Damage;
-        public TargetType TargetType;
 
         public override async UniTask Activate(Character target)
         {
@@ -60,7 +66,6 @@ namespace Model
     public class Cf_ApDown : CardFunc
     {
         public float Value;
-        public TargetType TargetType;
         public override async UniTask Activate(Character target)
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
@@ -131,7 +136,6 @@ namespace Model
     public class Cf_DefenceUp : CardFunc
     {
         public int Value;
-        public TargetType TargetType;
 
         public override async UniTask Activate(Character target)
         {
