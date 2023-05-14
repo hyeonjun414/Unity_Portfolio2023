@@ -43,6 +43,8 @@ namespace Manager
                 settings.Converters.Add(new EnumConverter<CardType>());
                 settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
                 settings.Converters.Add(new EnumConverter<TargetType>());
+                settings.Converters.Add(new EnumConverter<StatTag>());
+
                 
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());

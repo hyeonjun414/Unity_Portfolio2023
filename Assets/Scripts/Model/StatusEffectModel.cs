@@ -8,14 +8,18 @@ namespace Model
         public int Turn;
         public string Icon;
         public int Value;
+        public StatTag StatTag = StatTag.None;
 
         public virtual void Init(Character character)
         {
+            if(StatTag != StatTag.None)
+                character.AddTag(StatTag, Value);
         }
 
         public virtual void Dispose(Character character)
         {
-            
+            if (StatTag != StatTag.None)
+                character.RemoveTag(StatTag, Value);
         }
         
         public virtual async UniTask Activate(Character character)
@@ -35,21 +39,18 @@ namespace Model
 
     public class SE_Burn : StatusEffectModel
     {
-        public float Damage;
         public string Particle;
 
         public override async UniTask Activate(Character character)
         {
             await base.Activate(character);
-            await character.TakeDamage(Damage);
+            await character.TakeDamage(Value);
         }
     }
 
     public class SE_StatBuff : StatusEffectModel
     {
         public string StatName;
-        public float Value;
-
         public override void Init(Character character)
         {
             base.Init(character);
@@ -60,6 +61,24 @@ namespace Model
         {
             base.Dispose(character);
             character.RemoveBuff(StatName, Value);
+        }
+
+        public override async UniTask Activate(Character character)
+        {
+            await base.Activate(character);
+        }
+    }
+
+    public class SE_Reflect : StatusEffectModel
+    {
+        public override void Init(Character character)
+        {
+            base.Init(character);
+        }
+
+        public override void Dispose(Character character)
+        {
+            base.Dispose(character);
         }
 
         public override async UniTask Activate(Character character)

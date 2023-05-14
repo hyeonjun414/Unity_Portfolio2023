@@ -9,6 +9,12 @@ using Random = UnityEngine.Random;
 
 namespace Model
 {
+    public enum StatTag
+    {
+        None,
+        Reflect,
+        Burn,
+    }
     public struct CharacterStat
     {
         public float MaxHp;
@@ -38,6 +44,7 @@ namespace Model
         
         public CharacterStat Stats = new();
         public CharacterStat BuffStats = new();
+        public Dictionary<StatTag, int> StatTags = new();
 
         public List<StatusEffectModel> StatusEffects = new();
         private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
@@ -137,6 +144,23 @@ namespace Model
         public void AddDefence(int value)
         {
             Stats.Defence += value;
+        }
+
+        public void AddTag(StatTag tag, int value)
+        {
+            if (StatTags.ContainsKey(tag))
+                StatTags[tag] += value;
+            else
+                StatTags.Add(tag, value);
+        }
+
+        public void RemoveTag(StatTag tag, int value)
+        {
+            if (StatTags.ContainsKey(tag) == false) return;
+
+            StatTags[tag] -= value;
+            if (StatTags[tag] <= 0)
+                StatTags.Remove(tag);
         }
     }
     public class EnemyModel : CharacterModel

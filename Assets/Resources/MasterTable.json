@@ -249,7 +249,7 @@
             "Turn"    : 1,
             "Icon"    : "SeIcon_Burn",
             "StatTag" : "Burn",
-            "Damage"  : 5,
+            "Value"   : 5,
             "Particle": "Burn"
           }
         }
@@ -480,6 +480,18 @@
           "Type"      : "Cf_DefenceUp",
           "Value"     : 5,
           "TargetType": "Hero"
+        },
+        {
+          "Type"        : "Cf_StatusEffect",
+          "TargetType"  : "Hero",
+          "StatusEffect": {
+            "Type"    : "SE_Reflect",
+            "Turn"    : 999,
+            "Icon"    : "SeIcon_Reflect",
+            "StatTag" : "Reflect",
+            "Value"   : 3,
+            "Particle": "Reflect"
+          }
         }
       ]
     }
@@ -498,7 +510,7 @@
       ],
       "Cards"        : [
         "사기 카드",
-        "끈적이 투척",
+        "패리",
         "그래플링 훅",
         "커틀라스 스트라이크",
         "폭탄 투하",

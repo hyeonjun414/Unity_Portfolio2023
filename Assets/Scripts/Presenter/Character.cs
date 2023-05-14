@@ -38,6 +38,21 @@ namespace Presenter
             
         }
 
+        public virtual void AddTag(StatTag tag, int value)
+        {
+            Model.AddTag(tag, value);
+        }
+
+        public virtual void RemoveTag(StatTag tag, int value)
+        {
+            Model.RemoveTag(tag, value);
+        }
+
+        public virtual bool FindTag(StatTag tag, out int tagValue)
+        {
+            return Model.StatTags.TryGetValue(tag, out tagValue);
+        }
+
         public void AddAp(float deltaTime)
         {
             Model.AddAp(deltaTime);
@@ -48,6 +63,10 @@ namespace Presenter
             if (Model.HitRate >= Random.value)
             {
                 await target.TakeDamage(damage);
+                if (target.FindTag(StatTag.Reflect, out var reflectDamage))
+                {
+                    await TakeDamage(reflectDamage);
+                }
             }
             else
             {
