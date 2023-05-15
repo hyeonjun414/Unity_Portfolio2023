@@ -246,6 +246,8 @@ namespace Presenter
                 
                 bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
                 bsView.TurnStarted();
+                await user.UserHero.PrepareAction();
+                user.UserHero.EndAction();
                 await user.ActivateArtifacts(ArtifactTrigger.TurnStarted);
                 await DrawCard(user.GetDrawCount());
                 return;
