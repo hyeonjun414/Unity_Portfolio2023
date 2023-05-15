@@ -140,6 +140,12 @@ namespace View
             defenceIcon.gameObject.SetActive(defence != 0);
             defenceText.SetText(defence.ToString());
         }
+        public async UniTask PlayEffect(ParticleSystem activeEft)
+        {
+            var eft = Instantiate(activeEft, centerPivot);
+            Destroy(eft.gameObject, eft.main.duration);
+            await UniTask.Yield();
+        }
     }
 
     

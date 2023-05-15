@@ -14,7 +14,9 @@ namespace Model
         None,
         Reflect,
         Burn,
-        Weak
+        Weak,
+        Stun,
+        Recovery
     }
     public struct CharacterStat
     {

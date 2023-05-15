@@ -184,6 +184,8 @@ namespace Presenter
         public async UniTask HpRecover(float value)
         {
             Model.HpRecover(value);
+            var stage = GameManager.Instance.CurStage as BattleStage;
+            stage?.CreateFloatingText(((int)value).ToString(), CenterPos, TextType.Heal);
             await View.HpRecover(Model.CurHp, Model.MaxHp);
         }
 
@@ -236,6 +238,11 @@ namespace Presenter
             View.SetDefence(Model.Defence);
             await UniTask.Yield();
         }
+
+        public async UniTask PlayEffect(ParticleSystem activeEft)
+        {
+            await View.PlayEffect(activeEft);
+        }
     }
 
     public class Enemy : Character
@@ -274,15 +281,21 @@ namespace Presenter
 
             else
             {
-                curAct.Turn--;
+                if (FindTag(StatTag.Stun, out _) == false)
+                    curAct.Turn--;
                 await eView.SetActionView(curAct);
                 await eView.Wait();
+            }
+
+            if (Model.IsDead)
+            {
+                OnDeathEvent();
             }
         }
 
         public bool IsExecutable()
         {
-            return eModel.GetCurAction().Turn <= 1;
+            return eModel.GetCurAction().Turn <= 1 && FindTag(StatTag.Stun, out _) == false;
         }
     }
 
@@ -320,7 +333,8 @@ namespace Presenter
 
             else
             {
-                curAct.Turn--;
+                if(FindTag(StatTag.Stun, out _) == false)
+                    curAct.Turn--;
                 await aView.SetActionView(curAct);
                 await aView.Wait();
             }
@@ -332,7 +346,7 @@ namespace Presenter
 
         public bool IsExecutable()
         {
-            return aModel.GetCurAction().Turn <= 1;
+            return aModel.GetCurAction().Turn <= 1 && FindTag(StatTag.Stun, out _) == false;
         }
     }
 

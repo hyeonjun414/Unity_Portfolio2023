@@ -520,6 +520,49 @@
           }
         }
       ]
+    },
+    {
+      "Id"      : "앵커 드롭",
+      "Name"    : "앵커 드롭",
+      "Desc"    : "선택한 대상에 1턴 동안 기절을 적용합니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"        : "Cf_StatusEffect",
+          "StatusEffect": {
+            "Type"    : "SE_Stun",
+            "Turn"    : 1,
+            "Icon"    : "SEIcon_Stun",
+            "StatTag" : "Stun",
+            "Particle": "Stun"
+          }
+        }
+      ]
+    },
+    {
+      "Id"      : "바다의 물결",
+      "Name"    : "바다의 물결",
+      "Desc"    : "2턴 동안 4 건강을 부여합니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"        : "Cf_StatusEffect",
+          "StatusEffect": {
+            "Type"    : "SE_Recovery",
+            "Turn"    : 2,
+            "Icon"    : "SEIcon_Recovery",
+            "StatTag" : "Recovery",
+            "Value"   : 4,
+            "Particle": "HealthUp"
+          }
+        }
+      ]
     }
   ],
   "MasterUsers"    : [
@@ -537,8 +580,8 @@
       "Cards"        : [
         "사기 카드",
         "패리",
-        "싸움",
-        "커틀라스 스트라이크",
+        "앵커 드롭",
+        "바다의 물결",
         "폭탄 투하",
         "베기",
         "폭탄 투하",

@@ -705,7 +705,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkillIcon_28
+      name: SEIcon_Recovery
       rect:
         serializedVersion: 2
         x: 160
@@ -894,7 +894,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkillIcon_37
+      name: SEIcon_Stun
       rect:
         serializedVersion: 2
         x: 448
@@ -6169,7 +6169,6 @@ TextureImporter:
       SkillIcon_269: -817997374
       SkillIcon_128: -889188557
       SkillIcon_110: -1022623754
-      SkillIcon_28: -1660088506
       SkillIcon_7: -848031796
       SkillIcon_50: -1770715453
       SkillIcon_100: 136929271
@@ -6205,6 +6204,7 @@ TextureImporter:
       SkillIcon_156: -411173890
       SkillIcon_177: 1141657395
       SkillIcon_94: -895647218
+      SEIcon_Recovery: -1660088506
       SkillIcon_196: 1217584981
       SkillIcon_244: 800276830
       SkillIcon_193: -776249019
@@ -6249,8 +6249,8 @@ TextureImporter:
       SkillIcon_135: -2120673061
       SkillIcon_222: 1861509727
       SkillIcon_43: 109751615
-      SkillIcon_171: 716815523
       SEIcon_Reflect: 809731237
+      SkillIcon_171: 716815523
       SkillIcon_140: 642943665
       SkillIcon_137: -632837441
       SkillIcon_211: -90376260
@@ -6276,16 +6276,16 @@ TextureImporter:
       SkillIcon_45: 1230291267
       SkillIcon_23: 1855248698
       SkillIcon_164: 397780585
-      SkillIcon_37: 1743539249
+      SkillIcon_202: 2011179276
       SkillIcon_26: -870512379
       SkillIcon_42: -426178511
       SkillIcon_181: -833179405
       SkillIcon_15: -836510479
       SkillIcon_245: -1974243055
-      SkillIcon_202: 2011179276
       SkillIcon_274: 137256549
       SkillIcon_121: 1573291420
       SkillIcon_66: 183389259
+      SEIcon_Stun: 1743539249
       SkillIcon_204: -76189157
       SkillIcon_57: 120038016
       SkillIcon_13: 1710100501

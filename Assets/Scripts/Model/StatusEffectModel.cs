@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Presenter;
+using UnityEngine;
 using View;
 
 namespace Model
@@ -8,9 +9,9 @@ namespace Model
     {
         public int Turn;
         public string Icon;
-        public int Value;
+        public int Value = 1;
         public StatTag StatTag = StatTag.None;
-
+        public string Particle;
         public virtual void Init(Character character)
         {
             if(StatTag != StatTag.None)
@@ -26,9 +27,6 @@ namespace Model
         public virtual async UniTask Activate(Character character)
         {
             Turn--;
-            if (Turn <= 0)
-            {
-            }
 
             await UniTask.Yield();
         }
@@ -36,12 +34,19 @@ namespace Model
 
     public class SE_Burn : StatusEffectModel
     {
-        public string Particle;
-
         public override async UniTask Activate(Character character)
         {
             await base.Activate(character);
             await character.TakeDamage(Value);
+        }
+    }
+
+    public class SE_Recovery : StatusEffectModel
+    {
+        public override async UniTask Activate(Character character)
+        {
+            await base.Activate(character);
+            await character.HpRecover(Value);
         }
     }
 
@@ -72,6 +77,11 @@ namespace Model
 
     public class SE_Weak : StatusEffectModel
     {
+    }
+
+    public class SE_Stun : StatusEffectModel
+    {
+        
     }
      
 }
