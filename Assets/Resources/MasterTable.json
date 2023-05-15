@@ -247,7 +247,7 @@
           "StatusEffect": {
             "Type"    : "SE_Burn",
             "Turn"    : 1,
-            "Icon"    : "SeIcon_Burn",
+            "Icon"    : "SEIcon_Burn",
             "StatTag" : "Burn",
             "Value"   : 5,
             "Particle": "Burn"
@@ -304,7 +304,7 @@
           "StatusEffect": {
             "Type"    : "SE_StatBuff",
             "Turn"    : 1,
-            "Icon"    : "SeIcon_Miss",
+            "Icon"    : "SEIcon_Miss",
             "StatName": "HitRate",
             "Value"   : -1
           }
@@ -470,7 +470,7 @@
     {
       "Id"      : "패리",
       "Name"    : "패리",
-      "Desc"    : "5 방어력을 얻고 다음 공격을 3 데미지로 반격합니다.",
+      "Desc"    : "5 방어력을 얻고 3턴간 3의 데미지로 반격합니다.",
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
@@ -486,11 +486,37 @@
           "TargetType"  : "Hero",
           "StatusEffect": {
             "Type"    : "SE_Reflect",
-            "Turn"    : 999,
-            "Icon"    : "SeIcon_Reflect",
+            "Turn"    : 3,
+            "Icon"    : "SEIcon_Reflect",
             "StatTag" : "Reflect",
             "Value"   : 3,
             "Particle": "Reflect"
+          }
+        }
+      ]
+    },
+    {
+      "Id"      : "싸움",
+      "Name"    : "싸움",
+      "Desc"    : "대상에게 피해 2를 주고 2턴간 취약 2를 부여합니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"  : "Cf_Damage",
+          "Damage": 2
+        },
+        {
+          "Type"        : "Cf_StatusEffect",
+          "StatusEffect": {
+            "Type"    : "SE_Weak",
+            "Turn"    : 2,
+            "Icon"    : "SEIcon_Weak",
+            "StatTag" : "Weak",
+            "Value"   : 2,
+            "Particle": "Weak"
           }
         }
       ]
@@ -511,7 +537,7 @@
       "Cards"        : [
         "사기 카드",
         "패리",
-        "그래플링 훅",
+        "싸움",
         "커틀라스 스트라이크",
         "폭탄 투하",
         "베기",

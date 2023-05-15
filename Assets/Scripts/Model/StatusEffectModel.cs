@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Presenter;
+using View;
 
 namespace Model
 {
@@ -31,10 +32,6 @@ namespace Model
 
             await UniTask.Yield();
         }
-
-        public int GetTurn() => Turn;
-        public string GetIconName() => Icon;
-        public int GetValue() => Value;
     }
 
     public class SE_Burn : StatusEffectModel
@@ -71,20 +68,10 @@ namespace Model
 
     public class SE_Reflect : StatusEffectModel
     {
-        public override void Init(Character character)
-        {
-            base.Init(character);
-        }
+    }
 
-        public override void Dispose(Character character)
-        {
-            base.Dispose(character);
-        }
-
-        public override async UniTask Activate(Character character)
-        {
-            await base.Activate(character);
-        }
+    public class SE_Weak : StatusEffectModel
+    {
     }
      
 }

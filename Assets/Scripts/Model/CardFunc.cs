@@ -23,7 +23,7 @@ namespace Model
         public string Type;
         public TargetType TargetType = TargetType.Single;
 
-        public virtual async UniTask Activate(Character target)
+        public virtual async UniTask Activate(Character hero, Character target)
         {
             await UniTask.Yield();
         }
@@ -33,7 +33,7 @@ namespace Model
     {
         public JObject StatusEffect;
 
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
             {
@@ -48,16 +48,16 @@ namespace Model
     }
     public class Cf_Damage : CardFunc
     {
-        public float Damage;
+        public int Damage;
 
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
             {
                 var targetList = curStage.GetTarget(target, TargetType);
                 foreach (var t in targetList)
                 {
-                    await t.TakeDamage(Damage);
+                    await hero.Attack(t, Damage);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace Model
     public class Cf_ApDown : CardFunc
     {
         public float Value;
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
             {
@@ -82,7 +82,7 @@ namespace Model
     public class Cf_HpRecover : CardFunc
     {
         public float Value;
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             curStage?.CreateFloatingText(Value.ToString(), target.WorldPosition, TextType.Heal);
@@ -95,7 +95,7 @@ namespace Model
         public string Character;
         public int LivingTurn;
 
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
@@ -109,7 +109,7 @@ namespace Model
     {
         public int MoveIndex;
 
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
@@ -123,7 +123,7 @@ namespace Model
     {
         public int DrawCount;
 
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
@@ -137,7 +137,7 @@ namespace Model
     {
         public int Value;
 
-        public override async UniTask Activate(Character target)
+        public override async UniTask Activate(Character hero, Character target)
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
             {

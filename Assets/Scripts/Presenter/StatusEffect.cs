@@ -19,7 +19,7 @@ namespace Presenter
         public virtual async UniTask Activate(Character character)
         {
             await Model.Activate(character);
-            await View.Activate(Model.GetTurn());
+            await View.Activate(Model.Turn);
         }
 
         public virtual void Dispose(Character character)

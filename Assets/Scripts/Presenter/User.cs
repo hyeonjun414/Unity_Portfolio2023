@@ -65,7 +65,7 @@ namespace Presenter
         {
             UseEnergy(card.GetCost());
             await UserHero.PlayAttack();
-            await card.CardActivate(target);
+            await card.CardActivate(UserHero, target);
         }
 
         public bool CanUseThisCard(Card selectedCard)

@@ -14,7 +14,7 @@ namespace View
         public StatusEffect Presenter;
 
         public Image icon;
-        public TextMeshProUGUI turnText;
+        public TextMeshProUGUI turnText, valueText;
         
         public List<Sprite> iconImages;
 
@@ -22,8 +22,9 @@ namespace View
         {
             Presenter = statEft;
             
-            turnText.SetText(Presenter.Model.GetTurn().ToString());
-            icon.sprite = iconImages.Find(t => t.name == Presenter.Model.GetIconName());
+            valueText.SetText(Presenter.Model.Value.ToString());
+            turnText.SetText(Presenter.Model.Turn.ToString());
+            icon.sprite = iconImages.Find(t => t.name == Presenter.Model.Icon);
         }
         
         public async UniTask Activate(int remainTurn)

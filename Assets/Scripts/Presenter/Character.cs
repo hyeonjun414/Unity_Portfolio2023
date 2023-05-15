@@ -62,6 +62,11 @@ namespace Presenter
         {
             if (Model.HitRate >= Random.value)
             {
+                if (target.FindTag(StatTag.Weak, out var weakDamage))
+                {
+                    damage += weakDamage;
+                }
+                
                 await target.TakeDamage(damage);
                 if (target.FindTag(StatTag.Reflect, out var reflectDamage))
                 {
