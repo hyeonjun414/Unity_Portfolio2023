@@ -149,4 +149,17 @@ namespace Model
             }
         }
     }
+
+    public class Cf_GetGold : CardFunc
+    {
+        public int Value;
+
+        public override async UniTask Activate(Character hero, Character target)
+        {
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                curStage.UserGetGold(Value);
+            }
+        }
+    }
 }

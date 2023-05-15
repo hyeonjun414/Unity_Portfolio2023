@@ -16,7 +16,8 @@ namespace Model
         Burn,
         Weak,
         Stun,
-        Recovery
+        Recovery,
+        Slow
     }
     public struct CharacterStat
     {
@@ -40,14 +41,14 @@ namespace Model
 
         public float MaxHp => Stats.MaxHp + BuffStats.MaxHp;
         public float CurHp => Stats.CurHp + BuffStats.CurHp;
-        public float Damage => Stats.Damage + BuffStats.Damage < 0 ? 0 : Stats.Damage + BuffStats.Damage;
-        public float Speed => Stats.Speed + BuffStats.Speed < 0 ? 0 : Stats.Speed + BuffStats.Speed;
-        public float HitRate => Stats.HitRate + BuffStats.HitRate < 0 ? 0 : Stats.HitRate + BuffStats.HitRate;
+        public float Damage => BuffStats.Damage == 0 ? Stats.Damage : Stats.Damage * (1 + BuffStats.Damage);
+        public float Speed => BuffStats.Speed == 0 ? Stats.Speed : Stats.Speed * (1 + BuffStats.Speed);
+        public float HitRate => BuffStats.HitRate == 0 ? Stats.HitRate : Stats.HitRate * (1 + BuffStats.HitRate);
         public float Defence => Stats.Defence;
         
         public CharacterStat Stats = new();
         public CharacterStat BuffStats = new();
-        public Dictionary<StatTag, int> StatTags = new();
+        public Dictionary<StatTag, float> StatTags = new();
 
         public List<StatusEffectModel> StatusEffects = new();
         private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
@@ -85,7 +86,7 @@ namespace Model
 
         public void AddAp(float deltaTime)
         {
-            CurAp += Stats.Speed * deltaTime;
+            CurAp += Speed * deltaTime;
             _aprate.Value = CurAp / MaxAp;
             if (CurAp >= MaxAp)
             {
@@ -128,6 +129,9 @@ namespace Model
                 case "HitRate":
                     BuffStats.HitRate += value;
                     break;
+                case "Speed":
+                    BuffStats.Speed += value;
+                    break;
             }
         }
 
@@ -141,6 +145,9 @@ namespace Model
                 case "HitRate":
                     BuffStats.HitRate -= value;
                     break;
+                case "Speed":
+                    BuffStats.Speed -= value;
+                    break;
             }
         }
 
@@ -149,7 +156,7 @@ namespace Model
             Stats.Defence += value;
         }
 
-        public void AddTag(StatTag tag, int value)
+        public void AddTag(StatTag tag, float value)
         {
             if (StatTags.ContainsKey(tag))
                 StatTags[tag] += value;
@@ -157,12 +164,12 @@ namespace Model
                 StatTags.Add(tag, value);
         }
 
-        public void RemoveTag(StatTag tag, int value)
+        public void RemoveTag(StatTag tag, float value)
         {
             if (StatTags.ContainsKey(tag) == false) return;
 
             StatTags[tag] -= value;
-            if (StatTags[tag] <= 0)
+            if (StatTags[tag] == 0)
                 StatTags.Remove(tag);
         }
     }

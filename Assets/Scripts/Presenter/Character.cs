@@ -38,17 +38,17 @@ namespace Presenter
             
         }
 
-        public virtual void AddTag(StatTag tag, int value)
+        public virtual void AddTag(StatTag tag, float value)
         {
             Model.AddTag(tag, value);
         }
 
-        public virtual void RemoveTag(StatTag tag, int value)
+        public virtual void RemoveTag(StatTag tag, float value)
         {
             Model.RemoveTag(tag, value);
         }
 
-        public virtual bool FindTag(StatTag tag, out int tagValue)
+        public virtual bool FindTag(StatTag tag, out float tagValue)
         {
             return Model.StatTags.TryGetValue(tag, out tagValue);
         }
@@ -64,7 +64,7 @@ namespace Presenter
             {
                 if (target.FindTag(StatTag.Weak, out var weakDamage))
                 {
-                    damage += weakDamage;
+                    damage += (int)weakDamage;
                 }
                 
                 await target.TakeDamage(damage);
@@ -155,26 +155,7 @@ namespace Presenter
             }
             _expiredEffect.Clear();
         }
-
-        public virtual async UniTask StatusEffectActivate()
-        {
-            var expiredEffect = new List<StatusEffect>();
-            foreach (var statEft in StatusEffects)
-            {
-                await statEft.Activate(this);
-                if (statEft.Model.Turn <= 0)
-                {
-                    expiredEffect.Add(statEft);
-                }
-            }
-
-            foreach (var expired in expiredEffect)
-            {
-                expired.Dispose(this);
-                StatusEffects.Remove(expired);
-            }
-        }
-
+        
         public async UniTask UseAp(float value)
         {
             Model.UseAp(value);

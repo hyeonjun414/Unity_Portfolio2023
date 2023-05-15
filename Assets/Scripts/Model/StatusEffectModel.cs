@@ -9,7 +9,7 @@ namespace Model
     {
         public int Turn;
         public string Icon;
-        public int Value = 1;
+        public float Value = 1;
         public StatTag StatTag = StatTag.None;
         public string Particle;
         public virtual void Init(Character character)
@@ -27,6 +27,7 @@ namespace Model
         public virtual async UniTask Activate(Character character)
         {
             Turn--;
+            Debug.Log($"{character.Model.Name} : RemainTurn = {Turn}");
 
             await UniTask.Yield();
         }
@@ -63,11 +64,6 @@ namespace Model
         {
             base.Dispose(character);
             character.RemoveBuff(StatName, Value);
-        }
-
-        public override async UniTask Activate(Character character)
-        {
-            await base.Activate(character);
         }
     }
 

@@ -136,6 +136,22 @@
           "Icon"  : "Icon_Attack"
         }
       ]
+    },
+    {
+      "Id"     : "Sailor2",
+      "Name"   : "Sailor2",
+      "Desc"   : "Sailor",
+      "Hp"     : 5,
+      "Damage" : 30,
+      "Speed"  : 150,
+      "Actions": [
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
+        }
+      ]
     }
   ],
   "MasterHeroes"   : [
@@ -187,7 +203,7 @@
       "Icon"    : "Card_Bomb",
       "Effect"  : "Explosion",
       "CardType": "Attack",
-      "Cost"    : 2,
+      "Cost"    : 3,
       "Function": [
         {
           "Type"  : "Cf_Damage",
@@ -563,12 +579,106 @@
           }
         }
       ]
+    },
+    {
+      "Id"      : "방어",
+      "Name"    : "방어",
+      "Desc"    : "5 방어력을 얻습니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_DefenceUp",
+          "Value"     : 5,
+          "TargetType": "Hero"
+        }
+      ]
+    },
+    {
+      "Id"      : "럼 부스트",
+      "Name"    : "럼 부스트",
+      "Desc"    : "방어력이 5 증가하고 카드 1장을 뽑습니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"      : "Cf_DefenceUp",
+          "Value"     : 5,
+          "TargetType": "Hero"
+        },
+        {
+          "Type"     : "Cf_DrawCard",
+          "DrawCount": 1
+        }
+      ]
+    },
+    {
+      "Id"      : "갑판원 소환",
+      "Name"    : "갑판원 소환",
+      "Desc"    : "체력이 5이고 공격력이 2인 갑판원을 소환합니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"      : "Cf_SummonAlly",
+          "Character" : "Sailor2",
+          "LivingTurn": 999
+        }
+      ]
+    },
+    {
+      "Id"      : "약탈",
+      "Name"    : "약탈",
+      "Desc"    : "5골드를 얻고 카드 1장을 뽑습니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type" : "Cf_GetGold",
+          "Value": 5
+        },
+        {
+          "Type"     : "Cf_DrawCard",
+          "DrawCount": 1
+        }
+      ]
+    },
+    {
+      "Id"      : "모래폭풍",
+      "Name"    : "모래폭풍",
+      "Desc"    : "모든 적에게 1 슬로우를 적용합니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Attack",
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"        : "Cf_StatusEffect",
+          "TargetType"  : "All",
+          "StatusEffect": {
+            "Type"    : "SE_StatBuff",
+            "Turn"    : 2,
+            "Icon"    : "SEIcon_Slow",
+            "StatTag" : "Slow",
+            "StatName": "Speed",
+            "Value"   : -0.5
+          }
+        }
+      ]
     }
   ],
   "MasterUsers"    : [
     {
-      "Id"           : "Char1",
-      "Name"         : "Char1",
+      "Id"           : "Test",
+      "Name"         : "Test",
       "Desc"         : "Normal",
       "Hero"         : "Hero",
       "DrawCardCount": 5,
@@ -579,7 +689,7 @@
       ],
       "Cards"        : [
         "사기 카드",
-        "패리",
+        "모래폭풍",
         "앵커 드롭",
         "바다의 물결",
         "폭탄 투하",
@@ -587,6 +697,27 @@
         "폭탄 투하",
         "폭탄 투하",
         "폭탄 투하"
+      ]
+    },
+    {
+      "Id"           : "Char1",
+      "Name"         : "Char1",
+      "Desc"         : "Normal",
+      "Hero"         : "Hero",
+      "DrawCardCount": 5,
+      "InitGold"     : 50,
+      "Energy"       : 5,
+      "Cards"        : [
+        "베기",
+        "베기",
+        "베기",
+        "베기",
+        "베기",
+        "방어",
+        "방어",
+        "방어",
+        "방어",
+        "방어"
       ]
     }
   ],

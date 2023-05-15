@@ -142,8 +142,7 @@ namespace Presenter
             }
             else if (sender is Enemy enemy)
             {
-                bsView.AddDropGold(user.Gold, enemy.DropGold);
-                user.AddGold(enemy.DropGold);
+                UserGetGold(enemy.DropGold);
                 Enemies.Remove(enemy);
                 await RemoveEntityView(enemy);
                 await CheckEnemies();
@@ -526,6 +525,12 @@ namespace Presenter
             user.AddEnergy(value);
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             await UniTask.Yield();
+        }
+
+        public void UserGetGold(int goldAmount)
+        {
+            bsView.AddDropGold(user.Gold, goldAmount);
+            user.AddGold(goldAmount);
         }
     }
 }

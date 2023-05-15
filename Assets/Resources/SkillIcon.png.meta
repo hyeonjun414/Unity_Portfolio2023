@@ -873,7 +873,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkillIcon_36
+      name: SEIcon_Slow
       rect:
         serializedVersion: 2
         x: 416
@@ -6244,7 +6244,6 @@ TextureImporter:
       SkillIcon_229: 1625007554
       SkillIcon_238: 1604687753
       SkillIcon_134: 1764416731
-      SkillIcon_36: -637959043
       SkillIcon_49: 640236865
       SkillIcon_135: -2120673061
       SkillIcon_222: 1861509727
@@ -6282,6 +6281,7 @@ TextureImporter:
       SkillIcon_181: -833179405
       SkillIcon_15: -836510479
       SkillIcon_245: -1974243055
+      SEIcon_Slow: -637959043
       SkillIcon_274: 137256549
       SkillIcon_121: 1573291420
       SkillIcon_66: 183389259

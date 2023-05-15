@@ -24,8 +24,8 @@ namespace View
             Presenter = statEft;
 
             activeEft = Resources.Load<ParticleSystem>("Particle/" + Presenter.Model.Particle);
-            
-            valueText.SetText(Presenter.Model.Value.ToString());
+            var statValue = Presenter.Model.Value;
+            valueText.SetText(statValue < 1 ? $"{statValue * 100}%" : $"{statValue}");
             turnText.SetText(Presenter.Model.Turn.ToString());
             icon.sprite = iconImages.Find(t => t.name == Presenter.Model.Icon);
         }
