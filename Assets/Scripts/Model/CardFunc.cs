@@ -37,10 +37,10 @@ namespace Model
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
             {
-                var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
                 var targetList = curStage.GetTarget(target, TargetType);
                 foreach (var t in targetList)
                 {
+                    var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
                     await t.AddStatusEffect(effect);
                 }
             }
