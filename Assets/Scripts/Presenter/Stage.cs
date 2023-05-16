@@ -544,8 +544,8 @@ namespace Presenter
             foreach (var cardModel in ssModel.SellCards)
             {
                 var card = new ShopCard(cardModel, ssView.CreateCard());
-                card.SetState(new CardShopState());
                 card.Init();
+                card.SetState(new CardShopState());
                 card.OnSell += BuyItem;
                 SellCards.Add(card);
             }
