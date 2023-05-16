@@ -183,7 +183,7 @@ namespace View
             var trans = cardView.transform;
             trans.rotation = Quaternion.Euler(0, 180, 0);
             trans.DOScale(0.5f, 0.2f);
-            trans.SetParent(handPivot);
+            trans.SetParent(deckPivot, false);
             trans.SetAsFirstSibling();
             deckCards.Add(cardView);
         }
