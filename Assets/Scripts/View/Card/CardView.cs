@@ -99,7 +99,7 @@ namespace View
                 case CardRewardState:
                     content.DOScale(1.2f, 0.1f);
                     break;
-                case CardShopState:
+                default:
                     content.DOScale(1.1f, 0.1f);
                     break;
             }
@@ -113,8 +113,7 @@ namespace View
                     content.DOScale(1f, 0.1f);
                     content.DOLocalMoveY(0, 0.1f);
                     break;
-                case CardRewardState :
-                case CardShopState:
+                default:
                     content.DOScale(1f, 0.1f);
                     break;
             }

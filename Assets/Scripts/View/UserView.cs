@@ -10,7 +10,9 @@ namespace View
     {
         public User Presenter;
 
+        public CardView cardPrefab;
         public UserGoldView userGoldView;
+        public UserDeckView userDeckView;
         public ArtifactView artifactPrefab;
         public Transform artifactPivot;
 
@@ -20,10 +22,22 @@ namespace View
             user.View = this;
             
             userGoldView.Init(user.Gold);
+            foreach (var card in user.Cards)
+            {
+                card.View = CreateDeckCard();
+                card.Init();
+            }
             foreach (var artifact in user.Artifacts)
             {
                 AddArtifact(artifact);
             }
+        }
+
+        public CardView CreateDeckCard()
+        {
+            var inst =  Instantiate(cardPrefab, userDeckView.transform);
+            userDeckView.AddCard(inst);
+            return inst;
         }
 
         public void AddGold(int prevGold, int amount)

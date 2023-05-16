@@ -123,6 +123,35 @@ namespace Presenter
         {
         }
     }
+
+    public class CardNoneState : ICardState
+    {
+        public void EnterState(Card card)
+        {
+        }
+
+        public void OnClick(Card card)
+        {
+        }
+
+        public void OnHover(Card card)
+        {
+            card.View.Hovered(this);
+        }
+
+        public void OnUnhover(Card card)
+        {
+            card.View.Unhovered(this);
+        }
+
+        public void OnClickDown(Card card)
+        {
+        }
+
+        public void OnClickUp(Card card)
+        {
+        }
+    }
     public class Card : Item
     {
         public CardModel Model;
@@ -140,6 +169,7 @@ namespace Presenter
         public void Init()
         {
             View.SetView(this);
+            SetState(new CardNoneState());
         }
 
         public void SetState(ICardState newState)

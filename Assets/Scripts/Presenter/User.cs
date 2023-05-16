@@ -14,6 +14,7 @@ namespace Presenter
         public UserView View;
 
         public List<Card> Cards = new();
+        public List<Card> BattleCards = new();
         public List<Artifact> Artifacts = new();
         public Hero UserHero;
 
@@ -77,6 +78,8 @@ namespace Presenter
         {
             Model.Cards.Add(card.Model);
             Cards.Add(card);
+            card.View = View.CreateDeckCard();
+            card.Init();
         }
 
         public void SetEnergy()
