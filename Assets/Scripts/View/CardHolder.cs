@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Manager;
 using Presenter;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -13,36 +14,32 @@ namespace View
         private const int Null = -1;
 
         [Header("연결")] 
-        [SerializeField] private Physics2DRaycaster raycaster;
-        [SerializeField] private RectTransform rectTransform;
-        [SerializeField] private TargetArrow bezierCurveDrawer;
-        [SerializeField] private Transform discardPivot;
-        [SerializeField] private Transform deckPivot;
-        [SerializeField] private Transform handPivot;
+        public Physics2DRaycaster raycaster;
+        public RectTransform rectTransform;
+        public TargetArrow bezierCurveDrawer;
+        public Transform discardPivot;
+        public Transform deckPivot;
+        public Transform handPivot;
+        public TextMeshProUGUI deckCountText;
+        public TextMeshProUGUI discardCountText;
         
-
         [Header("카드")] 
-        [SerializeField] private int selectedCardIndex;
-        [SerializeField] private int mouseOverCardIndex;
-        [SerializeField] private List<CardView> cards;
-        [SerializeField] private List<CardView> deckCards = new();
-        [SerializeField] private List<CardView> discardCards = new();
-
-
-        [Header("일반 카드 수치")] 
-        [SerializeField] private float lerpTime;
-        [SerializeField] private float angularInterval;
-        [SerializeField] private float zInterval;
-        [SerializeField] private float distance;
-
-        [Header("마우스 오버 카드 수치")] 
-        [SerializeField] private float mouseOverInterval;
-        [SerializeField] private float mouseOverScale;
-        [SerializeField] private float mouseOverYSpacing;
-
-        [Header("선택된 카드 수치")] 
-        [SerializeField] private float selectedScale;
-        [SerializeField] private float selectedYSpacing;
+        public int selectedCardIndex;
+        public int mouseOverCardIndex;
+        public List<CardView> cards;
+        public List<CardView> deckCards = new();
+        public List<CardView> discardCards = new();
+        
+        [Header("카드 이동 관련")] 
+        public float lerpTime;
+        public float angularInterval;
+        public float zInterval;
+        public float distance;
+        public float mouseOverInterval;
+        public float mouseOverScale;
+        public float mouseOverYSpacing;
+        public float selectedScale;
+        public float selectedYSpacing;
 
         Vector3 _targetPos;
         Quaternion _targetRot;
@@ -134,6 +131,7 @@ namespace View
             trans.SetAsFirstSibling();
             deckCards.Remove(card);
             cards.Insert(0, card);
+            UpdateCardCount();
         }
         
         public void DiscardCard(CardView cardView)
@@ -145,8 +143,9 @@ namespace View
             var trans = card.gameObject.transform;
             trans.SetParent(discardPivot);
             trans.DOMove(discardPivot.position, 0.5f).SetEase(Ease.OutExpo);
-            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-25, 25)), 0.5f).SetEase(Ease.OutQuart);
+            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-30, 30) - 30), 0.5f).SetEase(Ease.OutQuart);
             trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo);
+            UpdateCardCount();
         }
 
         public void CardHovered(CardView cardView)
@@ -186,15 +185,24 @@ namespace View
             trans.SetParent(deckPivot, false);
             trans.SetAsFirstSibling();
             deckCards.Add(cardView);
+            UpdateCardCount();
         }
 
         public void ReturnToDeck(CardView cardView)
         {
             discardCards.Remove(cardView);
             deckCards.Add(cardView);
+            
             cardView.transform.SetParent(deckPivot);
             cardView.transform.DOMove(deckPivot.position, 0.3f).SetEase(Ease.OutQuart);
             cardView.transform.DORotate(new Vector3(0, 180, 0), 0.3f);
+            UpdateCardCount();
+        }
+
+        public void UpdateCardCount()
+        {
+            deckCountText.text = deckCards.Count.ToString();
+            discardCountText.text = discardCards.Count.ToString();
         }
     }
 }
