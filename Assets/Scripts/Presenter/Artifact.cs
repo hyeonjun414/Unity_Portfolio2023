@@ -1,23 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Model;
-using UnityEngine;
 using View;
 
-public class Artifact
+namespace Presenter
 {
-    public ArtifactModel Model;
-    public ArtifactView View;
-    
-    public Artifact(ArtifactModel model, ArtifactView view)
+    public class Artifact : Item
     {
-        Model = model;
-        View = view;
+        public ArtifactModel Model;
+        public ArtifactView View;
+    
+        public Artifact(ArtifactModel model, ArtifactView view)
+        {
+            Model = model;
+            View = view;
+        }
+
+        public async UniTask Activate(ArtifactTrigger trigger)
+        {
+            await Model.Activate(trigger);
+        }
+
+        public void Init()
+        {
+            View.SetView(this);
+        }
     }
 
-    public async UniTask Activate(ArtifactTrigger trigger)
+    public class ShopArtifact : Artifact
     {
-        await Model.Activate(trigger);
+        public ShopArtifact(ArtifactModel model, ArtifactView view) : base(model, view)
+        {
+        }
+
+        public void Sold()
+        {
+            if (View is ShopArtifactView shopArtifactView)
+            {
+                shopArtifactView.Sold();
+            }
+        }
     }
 }

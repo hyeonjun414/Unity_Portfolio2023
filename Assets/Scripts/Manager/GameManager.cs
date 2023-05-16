@@ -141,8 +141,11 @@ namespace Manager
                         MasterTable),
                         null);
                     break;
+                case nameof(ShopStageInfo):
+                    genStage = new ShopStage(new ShopStageModel(mapNode.StageData, User, MasterTable),
+                        null);
+                    break;
             }
-
             return genStage;
         }
 
@@ -155,7 +158,15 @@ namespace Manager
         public async UniTask LoadStageScene(MapNode mapNode)
         {
             CurStage = GenerateStage(mapNode.Model);
-            await CreateScene(SceneType.BattleStage);
+            switch (CurStage)
+            {
+                case BattleStage:
+                    await CreateScene(SceneType.BattleStage);
+                    break;
+                case ShopStage:
+                    await CreateScene(SceneType.Shop);
+                    break;
+            }
         }
 
         public void CreateFloatingText(string str, Vector3 position, TextType textType)

@@ -22,14 +22,19 @@ namespace View
             userGoldView.Init(user.Gold);
             foreach (var artifact in user.Artifacts)
             {
-                var inst = Instantiate(artifactPrefab, artifactPivot);
-                inst.SetView(artifact);
+                AddArtifact(artifact);
             }
         }
 
         public void AddGold(int prevGold, int amount)
         {
             userGoldView.AddGold(prevGold, amount);
+        }
+
+        public void AddArtifact(Artifact artifact)
+        {
+            var inst = Instantiate(artifactPrefab, artifactPivot);
+            inst.SetView(artifact);
         }
     }
 }

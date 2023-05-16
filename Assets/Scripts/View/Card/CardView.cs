@@ -63,7 +63,7 @@ namespace View
         public void SetInputChecker(bool value) => inputChecker.raycastTarget = value;
 
         
-        public void OnPointerClick(PointerEventData eventData)
+        public virtual void OnPointerClick(PointerEventData eventData)
         {
             Presenter.OnClick();
         }
@@ -99,6 +99,9 @@ namespace View
                 case CardRewardState:
                     content.DOScale(1.2f, 0.1f);
                     break;
+                case CardShopState:
+                    content.DOScale(1.1f, 0.1f);
+                    break;
             }
         }
 
@@ -111,6 +114,7 @@ namespace View
                     content.DOLocalMoveY(0, 0.1f);
                     break;
                 case CardRewardState :
+                case CardShopState:
                     content.DOScale(1f, 0.1f);
                     break;
             }
@@ -124,7 +128,8 @@ namespace View
                     content.DOLocalMoveY(75, 0.1f);
                     break;
                 case CardRewardState:
-                    content.DOScale(1.3f, 0.1f);
+                case CardShopState:
+                    content.DOScale(1f, 0.1f);
                     break;
             }
         }

@@ -102,5 +102,18 @@ namespace Presenter
             Model.Gold += amount;
             View.AddGold(prevGold, amount);
         }
+
+        public void UseGold(int amount)
+        {
+            var prevGold = Model.Gold;
+            Model.Gold -= amount;
+            View.AddGold(prevGold, -amount);
+        }
+
+        public void AddArtifact(Artifact artifact)
+        {
+            Artifacts.Add(artifact);
+            View.AddArtifact(artifact);
+        }
     }
 }

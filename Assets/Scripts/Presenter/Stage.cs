@@ -529,9 +529,70 @@ namespace Presenter
     {
         private ShopStageModel ssModel => Model as ShopStageModel;
         private ShopStageView ssView => View as ShopStageView;
+
+        public List<ShopCard> SellCards = new();
+        public List<ShopArtifact> SellArtifacts = new();
         
         public ShopStage(StageModel model, StageView view) : base(model, view)
         {
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            foreach (var cardModel in ssModel.SellCards)
+            {
+                var card = new ShopCard(cardModel, ssView.CreateCard());
+                card.SetState(new CardShopState());
+                card.Init();
+                card.OnSell += BuyItem;
+                SellCards.Add(card);
+            }
+
+            foreach (var artifactModel in ssModel.SellArtifacts)
+            {
+                var artifact = new ShopArtifact(artifactModel, ssView.CreateArtifact());
+                artifact.Init();
+                artifact.OnSell += BuyItem;
+                SellArtifacts.Add(artifact);
+            }
+
+            
+        }
+
+        public void BuyItem(object sender, EventArgs e)
+        {
+            switch (sender)
+            {
+                case ShopArtifact artifact:
+                    BuyArtifact(artifact);
+                    break;
+                case ShopCard card:
+                    BuyCard(card);
+                    break;
+            }
+        }
+
+        private void BuyArtifact(ShopArtifact artifact)
+        {
+            if (user.Gold >= artifact.Model.Value)
+            {
+                artifact.Sold();
+                user.UseGold(artifact.Model.Value);
+                user.AddArtifact(artifact);
+                artifact.OnSell -= BuyItem;
+            }
+        }
+
+        private void BuyCard(ShopCard card)
+        {
+            if (user.Gold >= card.Model.Value)
+            {
+                card.Sold();
+                user.UseGold(card.Model.Value);
+                user.AddCard(card);
+                card.OnSell -= BuyItem;
+            }
         }
     }
 }

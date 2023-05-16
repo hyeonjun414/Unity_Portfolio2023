@@ -1,3 +1,4 @@
+using Presenter;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class ArtifactView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class ArtifactView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public Artifact Presenter;
 
@@ -13,6 +14,10 @@ namespace View
         public GameObject descPanel;
         public TextMeshProUGUI artifactName, artifactDesc;
 
+        public Image inputChecker;
+
+        public void SetInputChecker(bool value) => inputChecker.raycastTarget = value;
+        
         public virtual void SetView(Artifact artifact)
         {
             Presenter = artifact;
@@ -29,14 +34,18 @@ namespace View
             Destroy(gameObject);
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             descPanel.SetActive(true);
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             descPanel.SetActive(false);
+        }
+
+        public virtual void OnPointerClick(PointerEventData eventData)
+        {
         }
     }
 }

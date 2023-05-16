@@ -400,6 +400,7 @@ MonoBehaviour:
   - {fileID: 3397417735414492243, guid: 64b996ddaec7a5045b403b207e954409, type: 3}
   - {fileID: 7678261100617552132, guid: 8c0909ff542d0e24ca335b1e159f31e9, type: 3}
   - {fileID: 8348515522833527283, guid: fae1bcbc7280d5c4f9ef6825a3f26518, type: 3}
+  - {fileID: 2843650090922797347, guid: ee2a5befd75bd654bb0514230943f9a4, type: 3}
   curScene: {fileID: 0}
   loadingScreen: {fileID: 2098395159}
   raycaster: {fileID: 530203834}

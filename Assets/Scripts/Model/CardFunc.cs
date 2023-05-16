@@ -84,7 +84,6 @@ namespace Model
         public float Value;
         public override async UniTask Activate(Character hero, Character target)
         {
-            GameManager.Instance.CreateFloatingText(Value.ToString(), target.WorldPosition, TextType.Heal);
             await target.HpRecover(Value);
         }
     }

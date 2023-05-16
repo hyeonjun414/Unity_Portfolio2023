@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Presenter;
 using UnityEngine;
 using View;
 
@@ -52,8 +53,33 @@ namespace Model
 
     public class ShopStageModel : StageModel
     {
-        public ShopStageModel(StageInfo stageInfo, MasterTable mt) : base(stageInfo, mt)
+        public List<CardModel> SellCards = new();
+        public List<ArtifactModel> SellArtifacts = new();
+        
+        public ShopStageModel(StageInfo stageInfo, User user, MasterTable mt) : base(stageInfo, mt)
         {
+            if (stageInfo is ShopStageInfo info)
+            {
+                var artifactCount = info.ArtifactCount;
+                var cardCount = info.CardCount;
+                
+                // card
+                var cardList = mt.MasterCards.ToList();
+                for (var i = 0; i < cardCount; i++)
+                {
+                    SellCards.Add(new CardModel(cardList.OrderBy(t => Random.value).First()));
+                }
+
+                // artifact
+                var artifactList = mt.MasterArtifacts.ToList();
+                for (var i = 0; i < artifactCount; i++)
+                {
+                    var newModel = artifactList.OrderBy(t => Random.value).First();
+                    SellArtifacts.Add(new ArtifactModel(newModel));
+                    Debug.Log(newModel.Name);
+                }
+                
+            }
         }
     }
 }

@@ -92,7 +92,38 @@ namespace Presenter
         {
         }
     }
-    public class Card
+
+    public class CardShopState : ICardState
+    {
+        public void EnterState(Card card)
+        {
+        }
+
+        public void OnClick(Card card)
+        {
+            card.View.Selected(this);
+            card.OnSellEvent();
+        }
+
+        public void OnHover(Card card)
+        {
+            card.View.Hovered(this);
+        }
+
+        public void OnUnhover(Card card)
+        {
+            card.View.Unhovered(this);
+        }
+
+        public void OnClickDown(Card card)
+        {
+        }
+
+        public void OnClickUp(Card card)
+        {
+        }
+    }
+    public class Card : Item
     {
         public CardModel Model;
         public CardView View;
@@ -104,6 +135,11 @@ namespace Presenter
         {
             Model = model;
             View = view;
+        }
+
+        public void Init()
+        {
+            View.SetView(this);
         }
 
         public void SetState(ICardState newState)
@@ -157,6 +193,21 @@ namespace Presenter
         {
             await View.PlayCardEft(target.View);
             await Model.CardActivate(hero, target);
+        }
+    }
+
+    public class ShopCard : Card
+    {
+        public ShopCard(CardModel model, CardView view) : base(model, view)
+        {
+        }
+
+        public void Sold()
+        {
+            if (View is ShopCardView shopCardView)
+            {
+                shopCardView.Sold();
+            }
         }
     }
 }
