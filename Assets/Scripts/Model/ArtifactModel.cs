@@ -17,6 +17,8 @@ namespace Model
         public string Name;
         public string Desc;
         public string Icon;
+        public int Tier;
+        public int Value;
         
         public ArtifactTrigger Trigger;
         public List<ArtifactFunc> Functions;
@@ -26,6 +28,9 @@ namespace Model
             Id = ma.Id;
             Name = ma.Name;
             Desc = ma.Desc;
+            Tier = ma.Tier;
+            Value = ma.Value;
+            
             Icon = ma.Icon;
             Trigger = ma.Trigger;
             Functions = Util.ToObjectList<ArtifactFunc>(ma.Function);

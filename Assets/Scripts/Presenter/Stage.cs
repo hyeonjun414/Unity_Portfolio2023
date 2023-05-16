@@ -533,4 +533,14 @@ namespace Presenter
             user.AddGold(goldAmount);
         }
     }
+
+    public class ShopStage : Stage
+    {
+        private ShopStageModel ssModel => Model as ShopStageModel;
+        private ShopStageView ssView => View as ShopStageView;
+        
+        public ShopStage(StageModel model, StageView view) : base(model, view)
+        {
+        }
+    }
 }

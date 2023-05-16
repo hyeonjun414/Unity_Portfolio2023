@@ -28,10 +28,11 @@ namespace Model
         {
             if (stageInfo is BattleStageInfo info)
             {
-                foreach (var enemyId in info.Enemies)
+                var enemyCount = Random.Range(info.MinCount, info.MaxCount + 1);
+                for (var i = 0; i < enemyCount; i++)
                 {
                     var levelValue = Random.Range(minLevelValue, maxLevelValue);
-                    var masterEnemy = mt.MasterEnemies.First(target => target.Id == enemyId);
+                    var masterEnemy = mt.MasterEnemies.OrderBy(t => Random.value).First();
                     var enemy = new EnemyModel(masterEnemy, levelValue);
                     Enemies.Add(enemy);
                 }
@@ -46,6 +47,13 @@ namespace Model
         public bool AreAllEnemiesDead()
         {
             return Enemies.All(target => target.IsDead);
+        }
+    }
+
+    public class ShopStageModel : StageModel
+    {
+        public ShopStageModel(StageInfo stageInfo, MasterTable mt) : base(stageInfo, mt)
+        {
         }
     }
 }

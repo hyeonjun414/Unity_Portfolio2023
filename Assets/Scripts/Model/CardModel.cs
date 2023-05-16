@@ -12,6 +12,8 @@ namespace Model
         public string Desc;
         public string Icon;
         public string Effect;
+        public int Tier;
+        public int Value;
         public int Cost;
         public CardType CardType;
         public List<CardFunc> Function;
@@ -23,6 +25,8 @@ namespace Model
             Desc = mc.Desc;
             Icon = mc.Icon;
             Effect = mc.Effect;
+            Tier = mc.Tier;
+            Value = mc.Value;
             Cost = mc.Cost;
             CardType = mc.CardType;
             Function = Util.ToObjectList<CardFunc>(mc.Function);

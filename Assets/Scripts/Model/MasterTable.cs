@@ -67,6 +67,8 @@ namespace Model
         public string Desc;
         public string Icon;
         public string Effect;
+        public int Tier;
+        public int Value;
         public int Cost;
         public CardType CardType;
         public List<JObject> Function;
@@ -88,6 +90,8 @@ namespace Model
         public string Name;
         public string Desc;
         public string Icon;
+        public int Tier;
+        public int Value;
         public ArtifactTrigger Trigger;
         public List<JObject> Function;
     }

@@ -10,6 +10,14 @@ namespace Model
 
     public class BattleStageInfo : StageInfo
     {
-        public List<string> Enemies;
-    } 
+        public int MinCount;
+        public int MaxCount;
+    }
+    
+    public class ShopStageInfo : StageInfo
+    {
+        public int CardCount;
+        public int ArtifactCount;
+        public List<int> TierChance;
+    }
 }

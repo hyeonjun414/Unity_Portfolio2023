@@ -169,6 +169,8 @@
       "Id"      : "견제 검",
       "Name"    : "견제 검",
       "Desc"    : "공격하려는 적을 공격하려고 할 때 적의 AP를 20감소 시킵니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
       "Icon"    : "Icon_Battle",
       "Trigger" : "EnemyDamaged",
       "Function": [
@@ -182,6 +184,8 @@
       "Id"      : "보조 배터리",
       "Name"    : "보조 배터리",
       "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
       "Icon"    : "Icon_Booster",
       "Trigger" : "TurnStarted",
       "Function": [
@@ -203,6 +207,8 @@
       "Icon"    : "Card_Bomb",
       "Effect"  : "Explosion",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 3,
       "Function": [
         {
@@ -218,6 +224,8 @@
       "Icon"    : "Card_Slash",
       "Effect"  : "Slash",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -233,6 +241,8 @@
       "Icon"    : "Card_Chain",
       "Effect"  : "Smoke",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -252,6 +262,8 @@
       "Icon"    : "Card_Burn",
       "Effect"  : "Burn",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -278,6 +290,8 @@
       "Icon"    : "Card_Rum",
       "Effect"  : "HealthUp",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -293,6 +307,8 @@
       "Icon"    : "Card_SummonSailor",
       "Effect"  : "Summon",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -309,6 +325,8 @@
       "Icon"    : "Card_Parrying",
       "Effect"  : "Slash",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -334,6 +352,8 @@
       "Icon"    : "Card_Hook",
       "Effect"  : "Slash",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -353,6 +373,8 @@
       "Icon"    : "Card_Loot",
       "Effect"  : "Smoke",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -368,6 +390,8 @@
       "Icon"    : "Card_CannonBall",
       "Effect"  : "Summon",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -384,6 +408,8 @@
       "Icon"    : "Card_CannonBall",
       "Effect"  : "Summon",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 0,
       "Function": [
         {
@@ -400,6 +426,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -415,6 +443,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -430,6 +460,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -451,6 +483,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -470,6 +504,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -490,6 +526,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -518,6 +556,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -544,6 +584,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -565,6 +607,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -587,6 +631,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -603,6 +649,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -623,6 +671,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
@@ -639,6 +689,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -658,6 +710,8 @@
       "Icon"    : "Card_Unset",
       "Effect"  : "Unset",
       "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
       "Cost"    : 1,
       "Function": [
         {
@@ -669,8 +723,30 @@
             "Icon"    : "SEIcon_Slow",
             "StatTag" : "Slow",
             "StatName": "Speed",
-            "Value"   : -0.5
+            "Value"   : -0.2
           }
+        }
+      ]
+    },
+    {
+      "Id"      : "부유물 한 덩이",
+      "Name"    : "부유물 한 덩이",
+      "Desc"    : "카드 2장을 뽑고 방어력을 7 얻습니다.",
+      "Icon"    : "Card_Unset",
+      "Effect"  : "Unset",
+      "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
+      "Cost"    : 2,
+      "Function": [
+        {
+          "Type"      : "Cf_DefenceUp",
+          "Value"     : 7,
+          "TargetType": "Hero"
+        },
+        {
+          "Type"     : "Cf_DrawCard",
+          "DrawCount": 2
         }
       ]
     }
@@ -723,41 +799,28 @@
   ],
   "MasterStages"   : [
     {
-      "Id"       : "Normal1",
-      "Name"     : "Normal1",
+      "Id"       : "Shop",
+      "Name"     : "Shop",
       "StageInfo": {
-        "Type"   : "BattleStageInfo",
-        "Icon"   : "Stage_Level1",
-        "Enemies": [
-          "Bald Pirate",
-          "Cucumber",
-          "Big Guy"
+        "Type"         : "ShopStageInfo",
+        "Icon"         : "Stage_Shop",
+        "CardCount"    : 5,
+        "ArtifactCount": 3,
+        "TierChance"   : [
+          5,
+          0,
+          0
         ]
       }
     },
     {
-      "Id"       : "Normal1",
-      "Name"     : "Normal2",
+      "Id"       : "NormalBattle",
+      "Name"     : "NormalBattle",
       "StageInfo": {
-        "Type"   : "BattleStageInfo",
-        "Icon"   : "Stage_Level1",
-        "Enemies": [
-          "Captain",
-          "Whale"
-        ]
-      }
-    },
-    {
-      "Id"       : "Normal3",
-      "Name"     : "Normal3",
-      "StageInfo": {
-        "Type"   : "BattleStageInfo",
-        "Icon"   : "Stage_Level1",
-        "Enemies": [
-          "Cucumber",
-          "Cucumber",
-          "Cucumber"
-        ]
+        "Type"    : "BattleStageInfo",
+        "Icon"    : "Stage_Level1",
+        "MinCount": 1,
+        "MaxCount": 3
       }
     }
   ],
