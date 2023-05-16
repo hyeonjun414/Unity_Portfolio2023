@@ -16,6 +16,8 @@ namespace Manager
         public const string Title = "TitleView";
         public const string Map = "MapView";
         public const string BattleStage = "BattleStageView";
+        public const string User = "UserView";
+        public const string Shop = "ShopStageView";
     }
     public class GameManager : MonoBehaviour
     {
@@ -31,6 +33,8 @@ namespace Manager
 
         public Physics2DRaycaster raycaster;
         public Camera mainCam;
+
+        public FloatingTextView floatingText;
         
         private void Awake()
         {
@@ -71,27 +75,30 @@ namespace Manager
 
         public async UniTask GameStart()
         {
-            var userView = gameObject.AddComponent<UserView>();
-            User = new User(new UserModel(), userView, MasterTable.MasterUsers[0], MasterTable);
-            userView.Presenter = User;
+            User = new User(new UserModel(), null, MasterTable.MasterUsers[0], MasterTable);
+            await CreateScene(SceneType.User, false);
+            if (curScene is UserView userView)
+            {
+                userView.SetView(User);
+            }
             
             var mapModel = new MapModel();
             mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
             CurMap = new Map(mapModel, null);
-
             await CreateScene(SceneType.Map);
         }
 
-        public async UniTask CreateScene(string sceneType)
+        public async UniTask CreateScene(string sceneType, bool isFadeEft = true)
         {
-            await loadingScreen.FadeOut();
+            if(isFadeEft)
+                await loadingScreen.FadeOut();
             var titlePrefab = scenePrefabs.First(t => t.name == sceneType);
             var newScene = Instantiate(titlePrefab);
             newScene.SetParent(curScene);
             newScene.Init();
             curScene = newScene;
-            await loadingScreen.FadeIn();
-            
+            if (isFadeEft)
+                await loadingScreen.FadeIn();
         }
 
         public async UniTask DestroyCurScene()
@@ -149,6 +156,12 @@ namespace Manager
         {
             CurStage = GenerateStage(mapNode.Model);
             await CreateScene(SceneType.BattleStage);
+        }
+
+        public void CreateFloatingText(string str, Vector3 position, TextType textType)
+        {
+            var textInst = Instantiate(floatingText);
+            textInst.SetFloatingText(str, position, textType);
         }
     }
 }

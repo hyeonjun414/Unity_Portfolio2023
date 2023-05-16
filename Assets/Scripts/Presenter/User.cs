@@ -98,7 +98,9 @@ namespace Presenter
 
         public void AddGold(int amount)
         {
+            var prevGold = Model.Gold;
             Model.Gold += amount;
+            View.AddGold(prevGold, amount);
         }
     }
 }

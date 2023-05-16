@@ -108,8 +108,6 @@ namespace Presenter
             
             
             bsView.SetUserCards(Deck);
-            bsView.SetUserArtifacts(user.Artifacts);
-            bsView.SetUserGold(user.Gold);
             
             StageStart();
         }
@@ -443,12 +441,6 @@ namespace Presenter
             }
         }
 
-        public void CreateFloatingText(string str, Vector3 position, TextType textType)
-        {
-            bsView.CreateFloatingText(str, position, textType);
-        }
-
-
         public async UniTask OpenReward(ChestView chest)
         {
             if (rewardGiven) return;
@@ -529,7 +521,6 @@ namespace Presenter
 
         public void UserGetGold(int goldAmount)
         {
-            bsView.AddDropGold(user.Gold, goldAmount);
             user.AddGold(goldAmount);
         }
     }

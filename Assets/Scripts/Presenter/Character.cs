@@ -75,8 +75,7 @@ namespace Presenter
             }
             else
             {
-                var stage = GameManager.Instance.CurStage as BattleStage;
-                stage?.CreateFloatingText("MISS", target.CenterPos, TextType.Damage);
+                GameManager.Instance.CreateFloatingText("MISS", target.CenterPos, TextType.Damage);
             }
         }
 
@@ -84,8 +83,7 @@ namespace Presenter
         {
             Model.TakeDamage(damage);
             View.SetDefence(Model.Defence);
-            var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.CreateFloatingText(((int)damage).ToString(), CenterPos, TextType.Damage);
+            GameManager.Instance.CreateFloatingText(((int)damage).ToString(), CenterPos, TextType.Damage);
             if (Model.IsDead)
             {
                 OnDeathEvent();
@@ -165,8 +163,7 @@ namespace Presenter
         public async UniTask HpRecover(float value)
         {
             Model.HpRecover(value);
-            var stage = GameManager.Instance.CurStage as BattleStage;
-            stage?.CreateFloatingText(((int)value).ToString(), CenterPos, TextType.Heal);
+            GameManager.Instance.CreateFloatingText(((int)value).ToString(), CenterPos, TextType.Heal);
             await View.HpRecover(Model.CurHp, Model.MaxHp);
         }
 

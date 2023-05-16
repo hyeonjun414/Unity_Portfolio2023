@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Manager;
 using TMPro;
 using UnityEngine;
+using View;
 
 public class UserGoldView : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class UserGoldView : MonoBehaviour
 
     public void AddGold(int currentGold, int goldAmount)
     {
+        GameManager.Instance.CreateFloatingText(goldAmount.ToString(), goldText.transform.position, TextType.Gold);
         var targetGold = currentGold + goldAmount;
         DOTween.To(() => currentGold, x => currentGold = x, targetGold, duration)
             .OnUpdate(() => goldText.text = currentGold.ToString())

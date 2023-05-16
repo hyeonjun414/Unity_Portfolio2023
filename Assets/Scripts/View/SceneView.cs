@@ -12,11 +12,13 @@ namespace View
         public Canvas canvas;
         public RectTransform canvasRect;
 
+        public bool isFront;
+
 
         public void SetParent(SceneView parent)
         {
             Parent = parent;
-            if (Parent != null)
+            if (Parent != null && Parent.isFront == false)
             {
                 Parent.gameObject.SetActive(false);
             }
@@ -31,7 +33,7 @@ namespace View
         {
             canvasRect = canvas.GetComponent<RectTransform>();
             canvas.worldCamera = GameManager.Instance.mainCam;
-            canvas.sortingOrder = 10;
+            canvas.sortingOrder = isFront ? 15 : 10;
             
         }
     }

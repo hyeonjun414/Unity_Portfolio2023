@@ -399,10 +399,12 @@ MonoBehaviour:
   - {fileID: 6858248282943542013, guid: 9fb8c7c14a0fcb048a786d08b2a6138a, type: 3}
   - {fileID: 3397417735414492243, guid: 64b996ddaec7a5045b403b207e954409, type: 3}
   - {fileID: 7678261100617552132, guid: 8c0909ff542d0e24ca335b1e159f31e9, type: 3}
+  - {fileID: 8348515522833527283, guid: fae1bcbc7280d5c4f9ef6825a3f26518, type: 3}
   curScene: {fileID: 0}
   loadingScreen: {fileID: 2098395159}
   raycaster: {fileID: 530203834}
   mainCam: {fileID: 530203830}
+  floatingText: {fileID: 6727921090437483290, guid: 2bfea8716da41e64dbd33506b5c9ffb5, type: 3}
 --- !u!1 &837885848
 GameObject:
   m_ObjectHideFlags: 0
