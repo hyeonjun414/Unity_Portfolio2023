@@ -91,7 +91,7 @@ namespace Presenter
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             user.UserHero.UseAp();
 
-            var userCardData = user.GetCards();
+            var userCardData = user.GetCards().OrderBy(t => Random.value).ToList();
             foreach (var cardData in userCardData)
             {
                 var card = new Card(cardData, bsView.CreateCardView());
@@ -346,7 +346,8 @@ namespace Presenter
 
         private async UniTask GraveToDeck()
         {
-            Deck.AddRange(Grave);
+            var shuffledCards = Grave.OrderBy(t => Random.value).ToList();
+            Deck.AddRange(shuffledCards);
             Grave.Clear();
             await bsView.ReturnToDeck(Deck);
         }
