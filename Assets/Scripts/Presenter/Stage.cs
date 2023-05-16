@@ -77,52 +77,50 @@ namespace Presenter
         public override void Init()
         {
             base.Init();
-            
-            bsView.CreateHeroView(gm.User.UserHero);
-            Allies.Add(gm.User.UserHero);
-            gm.User.UserHero.OnDeath += OnDeath;
-            
+            SetUser();
+            SetEnemies();
+            StageStart();
+        }
+        public void SetUser()
+        {
+            user.UserHero.View = bsView.CreateHeroView();
+            user.UserHero.Init();
+            user.UserHero.OnDeath += OnDeath;
+            bsView.AddApView(user.UserHero);
+            Allies.Add(user.UserHero);
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-            gm.User.UserHero.hModel.UseAp();
-            var enemyModels = bsModel.GetEnemies();
-            for (var index = 0; index < enemyModels.Count; index++)
-            {
-                var enemyPresenter = new Enemy(enemyModels[index], null);
-                enemyPresenter.OnDeath += OnDeath;
-                Enemies.Add(enemyPresenter);
-            }
+            user.UserHero.UseAp();
 
-            bsView.SetEnemyViews(Enemies);
-            foreach (var enemy in Enemies)
-            {
-                enemy.Init();
-            }
-
-            var userCardData = gm.User.GetCards();
+            var userCardData = user.GetCards();
             foreach (var cardData in userCardData)
             {
-                var card = new Card(cardData, null);
+                var card = new Card(cardData, bsView.CreateCardView());
+                card.Init();
                 card.SetState(new CardBattleState());
                 Deck.Add(card);
             }
-            
-            
-            bsView.SetUserCards(Deck);
-            
-            StageStart();
         }
-
+        public void SetEnemies()
+        {
+            foreach (var enemyModel in bsModel.GetEnemies())
+            {
+                var enemy = new Enemy(enemyModel, bsView.CreateEnemyView());
+                enemy.OnDeath += OnDeath;
+                enemy.Init();
+                Enemies.Add(enemy);
+                bsView.AddApView(enemy);
+            }
+        }
         public async UniTask SummonAlly(string character, int livingTurn)
         {
             var target = gm.MasterTable.MasterAllies.FirstOrDefault(t => t.Id == character);
             if (target != null)
             {
-                var ally = new Ally(new AllyModel(target, livingTurn), null);
+                var ally = new Ally(new AllyModel(target, livingTurn), bsView.CreateAllyView());
+                ally.Init();
                 ally.OnDeath += OnDeath;
                 Allies.Insert(0, ally);
-                bsView.SummonAlly(ally);
-                ally.Init();
-
+                bsView.AddApView(ally);
             }
         }
 
@@ -176,8 +174,6 @@ namespace Presenter
                 {
                     await AddEntityAp();
                 }
-
-                
             }
         }
 
@@ -238,15 +234,7 @@ namespace Presenter
             
             if (user.UserHero.Model.IsReady)
             {
-                _isHeroTurn = true;
-                user.SetEnergy();
-                
-                bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
-                bsView.TurnStarted();
-                await user.UserHero.PrepareAction();
-                user.UserHero.EndAction();
-                await user.ActivateArtifacts(ArtifactTrigger.TurnStarted);
-                await DrawCard(user.GetDrawCount());
+                await StartUserTurn();
                 return;
             }
 
@@ -263,6 +251,19 @@ namespace Presenter
 
             await UniTask.Yield();
 
+        }
+
+        public async UniTask StartUserTurn()
+        {
+            _isHeroTurn = true;
+            user.SetEnergy();
+
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.TurnStarted();
+            await user.UserHero.PrepareAction();
+            user.UserHero.EndAction();
+            await user.ActivateArtifacts(ArtifactTrigger.TurnStarted);
+            await DrawCard(user.GetDrawCount());
         }
         
         private async UniTask CheckEnemies()

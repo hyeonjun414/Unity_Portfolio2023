@@ -160,6 +160,11 @@ namespace Presenter
             await UniTask.Yield();
         }
 
+        public void UseAp()
+        {
+            Model.UseAp();
+        }
+
         public async UniTask HpRecover(float value)
         {
             Model.HpRecover(value);

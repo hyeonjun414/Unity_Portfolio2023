@@ -29,7 +29,6 @@ namespace View.StageView
         public Transform deckPos;
         public Transform DoorPivot, chestPivot;
             
-        public List<EnemyView> EnemyViews;
         public List<CardView> UserCards = new();
         public List<CardView> DeckCards = new();
         public List<CardView> GraveCards = new();
@@ -51,8 +50,6 @@ namespace View.StageView
             if (GameManager.Instance == null) 
                 return;
 
-            EnemyViews = new List<EnemyView>();
-            
             Presenter = GameManager.Instance.CurStage;
             Presenter.View = this;
             Presenter.Init();
@@ -63,33 +60,40 @@ namespace View.StageView
             });
         }
 
-        public async UniTask BattleEnd()
-        {
-            await UniTask.Delay(500);
-            foreach (var ev in EnemyViews)
-            {
-                ev.Presenter.Dispose();
-            }
-        }
-
-        public void CreateHeroView(Character hero)
+        public CharacterView CreateHeroView()
         {
             var inst = Instantiate(characterView);
-            hero.View = inst;
-            _heroView = hero.View;
-            _heroView.Init(hero);
-            _heroView.gameObject.SetActive(true);
             characterHolder.AddCharacterView(inst);
-            actionBar.AddEntity(hero);
+            _heroView = inst;
+            return inst;
         }
 
-        public void SummonAlly(Ally ally)
+        public CharacterView CreateAllyView()
         {
             var inst = Instantiate(allyView);
-            inst.Init(ally);
-            inst.gameObject.SetActive(true);
             characterHolder.AddCharacterView(inst);
-            actionBar.AddEntity(ally);
+            return inst;
+        }
+
+        public CharacterView CreateEnemyView()
+        {
+            var inst = Instantiate(enemyPrefab);
+            characterHolder.AddCharacterView(inst);
+            return inst;
+        }
+
+        public CardView CreateCardView()
+        {
+            var inst = Instantiate(cardPrefab, deckPos);
+            inst.transform.rotation = Quaternion.Euler(0, 180, 0);
+            inst.transform.DOScale(0.5f, 0.2f);
+            DeckCards.Add(inst);
+            return inst;
+        }
+        
+        public void AddApView(Character character)
+        {
+            actionBar.AddEntity(character);
         }
 
         public DoorView GenerateDoor()
@@ -116,18 +120,7 @@ namespace View.StageView
             
         }
 
-        public void SetUserCards(List<Card> Cards)
-        {
-            foreach (var card in Cards)
-            {
-                var cardView = Instantiate(cardPrefab, deckPos);
-                cardView.SetView(card);
-                cardView.transform.rotation = Quaternion.Euler(0, 180, 0);
-                cardView.transform.DOScale(0.5f, 0.2f);
-                card.View = cardView;
-                DeckCards.Add(cardView);
-            }
-        }
+        
 
         public async UniTask DeckToHand(Card card)
         {
@@ -176,22 +169,6 @@ namespace View.StageView
         {
             Instantiate(chestPrefab, chestPivot);
             rewardView.Init(reward);
-        }
-
-        public void SetEnemyViews(List<Character> enemies)
-        {
-            var xGap = 3f;
-            var mostLeft = -(enemies.Count - 1) * 0.5f * xGap;
-            for (var i = 0; i < enemies.Count; i++)
-            {
-                var inst = Instantiate(enemyPrefab);
-                inst.transform.localPosition += Vector3.right * (mostLeft + i * xGap);
-                enemies[i].View = inst;
-                inst.Presenter = enemies[i];
-                EnemyViews.Add(inst);
-                actionBar.AddEntity(enemies[i]);
-                characterHolder.AddCharacterView(inst);
-            }
         }
 
         public void SetEnergyText(int userCurEnergy, int userMaxEnergy)
