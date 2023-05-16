@@ -341,21 +341,21 @@ namespace Presenter
         {
             Hand.Add(card);
             Deck.Remove(card);
-            await bsView.DeckToHand(card);
+            await bsView.DrawCard(card);
         }
 
         private async UniTask GraveToDeck()
         {
             Deck.AddRange(Grave);
             Grave.Clear();
-            await bsView.GraveToDeck(Deck);
+            await bsView.ReturnToDeck(Deck);
         }
 
         private async UniTask HandToGrave(Card card)
         {
             Grave.Add(card);
             Hand.Remove(card);
-            await bsView.HandToGrave(card);
+            await bsView.DiscardCard(card);
         }
 
 

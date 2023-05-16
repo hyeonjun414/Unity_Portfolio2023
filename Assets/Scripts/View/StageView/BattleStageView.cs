@@ -17,8 +17,7 @@ namespace View.StageView
     public class BattleStageView : StageView
     {
         private BattleStage bsPresenter => Presenter as BattleStage;
-
-
+        
         public TextMeshProUGUI energyText;
         public CharacterView characterView;
         public AllyView allyView;
@@ -26,13 +25,8 @@ namespace View.StageView
         public CardView cardPrefab;
         public EnemyView enemyPrefab;
         public ChestView chestPrefab;
-        public Transform deckPos;
-        public Transform DoorPivot, chestPivot;
+        public Transform doorPivot, chestPivot;
             
-        public List<CardView> UserCards = new();
-        public List<CardView> DeckCards = new();
-        public List<CardView> GraveCards = new();
-        
         public RewardView rewardView;
         public GameOverView gameOverView;
 
@@ -43,7 +37,6 @@ namespace View.StageView
         public CharacterHolder characterHolder;
         
         private CharacterView _heroView;
-        private CardView _hoveredCard;
 
         public void Start()
         {
@@ -84,10 +77,8 @@ namespace View.StageView
 
         public CardView CreateCardView()
         {
-            var inst = Instantiate(cardPrefab, deckPos);
-            inst.transform.rotation = Quaternion.Euler(0, 180, 0);
-            inst.transform.DOScale(0.5f, 0.2f);
-            DeckCards.Add(inst);
+            var inst = Instantiate(cardPrefab);
+            cardHolder.AddCard(inst);
             return inst;
         }
         
@@ -98,7 +89,7 @@ namespace View.StageView
 
         public DoorView GenerateDoor()
         {
-            var doorInst = Instantiate(doorPrefab, DoorPivot);
+            var doorInst = Instantiate(doorPrefab, doorPivot);
             doorInst.transform.localPosition = Vector3.down * 5;
             doorInst.transform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
             return doorInst;
@@ -106,7 +97,7 @@ namespace View.StageView
 
         public async UniTask MoveStage()
         {
-            _heroView.content.transform.DOMove(DoorPivot.position, 1f)
+            _heroView.content.transform.DOMove(doorPivot.position, 1f)
                 .OnStart(() => _heroView.animator.SetBool("Move", true))
                 .OnComplete(() => _heroView.animator.SetBool("Move", false));
             await UniTask.Delay(1000);
@@ -119,40 +110,32 @@ namespace View.StageView
             await UniTask.Delay((int)(clipLength * 1000));
             
         }
-
         
-
-        public async UniTask DeckToHand(Card card)
+        public async UniTask DrawCard(Card card)
         {
             var cardView = card.View;
             if (cardView == null) return;
             
-            DeckCards.Remove(cardView);
             cardHolder.DrawCard(cardView);
         }
 
-        public async UniTask GraveToDeck(List<Card> deck)
+        public async UniTask ReturnToDeck(List<Card> deck)
         {
             foreach (var card in deck)
             {
                 var cardView = card.View;
-                GraveCards.Remove(cardView);
-                DeckCards.Add(cardView);
-                cardView.transform.SetParent(deckPos);
-                cardView.transform.DOMove(deckPos.position, 0.2f).SetEase(Ease.OutQuad);
-                cardView.transform.DORotate(new Vector3(0, 180, 0), 0.3f);
-
-                await UniTask.Delay(300);
+                cardHolder.ReturnToDeck(cardView);
+                await UniTask.Delay(50);
             }
+            await UniTask.Delay(250);
         }
 
-        public async UniTask HandToGrave(Card card)
+        public async UniTask DiscardCard(Card card)
         {
             var cardView = card.View;
             if (cardView == null) return;
 
             cardHolder.DiscardCard(cardView);
-            GraveCards.Add(cardView);
         }
 
         public void OpenRewardPanel()

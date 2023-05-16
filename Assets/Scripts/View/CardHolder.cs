@@ -16,12 +16,18 @@ namespace View
         [SerializeField] private Physics2DRaycaster raycaster;
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private TargetArrow bezierCurveDrawer;
-        [SerializeField] private Transform discardPosition;
+        [SerializeField] private Transform discardPivot;
+        [SerializeField] private Transform deckPivot;
+        [SerializeField] private Transform handPivot;
+        
 
         [Header("카드")] 
         [SerializeField] private int selectedCardIndex;
         [SerializeField] private int mouseOverCardIndex;
         [SerializeField] private List<CardView> cards;
+        [SerializeField] private List<CardView> deckCards = new();
+        [SerializeField] private List<CardView> discardCards = new();
+
 
         [Header("일반 카드 수치")] 
         [SerializeField] private float lerpTime;
@@ -124,9 +130,9 @@ namespace View
         public void DrawCard(CardView card)
         {
             var trans = card.transform;
-            trans.SetParent(transform);
+            trans.SetParent(handPivot);
             trans.SetAsFirstSibling();
-
+            deckCards.Remove(card);
             cards.Insert(0, card);
         }
         
@@ -134,10 +140,11 @@ namespace View
         {
             var card = cards.Find(t => t == cardView);
             cards.Remove(card);
+            discardCards.Add(card);
             
             var trans = card.gameObject.transform;
-            trans.SetParent(discardPosition);
-            trans.DOMove(discardPosition.position, 0.5f).SetEase(Ease.OutExpo);
+            trans.SetParent(discardPivot);
+            trans.DOMove(discardPivot.position, 0.5f).SetEase(Ease.OutExpo);
             trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-25, 25)), 0.5f).SetEase(Ease.OutQuart);
             trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo);
         }
@@ -169,6 +176,25 @@ namespace View
         {
             selectedCardIndex = Null;
             bezierCurveDrawer.gameObject.SetActive(false);
+        }
+
+        public void AddCard(CardView cardView)
+        {
+            var trans = cardView.transform;
+            trans.rotation = Quaternion.Euler(0, 180, 0);
+            trans.DOScale(0.5f, 0.2f);
+            trans.SetParent(handPivot);
+            trans.SetAsFirstSibling();
+            deckCards.Add(cardView);
+        }
+
+        public void ReturnToDeck(CardView cardView)
+        {
+            discardCards.Remove(cardView);
+            deckCards.Add(cardView);
+            cardView.transform.SetParent(deckPivot);
+            cardView.transform.DOMove(deckPivot.position, 0.3f).SetEase(Ease.OutQuart);
+            cardView.transform.DORotate(new Vector3(0, 180, 0), 0.3f);
         }
     }
 }
