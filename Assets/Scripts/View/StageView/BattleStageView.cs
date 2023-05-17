@@ -136,6 +136,7 @@ namespace View.StageView
             if (cardView == null) return;
 
             cardHolder.DiscardCard(cardView);
+            await UniTask.Delay(50);
         }
 
         public void OpenRewardPanel()

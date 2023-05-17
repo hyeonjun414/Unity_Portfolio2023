@@ -143,7 +143,7 @@ namespace View
             var trans = card.gameObject.transform;
             trans.SetParent(discardPivot);
             trans.DOMove(discardPivot.position, 0.5f).SetEase(Ease.OutExpo);
-            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-30, 30) - 30), 0.5f).SetEase(Ease.OutQuart);
+            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-10, 10)), 0.5f).SetEase(Ease.OutQuart);
             trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo);
             UpdateCardCount();
         }
@@ -183,7 +183,10 @@ namespace View
             trans.rotation = Quaternion.Euler(0, 180, 0);
             trans.DOScale(0.5f, 0.2f);
             trans.SetParent(deckPivot, false);
-            trans.SetAsFirstSibling();
+            cardView.transform.DOLocalMove(-Vector3.up * deckCards.Count * 3, 0.3f)
+                .SetEase(Ease.OutQuart);
+            cardView.transform.DOLocalRotate(new Vector3(0, 180, deckCards.Count), 0.3f);
+            trans.SetAsLastSibling();
             deckCards.Add(cardView);
             UpdateCardCount();
         }
@@ -194,8 +197,9 @@ namespace View
             deckCards.Add(cardView);
             
             cardView.transform.SetParent(deckPivot);
-            cardView.transform.DOMove(deckPivot.position, 0.3f).SetEase(Ease.OutQuart);
-            cardView.transform.DORotate(new Vector3(0, 180, 0), 0.3f);
+            cardView.transform.DOLocalMove(-Vector3.up * deckCards.Count * 3, 0.3f).SetEase(Ease.OutQuart);
+            cardView.transform.DOLocalRotate(new Vector3(0, 180, deckCards.Count), 0.3f);
+            cardView.transform.SetAsLastSibling();
             UpdateCardCount();
         }
 

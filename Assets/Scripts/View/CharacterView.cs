@@ -67,7 +67,7 @@ namespace View
 
         public virtual async UniTask PrepareAttack(Vector3 targetPos)
         {
-            var moveX = transform.position.x > targetPos.x ? -2 : 2;
+            var moveX = transform.position.x > targetPos.x ? -3 : 3;
             content.DOMoveX(targetPos.x - moveX, 0.2f)
                 .SetEase(Ease.OutExpo)
                 .OnStart(() =>

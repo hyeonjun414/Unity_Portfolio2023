@@ -326,7 +326,7 @@ namespace Presenter
             {
                 if (Deck.Count > 0)
                 {
-                    await DeckToHand(Deck[0]);
+                    await DeckToHand(Deck.Last());
                     await UniTask.Delay(50);
                     drawCount--;
                 }
@@ -339,7 +339,7 @@ namespace Presenter
 
         private async UniTask DeckToHand(Card card)
         {
-            Hand.Add(card);
+            Hand.Insert(0, card);
             Deck.Remove(card);
             await bsView.DrawCard(card);
         }
