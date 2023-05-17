@@ -172,6 +172,12 @@ namespace Model
             if (StatTags[tag] == 0)
                 StatTags.Remove(tag);
         }
+
+        public void MaxHpUp(int value)
+        {
+            Stats.MaxHp += value;
+            Stats.CurHp += value;
+        }
     }
     public class EnemyModel : CharacterModel
     {

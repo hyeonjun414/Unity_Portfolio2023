@@ -262,7 +262,7 @@ namespace Presenter
             bsView.TurnStarted();
             await user.UserHero.PrepareAction();
             user.UserHero.EndAction();
-            await user.ActivateArtifacts(ArtifactTrigger.TurnStarted);
+            await user.ActivateArtifacts(ArtifactTrigger.TurnStarted, this);
             await DrawCard(user.GetDrawCount());
         }
         
@@ -554,7 +554,7 @@ namespace Presenter
             foreach (var artifactModel in ssModel.SellArtifacts)
             {
                 var artifact = new ShopArtifact(artifactModel, ssView.CreateArtifact());
-                artifact.Init();
+                artifact.Init(null);
                 artifact.OnSell += BuyItem;
                 SellArtifacts.Add(artifact);
             }

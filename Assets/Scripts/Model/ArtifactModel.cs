@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Presenter;
 
 namespace Model
 {
     public enum ArtifactTrigger
     {
+        None,
         TurnStarted,
         EnemyDamaged,
         AllyDamaged,
@@ -36,13 +38,23 @@ namespace Model
             Functions = Util.ToObjectList<ArtifactFunc>(ma.Function);
         }
 
-        public virtual async UniTask Activate(ArtifactTrigger trigger)
+        public virtual void Init(User user)
+        {
+            if (user == null) return;
+            
+            foreach (var func in Functions)
+            {
+                func.Init(user);
+            }
+        }
+        
+        public virtual async UniTask Activate(ArtifactTrigger trigger, Stage stage, User user)
         {
             if (Trigger == trigger)
             {
                 foreach (var func in Functions)
                 {
-                    await func.Activate();
+                    await func.Activate(stage, user);
                 }
             }
             await UniTask.Yield();

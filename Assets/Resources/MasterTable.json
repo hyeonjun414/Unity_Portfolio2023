@@ -166,21 +166,6 @@
   ],
   "MasterArtifacts": [
     {
-      "Id"      : "견제 검",
-      "Name"    : "견제 검",
-      "Desc"    : "공격하려는 적을 공격하려고 할 때 적의 AP를 20감소 시킵니다.",
-      "Tier"    : 1,
-      "Value"   : 100,
-      "Icon"    : "Icon_Battle",
-      "Trigger" : "EnemyDamaged",
-      "Function": [
-        {
-          "Type" : "Af_EnergyUp",
-          "Value": 1
-        }
-      ]
-    },
-    {
       "Id"      : "보조 배터리",
       "Name"    : "보조 배터리",
       "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.",
@@ -190,68 +175,53 @@
       "Trigger" : "TurnStarted",
       "Function": [
         {
-          "Type" : "Af_EnergyUp",
+          "Type" : "AF_EnergyUp",
           "Value": 1
         }
       ]
     },
     {
-      "Id"      : "보조 배터리2",
-      "Name"    : "보조 배터리2",
-      "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.2",
+      "Id"      : "충전기",
+      "Name"    : "충전기",
+      "Desc"    : "최대 에너지가 1 증가합니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
+      "Icon"    : "Icon_Booster",
+      "Trigger" : "None",
+      "Function": [
+        {
+          "Type" : "AF_MaxEnergyUp",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Id"      : "견제 검",
+      "Name"    : "견제 검",
+      "Desc"    : "최대 체력이 15 증가합니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
+      "Icon"    : "Icon_Battle",
+      "Trigger" : "None",
+      "Function": [
+        {
+          "Type" : "AF_MaxHpUp",
+          "Value": 15
+        }
+      ]
+    },
+    {
+      "Id"      : "산호 갑옷",
+      "Name"    : "산호 갑옷",
+      "Desc"    : "턴이 시작할 때 5의 방어력을 추가로 얻습니다.",
       "Tier"    : 1,
       "Value"   : 100,
       "Icon"    : "Icon_Booster",
       "Trigger" : "TurnStarted",
       "Function": [
         {
-          "Type" : "Af_EnergyUp",
-          "Value": 1
-        }
-      ]
-    },
-    {
-      "Id"      : "보조 배터리3",
-      "Name"    : "보조 배터리3",
-      "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.3",
-      "Tier"    : 1,
-      "Value"   : 100,
-      "Icon"    : "Icon_Booster",
-      "Trigger" : "TurnStarted",
-      "Function": [
-        {
-          "Type" : "Af_EnergyUp",
-          "Value": 1
-        }
-      ]
-    },
-    {
-      "Id"      : "보조 배터리4",
-      "Name"    : "보조 배터리4",
-      "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.4",
-      "Tier"    : 1,
-      "Value"   : 100,
-      "Icon"    : "Icon_Booster",
-      "Trigger" : "TurnStarted",
-      "Function": [
-        {
-          "Type" : "Af_EnergyUp",
-          "Value": 1
-        }
-      ]
-    },
-    {
-      "Id"      : "보조 배터리5",
-      "Name"    : "보조 배터리5",
-      "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.5",
-      "Tier"    : 1,
-      "Value"   : 100,
-      "Icon"    : "Icon_Booster",
-      "Trigger" : "TurnStarted",
-      "Function": [
-        {
-          "Type" : "Af_EnergyUp",
-          "Value": 1
+          "Type" : "AF_DefenceUp",
+          "Value": 5
         }
       ]
     }

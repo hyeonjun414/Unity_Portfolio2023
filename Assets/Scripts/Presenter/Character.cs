@@ -172,6 +172,12 @@ namespace Presenter
             await View.HpRecover(Model.CurHp, Model.MaxHp);
         }
 
+        public async UniTask MaxHpUp(int value)
+        {
+            Model.MaxHpUp(value);
+            await View.HpRecover(Model.CurHp, Model.MaxHp);
+        }
+
         public virtual void Targeted()
         {
             if (Model.IsDead) return;
@@ -340,6 +346,7 @@ namespace Presenter
         public Hero(HeroModel model, CharacterView view) : base(model, view)
         {
         }
+
 
         
     }

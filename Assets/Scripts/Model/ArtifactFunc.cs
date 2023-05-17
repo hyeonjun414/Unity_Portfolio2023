@@ -8,39 +8,53 @@ namespace Model
     public class ArtifactFunc
     {
         public string Type;
+        public int Value;
 
-        public virtual async UniTask Init()
+        public virtual void Init(User user)
         {
-            await UniTask.Yield();
         }
-        public virtual async UniTask Activate()
+        public virtual async UniTask Activate(Stage stage, User user)
         {
             await UniTask.Yield();
         }
     }
 
-    public class Af_EnergyUp : ArtifactFunc
+    public class AF_EnergyUp : ArtifactFunc
     {
-        public int Value;
-        public override async UniTask Activate()
+        public override async UniTask Activate(Stage stage, User user)
         {
-            await base.Activate();
-            if (GameManager.Instance.CurStage is BattleStage bs)
+            await base.Activate(stage, user);
+            if (stage is BattleStage bs)
             {
                 await bs.AddEnergy(Value);
-                
             }
         }
     }
     
-    public class Af_MaxEnergyUp : ArtifactFunc
+    public class AF_MaxEnergyUp : ArtifactFunc
     {
-        public int Value;
-
-        public override async UniTask Init()
+        public override void Init(User user)
         {
-            await base.Init();
-            GameManager.Instance.User.AddMaxEnergy(Value);
+            base.Init(user);
+            user.AddMaxEnergy(Value);
+        }
+    }
+
+    public class AF_MaxHpUp : ArtifactFunc
+    {
+        public override void Init(User user)
+        {
+            base.Init(user);
+            user.UserHero.MaxHpUp(Value);
+        }
+    }
+
+    public class AF_DefenceUp : ArtifactFunc
+    {
+        public override async UniTask Activate(Stage stage, User user)
+        {
+            await base.Activate(stage, user);
+            await user.UserHero.AddDefence(Value);
         }
     }
 }

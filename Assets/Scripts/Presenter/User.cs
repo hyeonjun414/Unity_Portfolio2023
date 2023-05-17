@@ -87,11 +87,11 @@ namespace Presenter
             Model.CurEnergy = Model.MaxEnergy;
         }
 
-        public async UniTask ActivateArtifacts(ArtifactTrigger trigger)
+        public async UniTask ActivateArtifacts(ArtifactTrigger trigger, Stage stage)
         {
             foreach (var artifact in Artifacts)
             {
-                await artifact.Activate(trigger);
+                await artifact.Activate(trigger, stage, this);
             }
         }
 
@@ -115,6 +115,7 @@ namespace Presenter
 
         public void AddArtifact(Artifact artifact)
         {
+            artifact.Init(this);
             Artifacts.Add(artifact);
             View.AddArtifact(artifact);
         }
