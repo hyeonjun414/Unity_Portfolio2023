@@ -84,7 +84,8 @@ namespace Model
         public float Value;
         public override async UniTask Activate(Character hero, Character target)
         {
-            await target.HpRecover(Value);
+            await base.Activate(hero, target);
+            target.HpRecover(Value);
         }
     }
 

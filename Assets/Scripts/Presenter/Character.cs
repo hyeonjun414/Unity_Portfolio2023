@@ -165,17 +165,17 @@ namespace Presenter
             Model.UseAp();
         }
 
-        public async UniTask HpRecover(float value)
+        public void HpRecover(float value)
         {
             Model.HpRecover(value);
             GameManager.Instance.CreateFloatingText(((int)value).ToString(), CenterPos, TextType.Heal);
-            await View.HpRecover(Model.CurHp, Model.MaxHp);
+            View.HpRecover(Model.CurHp, Model.MaxHp);
         }
 
-        public async UniTask MaxHpUp(int value)
+        public void MaxHpUp(int value)
         {
             Model.MaxHpUp(value);
-            await View.HpRecover(Model.CurHp, Model.MaxHp);
+            View.HpRecover(Model.CurHp, Model.MaxHp);
         }
 
         public virtual void Targeted()

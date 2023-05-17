@@ -117,6 +117,7 @@ namespace Presenter
             if (target != null)
             {
                 var ally = new Ally(new AllyModel(target, livingTurn), bsView.CreateAllyView());
+                await user.ActivateArtifacts(ArtifactTrigger.AllySummoned, ally);
                 ally.Init();
                 ally.OnDeath += OnDeath;
                 Allies.Insert(0, ally);

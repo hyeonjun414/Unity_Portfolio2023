@@ -47,7 +47,7 @@ namespace Model
         public override async UniTask Activate(Character character)
         {
             await base.Activate(character);
-            await character.HpRecover(Value);
+            character.HpRecover(Value);
         }
     }
 

@@ -15,9 +15,9 @@ namespace Presenter
             View = view;
         }
 
-        public async UniTask Activate(ArtifactTrigger trigger, Stage stage, User user)
+        public async UniTask Activate(ArtifactTrigger trigger, object target)
         {
-            await Model.Activate(trigger, stage, user);
+            await Model.Activate(trigger, target);
         }
 
         public void Init(User user)

@@ -11,6 +11,7 @@ namespace Model
         EnemyDamaged,
         AllyDamaged,
         BattleStarted,
+        AllySummoned,
     }
     
     public class ArtifactModel
@@ -48,13 +49,13 @@ namespace Model
             }
         }
         
-        public virtual async UniTask Activate(ArtifactTrigger trigger, Stage stage, User user)
+        public virtual async UniTask Activate(ArtifactTrigger trigger, object target)
         {
             if (Trigger == trigger)
             {
                 foreach (var func in Functions)
                 {
-                    await func.Activate(stage, user);
+                    await func.Activate(target);
                 }
             }
             await UniTask.Yield();

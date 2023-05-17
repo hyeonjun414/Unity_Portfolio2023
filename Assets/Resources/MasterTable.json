@@ -224,6 +224,22 @@
           "Value": 5
         }
       ]
+    },
+    {
+      "Id"      : "지휘의 깃발",
+      "Name"    : "지휘의 깃발",
+      "Desc"    : "아군의 스피드를 10 올립니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
+      "Icon"    : "Icon_Booster",
+      "Trigger" : "AllySummoned",
+      "Function": [
+        {
+          "Type"    : "AF_AllyAddBuff",
+          "StatName": "Speed",
+          "Value"   : 100
+        }
+      ]
     }
   ],
   "MasterCards"    : [
@@ -788,11 +804,12 @@
       "InitGold"     : 50,
       "Energy"       : 5,
       "Artifacts"    : [
-        "보조 배터리"
+        "보조 배터리",
+        "지휘의 깃발"
       ],
       "Cards"        : [
         "사기 카드",
-        "모래폭풍",
+        "선원 호출",
         "앵커 드롭",
         "바다의 물결",
         "폭탄 투하",

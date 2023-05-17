@@ -87,11 +87,11 @@ namespace Presenter
             Model.CurEnergy = Model.MaxEnergy;
         }
 
-        public async UniTask ActivateArtifacts(ArtifactTrigger trigger, Stage stage)
+        public async UniTask ActivateArtifacts(ArtifactTrigger trigger, object target)
         {
             foreach (var artifact in Artifacts)
             {
-                await artifact.Activate(trigger, stage, this);
+                await artifact.Activate(trigger, target);
             }
         }
 

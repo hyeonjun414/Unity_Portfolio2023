@@ -129,10 +129,9 @@ namespace View
             await UniTask.Yield();
         }
 
-        public async UniTask HpRecover(float curHp, float maxHp)
+        public void HpRecover(float curHp, float maxHp)
         {
             UpdateHp(curHp, maxHp);
-            await UniTask.Yield();
         }
 
         public void SetDefence(float defence)

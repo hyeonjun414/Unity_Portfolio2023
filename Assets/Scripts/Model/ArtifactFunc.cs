@@ -8,23 +8,24 @@ namespace Model
     public class ArtifactFunc
     {
         public string Type;
-        public int Value;
-
+        
         public virtual void Init(User user)
         {
         }
-        public virtual async UniTask Activate(Stage stage, User user)
+        public virtual async UniTask Activate(object target)
         {
+            Debug.Log($"Active ArtifactFunc : {Type}");
             await UniTask.Yield();
         }
     }
 
     public class AF_EnergyUp : ArtifactFunc
     {
-        public override async UniTask Activate(Stage stage, User user)
+        public int Value;
+        public override async UniTask Activate(object target)
         {
-            await base.Activate(stage, user);
-            if (stage is BattleStage bs)
+            await base.Activate(target);
+            if (target is BattleStage bs)
             {
                 await bs.AddEnergy(Value);
             }
@@ -33,6 +34,7 @@ namespace Model
     
     public class AF_MaxEnergyUp : ArtifactFunc
     {
+        public int Value;
         public override void Init(User user)
         {
             base.Init(user);
@@ -40,8 +42,23 @@ namespace Model
         }
     }
 
+    public class AF_AllyAddBuff : ArtifactFunc
+    {
+        public string StatName;
+        public int Value;
+        public override async UniTask Activate(object target)
+        {
+            await base.Activate(target);
+            if (target is Ally ally)
+            {
+                ally.AddBuff(StatName, Value);
+            }
+        }
+    }
+
     public class AF_MaxHpUp : ArtifactFunc
     {
+        public int Value;
         public override void Init(User user)
         {
             base.Init(user);
@@ -51,10 +68,14 @@ namespace Model
 
     public class AF_DefenceUp : ArtifactFunc
     {
-        public override async UniTask Activate(Stage stage, User user)
+        public int Value;
+        public override async UniTask Activate(object target)
         {
-            await base.Activate(stage, user);
-            await user.UserHero.AddDefence(Value);
+            await base.Activate(target);
+            if (target is User user)
+            {
+                await user.UserHero.AddDefence(Value);
+            }
         }
     }
 }
