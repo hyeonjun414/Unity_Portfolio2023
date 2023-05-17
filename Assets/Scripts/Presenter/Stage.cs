@@ -284,9 +284,10 @@ namespace Presenter
                 ally.Dispose();
             }
 
-            for (int i = Hand.Count - 1; i >= 0; i--)
+            var handCount = Hand.Count;
+            for (var i = 0; i < handCount; i++)
             {
-                await HandToGrave(Hand[i]);
+                await HandToGrave(Hand.Last());
             }
         }
 
