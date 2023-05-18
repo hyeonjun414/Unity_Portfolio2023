@@ -13,7 +13,6 @@ namespace Model
         public string Type;
         public List<JObject> ConditionList = new();
         public List<Condition> Conditions = new();
-        
         public virtual void Init(User user)
         {
             Conditions = Util.ToObjectList<Condition>(ConditionList);
@@ -102,6 +101,33 @@ namespace Model
             if (target is Enemy enemy)
             {
                 await enemy.UseAp(Value);
+            }
+        }
+    }
+    
+    public class AF_Attack : ArtifactFunc
+    {
+        public int Value;
+        public override async UniTask Activate(object target)
+        {
+            await base.Activate(target);
+            if (target is Enemy enemy)
+            {
+                await enemy.TakeDamage(Value);
+            }
+        }
+    }
+
+    public class AF_DrawCard : ArtifactFunc
+    {
+        public int Value;
+
+        public override async UniTask Activate(object target)
+        {
+            await base.Activate(target);
+            if (target is BattleStage battleStage)
+            {
+                await battleStage.DrawCard(Value);
             }
         }
     }

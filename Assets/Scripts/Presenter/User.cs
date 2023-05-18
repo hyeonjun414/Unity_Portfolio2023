@@ -99,6 +99,11 @@ namespace Presenter
             {
                 await artifact.Activate(trigger, target);
             }
+
+            foreach (var artifact in Artifacts)
+            {
+                artifact.Model.IsActive = false;
+            }
         }
 
         public int CurEnergy => Model.CurEnergy;

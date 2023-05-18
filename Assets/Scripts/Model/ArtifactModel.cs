@@ -22,6 +22,7 @@ namespace Model
         public string Icon;
         public int Tier;
         public int Value;
+        public bool IsActive;
         
         public ArtifactTrigger Trigger;
         public List<ArtifactFunc> Functions;
@@ -36,6 +37,7 @@ namespace Model
             
             Icon = ma.Icon;
             Trigger = ma.Trigger;
+            IsActive = false;
             Functions = Util.ToObjectList<ArtifactFunc>(ma.Function);
         }
 
@@ -55,9 +57,14 @@ namespace Model
             {
                 foreach (var func in Functions)
                 {
-                    if(func.ConditionCheck(target))
+                    if (func.ConditionCheck(target) && !IsActive)
+                    {
+                        IsActive = true;
                         await func.Activate(target);
+                    }
+                        
                 }
+                
             }
             await UniTask.Yield();
         }

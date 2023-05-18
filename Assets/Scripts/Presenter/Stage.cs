@@ -159,11 +159,13 @@ namespace Presenter
 
         public void StageStart()
         {
+            
             var Modeltask = Update();
         }
 
         public override async UniTask Update()
         {
+            await user.ActivateArtifacts(ArtifactTrigger.BattleStarted, this);
             while (!_isStageClear)
             {
                 await UniTask.Yield();
