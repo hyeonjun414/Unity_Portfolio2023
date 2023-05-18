@@ -25,4 +25,19 @@ namespace Model
             }
         }
     }
+
+    public class Cdt_NoUseCard : Condition
+    {
+        public override bool Check(object target)
+        {
+            if (target is BattleStage battleStage)
+            {
+                return battleStage.ThisTurnUsedCardCount == 0;
+            }
+            else
+            {
+                return base.Check(target);
+            }
+        }
+    }
 }

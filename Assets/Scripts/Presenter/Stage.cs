@@ -63,12 +63,15 @@ namespace Presenter
         public List<Card> Hand = new();
         public List<Card> Deck = new();
         public List<Card> Grave = new();
+        public int ThisTurnUsedCardCount;
+        
         private bool hasMovedToNextStage;
         private bool rewardGiven;
 
         private bool _isHeroTurn;
         private bool _isStageClear;
         private bool _inCardZone;
+        
 
         public BattleStage(StageModel model, StageView view) : base(model, view)
         {
@@ -90,7 +93,6 @@ namespace Presenter
             Allies.Add(user.UserHero);
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             user.UserHero.UseAp();
-
             var userCardData = user.GetCards().OrderBy(t => Random.value).ToList();
             foreach (var cardData in userCardData)
             {
@@ -260,7 +262,7 @@ namespace Presenter
         {
             _isHeroTurn = true;
             user.SetEnergy();
-
+            ThisTurnUsedCardCount = 0;
             bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             bsView.TurnStarted();
             await user.UserHero.PrepareAction();
@@ -371,6 +373,7 @@ namespace Presenter
             {
                 case CardType.Attack:
                     if (_curTarget == null) break;
+                    ThisTurnUsedCardCount++;
                     await user.UseCard(_selectedCard, _curTarget);
                     await HandToGrave(_selectedCard);
                     
@@ -487,6 +490,8 @@ namespace Presenter
             _isHeroTurn = false;
             user.UserHero.hModel.UseAp();
             bsView.TurnEnded();
+            await user.ActivateArtifacts(ArtifactTrigger.TurnEnded, this);
+            ThisTurnUsedCardCount = 0;
         }
 
 

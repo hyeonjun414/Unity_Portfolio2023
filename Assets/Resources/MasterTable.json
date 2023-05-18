@@ -190,7 +190,7 @@
       "Trigger" : "None",
       "Function": [
         {
-          "Type" : "AF_MaxEnergyUp",
+          "Type" : "AF_UserMaxEnergyUp",
           "Value": 1
         }
       ]
@@ -205,7 +205,7 @@
       "Trigger" : "None",
       "Function": [
         {
-          "Type" : "AF_MaxHpUp",
+          "Type" : "AF_HeroMaxHpUp",
           "Value": 15
         }
       ]
@@ -220,7 +220,7 @@
       "Trigger" : "TurnStarted",
       "Function": [
         {
-          "Type" : "AF_DefenceUp",
+          "Type" : "AF_HeroDefenceUp",
           "Value": 5
         }
       ]
@@ -251,7 +251,7 @@
       "Trigger" : "EnemyDamaged",
       "Function": [
         {
-          "Type"         : "AF_Apdown",
+          "Type"         : "AF_EnemyApdown",
           "ConditionList": [
             {
               "Type": "Cdt_EnemyActionReady"
@@ -271,7 +271,7 @@
       "Trigger" : "EnemyDamaged",
       "Function": [
         {
-          "Type" : "AF_Attack",
+          "Type" : "AF_EnemyAttack",
           "Value": 2
         }
       ]
@@ -286,8 +286,28 @@
       "Trigger" : "BattleStarted",
       "Function": [
         {
-          "Type" : "AF_DrawCard",
+          "Type" : "AF_StageDrawCard",
           "Value": 2
+        }
+      ]
+    },
+    {
+      "Id"      : "인어의 눈물",
+      "Name"    : "인어의 눈물",
+      "Desc"    : "카드를 사용하지 않으면 이번턴에 체력을 3 회복합니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
+      "Icon"    : "Icon_Battle",
+      "Trigger" : "TurnEnded",
+      "Function": [
+        {
+          "Type"         : "AF_StageHeroRecovery",
+          "ConditionList": [
+            {
+              "Type": "Cdt_NoUseCard"
+            }
+          ],
+          "Value"        : 3
         }
       ]
     }
@@ -854,7 +874,7 @@
       "InitGold"     : 50,
       "Energy"       : 5,
       "Artifacts"    : [
-        "보조 배터리",
+        "인어의 눈물",
         "큰 손",
         "콩알탄"
       ],

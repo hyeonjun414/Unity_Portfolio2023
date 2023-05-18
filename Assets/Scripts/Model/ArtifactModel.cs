@@ -8,6 +8,7 @@ namespace Model
     {
         None,
         TurnStarted,
+        TurnEnded,
         EnemyDamaged,
         AllyDamaged,
         BattleStarted,

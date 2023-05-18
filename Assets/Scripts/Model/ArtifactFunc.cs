@@ -45,7 +45,7 @@ namespace Model
         }
     }
     
-    public class AF_MaxEnergyUp : ArtifactFunc
+    public class AF_UserMaxEnergyUp : ArtifactFunc
     {
         public int Value;
         public override void Init(User user)
@@ -69,7 +69,7 @@ namespace Model
         }
     }
 
-    public class AF_MaxHpUp : ArtifactFunc
+    public class AF_HeroMaxHpUp : ArtifactFunc
     {
         public int Value;
         public override void Init(User user)
@@ -79,7 +79,7 @@ namespace Model
         }
     }
 
-    public class AF_DefenceUp : ArtifactFunc
+    public class AF_HeroDefenceUp : ArtifactFunc
     {
         public int Value;
         public override async UniTask Activate(object target)
@@ -92,7 +92,7 @@ namespace Model
         }
     }
 
-    public class AF_Apdown : ArtifactFunc
+    public class AF_EnemyApdown : ArtifactFunc
     {
         public int Value;
         public override async UniTask Activate(object target)
@@ -105,7 +105,7 @@ namespace Model
         }
     }
     
-    public class AF_Attack : ArtifactFunc
+    public class AF_EnemyAttack : ArtifactFunc
     {
         public int Value;
         public override async UniTask Activate(object target)
@@ -118,7 +118,7 @@ namespace Model
         }
     }
 
-    public class AF_DrawCard : ArtifactFunc
+    public class AF_StageDrawCard : ArtifactFunc
     {
         public int Value;
 
@@ -128,6 +128,20 @@ namespace Model
             if (target is BattleStage battleStage)
             {
                 await battleStage.DrawCard(Value);
+            }
+        }
+    }
+
+    public class AF_StageHeroRecovery : ArtifactFunc
+    {
+        public int Value;
+
+        public override async UniTask Activate(object target)
+        {
+            await base.Activate(target);
+            if (target is BattleStage battleStage)
+            {
+                battleStage.user.UserHero.HpRecover(Value);
             }
         }
     }
