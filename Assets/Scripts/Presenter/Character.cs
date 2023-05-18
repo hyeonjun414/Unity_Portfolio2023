@@ -79,7 +79,7 @@ namespace Presenter
             }
         }
 
-        public async UniTask TakeDamage(float damage)
+        public virtual async UniTask TakeDamage(float damage)
         {
             Model.TakeDamage(damage);
             View.SetDefence(Model.Defence);
@@ -256,6 +256,12 @@ namespace Presenter
             if(IsExecutable())
                 eModel.SetAction();
             await eView.SetActionView(eModel.GetCurAction());
+        }
+
+        public override async UniTask TakeDamage(float damage)
+        {
+            await base.TakeDamage(damage);
+            await GameManager.Instance.User.ActivateArtifacts(ArtifactTrigger.EnemyDamaged, this);
         }
 
         public override async UniTask ExecuteAction(Character target)

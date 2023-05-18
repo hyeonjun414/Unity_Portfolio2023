@@ -22,20 +22,26 @@ namespace Presenter
         {
             this.Model = model;
             this.View = view;
-            
             Model.Init(mu, mt);
+        }
+
+        public void Init()
+        {
             UserHero = new Hero(Model.Hero, null);
-            
+
             foreach (var cardModel in Model.Cards)
             {
                 var card = new Card(cardModel, null);
                 Cards.Add(card);
             }
+
             foreach (var artifactModel in Model.Artifacts)
             {
                 var artifact = new Artifact(artifactModel, null);
                 Artifacts.Add(artifact);
             }
+            
+            View.SetView(this);
         }
 
         public List<CardModel> GetCards()
@@ -115,9 +121,9 @@ namespace Presenter
 
         public void AddArtifact(Artifact artifact)
         {
+            artifact.View = View.CreateArtifactView();
             artifact.Init(this);
             Artifacts.Add(artifact);
-            View.AddArtifact(artifact);
         }
     }
 }

@@ -77,10 +77,6 @@ namespace Manager
         {
             User = new User(new UserModel(), null, MasterTable.MasterUsers[0], MasterTable);
             await CreateScene(SceneType.User, false);
-            if (curScene is UserView userView)
-            {
-                userView.SetView(User);
-            }
             
             var mapModel = new MapModel();
             mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);

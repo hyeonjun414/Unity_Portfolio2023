@@ -16,10 +16,19 @@ namespace View
         public ArtifactView artifactPrefab;
         public Transform artifactPivot;
 
+        private void Start()
+        {
+            if (GameManager.Instance == null)
+                return;
+
+            Presenter = GameManager.Instance.User;
+            Presenter.View = this;
+            Presenter.Init();
+        }
+
         public void SetView(User user)
         {
             Presenter = user;
-            user.View = this;
             
             userGoldView.Init(user.Gold);
             foreach (var card in user.Cards)
@@ -29,7 +38,8 @@ namespace View
             }
             foreach (var artifact in user.Artifacts)
             {
-                AddArtifact(artifact);
+                artifact.View = CreateArtifactView();
+                artifact.Init(Presenter);
             }
         }
 
@@ -40,15 +50,17 @@ namespace View
             return inst;
         }
 
+        public ArtifactView CreateArtifactView()
+        {
+            var inst = Instantiate(artifactPrefab, artifactPivot);
+            return inst;
+        }
+
         public void AddGold(int prevGold, int amount)
         {
             userGoldView.AddGold(prevGold, amount);
         }
 
-        public void AddArtifact(Artifact artifact)
-        {
-            var inst = Instantiate(artifactPrefab, artifactPivot);
-            inst.SetView(artifact);
-        }
+        
     }
 }

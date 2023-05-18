@@ -196,8 +196,8 @@
       ]
     },
     {
-      "Id"      : "견제 검",
-      "Name"    : "견제 검",
+      "Id"      : "두툼한 옷",
+      "Name"    : "두툼한 옷",
       "Desc"    : "최대 체력이 15 증가합니다.",
       "Tier"    : 1,
       "Value"   : 100,
@@ -237,7 +237,27 @@
         {
           "Type"    : "AF_AllyAddBuff",
           "StatName": "Speed",
-          "Value"   : 100
+          "Value"   : 10
+        }
+      ]
+    },
+    {
+      "Id"      : "견제 검",
+      "Name"    : "견제 검",
+      "Desc"    : "이번 턴에 공격하는 적을 공격할 경우 AP를 20 감소시킵니다.",
+      "Tier"    : 1,
+      "Value"   : 100,
+      "Icon"    : "Icon_Battle",
+      "Trigger" : "EnemyDamaged",
+      "Function": [
+        {
+          "Type"         : "AF_Apdown",
+          "ConditionList": [
+            {
+              "Type": "Cdt_EnemyActionReady"
+            }
+          ],
+          "Value"        : 15
         }
       ]
     }
@@ -805,7 +825,8 @@
       "Energy"       : 5,
       "Artifacts"    : [
         "보조 배터리",
-        "지휘의 깃발"
+        "지휘의 깃발",
+        "견제 검"
       ],
       "Cards"        : [
         "사기 카드",

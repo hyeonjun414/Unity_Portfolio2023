@@ -55,7 +55,8 @@ namespace Model
             {
                 foreach (var func in Functions)
                 {
-                    await func.Activate(target);
+                    if(func.ConditionCheck(target))
+                        await func.Activate(target);
                 }
             }
             await UniTask.Yield();
