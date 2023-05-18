@@ -42,6 +42,7 @@ namespace Manager
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                Application.targetFrameRate = 60;
                 
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.Converters.Add(new EnumConverter<CardType>());
