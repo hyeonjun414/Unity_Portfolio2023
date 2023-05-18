@@ -166,8 +166,8 @@
   ],
   "MasterArtifacts": [
     {
-      "Id"      : "보조 배터리",
-      "Name"    : "보조 배터리",
+      "Id"      : "충전기",
+      "Name"    : "충전기",
       "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.",
       "Tier"    : 1,
       "Value"   : 100,
@@ -181,12 +181,12 @@
       ]
     },
     {
-      "Id"      : "충전기",
-      "Name"    : "충전기",
+      "Id"      : "보조 배터리",
+      "Name"    : "보조 배터리",
       "Desc"    : "최대 에너지가 1 증가합니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Booster",
+      "Icon"    : "Icon_Energy_Yellow",
       "Trigger" : "None",
       "Function": [
         {
@@ -196,12 +196,12 @@
       ]
     },
     {
-      "Id"      : "두툼한 옷",
-      "Name"    : "두툼한 옷",
+      "Id"      : "생선 캔",
+      "Name"    : "생선 캔",
       "Desc"    : "최대 체력이 15 증가합니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Battle",
+      "Icon"    : "Icon_Food_Can",
       "Trigger" : "None",
       "Function": [
         {
@@ -211,12 +211,12 @@
       ]
     },
     {
-      "Id"      : "산호 갑옷",
-      "Name"    : "산호 갑옷",
+      "Id"      : "조개 껍질",
+      "Name"    : "조개 껍질",
       "Desc"    : "턴이 시작할 때 5의 방어력을 추가로 얻습니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Booster",
+      "Icon"    : "Icon_Food_Shell",
       "Trigger" : "TurnStarted",
       "Function": [
         {
@@ -226,12 +226,12 @@
       ]
     },
     {
-      "Id"      : "지휘의 깃발",
-      "Name"    : "지휘의 깃발",
-      "Desc"    : "아군의 스피드를 10 올립니다.",
+      "Id"      : "바람 신발",
+      "Name"    : "바람 신발",
+      "Desc"    : "동료의 스피드를 30 올립니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Booster",
+      "Icon"    : "Icon_Boots",
       "Trigger" : "AllySummoned",
       "Function": [
         {
@@ -262,12 +262,12 @@
       ]
     },
     {
-      "Id"      : "콩알탄",
-      "Name"    : "콩알탄",
+      "Id"      : "오색 달걀",
+      "Name"    : "오색 달걀",
       "Desc"    : "적에게 피해를 줄 때 2의 데미지를 추가로 가합니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Battle",
+      "Icon"    : "Icon_Egg",
       "Trigger" : "EnemyDamaged",
       "Function": [
         {
@@ -282,7 +282,7 @@
       "Desc"    : "전투가 시작될 때 첫 턴에 2장의 카드를 더 뽑습니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Battle",
+      "Icon"    : "Icon_Cards",
       "Trigger" : "BattleStarted",
       "Function": [
         {
@@ -297,7 +297,7 @@
       "Desc"    : "카드를 사용하지 않으면 이번턴에 체력을 3 회복합니다.",
       "Tier"    : 1,
       "Value"   : 100,
-      "Icon"    : "Icon_Battle",
+      "Icon"    : "Icon_Pearl",
       "Trigger" : "TurnEnded",
       "Function": [
         {
@@ -536,7 +536,7 @@
       "Id"      : "권총 사격",
       "Name"    : "권총 사격",
       "Desc"    : "대상에게 5의 피해를 줍니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Shot",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -553,7 +553,7 @@
       "Id"      : "퀵 슬래시",
       "Name"    : "퀵 슬래시",
       "Desc"    : "대상에게 3의 피해를 줍니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_QuickSlash",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -567,10 +567,10 @@
       ]
     },
     {
-      "Id"      : "끈적이 투척",
-      "Name"    : "끈적이 투척",
+      "Id"      : "강풍",
+      "Name"    : "강풍",
       "Desc"    : "모든 적에게 피해를 5 주고 속도를 20 감소시킵니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Wind",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -590,10 +590,10 @@
       ]
     },
     {
-      "Id"      : "밀쳐내기",
-      "Name"    : "밀쳐내기",
+      "Id"      : "강타",
+      "Name"    : "강타",
       "Desc"    : "대상을 가장 한 칸 뒤로 이동시키고, 15의 데미지를 준다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_PowerSlash",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -611,10 +611,10 @@
       ]
     },
     {
-      "Id"      : "커틀라스 스트라이크",
-      "Name"    : "커틀라스 스트라이크",
+      "Id"      : "돌격",
+      "Name"    : "돌격",
       "Desc"    : "피해를 2 입히고 방어력을 2 얻습니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Rush",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -633,10 +633,10 @@
       ]
     },
     {
-      "Id"      : "패리",
-      "Name"    : "패리",
+      "Id"      : "반격 준비",
+      "Name"    : "반격 준비",
       "Desc"    : "5 방어력을 얻고 3턴간 3의 데미지로 반격합니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_CounterReady",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -663,10 +663,10 @@
       ]
     },
     {
-      "Id"      : "싸움",
-      "Name"    : "싸움",
+      "Id"      : "상처내기",
+      "Name"    : "상처내기",
       "Desc"    : "대상에게 피해 2를 주고 2턴간 취약 2를 부여합니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Injure",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -694,7 +694,7 @@
       "Id"      : "앵커 드롭",
       "Name"    : "앵커 드롭",
       "Desc"    : "선택한 대상에 1턴 동안 기절을 적용합니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_AnchorDrop",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -717,7 +717,7 @@
       "Id"      : "바다의 물결",
       "Name"    : "바다의 물결",
       "Desc"    : "2턴 동안 4 건강을 부여합니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Wave",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -738,10 +738,10 @@
       ]
     },
     {
-      "Id"      : "방어",
-      "Name"    : "방어",
+      "Id"      : "나무 방패",
+      "Name"    : "나무 방패",
       "Desc"    : "5 방어력을 얻습니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Shield",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -759,7 +759,7 @@
       "Id"      : "럼 부스트",
       "Name"    : "럼 부스트",
       "Desc"    : "방어력이 5 증가하고 카드 1장을 뽑습니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_RumBoost",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -781,7 +781,7 @@
       "Id"      : "갑판원 소환",
       "Name"    : "갑판원 소환",
       "Desc"    : "체력이 5이고 공격력이 2인 갑판원을 소환합니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Summon2",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -799,7 +799,7 @@
       "Id"      : "약탈",
       "Name"    : "약탈",
       "Desc"    : "5골드를 얻고 카드 1장을 뽑습니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Looting",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -817,10 +817,10 @@
       ]
     },
     {
-      "Id"      : "모래폭풍",
-      "Name"    : "모래폭풍",
-      "Desc"    : "모든 적에게 1 슬로우를 적용합니다.",
-      "Icon"    : "Card_Unset",
+      "Id"      : "혹한지",
+      "Name"    : "혹한지",
+      "Desc"    : "모든 적에게 20%의 슬로우 한 턴간 적용합니다.",
+      "Icon"    : "Card_Frozen",
       "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -842,10 +842,10 @@
       ]
     },
     {
-      "Id"      : "부유물 한 덩이",
-      "Name"    : "부유물 한 덩이",
+      "Id"      : "보물이다",
+      "Name"    : "보물이다",
       "Desc"    : "카드 2장을 뽑고 방어력을 7 얻습니다.",
-      "Icon"    : "Card_Unset",
+      "Icon"    : "Card_Treasure",
       "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -873,11 +873,7 @@
       "DrawCardCount": 5,
       "InitGold"     : 50,
       "Energy"       : 5,
-      "Artifacts"    : [
-        "인어의 눈물",
-        "큰 손",
-        "콩알탄"
-      ],
+      "Artifacts"    : [],
       "Cards"        : [
         "사기 카드",
         "선원 호출",
@@ -898,6 +894,7 @@
       "DrawCardCount": 5,
       "InitGold"     : 50,
       "Energy"       : 5,
+      "Artifacts"    : [],
       "Cards"        : [
         "베기",
         "베기",
