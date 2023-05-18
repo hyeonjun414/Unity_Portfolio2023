@@ -182,14 +182,13 @@ namespace View.StageView
 
         public void CardSelected(CardView cardView)
         {
-            cardView.SetInputChecker(false);
             cardHolder.CardSelected(cardView);
         }
 
         public void CardUnSelected(CardView cardView)
         {
-            cardView.SetInputChecker(true);
-            cardHolder.CardUnSelected();
+            
+            cardHolder.CardUnSelected(cardView);
         }
 
         public async UniTask EntityRemoved(Character character)

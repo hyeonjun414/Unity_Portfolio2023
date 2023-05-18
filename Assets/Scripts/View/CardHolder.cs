@@ -163,6 +163,11 @@ namespace View
 
         public void CardSelected(CardView cardView)
         {
+            cardView.SetInputChecker(false);
+            if (selectedCardIndex != Null)
+            {
+                cards[selectedCardIndex].SetInputChecker(true);
+            }
             mouseOverCardIndex = Null;
             selectedCardIndex = cards.IndexOf(cardView);
             if (cardView.GetCardType() == CardType.Attack)
@@ -172,8 +177,9 @@ namespace View
             }
         }
 
-        public void CardUnSelected()
+        public void CardUnSelected(CardView cardView)
         {
+            cardView.SetInputChecker(true);
             selectedCardIndex = Null;
             bezierCurveDrawer.gameObject.SetActive(false);
         }
