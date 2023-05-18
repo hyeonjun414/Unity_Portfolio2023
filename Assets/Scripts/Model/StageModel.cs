@@ -72,11 +72,19 @@ namespace Model
 
                 // artifact
                 var artifactList = mt.MasterArtifacts.ToList();
+                foreach (var artifact in user.Artifacts)
+                {
+                    artifactList.RemoveAll(t => t.Id == artifact.Id);
+                }
                 for (var i = 0; i < artifactCount; i++)
                 {
-                    var newModel = artifactList.OrderBy(t => Random.value).First();
-                    SellArtifacts.Add(new ArtifactModel(newModel));
-                    Debug.Log(newModel.Name);
+                    var newModel = artifactList.OrderBy(t => Random.value).FirstOrDefault();
+                    if (newModel != null)
+                    {
+                        SellArtifacts.Add(new ArtifactModel(newModel));
+                        artifactList.Remove(newModel);
+                        Debug.Log(newModel.Name);
+                    }
                 }
                 
             }

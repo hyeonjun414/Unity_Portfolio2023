@@ -8,6 +8,7 @@ namespace Presenter
     {
         public ArtifactModel Model;
         public ArtifactView View;
+        public string Id => Model.Id;
     
         public Artifact(ArtifactModel model, ArtifactView view)
         {
