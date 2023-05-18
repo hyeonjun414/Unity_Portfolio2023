@@ -29,8 +29,9 @@ namespace View
         public List<CardView> cards;
         public List<CardView> deckCards = new();
         public List<CardView> discardCards = new();
-        
+
         [Header("카드 이동 관련")] 
+        public float standardCardCount;
         public float lerpTime;
         public float angularInterval;
         public float zInterval;
@@ -63,8 +64,8 @@ namespace View
             var startAngle =  angularInterval * 0.5f * (cards.Count - 1);
             var lerpAmount = lerpTime * Time.deltaTime;
 
-            
-
+            var resultDist = cards.Count <= standardCardCount ? distance : distance * (standardCardCount / cards.Count);
+            var resultMouseOverInterval = cards.Count <= standardCardCount ? mouseOverInterval : mouseOverInterval * (cards.Count / standardCardCount);
             for (var i = 0; i < cards.Count; i++)
             {
                 var card = cards[i].transform;
@@ -72,8 +73,8 @@ namespace View
                 var angle = startAngle + -angularInterval * i;
                 var radian = angle * Mathf.Deg2Rad;
                 
-                var x = Mathf.Sin(-radian) * distance;
-                var y = Mathf.Cos(radian) * distance - distance;
+                var x = Mathf.Sin(-radian) * resultDist;
+                var y = Mathf.Cos(radian) * resultDist - resultDist;
                 
                 if (i == mouseOverCardIndex)
                 {
@@ -107,7 +108,7 @@ namespace View
                     _targetScl = Vector3.one;
                     
                     if (mouseOverCardIndex != Null)
-                        _targetPos.x += (i < mouseOverCardIndex ? -1 : 1) * mouseOverInterval;
+                        _targetPos.x += (i < mouseOverCardIndex ? -1 : 1) * resultMouseOverInterval;
                 }
 
                 card.localPosition = Vector3.Lerp(card.localPosition, _targetPos, lerpAmount); 

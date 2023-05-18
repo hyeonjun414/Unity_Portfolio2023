@@ -22875,6 +22875,7 @@ MonoBehaviour:
   cards: []
   deckCards: []
   discardCards: []
+  standardCardCount: 5
   lerpTime: 8
   angularInterval: 5
   zInterval: 1
