@@ -80,6 +80,8 @@ namespace Model
             {
                 node?.AddNextStage(EndNode);
             }
+
+            EndNode.StageData = Util.ToObject<StageInfo>(stageList.OrderBy(t => Random.value).First().StageInfo);
         }
     }
 }

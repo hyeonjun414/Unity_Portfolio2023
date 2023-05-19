@@ -36,6 +36,7 @@ namespace Presenter
 
             CurNode = StartNode;
             CurStep = -1;
+            stages.Add(new List<MapNodeModel>(){ Model.EndNode });
             for (var i = 0; i < stages.Count; i++)
             {
                 var stageStep = new List<MapNode>();
