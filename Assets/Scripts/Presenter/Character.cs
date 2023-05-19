@@ -122,7 +122,6 @@ namespace Presenter
             var eftPresenter = new StatusEffect(statEft, null);
             StatusEffects.Add(eftPresenter);
             statEft.Init(this);
-            Model.AddStatusEffect(statEft);
             await View.AddStatusEffect(eftPresenter);
         }
 
@@ -205,6 +204,11 @@ namespace Presenter
         public virtual void OnDeathEvent()
         {
             OnDeath?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void ResetEvent()
+        {
+            OnDeath = null;
         }
 
         public void AddBuff(string statName, float value)
@@ -354,6 +358,13 @@ namespace Presenter
         }
 
 
-        
+        public void ResetStat()
+        {
+            ResetEvent();
+            foreach (var stat in StatusEffects)
+            {
+                stat.Dispose(this);
+            }
+        }
     }
 }

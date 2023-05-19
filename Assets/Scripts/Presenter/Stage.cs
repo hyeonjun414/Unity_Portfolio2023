@@ -282,7 +282,7 @@ namespace Presenter
 
         private async UniTask BattleEnd()
         {
-            user.UserHero.OnDeath -= OnDeath;
+            user.UserHero.ResetStat();
             foreach (var ally in Allies.Where(ally => ally is not Hero))
             {
                 await RemoveEntityView(ally);

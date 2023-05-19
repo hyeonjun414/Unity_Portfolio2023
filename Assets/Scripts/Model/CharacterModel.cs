@@ -50,7 +50,6 @@ namespace Model
         public CharacterStat BuffStats = new();
         public Dictionary<StatTag, float> StatTags = new();
 
-        public List<StatusEffectModel> StatusEffects = new();
         private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
         public IReadOnlyReactiveProperty<float> ApRate => _aprate;
 
@@ -112,11 +111,6 @@ namespace Model
         public void HpRecover(float value)
         {
             Stats.CurHp = Mathf.Min(Stats.CurHp + value, Stats.MaxHp);
-        }
-
-        public void AddStatusEffect(StatusEffectModel statEft)
-        {
-            StatusEffects.Add(statEft);
         }
 
         public void AddBuff(string statName, float value)
