@@ -138,6 +138,13 @@ namespace Manager
                         MasterTable),
                         null);
                     break;
+                case nameof(BossStageInfo):
+                    genStage = new BossStage(new BossStageModel(mapNode.StageData,
+                            mapNode.MinLevelValue,
+                            mapNode.MaxLevelValue,
+                            MasterTable),
+                        null);
+                    break;
                 case nameof(ShopStageInfo):
                     genStage = new ShopStage(new ShopStageModel(mapNode.StageData, User, MasterTable),
                         null);

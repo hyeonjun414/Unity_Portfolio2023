@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Presenter;
+using UnityEngine.UI;
 
 namespace Model
 {
@@ -31,7 +32,10 @@ namespace Model
     }
     public class MasterStage
     {
+        public string Id;
+        public string Name;
         public JObject StageInfo;
+        public bool Selectable;
     }
 
     public class MasterEntity
@@ -42,6 +46,7 @@ namespace Model
         public float Hp;
         public float Damage;
         public float Speed;
+        public bool Selectable;
     }
 
     public class MasterEnemy : MasterEntity
@@ -80,6 +85,7 @@ namespace Model
         public string Name;
         public int Step;
         public int Width;
+        public string EndNodeId;
         public float MinLevelValue;
         public float MaxLevelValue;
     }

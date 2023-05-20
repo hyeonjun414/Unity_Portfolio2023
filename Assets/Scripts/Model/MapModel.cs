@@ -23,6 +23,7 @@ namespace Model
 
             StartNode = new MapNodeModel(-1, MinLevelValue, MaxLevelValue);
             EndNode = new MapNodeModel(step, MinLevelValue, MaxLevelValue);
+            EndNode.StageData = Util.ToObject<StageInfo>(mt.MasterStages.Find(t => t.Id == mm.EndNodeId).StageInfo);
             var mapList = new List<List<MapNodeModel>>();
             
             for (var i = 0; i < step; i++)
@@ -40,7 +41,7 @@ namespace Model
 
         public void ArrangeMap(MasterTable mt)
         {
-            var stageList = mt.MasterStages;
+            var stageList = mt.MasterStages.Where(t => t.Selectable).ToList();
 
             var firstStepNodes = MapNodes.First();
             for (var i = 0; i < firstStepNodes.Count; i++)
@@ -80,8 +81,6 @@ namespace Model
             {
                 node?.AddNextStage(EndNode);
             }
-
-            EndNode.StageData = Util.ToObject<StageInfo>(stageList.OrderBy(t => Random.value).First().StageInfo);
         }
     }
 }

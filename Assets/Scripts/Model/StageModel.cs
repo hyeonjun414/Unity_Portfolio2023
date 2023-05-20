@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Presenter;
 using UnityEngine;
+using UnityEngine.UI;
 using View;
 
 namespace Model
@@ -33,7 +34,7 @@ namespace Model
                 for (var i = 0; i < enemyCount; i++)
                 {
                     var levelValue = Random.Range(minLevelValue, maxLevelValue);
-                    var masterEnemy = mt.MasterEnemies.OrderBy(t => Random.value).First();
+                    var masterEnemy = mt.MasterEnemies.Where(t => t.Selectable).OrderBy(t => Random.value).First();
                     var enemy = new EnemyModel(masterEnemy, levelValue);
                     Enemies.Add(enemy);
                 }
@@ -48,6 +49,20 @@ namespace Model
         public bool AreAllEnemiesDead()
         {
             return Enemies.All(target => target.IsDead);
+        }
+    }
+
+    public class BossStageModel : BattleStageModel
+    {
+        public BossStageModel(StageInfo stageInfo, float minLevelValue, float maxLevelValue, MasterTable mt) : base(stageInfo, minLevelValue, maxLevelValue, mt)
+        {
+            if (stageInfo is BossStageInfo info)
+            {
+                var bossEnemy = mt.MasterEnemies.Find(t => t.Id == info.BossId);
+                var levelValue = Random.Range(minLevelValue, maxLevelValue);
+                var enemy = new EnemyModel(bossEnemy, levelValue);
+                Enemies.Add(enemy);
+            }
         }
     }
 

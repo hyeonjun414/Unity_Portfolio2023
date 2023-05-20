@@ -13,6 +13,11 @@ namespace Model
         public int MinCount;
         public int MaxCount;
     }
+
+    public class BossStageInfo : StageInfo
+    {
+        public string BossId;
+    }
     
     public class ShopStageInfo : StageInfo
     {

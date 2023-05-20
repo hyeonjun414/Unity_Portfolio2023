@@ -1,64 +1,14 @@
 {
   "MasterEnemies"  : [
     {
-      "Id"      : "Bald Pirate",
-      "Name"    : "Bald Pirate",
-      "Desc"    : "Bald Pirate",
-      "Hp"      : 20,
-      "Damage"  : 5,
-      "Speed"   : 60,
-      "DropGold": 17,
-      "Actions" : [
-        {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 1,
-          "Damage"    : 1.2,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
-        },
-        {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 2,
-          "Damage"    : 4,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
-        }
-      ]
-    },
-    {
-      "Id"      : "Cucumber",
-      "Name"    : "Cucumber",
-      "Desc"    : "Cucumber",
-      "Hp"      : 12,
-      "Damage"  : 3,
-      "Speed"   : 100,
-      "DropGold": 23,
-      "Actions" : [
-        {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 1,
-          "Damage"    : 1.2,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
-        },
-        {
-          "Type"      : "Ca_NormalAttack",
-          "Turn"      : 2,
-          "Damage"    : 4,
-          "TargetType": "Single",
-          "Icon"      : "Icon_Attack"
-        }
-      ]
-    },
-    {
-      "Id"      : "Big Guy",
-      "Name"    : "Big Guy",
-      "Desc"    : "Big Guy",
-      "Hp"      : 25,
-      "Damage"  : 10,
-      "Speed"   : 40,
-      "DropGold": 15,
-      "Actions" : [
+      "Id"        : "Bald Pirate",
+      "Name"      : "Bald Pirate",
+      "Desc"      : "Bald Pirate",
+      "Hp"        : 20,
+      "Damage"    : 5,
+      "Speed"     : 60,
+      "DropGold"  : 17,
+      "Actions"   : [
         {
           "Type"  : "Ca_NormalAttack",
           "Turn"  : 1,
@@ -71,17 +21,18 @@
           "Damage": 4,
           "Icon"  : "Icon_Attack"
         }
-      ]
+      ],
+      "Selectable": true
     },
     {
-      "Id"      : "Captain",
-      "Name"    : "Captain",
-      "Desc"    : "Captain",
-      "Hp"      : 20,
-      "Damage"  : 7,
-      "Speed"   : 70,
-      "DropGold": 19,
-      "Actions" : [
+      "Id"        : "Cucumber",
+      "Name"      : "Cucumber",
+      "Desc"      : "Cucumber",
+      "Hp"        : 12,
+      "Damage"    : 3,
+      "Speed"     : 100,
+      "DropGold"  : 23,
+      "Actions"   : [
         {
           "Type"  : "Ca_NormalAttack",
           "Turn"  : 1,
@@ -94,17 +45,18 @@
           "Damage": 4,
           "Icon"  : "Icon_Attack"
         }
-      ]
+      ],
+      "Selectable": true
     },
     {
-      "Id"      : "Whale",
-      "Name"    : "Whale",
-      "Desc"    : "Whale",
-      "Hp"      : 50,
-      "Damage"  : 5,
-      "Speed"   : 30,
-      "DropGold": 17,
-      "Actions" : [
+      "Id"        : "Big Guy",
+      "Name"      : "Big Guy",
+      "Desc"      : "Big Guy",
+      "Hp"        : 25,
+      "Damage"    : 10,
+      "Speed"     : 40,
+      "DropGold"  : 15,
+      "Actions"   : [
         {
           "Type"  : "Ca_NormalAttack",
           "Turn"  : 1,
@@ -117,7 +69,80 @@
           "Damage": 4,
           "Icon"  : "Icon_Attack"
         }
-      ]
+      ],
+      "Selectable": true
+    },
+    {
+      "Id"        : "Captain",
+      "Name"      : "Captain",
+      "Desc"      : "Captain",
+      "Hp"        : 20,
+      "Damage"    : 7,
+      "Speed"     : 70,
+      "DropGold"  : 19,
+      "Actions"   : [
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
+        },
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
+        }
+      ],
+      "Selectable": true
+    },
+    {
+      "Id"        : "Whale",
+      "Name"      : "Whale",
+      "Desc"      : "Whale",
+      "Hp"        : 50,
+      "Damage"    : 5,
+      "Speed"     : 30,
+      "DropGold"  : 17,
+      "Actions"   : [
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
+        },
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
+        }
+      ],
+      "Selectable": true
+    },
+    {
+      "Id"        : "Boss1",
+      "Name"      : "Boss1",
+      "Desc"      : "Boss1",
+      "Hp"        : 300,
+      "Damage"    : 20,
+      "Speed"     : 50,
+      "DropGold"  : 74,
+      "Actions"   : [
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
+        },
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
+        }
+      ],
+      "Selectable": false
     }
   ],
   "MasterAllies"   : [
@@ -911,9 +936,9 @@
   ],
   "MasterStages"   : [
     {
-      "Id"       : "Shop",
-      "Name"     : "Shop",
-      "StageInfo": {
+      "Id"        : "Shop",
+      "Name"      : "Shop",
+      "StageInfo" : {
         "Type"         : "ShopStageInfo",
         "Icon"         : "Stage_Shop",
         "CardCount"    : 5,
@@ -923,17 +948,29 @@
           0,
           0
         ]
-      }
+      },
+      "Selectable": true
     },
     {
-      "Id"       : "NormalBattle",
-      "Name"     : "NormalBattle",
-      "StageInfo": {
+      "Id"        : "NormalBattle",
+      "Name"      : "NormalBattle",
+      "StageInfo" : {
         "Type"    : "BattleStageInfo",
         "Icon"    : "Stage_Level1",
         "MinCount": 1,
         "MaxCount": 3
-      }
+      },
+      "Selectable": true
+    },
+    {
+      "Id"        : "BossBattle1",
+      "Name"      : "BossBattle1",
+      "StageInfo" : {
+        "Type"  : "BossStageInfo",
+        "Icon"  : "Stage_Level2",
+        "BossId": "Boss1"
+      },
+      "Selectable": false
     }
   ],
   "MasterMaps"     : [
@@ -943,7 +980,8 @@
       "MinLevelValue": 0.8,
       "MaxLevelValue": 1.2,
       "Step"         : 10,
-      "Width"        : 4
+      "Width"        : 4,
+      "EndNodeId"    : "BossBattle1"
     },
     {
       "Id"           : "Level2",

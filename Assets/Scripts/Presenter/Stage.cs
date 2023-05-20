@@ -535,6 +535,12 @@ namespace Presenter
         }
     }
 
+    public class BossStage : BattleStage
+    {
+        public BossStage(StageModel model, StageView view) : base(model, view)
+        {
+        }
+    }
     public class ShopStage : Stage
     {
         private ShopStageModel ssModel => Model as ShopStageModel;
