@@ -45,25 +45,30 @@ namespace Manager
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                Application.targetFrameRate = 60;
-                
-                JsonSerializerSettings settings = new JsonSerializerSettings();
-                settings.Converters.Add(new EnumConverter<CardType>());
-                settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
-                settings.Converters.Add(new EnumConverter<TargetType>());
-                settings.Converters.Add(new EnumConverter<StatTag>());
-                
-                Particles = Resources.LoadAll<ParticleSystem>("Particle").ToList();
-
-                var newMasterTable = Resources.Load<TextAsset>("MasterTable");
-                MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
-
-                var task = LoadScene(SceneType.Title);
+                Init();
             }
             else
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void Init()
+        {
+            Application.targetFrameRate = 60;
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.Converters.Add(new EnumConverter<CardType>());
+            settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
+            settings.Converters.Add(new EnumConverter<TargetType>());
+            settings.Converters.Add(new EnumConverter<StatTag>());
+
+            Particles = Resources.LoadAll<ParticleSystem>("Particle").ToList();
+
+            var newMasterTable = Resources.Load<TextAsset>("MasterTable");
+            MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
+
+            var task = LoadScene(SceneType.Title);
         }
 
         public void Update()

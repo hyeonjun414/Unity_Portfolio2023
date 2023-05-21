@@ -12,6 +12,8 @@ namespace View
 
         public void Start()
         {
+            SoundManager.Instance.PlayBgm(true);
+            
             GameStartBtn.onClick.AsObservable().Subscribe(async _ =>
             {
                 await GameManager.Instance.GameStart();
