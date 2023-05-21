@@ -24,7 +24,6 @@ namespace Model
             Name = mc.Name;
             Desc = mc.Desc;
             Icon = mc.Icon;
-            Effect = mc.Effect;
             Tier = mc.Tier;
             Value = mc.Value;
             Cost = mc.Cost;

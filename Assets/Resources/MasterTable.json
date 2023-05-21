@@ -143,6 +143,30 @@
         }
       ],
       "Selectable": false
+    },
+    {
+      "Id"        : "Boss1",
+      "Name"      : "Boss1",
+      "Desc"      : "Boss1",
+      "Hp"        : 300,
+      "Damage"    : 20,
+      "Speed"     : 50,
+      "DropGold"  : 74,
+      "Actions"   : [
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 1,
+          "Damage": 1.2,
+          "Icon"  : "Icon_Attack"
+        },
+        {
+          "Type"  : "Ca_NormalAttack",
+          "Turn"  : 2,
+          "Damage": 4,
+          "Icon"  : "Icon_Attack"
+        }
+      ],
+      "Selectable": false
     }
   ],
   "MasterAllies"   : [
@@ -343,7 +367,6 @@
       "Name"    : "폭탄 투하",
       "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
       "Icon"    : "Card_Bomb",
-      "Effect"  : "Explosion",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -351,6 +374,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Explosion",
           "Damage": 15
         }
       ]
@@ -360,7 +384,6 @@
       "Name"    : "베기",
       "Desc"    : "적에게 <color=red>6</color>의 피해를 줍니다.",
       "Icon"    : "Card_Slash",
-      "Effect"  : "Slash",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -368,6 +391,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Slash",
           "Damage": 6
         }
       ]
@@ -377,7 +401,6 @@
       "Name"    : "사슬 던지기",
       "Desc"    : "적에게 <color=red>2</color>의 피해를 줍니다. AP를 30감소시킵니다.",
       "Icon"    : "Card_Chain",
-      "Effect"  : "Smoke",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -385,11 +408,13 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Explosion_blue",
           "Damage": 2
         },
         {
-          "Type" : "Cf_ApDown",
-          "Value": 30
+          "Type"  : "Cf_ApDown",
+          "Effect": "ApDown",
+          "Value" : 30
         }
       ]
     },
@@ -398,7 +423,6 @@
       "Name"    : "불태우기",
       "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 2턴간 5의 화상 피해를 줍니다.",
       "Icon"    : "Card_Burn",
-      "Effect"  : "Burn",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -406,6 +430,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Burn",
           "Damage": 3
         },
         {
@@ -426,15 +451,15 @@
       "Name"    : "럼주 한 병",
       "Desc"    : "체력을 <color=green>15</color> 회복합니다.",
       "Icon"    : "Card_Rum",
-      "Effect"  : "HealthUp",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
       "Cost"    : 2,
       "Function": [
         {
-          "Type" : "Cf_HpRecover",
-          "Value": 15
+          "Type"  : "Cf_HpRecover",
+          "Effect": "HealthUp",
+          "Value" : 15
         }
       ]
     },
@@ -443,7 +468,6 @@
       "Name"    : "선원 호출",
       "Desc"    : "매턴 <color=red>5</color>의 피해를 주는 선원을 <color=blue>3</color>턴간 소환합니다.",
       "Icon"    : "Card_SummonSailor",
-      "Effect"  : "Summon",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -451,6 +475,7 @@
       "Function": [
         {
           "Type"      : "Cf_SummonAlly",
+          "Effect"    : "Teleport_blue",
           "Character" : "Sailor",
           "LivingTurn": 3
         }
@@ -461,7 +486,6 @@
       "Name"    : "튕겨내기",
       "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 공격하려는 적에게 빗나감을 부여합니다.",
       "Icon"    : "Card_Parrying",
-      "Effect"  : "Slash",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -469,6 +493,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Parrying",
           "Damage": 3
         },
         {
@@ -488,7 +513,6 @@
       "Name"    : "그래플링 훅",
       "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 공격한 적을 한 칸 앞으로 이동시킵니다.",
       "Icon"    : "Card_Hook",
-      "Effect"  : "Slash",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -496,6 +520,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Hook",
           "Damage": 3
         },
         {
@@ -509,7 +534,6 @@
       "Name"    : "약탈",
       "Desc"    : "카드를 1장 뽑습니다.",
       "Icon"    : "Card_Loot",
-      "Effect"  : "Smoke",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -517,6 +541,7 @@
       "Function": [
         {
           "Type"     : "Cf_DrawCard",
+          "Effect"   : "DrawCard",
           "DrawCount": 1
         }
       ]
@@ -526,7 +551,6 @@
       "Name"    : "캐논 볼",
       "Desc"    : "모든 적에게 <color=red>10</color>의 피해를 줍니다.",
       "Icon"    : "Card_CannonBall",
-      "Effect"  : "Summon",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -534,6 +558,7 @@
       "Function": [
         {
           "Type"      : "Cf_Damage",
+          "Effect"    : "Explosion2",
           "Damage"    : 10,
           "TargetType": "All"
         }
@@ -544,7 +569,6 @@
       "Name"    : "사기 카드",
       "Desc"    : "모든 적에게 <color=red>100</color>의 피해를 줍니다.",
       "Icon"    : "Card_CannonBall",
-      "Effect"  : "Summon",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -552,6 +576,7 @@
       "Function": [
         {
           "Type"      : "Cf_Damage",
+          "Effect"    : "Explosion2",
           "Damage"    : 100,
           "TargetType": "All"
         }
@@ -562,7 +587,6 @@
       "Name"    : "권총 사격",
       "Desc"    : "대상에게 5의 피해를 줍니다.",
       "Icon"    : "Card_Shot",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -570,6 +594,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Horisontal_Hit_normal",
           "Damage": 5
         }
       ]
@@ -579,7 +604,6 @@
       "Name"    : "퀵 슬래시",
       "Desc"    : "대상에게 3의 피해를 줍니다.",
       "Icon"    : "Card_QuickSlash",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -587,6 +611,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Vertical_Slash_3_normal",
           "Damage": 3
         }
       ]
@@ -596,7 +621,6 @@
       "Name"    : "강풍",
       "Desc"    : "모든 적에게 피해를 5 주고 속도를 20 감소시킵니다.",
       "Icon"    : "Card_Wind",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -604,11 +628,13 @@
       "Function": [
         {
           "Type"      : "Cf_Damage",
+          "Effect"    : "Ground_Splash_green",
           "Damage"    : 5,
           "TargetType": "All"
         },
         {
           "Type"      : "Cf_ApDown",
+          "Effect"    : "ApDown",
           "Value"     : 30,
           "TargetType": "All"
         }
@@ -619,7 +645,6 @@
       "Name"    : "강타",
       "Desc"    : "대상을 가장 한 칸 뒤로 이동시키고, 15의 데미지를 준다.",
       "Icon"    : "Card_PowerSlash",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -627,6 +652,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "launcher",
           "Damage": 15
         },
         {
@@ -640,7 +666,6 @@
       "Name"    : "돌격",
       "Desc"    : "피해를 2 입히고 방어력을 2 얻습니다.",
       "Icon"    : "Card_Rush",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -648,6 +673,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "DrawCard",
           "Damage": 2
         },
         {
@@ -662,7 +688,6 @@
       "Name"    : "반격 준비",
       "Desc"    : "5 방어력을 얻고 3턴간 3의 데미지로 반격합니다.",
       "Icon"    : "Card_CounterReady",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -670,6 +695,7 @@
       "Function": [
         {
           "Type"      : "Cf_DefenceUp",
+          "Effect"    : "DrawCard",
           "Value"     : 5,
           "TargetType": "Hero"
         },
@@ -692,7 +718,6 @@
       "Name"    : "상처내기",
       "Desc"    : "대상에게 피해 2를 주고 2턴간 취약 2를 부여합니다.",
       "Icon"    : "Card_Injure",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -700,6 +725,7 @@
       "Function": [
         {
           "Type"  : "Cf_Damage",
+          "Effect": "Blood_splash_03",
           "Damage": 2
         },
         {
@@ -720,7 +746,6 @@
       "Name"    : "앵커 드롭",
       "Desc"    : "선택한 대상에 1턴 동안 기절을 적용합니다.",
       "Icon"    : "Card_AnchorDrop",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -728,6 +753,7 @@
       "Function": [
         {
           "Type"        : "Cf_StatusEffect",
+          "Effect"      : "Hit5",
           "StatusEffect": {
             "Type"    : "SE_Stun",
             "Turn"    : 1,
@@ -743,7 +769,6 @@
       "Name"    : "바다의 물결",
       "Desc"    : "2턴 동안 4 건강을 부여합니다.",
       "Icon"    : "Card_Wave",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -751,6 +776,7 @@
       "Function": [
         {
           "Type"        : "Cf_StatusEffect",
+          "Effect"      : "health_up",
           "StatusEffect": {
             "Type"    : "SE_Recovery",
             "Turn"    : 2,
@@ -767,7 +793,6 @@
       "Name"    : "나무 방패",
       "Desc"    : "5 방어력을 얻습니다.",
       "Icon"    : "Card_Shield",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -775,6 +800,7 @@
       "Function": [
         {
           "Type"      : "Cf_DefenceUp",
+          "Effect"    : "DrawCard",
           "Value"     : 5,
           "TargetType": "Hero"
         }
@@ -785,7 +811,6 @@
       "Name"    : "럼 부스트",
       "Desc"    : "방어력이 5 증가하고 카드 1장을 뽑습니다.",
       "Icon"    : "Card_RumBoost",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -793,6 +818,7 @@
       "Function": [
         {
           "Type"      : "Cf_DefenceUp",
+          "Effect"    : "DrawCard",
           "Value"     : 5,
           "TargetType": "Hero"
         },
@@ -807,7 +833,6 @@
       "Name"    : "갑판원 소환",
       "Desc"    : "체력이 5이고 공격력이 2인 갑판원을 소환합니다.",
       "Icon"    : "Card_Summon2",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -815,6 +840,7 @@
       "Function": [
         {
           "Type"      : "Cf_SummonAlly",
+          "Effect"    : "Slash",
           "Character" : "Sailor2",
           "LivingTurn": 999
         }
@@ -825,7 +851,6 @@
       "Name"    : "약탈",
       "Desc"    : "5골드를 얻고 카드 1장을 뽑습니다.",
       "Icon"    : "Card_Looting",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -837,6 +862,7 @@
         },
         {
           "Type"     : "Cf_DrawCard",
+          "Effect"   : "Teleport_blue",
           "DrawCount": 1
         }
       ]
@@ -846,7 +872,6 @@
       "Name"    : "혹한지",
       "Desc"    : "모든 적에게 20%의 슬로우 한 턴간 적용합니다.",
       "Icon"    : "Card_Frozen",
-      "Effect"  : "Unset",
       "CardType": "Attack",
       "Tier"    : 1,
       "Value"   : 50,
@@ -854,6 +879,7 @@
       "Function": [
         {
           "Type"        : "Cf_StatusEffect",
+          "Effect"      : "Water_Splash_11_center_big",
           "TargetType"  : "All",
           "StatusEffect": {
             "Type"    : "SE_StatBuff",
@@ -871,7 +897,6 @@
       "Name"    : "보물이다",
       "Desc"    : "카드 2장을 뽑고 방어력을 7 얻습니다.",
       "Icon"    : "Card_Treasure",
-      "Effect"  : "Unset",
       "CardType": "Magic",
       "Tier"    : 1,
       "Value"   : 50,
@@ -884,6 +909,7 @@
         },
         {
           "Type"     : "Cf_DrawCard",
+          "Effect"   : "DrawCard",
           "DrawCount": 2
         }
       ]

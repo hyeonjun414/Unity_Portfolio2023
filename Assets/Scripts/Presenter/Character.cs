@@ -223,6 +223,7 @@ namespace Presenter
 
         public Vector3 WorldPosition => View.GetPosition();
         public Vector3 CenterPos => View.CenterPos;
+        public Transform CenterPivot => View.centerPivot;
         public CharacterType CharType => Model.CharType;
 
         public async UniTask AddDefence(int value)
@@ -365,6 +366,7 @@ namespace Presenter
             {
                 stat.Dispose(this);
             }
+            StatusEffects.Clear();
         }
     }
 }

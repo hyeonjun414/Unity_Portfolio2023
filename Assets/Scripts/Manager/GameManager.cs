@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using Presenter;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using View;
 using View.StageView;
 
@@ -36,6 +35,8 @@ namespace Manager
         public Physics2DRaycaster raycaster;
         public Camera mainCam;
 
+        public List<ParticleSystem> Particles;
+
         public FloatingTextView floatingText;
         
         private void Awake()
@@ -51,8 +52,9 @@ namespace Manager
                 settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
                 settings.Converters.Add(new EnumConverter<TargetType>());
                 settings.Converters.Add(new EnumConverter<StatTag>());
-
                 
+                Particles = Resources.LoadAll<ParticleSystem>("Particle").ToList();
+
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
@@ -183,6 +185,13 @@ namespace Manager
         {
             var textInst = Instantiate(floatingText);
             textInst.SetFloatingText(str, position, textType);
+        }
+
+        public void CreateEft(string effect, Transform pivot)
+        {
+            var particle = Particles.Find(t => t.name == effect);
+            var inst = Instantiate(particle, pivot);
+            Destroy(inst.gameObject, inst.main.duration);
         }
     }
 }

@@ -3,8 +3,7 @@ using Cysharp.Threading.Tasks;
 using Manager;
 using Newtonsoft.Json.Linq;
 using Presenter;
-using View;
-
+using UnityEngine;
 namespace Model
 {
     public enum TargetType
@@ -21,11 +20,18 @@ namespace Model
     public class CardFunc
     {
         public string Type;
+        public string Effect;
         public TargetType TargetType = TargetType.Single;
-
+        
         public virtual async UniTask Activate(Character hero, Character target)
         {
             await UniTask.Yield();
+        }
+
+        public virtual void CreateEft(Transform pivot)
+        {
+            if (Effect != null)
+                GameManager.Instance.CreateEft(Effect, pivot);
         }
     }
 
@@ -41,6 +47,7 @@ namespace Model
                 foreach (var t in targetList)
                 {
                     var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
+                    CreateEft(t.CenterPivot);
                     await t.AddStatusEffect(effect);
                 }
             }
@@ -57,6 +64,7 @@ namespace Model
                 var targetList = curStage.GetTarget(target, TargetType);
                 foreach (var t in targetList)
                 {
+                    CreateEft(t.CenterPivot);
                     await hero.Attack(t, Damage);
                 }
             }
@@ -73,6 +81,7 @@ namespace Model
                 var targetList = curStage.GetTarget(target, TargetType);
                 foreach (var t in targetList)
                 {
+                    CreateEft(t.CenterPivot);
                     await t.UseAp(Value);
                 }
             }
@@ -85,6 +94,7 @@ namespace Model
         public override async UniTask Activate(Character hero, Character target)
         {
             await base.Activate(hero, target);
+            CreateEft(target.CenterPivot);
             target.HpRecover(Value);
         }
     }
@@ -99,6 +109,7 @@ namespace Model
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
             {
+                CreateEft(hero.CenterPivot);
                 await curStage.SummonAlly(Character, LivingTurn);
             }
         }
@@ -113,6 +124,7 @@ namespace Model
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
             {
+                CreateEft(target.CenterPivot);
                 await curStage.PositionSwitch(target, MoveIndex);
             }
         }
@@ -127,6 +139,7 @@ namespace Model
             var curStage = GameManager.Instance.CurStage as BattleStage;
             if (curStage != null)
             {
+                CreateEft(hero.CenterPivot);
                 await curStage.DrawCard(DrawCount);
             }
         }
@@ -143,6 +156,7 @@ namespace Model
                 var targetList = curStage.GetTarget(target, TargetType);
                 foreach (var t in targetList)
                 {
+                    CreateEft(t.CenterPivot);
                     await t.AddDefence(Value);
                 }
             }
@@ -157,6 +171,7 @@ namespace Model
         {
             if (GameManager.Instance.CurStage is BattleStage curStage)
             {
+                CreateEft(hero.CenterPivot);
                 curStage.UserGetGold(Value);
             }
         }

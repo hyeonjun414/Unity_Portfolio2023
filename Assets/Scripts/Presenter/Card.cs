@@ -221,7 +221,6 @@ namespace Presenter
         
         public async UniTask CardActivate(Character hero, Character target)
         {
-            await View.PlayCardEft(target.View);
             await Model.CardActivate(hero, target);
         }
     }
