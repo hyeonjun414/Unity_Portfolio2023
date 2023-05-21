@@ -7,11 +7,19 @@ using View;
 
 namespace Model
 {
+    public enum StageType
+    {
+        Normal,
+        Shop,
+        Boss
+    }
+    
     public class StageModel
     {
         public List<StageModel> NextStages;
+        public StageType stageType;
         
-        public StageModel(StageInfo stageInfo, MasterTable mt)
+        public StageModel(MapNodeModel mapNode, MasterTable mt)
         {
             NextStages = new List<StageModel>();
         }
@@ -26,14 +34,15 @@ namespace Model
     {
         public List<EnemyModel> Enemies = new();
 
-        public BattleStageModel(StageInfo stageInfo, float minLevelValue, float maxLevelValue, MasterTable mt) : base(stageInfo, mt)
+        public BattleStageModel(MapNodeModel mapNode, MasterTable mt) : base(
+            mapNode, mt)
         {
-            if (stageInfo is BattleStageInfo info)
+            if (mapNode.StageData is BattleStageInfo info)
             {
                 var enemyCount = Random.Range(info.MinCount, info.MaxCount + 1);
                 for (var i = 0; i < enemyCount; i++)
                 {
-                    var levelValue = Random.Range(minLevelValue, maxLevelValue);
+                    var levelValue = Random.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
                     var masterEnemy = mt.MasterEnemies.Where(t => t.Selectable).OrderBy(t => Random.value).First();
                     var enemy = new EnemyModel(masterEnemy, levelValue);
                     Enemies.Add(enemy);
@@ -54,12 +63,12 @@ namespace Model
 
     public class BossStageModel : BattleStageModel
     {
-        public BossStageModel(StageInfo stageInfo, float minLevelValue, float maxLevelValue, MasterTable mt) : base(stageInfo, minLevelValue, maxLevelValue, mt)
+        public BossStageModel(MapNodeModel mapNode, MasterTable mt) : base(mapNode, mt)
         {
-            if (stageInfo is BossStageInfo info)
+            if (mapNode.StageData is BossStageInfo info)
             {
                 var bossEnemy = mt.MasterEnemies.Find(t => t.Id == info.BossId);
-                var levelValue = Random.Range(minLevelValue, maxLevelValue);
+                var levelValue = Random.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
                 var enemy = new EnemyModel(bossEnemy, levelValue);
                 Enemies.Add(enemy);
             }
@@ -71,9 +80,9 @@ namespace Model
         public List<CardModel> SellCards = new();
         public List<ArtifactModel> SellArtifacts = new();
         
-        public ShopStageModel(StageInfo stageInfo, User user, MasterTable mt) : base(stageInfo, mt)
+        public ShopStageModel(MapNodeModel mapNode, User user, MasterTable mt) : base(mapNode, mt)
         {
-            if (stageInfo is ShopStageInfo info)
+            if (mapNode.StageData is ShopStageInfo info)
             {
                 var artifactCount = info.ArtifactCount;
                 var cardCount = info.CardCount;

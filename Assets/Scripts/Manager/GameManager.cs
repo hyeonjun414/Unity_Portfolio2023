@@ -132,21 +132,17 @@ namespace Manager
             switch (mapNode.StageData.Type)
             {
                 case nameof(BattleStageInfo):
-                    genStage = new BattleStage(new BattleStageModel(mapNode.StageData,
-                        mapNode.MinLevelValue,
-                        mapNode.MaxLevelValue,
+                    genStage = new BattleStage(new BattleStageModel(mapNode,
                         MasterTable),
                         null);
                     break;
                 case nameof(BossStageInfo):
-                    genStage = new BossStage(new BossStageModel(mapNode.StageData,
-                            mapNode.MinLevelValue,
-                            mapNode.MaxLevelValue,
+                    genStage = new BossStage(new BossStageModel(mapNode,
                             MasterTable),
                         null);
                     break;
                 case nameof(ShopStageInfo):
-                    genStage = new ShopStage(new ShopStageModel(mapNode.StageData, User, MasterTable),
+                    genStage = new ShopStage(new ShopStageModel(mapNode, User, MasterTable),
                         null);
                     break;
             }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -29,6 +30,22 @@ public class Util
 
         return (T)JsonConvert.DeserializeObject(data.ToString(), type);
     }
+
+    public static int CalcChance(double zeroToOne, List<float> tierChances)
+    {
+        var total = tierChances.Sum();
+        double curr = 0;
+        for (var index = 0; index < tierChances.Count; index++)
+        {
+            var f = tierChances[index];
+            curr += f;
+            if (zeroToOne < curr / total)
+                return index;
+        }
+
+        return 0;
+    }
+    
 }
 
 public class EnumConverter<TEnum> : JsonConverter where TEnum : struct, Enum

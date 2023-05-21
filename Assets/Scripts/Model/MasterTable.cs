@@ -34,6 +34,7 @@ namespace Model
     {
         public string Id;
         public string Name;
+        public StageType StageType;
         public JObject StageInfo;
         public bool Selectable;
     }
@@ -88,6 +89,7 @@ namespace Model
         public string EndNodeId;
         public float MinLevelValue;
         public float MaxLevelValue;
+        public List<float> StageWeight;
     }
 
     public class MasterArtifact

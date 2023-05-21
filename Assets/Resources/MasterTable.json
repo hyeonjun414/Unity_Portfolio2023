@@ -938,6 +938,7 @@
     {
       "Id"        : "Shop",
       "Name"      : "Shop",
+      "StageType" : "Shop",
       "StageInfo" : {
         "Type"         : "ShopStageInfo",
         "Icon"         : "Stage_Shop",
@@ -954,6 +955,7 @@
     {
       "Id"        : "NormalBattle",
       "Name"      : "NormalBattle",
+      "StageType" : "Normal",
       "StageInfo" : {
         "Type"    : "BattleStageInfo",
         "Icon"    : "Stage_Level1",
@@ -965,6 +967,7 @@
     {
       "Id"        : "BossBattle1",
       "Name"      : "BossBattle1",
+      "StageType" : "Boss",
       "StageInfo" : {
         "Type"  : "BossStageInfo",
         "Icon"  : "Stage_Level2",
@@ -981,7 +984,11 @@
       "MaxLevelValue": 1.2,
       "Step"         : 10,
       "Width"        : 4,
-      "EndNodeId"    : "BossBattle1"
+      "EndNodeId"    : "BossBattle1",
+      "StageWeight"  : [
+        8,
+        2
+      ]
     },
     {
       "Id"           : "Level2",
@@ -989,7 +996,12 @@
       "MinLevelValue": 1.2,
       "MaxLevelValue": 1.6,
       "Step"         : 10,
-      "Width"        : 4
+      "Width"        : 4,
+      "EndNodeId"    : "BossBattle1",
+      "StageWeight"  : [
+        8,
+        2
+      ]
     },
     {
       "Id"           : "Level3",
@@ -997,7 +1009,12 @@
       "MinLevelValue": 1.6,
       "MaxLevelValue": 2,
       "Step"         : 10,
-      "Width"        : 4
+      "Width"        : 4,
+      "EndNodeId"    : "BossBattle1",
+      "StageWeight"  : [
+        8,
+        2
+      ]
     }
   ]
 }
