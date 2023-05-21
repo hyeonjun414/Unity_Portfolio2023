@@ -14,16 +14,7 @@ namespace View
         public List<List<MapNodeView>> StageNodeViews;
         public RectTransform nodePivot;
         public RectTransform pathPivot;
-        public void Start()
-        {
-            if (GameManager.Instance == null)
-                return;
-            
-            Presenter = GameManager.Instance.CurMap;
-            Presenter.View = this;
-            Presenter.Init();
-        }
-
+        
         public void GenerateStageNodes(List<List<MapNode>> stages)
         {
             // set contents size

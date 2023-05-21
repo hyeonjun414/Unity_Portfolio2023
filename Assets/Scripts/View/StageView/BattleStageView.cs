@@ -37,20 +37,10 @@ namespace View.StageView
         public CharacterHolder characterHolder;
         
         private CharacterView _heroView;
-
-        public void Start()
+        
+        public override void SetStageView()
         {
-            if (GameManager.Instance == null) 
-                return;
-
-            Presenter = GameManager.Instance.CurStage;
-            Presenter.View = this;
-            Presenter.Init();
-
-            turnEndButton.onClick.AsObservable().Subscribe(async _ =>
-            {
-                await bsPresenter.TurnEnd();
-            });
+            turnEndButton.onClick.AsObservable().Subscribe(async _ => { await bsPresenter.TurnEnd(); });
         }
 
         public CharacterView CreateHeroView()

@@ -15,17 +15,7 @@ namespace View
         public UserDeckView userDeckView;
         public ArtifactView artifactPrefab;
         public Transform artifactPivot;
-
-        private void Start()
-        {
-            if (GameManager.Instance == null)
-                return;
-
-            Presenter = GameManager.Instance.User;
-            Presenter.View = this;
-            Presenter.Init();
-        }
-
+        
         public void SetView(User user)
         {
             Presenter = user;

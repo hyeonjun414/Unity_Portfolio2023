@@ -30,8 +30,9 @@ namespace Presenter
         {
             this.Model = model;
             this.View = view;
+            View.Presenter = this;
             gm = GameManager.Instance;
-            user = gm.User;
+            user = gm.user;
         }
 
         public virtual void Init()
@@ -83,6 +84,8 @@ namespace Presenter
             SetUser();
             SetEnemies();
             StageStart();
+
+            bsView.SetStageView();
         }
         public void SetUser()
         {

@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 using Presenter;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using View;
+using View.StageView;
 
 namespace Manager
 {
@@ -25,7 +27,7 @@ namespace Manager
         public MasterTable MasterTable;
 
         public Stage CurStage;
-        public User User;
+        public User user;
         public Map CurMap;
         public List<SceneView> scenePrefabs;
         public SceneView curScene;
@@ -54,7 +56,7 @@ namespace Manager
                 var newMasterTable = Resources.Load<TextAsset>("MasterTable");
                 MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
-                var task = CreateScene(SceneType.Title);
+                var task = LoadScene(SceneType.Title);
             }
             else
             {
@@ -76,16 +78,28 @@ namespace Manager
 
         public async UniTask GameStart()
         {
-            User = new User(new UserModel(), null, MasterTable.MasterUsers[0], MasterTable);
-            await CreateScene(SceneType.User, false);
+            await loadingScreen.FadeOut();
+            user = new User(new UserModel(), CreateScene<UserView>(SceneType.User), MasterTable.MasterUsers[0], MasterTable);
+            user.Init();
             
             var mapModel = new MapModel();
             mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
-            CurMap = new Map(mapModel, null);
-            await CreateScene(SceneType.Map);
+            CurMap = new Map(mapModel, CreateScene<MapView>(SceneType.Map));
+            CurMap.Init();
+            await loadingScreen.FadeIn();
         }
 
-        public async UniTask CreateScene(string sceneType, bool isFadeEft = true)
+        private T CreateScene<T>(string sceneName) where T : UnityEngine.Object
+        {
+            var targetView = scenePrefabs.First(t => t.name == sceneName);
+            var inst = Instantiate(targetView);
+            inst.SetParent(curScene);
+            inst.Init();
+            curScene = inst;
+            return inst as T;
+        }
+
+        public async UniTask LoadScene(string sceneType, bool isFadeEft = true)
         {
             if(isFadeEft)
                 await loadingScreen.FadeOut();
@@ -134,16 +148,19 @@ namespace Manager
                 case nameof(BattleStageInfo):
                     genStage = new BattleStage(new BattleStageModel(mapNode,
                         MasterTable),
-                        null);
+                        CreateScene<StageView>(SceneType.BattleStage));
+                    genStage.Init();
                     break;
                 case nameof(BossStageInfo):
                     genStage = new BossStage(new BossStageModel(mapNode,
                             MasterTable),
-                        null);
+                        CreateScene<StageView>(SceneType.BattleStage));
+                    genStage.Init();
                     break;
                 case nameof(ShopStageInfo):
-                    genStage = new ShopStage(new ShopStageModel(mapNode, User, MasterTable),
-                        null);
+                    genStage = new ShopStage(new ShopStageModel(mapNode, user, MasterTable),
+                        CreateScene<StageView>(SceneType.Shop));
+                    genStage.Init();
                     break;
             }
             return genStage;
@@ -157,16 +174,9 @@ namespace Manager
         }
         public async UniTask LoadStageScene(MapNode mapNode)
         {
+            await loadingScreen.FadeOut();
             CurStage = GenerateStage(mapNode.Model);
-            switch (CurStage)
-            {
-                case BattleStage:
-                    await CreateScene(SceneType.BattleStage);
-                    break;
-                case ShopStage:
-                    await CreateScene(SceneType.Shop);
-                    break;
-            }
+            await loadingScreen.FadeIn();
         }
 
         public void CreateFloatingText(string str, Vector3 position, TextType textType)

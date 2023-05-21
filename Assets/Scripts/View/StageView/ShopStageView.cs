@@ -14,17 +14,10 @@ namespace View.StageView
 
         public Transform cardPivot, artifactPivot;
         public Button quitBtn;
-
-        private void Start()
+        
+        public override void SetStageView()
         {
-            if (GameManager.Instance == null)
-                return;
-
-
-            Presenter = GameManager.Instance.CurStage;
-            Presenter.View = this;
-            Presenter.Init();
-
+            base.SetStageView();
             quitBtn.onClick.AsObservable().Subscribe(async _ => { await Presenter.StageClear(); });
         }
 

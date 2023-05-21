@@ -265,7 +265,7 @@ namespace Presenter
         public override async UniTask TakeDamage(float damage)
         {
             await base.TakeDamage(damage);
-            await GameManager.Instance.User.ActivateArtifacts(ArtifactTrigger.EnemyDamaged, this);
+            await GameManager.Instance.user.ActivateArtifacts(ArtifactTrigger.EnemyDamaged, this);
         }
 
         public override async UniTask ExecuteAction(Character target)
