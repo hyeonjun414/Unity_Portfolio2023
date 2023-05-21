@@ -1,6 +1,7 @@
 using System;
 using Manager;
 using Model;
+using Presenter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace View.StageView
 {
     public class ShopStageView : StageView
     {
+        public ShopStage Presenter; 
         public ShopCardView cardPrefab;
         public ShopArtifactView artifactPrefab;
 

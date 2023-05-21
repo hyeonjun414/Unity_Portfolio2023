@@ -559,6 +559,7 @@ namespace Presenter
         public override void Init()
         {
             base.Init();
+            ssView.Presenter = this;
             foreach (var cardModel in ssModel.SellCards)
             {
                 var card = new ShopCard(cardModel, ssView.CreateCard());
@@ -575,7 +576,7 @@ namespace Presenter
                 artifact.OnSell += BuyItem;
                 SellArtifacts.Add(artifact);
             }
-
+            ssView.SetStageView();
             
         }
 
