@@ -1504,6 +1504,7 @@ MonoBehaviour:
   defenceText: {fileID: 6663475330336830204}
   hitSound: {fileID: 8300000, guid: 3240a9a8afa9b6f44b1c293f7f67685a, type: 3}
   actionView: {fileID: 2226510754810476876}
+  waitSound: {fileID: 8300000, guid: 6429e9bbb3ccaf2429974fbf39a5348a, type: 3}
 --- !u!61 &3101787857601989900
 BoxCollider2D:
   m_ObjectHideFlags: 0

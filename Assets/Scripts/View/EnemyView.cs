@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Manager;
 using Model;
 using Presenter;
 using Scriptable;
@@ -15,6 +16,8 @@ namespace View
     public class EnemyView : CharacterView, IPointerEnterHandler, IPointerExitHandler
     {
         public CharacterActionView actionView;
+
+        public AudioClip waitSound;
         
         private float remainAttackAnimTime;
         public override void Init(Character character)
@@ -93,6 +96,7 @@ namespace View
 
         public async UniTask Wait()
         {
+            SoundManager.Instance.PlaySfx(waitSound);
             gameObject.transform.DOShakePosition(0.5f, Vector3.one * 0.2f);
             await UniTask.Delay(500);
         }

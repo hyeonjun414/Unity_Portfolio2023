@@ -10,12 +10,16 @@ namespace View
     {
         public Button GameStartBtn;
 
+        [Header("Sound")] 
+        public AudioClip btnClickSound;
+
         public void Start()
         {
             SoundManager.Instance.PlayBgm(true);
             
             GameStartBtn.onClick.AsObservable().Subscribe(async _ =>
             {
+                SoundManager.Instance.PlaySfx(btnClickSound);
                 await GameManager.Instance.GameStart();
             });
         }

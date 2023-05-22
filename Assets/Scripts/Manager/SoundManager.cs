@@ -5,6 +5,10 @@ using UnityEngine.PlayerLoop;
 
 namespace Manager
 {
+    public static class SoundType
+    {
+        public const string ButtonClick = "ButtonClick";
+    }
     public class SoundManager : MonoBehaviour
     {
         public static SoundManager Instance { get; private set; }

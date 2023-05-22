@@ -847,7 +847,10 @@ MonoBehaviour:
   Parent: {fileID: 0}
   Child: {fileID: 0}
   canvas: {fileID: 7678261100803207333}
+  canvasRect: {fileID: 0}
+  isFront: 0
   GameStartBtn: {fileID: 2967484850335885104}
+  btnClickSound: {fileID: 8300000, guid: c2df5c295e317664f93a8b3eb23f504c, type: 3}
 --- !u!1 &7678261100654601833
 GameObject:
   m_ObjectHideFlags: 0

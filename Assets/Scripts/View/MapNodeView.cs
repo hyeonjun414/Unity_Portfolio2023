@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Manager;
 using Presenter;
 using UniRx;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace View
         public Image icon;
         public Button button;
         public List<Sprite> iconSprites;
+
+        public AudioClip nodeClickSound;
         public void Init(MapNode mapNode)
         {
             Presenter = mapNode;
@@ -26,6 +29,7 @@ namespace View
             button.interactable = false;
             button.onClick.AsObservable().Subscribe(async _ =>
             {
+                SoundManager.Instance.PlaySfx(nodeClickSound);
                 await Presenter.SelectMapNode();
             });
         }
