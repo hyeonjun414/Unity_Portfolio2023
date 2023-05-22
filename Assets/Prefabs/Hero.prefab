@@ -1896,6 +1896,7 @@ MonoBehaviour:
   defenceIcon: {fileID: 2541559975588311523}
   HpText: {fileID: 7542503441906869154}
   defenceText: {fileID: 512840556316367740}
+  hitSound: {fileID: 8300000, guid: 0fc8a1f1558a4594c8d96fd75fed872f, type: 3}
 --- !u!61 &387212833609258952
 BoxCollider2D:
   m_ObjectHideFlags: 0

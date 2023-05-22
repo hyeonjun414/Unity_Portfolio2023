@@ -23565,6 +23565,9 @@ MonoBehaviour:
   mouseOverYSpacing: 70
   selectedScale: 1.4
   selectedYSpacing: 150
+  drawSound: {fileID: 8300000, guid: 6dffea54f77aa6b4c88384b2e3d5b1ba, type: 3}
+  discardSound: {fileID: 8300000, guid: 7a78d920b1c978445a6f198475a824c0, type: 3}
+  shuffleSound: {fileID: 8300000, guid: abcd0fdb0a36d3249a76274f307d7b45, type: 3}
 --- !u!1 &3096812688632402892
 GameObject:
   m_ObjectHideFlags: 0

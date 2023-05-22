@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5006838376005555513}
+  openSound: {fileID: 8300000, guid: 71ded21fe8826c6418582033fdf3a02f, type: 3}
+  closeSound: {fileID: 8300000, guid: 751b23f268edd9941b6a75c3abede043, type: 3}
 --- !u!61 &7627954789888649436
 BoxCollider2D:
   m_ObjectHideFlags: 0

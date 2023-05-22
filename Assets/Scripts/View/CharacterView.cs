@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Manager;
 using Model;
 using Presenter;
 using Scriptable;
@@ -39,8 +40,11 @@ namespace View
         public Slider HpGauge;
         public Image defenceIcon;
         public TextMeshProUGUI HpText, defenceText;
-       
 
+        [Header("Sound")] 
+        public AudioClip hitSound;
+        
+        [Header("Observer")]
         public List<IEntityObserver> Observers = new();
         
 
@@ -63,6 +67,7 @@ namespace View
         public void PlayDamageEft()
         {
             animator.SetTrigger(STR_HIT);
+            SoundManager.Instance.PlaySfx(hitSound);
         }
 
         public virtual async UniTask PrepareAttack(Vector3 targetPos)

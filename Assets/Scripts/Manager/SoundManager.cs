@@ -59,8 +59,9 @@ namespace Manager
             for (int i = 0; i < channelNum; i++)
             {
                 var inst = sfxObject.AddComponent<AudioSource>();
-                _bgmPlayer.playOnAwake = false;
-                _bgmPlayer.volume = sfxVolume;
+                inst.playOnAwake = false;
+                inst.volume = sfxVolume;
+                inst.bypassListenerEffects = true;
                 _sfxPlayers.Add(inst);
             }
         }
@@ -96,6 +97,26 @@ namespace Manager
                 _channelIndex = loopIndex;
                 _sfxPlayers[_channelIndex].clip = sfxClips.First(t => t.name == sfxName);
                 _sfxPlayers[_channelIndex].Play();
+                break;
+            } 
+        }
+
+        public void PlaySfx(AudioClip clip)
+        {
+            if (clip == null) return;
+            
+            for (int i = 0; i < _sfxPlayers.Count; i++)
+            {
+                int loopIndex = (i + _channelIndex) % _sfxPlayers.Count;
+
+                if (_sfxPlayers[loopIndex].isPlaying)
+                    continue;
+                
+                _channelIndex = loopIndex;
+                _sfxPlayers[_channelIndex].clip = clip;
+                _sfxPlayers[_channelIndex].Play();
+                print($"Play Channel : {_channelIndex}");
+                break;
             } 
         }
     }

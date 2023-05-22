@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Manager;
 using Presenter;
@@ -41,6 +43,12 @@ namespace View
         public float mouseOverYSpacing;
         public float selectedScale;
         public float selectedYSpacing;
+
+        [Header("Sound")] 
+        public AudioClip drawSound;
+        public AudioClip discardSound;
+        public AudioClip shuffleSound;
+
 
         Vector3 _targetPos;
         Quaternion _targetRot;
@@ -132,6 +140,7 @@ namespace View
             trans.SetAsFirstSibling();
             deckCards.Remove(card);
             cards.Insert(0, card);
+            SoundManager.Instance.PlaySfx(drawSound);
             UpdateCardCount();
         }
         
@@ -140,7 +149,7 @@ namespace View
             var card = cards.Find(t => t == cardView);
             cards.Remove(card);
             discardCards.Add(card);
-            
+            SoundManager.Instance.PlaySfx(discardSound);
             var trans = card.gameObject.transform;
             trans.SetParent(discardPivot);
             trans.DOMove(discardPivot.position, 0.5f).SetEase(Ease.OutExpo);
@@ -214,6 +223,11 @@ namespace View
         {
             deckCountText.text = deckCards.Count.ToString();
             discardCountText.text = discardCards.Count.ToString();
+        }
+
+        public void Shuffle()
+        {
+            SoundManager.Instance.PlaySfx(shuffleSound);
         }
     }
 }

@@ -88,9 +88,7 @@ namespace Presenter
             {
                 OnDeathEvent();
             }
-            else
-                View.PlayDamageEft();
-            
+            View.PlayDamageEft();
             View.UpdateHp(Model.CurHp, Model.MaxHp);
             await UniTask.Yield();
         }

@@ -9,6 +9,11 @@ namespace View
     public class ChestView : MonoBehaviour, IPointerClickHandler
     {
         public Animator animator;
+
+        [Header("Sound")] 
+        public AudioClip openSound;
+        public AudioClip closeSound;
+
         public void OnPointerClick(PointerEventData eventData)
         {
             var stage = GameManager.Instance.CurStage as BattleStage;
@@ -21,12 +26,14 @@ namespace View
         public async UniTask Open()
         {
             animator.SetTrigger("Open");
+            SoundManager.Instance.PlaySfx(openSound);
             await UniTask.Yield();
             await UniTask.Delay((int)(GetCurAnimationDuration() * 1000));
         }
 
         public async UniTask Close()
         {
+            SoundManager.Instance.PlaySfx(closeSound);
             await UniTask.Yield();
         }
 

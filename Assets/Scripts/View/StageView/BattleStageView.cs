@@ -111,12 +111,15 @@ namespace View.StageView
 
         public async UniTask ReturnToDeck(List<Card> deck)
         {
+            cardHolder.Shuffle();
             foreach (var card in deck)
             {
                 var cardView = card.View;
                 cardHolder.ReturnToDeck(cardView);
                 await UniTask.Delay(50);
             }
+
+            
             await UniTask.Delay(250);
         }
 

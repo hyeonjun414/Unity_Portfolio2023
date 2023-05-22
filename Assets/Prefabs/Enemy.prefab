@@ -1502,6 +1502,7 @@ MonoBehaviour:
   defenceIcon: {fileID: 8710723528422048396}
   HpText: {fileID: 6156678193403346533}
   defenceText: {fileID: 8449411536121448773}
+  hitSound: {fileID: 8300000, guid: 3240a9a8afa9b6f44b1c293f7f67685a, type: 3}
   actionView: {fileID: 2226510754810476876}
 --- !u!61 &3101787857601989900
 BoxCollider2D:
