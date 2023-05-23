@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using Manager;
+using Newtonsoft.Json;
 using Presenter;
 
 namespace Model
@@ -6,8 +9,14 @@ namespace Model
     public class GameCore
     {
         public User User;
-        public Scene Scene;
-        public Scene CurScene;
+        public List<Scene> Scenes;
+
+        public Scene CurScene => Scenes.Last();
+
+        public GameCore()
+        {
+            Scenes = new List<Scene>();
+        }
 
         public void Init()
         {
@@ -15,30 +24,28 @@ namespace Model
         
         public void Load(GameManager gameManager)
         {
-            User.Load(gameManager);
+            foreach (var scene in Scenes)
+            {
+                scene.Load(gameManager);
+                scene.SceneActive(false);
+            }
+            CurScene.SceneActive(true);
         }
-
+        
         public void OpenScene(Scene scene)
         {
-            if (Scene == null)
+            if (Scenes.Count != 0)
             {
-                Scene = scene;
-                CurScene = Scene;
-                return;
+                CurScene.SceneActive(false);
             }
-            CurScene.SetChild(scene);
-            scene.SetParent(CurScene);
-            CurScene = scene;
+            Scenes.Add(scene);
         }
 
         public void CloseCurScene()
         {
-            if (CurScene == null) return;
-
             CurScene.CloseScene();
-            CurScene = CurScene.Parent;
+            Scenes.Remove(CurScene);
             CurScene.SceneActive(true);
-            CurScene.Child = null;
         }
     }
 }

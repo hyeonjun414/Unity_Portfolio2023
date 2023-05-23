@@ -1,29 +1,30 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
-using UnityEngine;
+using Newtonsoft.Json;
 using View;
 
 namespace Presenter
 {
     public class User : Scene
     {
-        public UserModel uModel => Model as UserModel;
+        public UserModel uModel;
+        [JsonIgnore]
         public UserView uView => View as UserView;
-
         public List<Card> Cards = new();
         public List<Artifact> Artifacts = new();
         public Hero UserHero;
 
-        public User(GameManager gm, UserModel model, MasterUser mu, MasterTable mt) : base(gm, model)
+        public User()
         {
-            this.Model = model;
-            Init(mu, mt);
         }
 
+        public User(GameManager gm, UserModel model, MasterUser mu, MasterTable mt) : base(gm, model)
+        {
+            uModel = model;
+            Init(mu, mt);
+        }
         public void Init(MasterUser mu, MasterTable mt)
         {
             uModel.Init(mu, mt);
@@ -42,10 +43,9 @@ namespace Presenter
             }
         }
 
-        public void SetView(SceneView view)
+        public override void SetView(SceneView view)
         {
-            View = view;
-            View.Presenter = this;
+            base.SetView(view);
             
             foreach (var card in Cards)
             {
@@ -56,24 +56,6 @@ namespace Presenter
             {
                 artifact.SetView(uView.CreateArtifactView());
             }
-
-            uView.SetView(this);
-        }
-
-        public void Load(GameManager gameManager)
-        {
-            this.gm = gameManager;
-
-            foreach (var card in Cards)
-            {
-                card.SetView(uView.CreateDeckCard());
-            }
-
-            foreach (var artifact in Artifacts)
-            {
-                artifact.SetView(uView.CreateArtifactView());
-            }
-
             uView.SetView(this);
         }
 
@@ -110,7 +92,7 @@ namespace Presenter
 
         public bool CanUseThisCard(Card selectedCard)
         {
-            return CurEnergy >= selectedCard.GetCost();
+            return uModel.CurEnergy >= selectedCard.GetCost();
         }
 
         public void AddCard(Card card)
@@ -139,9 +121,7 @@ namespace Presenter
             }
         }
 
-        public int CurEnergy => uModel.CurEnergy;
-        public int MaxEnergy => uModel.MaxEnergy;
-        public int Gold => uModel.Gold;
+       
 
         public void AddGold(int amount)
         {

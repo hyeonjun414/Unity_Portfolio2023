@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
+using Newtonsoft.Json;
 using UnityEngine;
 using View;
 using Random = UnityEngine.Random;
@@ -18,6 +19,8 @@ namespace Presenter
     public class Character : ICharacter
     {
         public CharacterModel Model;
+
+        [JsonIgnore]
         public CharacterView View;
 
         public List<StatusEffect> StatusEffects;
@@ -224,8 +227,13 @@ namespace Presenter
             Model.RemoveBuff(statName, value);
         }
 
+        [JsonIgnore]
         public Vector3 WorldPosition => View.GetPosition();
+
+        [JsonIgnore]
         public Vector3 CenterPos => View.CenterPos;
+
+        [JsonIgnore]
         public Transform CenterPivot => View.centerPivot;
         public CharacterType CharType => Model.CharType;
 
@@ -244,12 +252,14 @@ namespace Presenter
 
     public class Enemy : Character
     {
-        public EnemyModel eModel => Model as EnemyModel;
+        public EnemyModel eModel;
+
+        [JsonIgnore]
         public EnemyView eView => View as EnemyView;
 
-        public int DropGold => eModel.DropGold;
         public Enemy(EnemyModel model) : base(model)
         {
+            eModel = model;
         }
 
         public override void Init()
@@ -308,11 +318,14 @@ namespace Presenter
 
     public class Ally : Character
     {
-        public AllyModel aModel => Model as AllyModel;
+        public AllyModel aModel;
+
+        [JsonIgnore]
         public AllyView aView => View as AllyView;
 
         public Ally(AllyModel model) : base(model)
         {
+            aModel = model;
         }
 
         public override void Init()
@@ -359,10 +372,12 @@ namespace Presenter
 
     public class Hero : Character
     {
-        public HeroModel hModel => Model as HeroModel;
+        public HeroModel hModel;
+        [JsonIgnore]
         public HeroView hView => View as HeroView;
         public Hero(HeroModel model) : base(model)
         {
+            hModel = model;
         }
 
 

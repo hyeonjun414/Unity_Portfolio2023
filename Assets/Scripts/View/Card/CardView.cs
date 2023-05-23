@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Newtonsoft.Json;
 using Presenter;
 using TMPro;
 using UnityEngine;
@@ -41,9 +42,6 @@ namespace View
         
         public virtual void SetView(Card card)
         {
-            Presenter = card;
-            Presenter.View = this;
-            
             var data = card.Model;
             Text_Name.SetText(data.Name);
             Text_Desc.SetText(data.Desc);

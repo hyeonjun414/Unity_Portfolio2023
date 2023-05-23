@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
+using Newtonsoft.Json;
 using UnityEngine;
 using View;
 
@@ -10,8 +11,14 @@ namespace Presenter
     public class MapNode
     {
         public MapNodeModel Model;
+
+        [JsonIgnore]
         public MapNodeView View;
 
+        public MapNode()
+        {
+            
+        }
         public MapNode(MapNodeModel model, MapNodeView view)
         {
             Model = model;

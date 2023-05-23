@@ -18,7 +18,7 @@ namespace View
         
         public void SetView(User user)
         {
-            userGoldView.Init(user.Gold);
+            userGoldView.Init(user.uModel.Gold);
         }
 
         public CardView CreateDeckCard()

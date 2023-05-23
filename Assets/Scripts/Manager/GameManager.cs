@@ -93,13 +93,16 @@ namespace Manager
             await loadingScreen.FadeOut();
             Title.SceneActive(false);
             GameCore = new GameCore();
+            
             GameCore.User = new User(this, new UserModel(), MasterTable.MasterUsers[0], MasterTable);
             GameCore.User.SetView(CreateSceneView(GameCore.User));
             AddScene(GameCore.User);
             
-            var mapScene = new Map(this, new MapModel(), MasterTable.MasterMaps[0], MasterTable);
-            mapScene.SetView(CreateSceneView(mapScene));
-            AddScene(mapScene);
+            var map = new Map(this, new MapModel(), MasterTable.MasterMaps[0], MasterTable);
+            map.SetView(CreateSceneView(map));
+            AddScene(map);
+
+            SaveGame();
             GameCore.Init();
             await loadingScreen.FadeIn();
         }
@@ -107,8 +110,15 @@ namespace Manager
         public async UniTask ContinueGame()
         {
             await loadingScreen.FadeOut();
+            Title.SceneActive(false);
             var saveData = PlayerPrefs.GetString("SaveData", "");
-            GameCore = JsonConvert.DeserializeObject<GameCore>(saveData);
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                TypeNameHandling = TypeNameHandling.All
+            };
+            GameCore = JsonConvert.DeserializeObject<GameCore>(saveData, settings);
             GameCore.Load(this);
             await loadingScreen.FadeIn();
         }
@@ -137,6 +147,21 @@ namespace Manager
         public void DestroyScene()
         {
             GameCore.CloseCurScene();
+            SaveGame();
+        }
+
+        public void SaveGame()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            var data = JsonConvert.SerializeObject(GameCore, settings);
+            PlayerPrefs.SetString("SaveData", data);
+            print(data);
         }
 
         public async UniTask ReturnToMain()
@@ -163,7 +188,7 @@ namespace Manager
                     genStage.SetView(CreateSceneView(genStage));
                     break;
                 case nameof(ShopStageInfo):
-                    genStage = new ShopStage(this, new ShopStageModel(mapNode, GameCore.User, MasterTable));
+                    genStage = new ShopStage(this, new ShopStageModel(mapNode, user, MasterTable));
                     genStage.SetView(CreateSceneView(genStage));
                     break;
             }

@@ -26,7 +26,7 @@ namespace View
             {
                 var cardInst = Instantiate(cardPrefabs, rewardPivot);
                 cardInstances.Add(cardInst);
-                cardInst.SetView(reward.Cards[i]);
+                reward.Cards[i].SetView(cardInst);
             }
         }
     }

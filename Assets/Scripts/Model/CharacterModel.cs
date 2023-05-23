@@ -50,8 +50,11 @@ namespace Model
         public CharacterStat BuffStats = new();
         public Dictionary<StatTag, float> StatTags = new();
 
-        private ReactiveProperty<float> _aprate = new ReactiveProperty<float>();
-        public IReadOnlyReactiveProperty<float> ApRate => _aprate;
+        public ReactiveProperty<float> ApRate = new ReactiveProperty<float>();
+
+        public CharacterModel()
+        {
+        }
 
         public CharacterModel(MasterEntity me)
         {
@@ -86,7 +89,7 @@ namespace Model
         public void AddAp(float deltaTime)
         {
             CurAp += Speed * deltaTime;
-            _aprate.Value = CurAp / MaxAp;
+            ApRate.Value = CurAp / MaxAp;
             if (CurAp >= MaxAp)
             {
                 IsReady = true;
@@ -98,14 +101,14 @@ namespace Model
         {
             CurAp = 0;
             IsReady = false;
-            _aprate.Value = CurAp / MaxAp;
+            ApRate.Value = CurAp / MaxAp;
         }
 
         public void UseAp(float value)
         {
             CurAp = Mathf.Max(CurAp - value, 0);
             IsReady = false;
-            _aprate.Value = CurAp / MaxAp;
+            ApRate.Value = CurAp / MaxAp;
         }
 
         public void HpRecover(float value)
@@ -242,6 +245,10 @@ namespace Model
 
     public class HeroModel : CharacterModel
     {
+        public HeroModel()
+        {
+        }
+
         public HeroModel(MasterEntity me) : base(me)
         {
             CharType = CharacterType.Ally;

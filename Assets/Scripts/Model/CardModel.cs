@@ -18,6 +18,10 @@ namespace Model
         public CardType CardType;
         public List<CardFunc> Function;
 
+        public CardModel()
+        {
+        }
+
         public CardModel(MasterCard mc)
         {
             Id = mc.Id;

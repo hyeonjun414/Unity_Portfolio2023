@@ -1,28 +1,32 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
-using Sirenix.Serialization;
+using Newtonsoft.Json;
 using View;
 
 namespace Presenter
 {
     public class Map : Scene
     {
-        public MapModel mModel => Model as MapModel;
+        public MapModel mModel;
+        
+        [JsonIgnore]
         public MapView mView => View as MapView;
-
         public MapNode StartNode;
         public MapNode EndNode;
         public List<List<MapNode>> MapNodes;
-
         public MapNode CurNode;
         public int CurStep;
+
+        public Map()
+        {
+        }
+        
         public Map(GameManager gm, MapModel model, MasterMap mm, MasterTable mt) : base(gm, model)
         {
+            mModel = model;
             Init(mm, mt);
         }
 
@@ -51,10 +55,10 @@ namespace Presenter
             MapNodes = stagePresenters;
         }
 
-        public void SetView(SceneView view)
+        public override void SetView(SceneView view)
         {
-            View = view;
-            View.Presenter = this;
+            base.SetView(view);
+            
             mView.GenerateStageNodes(MapNodes);
 
             for (var i = 0; i < MapNodes.Count - 1; i++)
@@ -66,7 +70,7 @@ namespace Presenter
                     foreach (var nextNode in curNode.Model.NextNodes)
                     {
                         var targetNode = MapNodes[i + 1]
-                            .FirstOrDefault(target => target != null && target.Model == nextNode);
+                            .Find(target => target != null && target.Model == nextNode);
                         if (targetNode == null) continue;
 
                         mView.GeneratePath(curNode.View, targetNode.View);
@@ -83,7 +87,7 @@ namespace Presenter
             CurNode.ClearMapNode();
             foreach (var nextNode in CurNode.Model.NextNodes)
             {
-                var targetNode = MapNodes[CurStep+1].FirstOrDefault(target => target != null && target.Model == nextNode);
+                var targetNode = MapNodes[CurStep+1].Find(target => target != null && target.Model == nextNode);
                 if (targetNode == null) continue;
 
                 mView.ActivateNextNodes(targetNode.View);

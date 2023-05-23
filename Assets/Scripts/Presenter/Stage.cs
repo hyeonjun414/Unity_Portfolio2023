@@ -108,7 +108,7 @@ namespace Presenter
             base.SetView(view);
             // user View
             user.UserHero.SetView(bsView.CreateHeroView());
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
             bsView.AddApView(user.UserHero);
             foreach (var card in Deck)
             {
@@ -153,7 +153,7 @@ namespace Presenter
             }
             else if (sender is Enemy enemy)
             {
-                UserGetGold(enemy.DropGold);
+                UserGetGold(enemy.eModel.DropGold);
                 Enemies.Remove(enemy);
                 await RemoveEntityView(enemy);
                 await CheckEnemies();
@@ -275,7 +275,7 @@ namespace Presenter
             _isHeroTurn = true;
             user.SetEnergy();
             ThisTurnUsedCardCount = 0;
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
             bsView.TurnStarted();
             await user.UserHero.PrepareAction();
             user.UserHero.EndAction();
@@ -399,7 +399,7 @@ namespace Presenter
                     break;
             }
 
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
             UnTargetEntity();
             _selectedCard = null;
         }
@@ -537,7 +537,7 @@ namespace Presenter
         public async UniTask AddEnergy(int value)
         {
             user.AddEnergy(value);
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
             await UniTask.Yield();
         }
 
@@ -614,7 +614,7 @@ namespace Presenter
 
         private void BuyArtifact(ShopArtifact artifact)
         {
-            if (user.Gold >= artifact.Model.Value)
+            if (user.uModel.Gold >= artifact.Model.Value)
             {
                 artifact.Sold();
                 user.UseGold(artifact.Model.Value);
@@ -625,7 +625,7 @@ namespace Presenter
 
         private void BuyCard(ShopCard card)
         {
-            if (user.Gold >= card.Model.Value)
+            if (user.uModel.Gold >= card.Model.Value)
             {
                 card.Sold();
                 user.UseGold(card.Model.Value);

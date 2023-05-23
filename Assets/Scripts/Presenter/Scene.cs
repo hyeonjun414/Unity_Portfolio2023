@@ -1,35 +1,39 @@
 using Manager;
 using Model;
+using Newtonsoft.Json;
 using View;
 
 namespace Presenter
 {
     public class Scene
     {
-        public Scene Parent;
-        public Scene Child;
+        public string Type;
 
         public SceneModel Model;
+        [JsonIgnore]
         public SceneView View;
-        
+
+        [JsonIgnore]
         public GameManager gm;
+
+        public Scene()
+        {
+            Type = this.GetType().Name;
+        }
 
         public Scene(GameManager gm, SceneModel model)
         {
             this.gm = gm;
             Model = model;
-        }
-        
-        public void SetParent(Scene parent)
-        {
-            Parent = parent;
-            Parent.SceneActive(false);
-        }
-        public void SetChild(Scene child)
-        {
-            Child = child;
+            Type = this.GetType().Name;
         }
 
+        public virtual void Load(GameManager gameManager)
+        {
+            gm = gameManager;
+            SetView(gm.CreateSceneView(this));
+        }
+        
         public void SceneActive(bool isActive)
         {
             View.SceneViewActive(isActive);
@@ -46,5 +50,7 @@ namespace Presenter
             View = view;
             View.Presenter = this;
         }
+
+        
     }
 }

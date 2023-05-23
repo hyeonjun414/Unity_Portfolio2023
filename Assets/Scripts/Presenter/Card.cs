@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
+using Newtonsoft.Json;
 using UnityEngine;
 using View;
 
@@ -155,6 +156,7 @@ namespace Presenter
     public class Card : Item
     {
         public CardModel Model;
+        [JsonIgnore]
         public CardView View;
 
         private ICardState _state;
