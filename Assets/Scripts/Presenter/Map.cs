@@ -10,10 +10,10 @@ using View;
 
 namespace Presenter
 {
-    public class Map
+    public class Map : Scene
     {
-        public MapModel Model;
-        public MapView View;
+        public MapModel mModel => Model as MapModel;
+        public MapView mView => View as MapView;
 
         public MapNode StartNode;
         public MapNode EndNode;
@@ -21,22 +21,22 @@ namespace Presenter
 
         public MapNode CurNode;
         public int CurStep;
-        public Map(MapModel model, MapView view)
+        public Map(GameManager gm, MapModel model, MasterMap mm, MasterTable mt) : base(gm, model)
         {
-            Model = model;
-            View = view;
+            Init(mm, mt);
         }
 
-        public void Init()
+        public void Init(MasterMap mm, MasterTable mt)
         {
-            var stages = Model.MapNodes;
+            mModel.GenerateMap(mm, mt);
+            var stages = mModel.MapNodes;
             var stagePresenters = new List<List<MapNode>>();
-            StartNode = new MapNode(Model.StartNode, null);
-            EndNode = new MapNode(Model.EndNode, null);
+            StartNode = new MapNode(mModel.StartNode, null);
+            EndNode = new MapNode(mModel.EndNode, null);
 
             CurNode = StartNode;
             CurStep = -1;
-            stages.Add(new List<MapNodeModel>(){ Model.EndNode });
+            stages.Add(new List<MapNodeModel>(){ mModel.EndNode });
             for (var i = 0; i < stages.Count; i++)
             {
                 var stageStep = new List<MapNode>();
@@ -48,12 +48,16 @@ namespace Presenter
                 }
                 stagePresenters.Add(stageStep);
             }
-
             MapNodes = stagePresenters;
+        }
 
-            View.GenerateStageNodes(MapNodes);
+        public void SetView(SceneView view)
+        {
+            View = view;
+            View.Presenter = this;
+            mView.GenerateStageNodes(MapNodes);
 
-            for (var i = 0; i < MapNodes.Count-1; i++)
+            for (var i = 0; i < MapNodes.Count - 1; i++)
             {
                 for (var j = 0; j < MapNodes[i].Count; j++)
                 {
@@ -61,17 +65,18 @@ namespace Presenter
                     if (curNode == null) continue;
                     foreach (var nextNode in curNode.Model.NextNodes)
                     {
-                        var targetNode = MapNodes[i + 1].FirstOrDefault(target => target != null && target.Model == nextNode);
+                        var targetNode = MapNodes[i + 1]
+                            .FirstOrDefault(target => target != null && target.Model == nextNode);
                         if (targetNode == null) continue;
-                        
-                        View.GeneratePath(curNode.View, targetNode.View);
+
+                        mView.GeneratePath(curNode.View, targetNode.View);
                     }
                 }
             }
 
             ActiveNextNodes();
-            
         }
+        
 
         public void ActiveNextNodes()
         {
@@ -81,7 +86,7 @@ namespace Presenter
                 var targetNode = MapNodes[CurStep+1].FirstOrDefault(target => target != null && target.Model == nextNode);
                 if (targetNode == null) continue;
 
-                View.ActivateNextNodes(targetNode.View);
+                mView.ActivateNextNodes(targetNode.View);
             }
         }
         public async UniTask SelectNode(MapNode mapNode)
@@ -95,5 +100,7 @@ namespace Presenter
             }
             await GameManager.Instance.LoadStageScene(CurNode);
         }
+
+        
     }
 }

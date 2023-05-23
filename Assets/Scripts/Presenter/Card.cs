@@ -160,16 +160,21 @@ namespace Presenter
         private ICardState _state;
 
 
-        public Card(CardModel model, CardView view)
+        public Card(CardModel model)
         {
             Model = model;
-            View = view;
+            Init();
         }
 
         public void Init()
         {
-            View.SetView(this);
             SetState(new CardNoneState());
+        }
+        public void SetView(CardView view)
+        {
+            View = view;
+            View.Presenter = this;
+            View.SetView(this);
         }
 
         public void SetState(ICardState newState)
@@ -227,7 +232,7 @@ namespace Presenter
 
     public class ShopCard : Card
     {
-        public ShopCard(CardModel model, CardView view) : base(model, view)
+        public ShopCard(CardModel model) : base(model)
         {
         }
 

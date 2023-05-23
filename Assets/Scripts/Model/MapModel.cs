@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace Model
 {
-    public class MapModel
+    public class MapModel : SceneModel
     {
         public MapNodeModel StartNode;
         public MapNodeModel EndNode;

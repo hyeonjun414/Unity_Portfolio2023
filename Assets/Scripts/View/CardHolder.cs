@@ -152,9 +152,11 @@ namespace View
             SoundManager.Instance.PlaySfx(discardSound);
             var trans = card.gameObject.transform;
             trans.SetParent(discardPivot);
-            trans.DOMove(discardPivot.position, 0.5f).SetEase(Ease.OutExpo);
-            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-10, 10)), 0.5f).SetEase(Ease.OutQuart);
-            trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo);
+            trans.DOMove(discardPivot.position, 0.5f).SetEase(Ease.OutExpo).SetLink(card.gameObject);
+            trans.DOLocalRotate(new Vector3(0, 180, Random.Range(-10, 10)), 0.5f)
+                .SetEase(Ease.OutQuart).SetLink(
+                card.gameObject);
+            trans.DOScale(0.5f, 0.5f).SetEase(Ease.OutExpo).SetLink(card.gameObject);
             UpdateCardCount();
         }
 

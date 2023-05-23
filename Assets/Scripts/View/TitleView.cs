@@ -9,6 +9,8 @@ namespace View
     public class TitleView : SceneView
     {
         public Button GameStartBtn;
+        public Button ContinueBtn;
+        public Button QuitBtn;
 
         [Header("Sound")] 
         public AudioClip btnClickSound;
@@ -20,8 +22,18 @@ namespace View
             GameStartBtn.onClick.AsObservable().Subscribe(async _ =>
             {
                 SoundManager.Instance.PlaySfx(btnClickSound);
-                await GameManager.Instance.GameStart();
+                await GameManager.Instance.StartGame();
             });
+
+            if (PlayerPrefs.HasKey("SaveData"))
+            {
+                ContinueBtn.gameObject.SetActive(true);
+                ContinueBtn.onClick.AsObservable().Subscribe(async _ =>
+                {
+                    SoundManager.Instance.PlaySfx(btnClickSound);
+                    await GameManager.Instance.ContinueGame();
+                });
+            }
         }
     }
 }

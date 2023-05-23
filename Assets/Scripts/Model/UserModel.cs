@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Model
 {
-    public class UserModel
+    public class UserModel : SceneModel
     {
         public HeroModel Hero;
         public List<CardModel> Cards = new();

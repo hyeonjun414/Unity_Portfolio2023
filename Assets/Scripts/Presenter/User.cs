@@ -2,71 +2,104 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Manager;
 using Model;
 using UnityEngine;
 using View;
 
 namespace Presenter
 {
-    public class User
+    public class User : Scene
     {
-        public UserModel Model;
-        public UserView View;
+        public UserModel uModel => Model as UserModel;
+        public UserView uView => View as UserView;
 
         public List<Card> Cards = new();
-        public List<Card> BattleCards = new();
         public List<Artifact> Artifacts = new();
         public Hero UserHero;
 
-        public User(UserModel model, UserView view, MasterUser mu, MasterTable mt)
+        public User(GameManager gm, UserModel model, MasterUser mu, MasterTable mt) : base(gm, model)
         {
             this.Model = model;
-            this.View = view;
-            Model.Init(mu, mt);
+            Init(mu, mt);
         }
 
-        public void Init()
+        public void Init(MasterUser mu, MasterTable mt)
         {
-            UserHero = new Hero(Model.Hero, null);
+            uModel.Init(mu, mt);
+            UserHero = new Hero(uModel.Hero);
 
-            foreach (var cardModel in Model.Cards)
+            foreach (var cardModel in uModel.Cards)
             {
-                var card = new Card(cardModel, null);
+                var card = new Card(cardModel);
                 Cards.Add(card);
             }
 
-            foreach (var artifactModel in Model.Artifacts)
+            foreach (var artifactModel in uModel.Artifacts)
             {
-                var artifact = new Artifact(artifactModel, null);
+                var artifact = new Artifact(artifactModel);
                 Artifacts.Add(artifact);
             }
+        }
+
+        public void SetView(SceneView view)
+        {
+            View = view;
+            View.Presenter = this;
             
-            View.SetView(this);
+            foreach (var card in Cards)
+            {
+                card.SetView(uView.CreateDeckCard());
+            }
+
+            foreach (var artifact in Artifacts)
+            {
+                artifact.SetView(uView.CreateArtifactView());
+            }
+
+            uView.SetView(this);
+        }
+
+        public void Load(GameManager gameManager)
+        {
+            this.gm = gameManager;
+
+            foreach (var card in Cards)
+            {
+                card.SetView(uView.CreateDeckCard());
+            }
+
+            foreach (var artifact in Artifacts)
+            {
+                artifact.SetView(uView.CreateArtifactView());
+            }
+
+            uView.SetView(this);
         }
 
         public List<CardModel> GetCards()
         {
-            return Model.Cards;
+            return uModel.Cards;
         }
 
         public int GetDrawCount()
         {
-            return Model.DrawCardCount;
+            return uModel.DrawCardCount;
         }
 
         public void UseEnergy(int cost)
         {
-            Model.CurEnergy -= cost;
+            uModel.CurEnergy -= cost;
         }
 
         public void AddEnergy(int value)
         {
-            Model.CurEnergy += value;
+            uModel.CurEnergy += value;
         }
 
         public void AddMaxEnergy(int value)
         {
-            Model.MaxEnergy += value;
+            uModel.MaxEnergy += value;
         }
         public async UniTask UseCard(Card card, Character target) 
         {
@@ -82,15 +115,15 @@ namespace Presenter
 
         public void AddCard(Card card)
         {
-            Model.Cards.Add(card.Model);
+            uModel.Cards.Add(card.Model);
             Cards.Add(card);
-            card.View = View.CreateDeckCard();
+            card.View = uView.CreateDeckCard();
             card.Init();
         }
 
         public void SetEnergy()
         {
-            Model.CurEnergy = Model.MaxEnergy;
+            uModel.CurEnergy = uModel.MaxEnergy;
         }
 
         public async UniTask ActivateArtifacts(ArtifactTrigger trigger, object target)
@@ -106,28 +139,28 @@ namespace Presenter
             }
         }
 
-        public int CurEnergy => Model.CurEnergy;
-        public int MaxEnergy => Model.MaxEnergy;
-        public int Gold => Model.Gold;
+        public int CurEnergy => uModel.CurEnergy;
+        public int MaxEnergy => uModel.MaxEnergy;
+        public int Gold => uModel.Gold;
 
         public void AddGold(int amount)
         {
-            var prevGold = Model.Gold;
-            Model.Gold += amount;
-            View.AddGold(prevGold, amount);
+            var prevGold = uModel.Gold;
+            uModel.Gold += amount;
+            uView.AddGold(prevGold, amount);
         }
 
         public void UseGold(int amount)
         {
-            var prevGold = Model.Gold;
-            Model.Gold -= amount;
-            View.AddGold(prevGold, -amount);
+            var prevGold = uModel.Gold;
+            uModel.Gold -= amount;
+            uView.AddGold(prevGold, -amount);
         }
 
         public void AddArtifact(Artifact artifact)
         {
-            artifact.View = View.CreateArtifactView();
-            artifact.Init(this);
+            artifact.View = uView.CreateArtifactView();
+            artifact.InitFunc(this);
             Artifacts.Add(artifact);
         }
     }

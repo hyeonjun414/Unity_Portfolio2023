@@ -18,25 +18,26 @@ namespace Presenter
         Ally,
         Enemy
     }
-    public class Stage
+    public class Stage : Scene
     {
-        public StageModel Model;
-        public StageView View;
+        public StageModel sModel => Model as StageModel;
+        public StageView sView => View as StageView;
 
-        public GameManager gm;
-        public User user;
+        public User user => gm.user;
         
-        public Stage(StageModel model, StageView view)
+        public Stage(GameManager gm, SceneModel model) : base(gm, model)
         {
-            this.Model = model;
-            this.View = view;
-            View.Presenter = this;
-            gm = GameManager.Instance;
-            user = gm.user;
+            Init();
         }
 
         public virtual void Init()
         {
+        }
+
+        public virtual void SetView(SceneView view)
+        {
+            View = view;
+            View.Presenter = this;
         }
         
         public virtual async UniTask Update()
@@ -74,54 +75,62 @@ namespace Presenter
         private bool _inCardZone;
         
 
-        public BattleStage(StageModel model, StageView view) : base(model, view)
+        public BattleStage(GameManager gm, StageModel model) : base(gm, model)
         {
         }
 
         public override void Init()
         {
             base.Init();
-            SetUser();
-            SetEnemies();
-            StageStart();
-
-            bsView.SetStageView();
-        }
-        public void SetUser()
-        {
-            user.UserHero.View = bsView.CreateHeroView();
-            user.UserHero.Init();
+            // user
             user.UserHero.OnDeath += OnDeath;
-            bsView.AddApView(user.UserHero);
             Allies.Add(user.UserHero);
-            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
             user.UserHero.UseAp();
             var userCardData = user.GetCards().OrderBy(t => Random.value).ToList();
             foreach (var cardData in userCardData)
             {
-                var card = new Card(cardData, bsView.CreateCardView());
-                card.Init();
+                var card = new Card(cardData);
                 card.SetState(new CardBattleState());
                 Deck.Add(card);
             }
-        }
-        public void SetEnemies()
-        {
+
+            // Enemy
             foreach (var enemyModel in bsModel.GetEnemies())
             {
-                var enemy = new Enemy(enemyModel, bsView.CreateEnemyView());
+                var enemy = new Enemy(enemyModel);
                 enemy.OnDeath += OnDeath;
-                enemy.Init();
                 Enemies.Add(enemy);
+            }
+        }
+
+        public override void SetView(SceneView view)
+        {
+            base.SetView(view);
+            // user View
+            user.UserHero.SetView(bsView.CreateHeroView());
+            bsView.SetEnergyText(user.CurEnergy, user.MaxEnergy);
+            bsView.AddApView(user.UserHero);
+            foreach (var card in Deck)
+            {
+                card.SetView(bsView.CreateCardView());
+            }
+
+            foreach (var enemy in Enemies)
+            {
+                enemy.SetView(bsView.CreateEnemyView());
                 bsView.AddApView(enemy);
             }
+            
+            bsView.SetStageView();
+            StageStart();
         }
         public async UniTask SummonAlly(string character, int livingTurn)
         {
             var target = gm.MasterTable.MasterAllies.FirstOrDefault(t => t.Id == character);
             if (target != null)
             {
-                var ally = new Ally(new AllyModel(target, livingTurn), bsView.CreateAllyView());
+                var ally = new Ally(new AllyModel(target, livingTurn));
+                ally.SetView(bsView.CreateAllyView());
                 await user.ActivateArtifacts(ArtifactTrigger.AllySummoned, ally);
                 ally.Init();
                 ally.OnDeath += OnDeath;
@@ -306,7 +315,7 @@ namespace Presenter
             for (var i = 0; i < 3; i++)
             {
                 var cardModel = new CardModel(cardTable[Random.Range(0, cardTable.Count)]);
-                var card = new Card(cardModel, null);
+                var card = new Card(cardModel);
                 card.SetState(new CardRewardState());
                 cards.Add(card);
             }
@@ -540,7 +549,7 @@ namespace Presenter
 
     public class BossStage : BattleStage
     {
-        public BossStage(StageModel model, StageView view) : base(model, view)
+        public BossStage(GameManager gm, StageModel model) : base(gm, model)
         {
         }
     }
@@ -552,32 +561,42 @@ namespace Presenter
         public List<ShopCard> SellCards = new();
         public List<ShopArtifact> SellArtifacts = new();
         
-        public ShopStage(StageModel model, StageView view) : base(model, view)
+        public ShopStage(GameManager gm, StageModel model) : base(gm, model)
         {
         }
 
         public override void Init()
         {
             base.Init();
-            ssView.Presenter = this;
             foreach (var cardModel in ssModel.SellCards)
             {
-                var card = new ShopCard(cardModel, ssView.CreateCard());
-                card.Init();
+                var card = new ShopCard(cardModel);
                 card.SetState(new CardShopState());
                 card.OnSell += BuyItem;
                 SellCards.Add(card);
             }
-
             foreach (var artifactModel in ssModel.SellArtifacts)
             {
-                var artifact = new ShopArtifact(artifactModel, ssView.CreateArtifact());
-                artifact.Init(null);
+                var artifact = new ShopArtifact(artifactModel);
                 artifact.OnSell += BuyItem;
                 SellArtifacts.Add(artifact);
             }
+        }
+
+        public override void SetView(SceneView view)
+        {
+            base.SetView(view);
+
+            foreach (var card in SellCards)
+            {
+                card.SetView(ssView.CreateCard());
+            }
+
+            foreach (var artifact in SellArtifacts)
+            {
+                artifact.SetView(ssView.CreateArtifact());
+            }
             ssView.SetStageView();
-            
         }
 
         public void BuyItem(object sender, EventArgs e)

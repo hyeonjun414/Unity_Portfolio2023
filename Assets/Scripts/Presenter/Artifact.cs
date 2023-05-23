@@ -10,10 +10,10 @@ namespace Presenter
         public ArtifactView View;
         public string Id => Model.Id;
     
-        public Artifact(ArtifactModel model, ArtifactView view)
+        public Artifact(ArtifactModel model)
         {
             Model = model;
-            View = view;
+            Init();
         }
 
         public async UniTask Activate(ArtifactTrigger trigger, object target)
@@ -21,16 +21,29 @@ namespace Presenter
             await Model.Activate(trigger, target);
         }
 
-        public void Init(User user)
+        public void InitFunc(User user)
         {
             Model.Init(user);
+        }
+
+        public void Init()
+        {
+            
+        }
+
+        public void SetView(ArtifactView view)
+        {
+            View = view;
+            View.Presenter = this;
             View.SetView(this);
         }
+
+        
     }
 
     public class ShopArtifact : Artifact
     {
-        public ShopArtifact(ArtifactModel model, ArtifactView view) : base(model, view)
+        public ShopArtifact(ArtifactModel model) : base(model)
         {
         }
 

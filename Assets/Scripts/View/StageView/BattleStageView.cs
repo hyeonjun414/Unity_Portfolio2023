@@ -40,6 +40,7 @@ namespace View.StageView
         
         public override void SetStageView()
         {
+            base.SetStageView();
             turnEndButton.onClick.AsObservable().Subscribe(async _ => { await bsPresenter.TurnEnd(); });
         }
 

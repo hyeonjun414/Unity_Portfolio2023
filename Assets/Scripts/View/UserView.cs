@@ -18,19 +18,7 @@ namespace View
         
         public void SetView(User user)
         {
-            Presenter = user;
-            
             userGoldView.Init(user.Gold);
-            foreach (var card in user.Cards)
-            {
-                card.View = CreateDeckCard();
-                card.Init();
-            }
-            foreach (var artifact in user.Artifacts)
-            {
-                artifact.View = CreateArtifactView();
-                artifact.Init(Presenter);
-            }
         }
 
         public CardView CreateDeckCard()

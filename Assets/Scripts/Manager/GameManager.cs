@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Presenter;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using View;
@@ -12,24 +15,18 @@ using View.StageView;
 
 namespace Manager
 {
-    public static class SceneType
-    {
-        public const string Title = "TitleView";
-        public const string Map = "MapView";
-        public const string BattleStage = "BattleStageView";
-        public const string User = "UserView";
-        public const string Shop = "ShopStageView";
-    }
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
         public MasterTable MasterTable;
 
-        public Stage CurStage;
-        public User user;
-        public Map CurMap;
+        public GameCore GameCore;
+        public Stage CurStage => GameCore.CurScene as Stage;
+        public Map CurMap => GameCore.CurScene as Map;
+        public User user => GameCore.User;
+        
         public List<SceneView> scenePrefabs;
-        public SceneView curScene;
+        public Scene Title;
         public LoadingScreenView loadingScreen;
 
         public Physics2DRaycaster raycaster;
@@ -68,7 +65,15 @@ namespace Manager
             var newMasterTable = Resources.Load<TextAsset>("MasterTable");
             MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
-            var task = LoadScene(SceneType.Title);
+            Title = new Title(this, new SceneModel());
+            var task = CreateTitle();
+        }
+
+        private async UniTask CreateTitle()
+        {
+            await loadingScreen.FadeOut();
+            Title.SetView(CreateSceneView(Title));
+            await loadingScreen.FadeIn();
         }
 
         public void Update()
@@ -83,42 +88,45 @@ namespace Manager
             }
         }
 
-        public async UniTask GameStart()
+        public async UniTask StartGame()
         {
             await loadingScreen.FadeOut();
-            user = new User(new UserModel(), CreateScene<UserView>(SceneType.User), MasterTable.MasterUsers[0], MasterTable);
-            user.Init();
+            Title.SceneActive(false);
+            GameCore = new GameCore();
+            GameCore.User = new User(this, new UserModel(), MasterTable.MasterUsers[0], MasterTable);
+            GameCore.User.SetView(CreateSceneView(GameCore.User));
+            AddScene(GameCore.User);
             
-            var mapModel = new MapModel();
-            mapModel.GenerateMap(MasterTable.MasterMaps[0], MasterTable);
-            CurMap = new Map(mapModel, CreateScene<MapView>(SceneType.Map));
-            CurMap.Init();
+            var mapScene = new Map(this, new MapModel(), MasterTable.MasterMaps[0], MasterTable);
+            mapScene.SetView(CreateSceneView(mapScene));
+            AddScene(mapScene);
+            GameCore.Init();
             await loadingScreen.FadeIn();
         }
 
-        private T CreateScene<T>(string sceneName) where T : UnityEngine.Object
+        public async UniTask ContinueGame()
         {
-            var targetView = scenePrefabs.First(t => t.name == sceneName);
+            await loadingScreen.FadeOut();
+            var saveData = PlayerPrefs.GetString("SaveData", "");
+            GameCore = JsonConvert.DeserializeObject<GameCore>(saveData);
+            GameCore.Load(this);
+            await loadingScreen.FadeIn();
+        }
+
+        public SceneView CreateSceneView(Scene scene)
+        {
+            var viewTypeName = scene.GetType().Name + "View";
+            var targetView = scenePrefabs.First(t => t.GetType().Name == viewTypeName);
             var inst = Instantiate(targetView);
-            inst.SetParent(curScene);
             inst.Init();
-            curScene = inst;
-            return inst as T;
+            return inst;
         }
 
-        public async UniTask LoadScene(string sceneType, bool isFadeEft = true)
+        public void AddScene(Scene scene)
         {
-            if(isFadeEft)
-                await loadingScreen.FadeOut();
-            var titlePrefab = scenePrefabs.First(t => t.name == sceneType);
-            var newScene = Instantiate(titlePrefab);
-            newScene.SetParent(curScene);
-            newScene.Init();
-            curScene = newScene;
-            if (isFadeEft)
-                await loadingScreen.FadeIn();
+            GameCore.OpenScene(scene);
         }
-
+        
         public async UniTask DestroyCurScene()
         {
             await loadingScreen.FadeOut();
@@ -128,23 +136,17 @@ namespace Manager
 
         public void DestroyScene()
         {
-            var destroyScene = curScene;
-            curScene = destroyScene.Parent;
-            Destroy(destroyScene.gameObject);
-            if (curScene != null)
-            {
-                curScene.gameObject.SetActive(true);
-            }
+            GameCore.CloseCurScene();
         }
 
         public async UniTask ReturnToMain()
         {
-            await loadingScreen.FadeOut();
-            while (curScene is not TitleView)
-            {
-                DestroyScene();
-            }
-            await loadingScreen.FadeIn();
+            // await loadingScreen.FadeOut();
+            // while (curScene is not TitleView)
+            // {
+            //     DestroyScene();
+            // }
+            // await loadingScreen.FadeIn();
         }
 
         public Stage GenerateStage(MapNodeModel mapNode)
@@ -153,21 +155,16 @@ namespace Manager
             switch (mapNode.StageData.Type)
             {
                 case nameof(BattleStageInfo):
-                    genStage = new BattleStage(new BattleStageModel(mapNode,
-                        MasterTable),
-                        CreateScene<StageView>(SceneType.BattleStage));
-                    genStage.Init();
+                    genStage = new BattleStage(this, new BattleStageModel(mapNode, MasterTable));
+                    genStage.SetView(CreateSceneView(genStage));
                     break;
                 case nameof(BossStageInfo):
-                    genStage = new BossStage(new BossStageModel(mapNode,
-                            MasterTable),
-                        CreateScene<StageView>(SceneType.BattleStage));
-                    genStage.Init();
+                    genStage = new BossStage(this, new BossStageModel(mapNode, MasterTable));
+                    genStage.SetView(CreateSceneView(genStage));
                     break;
                 case nameof(ShopStageInfo):
-                    genStage = new ShopStage(new ShopStageModel(mapNode, user, MasterTable),
-                        CreateScene<StageView>(SceneType.Shop));
-                    genStage.Init();
+                    genStage = new ShopStage(this, new ShopStageModel(mapNode, GameCore.User, MasterTable));
+                    genStage.SetView(CreateSceneView(genStage));
                     break;
             }
             return genStage;
@@ -182,7 +179,7 @@ namespace Manager
         public async UniTask LoadStageScene(MapNode mapNode)
         {
             await loadingScreen.FadeOut();
-            CurStage = GenerateStage(mapNode.Model);
+            GameCore.OpenScene(GenerateStage(mapNode.Model));
             await loadingScreen.FadeIn();
         }
 

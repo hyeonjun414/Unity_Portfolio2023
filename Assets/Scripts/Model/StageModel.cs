@@ -14,7 +14,7 @@ namespace Model
         Boss
     }
     
-    public class StageModel
+    public class StageModel : SceneModel
     {
         public List<StageModel> NextStages;
         public StageType stageType;

@@ -25,17 +25,22 @@ namespace Presenter
 
         public event EventHandler OnDeath;
 
-        public Character(CharacterModel model, CharacterView view)
+        public Character(CharacterModel model)
         {
             Model = model;
-            View = view;
-            StatusEffects = new List<StatusEffect>();
+            Init();
         }
 
         public virtual void Init()
         {
+            StatusEffects = new List<StatusEffect>();
+        }
+
+        public virtual void SetView(CharacterView view)
+        {
+            View = view;
+            View.Presenter = this;
             View.Init(this);
-            
         }
 
         public virtual void AddTag(StatTag tag, float value)
@@ -243,15 +248,19 @@ namespace Presenter
         public EnemyView eView => View as EnemyView;
 
         public int DropGold => eModel.DropGold;
-        public Enemy(EnemyModel model, CharacterView view) : base(model, view)
+        public Enemy(EnemyModel model) : base(model)
         {
         }
 
         public override void Init()
         {
             base.Init();
-            var task = SetAction();
             
+        }
+        public override void SetView(CharacterView view)
+        {
+            base.SetView(view);
+            var task = SetAction();
         }
 
         public async UniTask SetAction()
@@ -302,7 +311,7 @@ namespace Presenter
         public AllyModel aModel => Model as AllyModel;
         public AllyView aView => View as AllyView;
 
-        public Ally(AllyModel model, CharacterView view) : base(model, view)
+        public Ally(AllyModel model) : base(model)
         {
         }
 
@@ -352,7 +361,7 @@ namespace Presenter
     {
         public HeroModel hModel => Model as HeroModel;
         public HeroView hView => View as HeroView;
-        public Hero(HeroModel model, CharacterView view) : base(model, view)
+        public Hero(HeroModel model) : base(model)
         {
         }
 
