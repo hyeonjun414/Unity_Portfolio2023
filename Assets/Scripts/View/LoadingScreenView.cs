@@ -12,6 +12,11 @@ namespace View
     {
         [SerializeField] private Image loadingScreen;
 
+        public void Init()
+        {
+            loadingScreen.gameObject.SetActive(true);
+            loadingScreen.color = Color.black;
+        }
         public async UniTask FadeOut()
         {
             loadingScreen.DOColor(Color.black, 0.5f)

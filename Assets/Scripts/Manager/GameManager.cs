@@ -14,7 +14,8 @@ namespace Manager
     {
         public static GameManager Instance { get; private set; }
         public MasterTable MasterTable;
-
+        public IntroScene introScene;
+        
         public GameCore GameCore;
         public Stage CurStage => GameCore.CurScene as Stage;
         public Map CurMap => GameCore.CurScene as Map;
@@ -36,9 +37,12 @@ namespace Manager
         {
             if (Instance == null)
             {
+                
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                Init();
+                Application.targetFrameRate = 60;
+                introScene.StartTimeLine();
+                //Init();
             }
             else
             {
@@ -48,8 +52,6 @@ namespace Manager
 
         public void Init()
         {
-            Application.targetFrameRate = 60;
-
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.Converters.Add(new EnumConverter<CardType>());
             settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
@@ -67,7 +69,8 @@ namespace Manager
 
         private async UniTask CreateTitle()
         {
-            await loadingScreen.FadeOut();
+            loadingScreen.Init();
+            await UniTask.Delay(500);
             Title.SetView(CreateSceneView(Title));
             await loadingScreen.FadeIn();
         }
@@ -99,7 +102,6 @@ namespace Manager
             AddScene(map);
 
             SaveGame();
-            
             await loadingScreen.FadeIn();
         }
 
