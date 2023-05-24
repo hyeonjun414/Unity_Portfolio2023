@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Manager;
 using Presenter;
-using UnityEngine;
-using UnityEngine.UI;
-using View;
-
 namespace Model
 {
     public enum StageType
@@ -19,7 +16,7 @@ namespace Model
         public List<StageModel> NextStages;
         public StageType stageType;
         
-        public StageModel(MapNodeModel mapNode, MasterTable mt)
+        public StageModel()
         {
             NextStages = new List<StageModel>();
         }
@@ -34,16 +31,19 @@ namespace Model
     {
         public List<EnemyModel> Enemies = new();
 
-        public BattleStageModel(MapNodeModel mapNode, MasterTable mt) : base(
-            mapNode, mt)
+        public BattleStageModel()
+        {
+        }
+
+        public BattleStageModel(MapNodeModel mapNode, MasterTable mt)
         {
             if (mapNode.StageData is BattleStageInfo info)
             {
-                var enemyCount = Random.Range(info.MinCount, info.MaxCount + 1);
+                var enemyCount = GameManager.Instance.Rand.Range(info.MinCount, info.MaxCount + 1);// Random.Range();
                 for (var i = 0; i < enemyCount; i++)
                 {
-                    var levelValue = Random.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
-                    var masterEnemy = mt.MasterEnemies.Where(t => t.Selectable).OrderBy(t => Random.value).First();
+                    var levelValue = GameManager.Instance.Rand.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
+                    var masterEnemy = mt.MasterEnemies.Where(t => t.Selectable).OrderBy(t => GameManager.Instance.Rand.Value).First();
                     var enemy = new EnemyModel(masterEnemy, levelValue);
                     Enemies.Add(enemy);
                 }
@@ -63,12 +63,16 @@ namespace Model
 
     public class BossStageModel : BattleStageModel
     {
+        public BossStageModel()
+        {
+            
+        }
         public BossStageModel(MapNodeModel mapNode, MasterTable mt) : base(mapNode, mt)
         {
             if (mapNode.StageData is BossStageInfo info)
             {
                 var bossEnemy = mt.MasterEnemies.Find(t => t.Id == info.BossId);
-                var levelValue = Random.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
+                var levelValue = GameManager.Instance.Rand.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
                 var enemy = new EnemyModel(bossEnemy, levelValue);
                 Enemies.Add(enemy);
             }
@@ -79,8 +83,12 @@ namespace Model
     {
         public List<CardModel> SellCards = new();
         public List<ArtifactModel> SellArtifacts = new();
+
+        public ShopStageModel()
+        {
+        }
         
-        public ShopStageModel(MapNodeModel mapNode, User user, MasterTable mt) : base(mapNode, mt)
+        public ShopStageModel(MapNodeModel mapNode, User user, MasterTable mt)
         {
             if (mapNode.StageData is ShopStageInfo info)
             {
@@ -91,10 +99,10 @@ namespace Model
                 var cardList = mt.MasterCards.ToList();
                 for (var i = 0; i < cardCount; i++)
                 {
-                    var masterCard = cardList.OrderBy(t => Random.value).First();
+                    var masterCard = cardList.OrderBy(t => GameManager.Instance.Rand.Value).First();
                     if (masterCard != null)
                     {
-                        randomValue = Random.Range(0.8f, 1.2f);
+                        randomValue = GameManager.Instance.Rand.Range(0.8f, 1.2f);
                         var cardModel = new CardModel(masterCard);
                         cardModel.Value = (int)(cardModel.Value * randomValue);
                         SellCards.Add(cardModel);
@@ -110,15 +118,14 @@ namespace Model
                 }
                 for (var i = 0; i < artifactCount; i++)
                 {
-                    randomValue = Random.Range(0.8f, 1.2f);
-                    var newModel = artifactList.OrderBy(t => Random.value).FirstOrDefault();
+                    randomValue = GameManager.Instance.Rand.Range(0.8f, 1.2f);
+                    var newModel = artifactList.OrderBy(t => GameManager.Instance.Rand.Value).FirstOrDefault();
                     if (newModel != null)
                     {
                         var artifactModel = new ArtifactModel(newModel);
                         artifactModel.Value = (int)(artifactModel.Value * randomValue);
                         SellArtifacts.Add(artifactModel);
                         artifactList.Remove(newModel);
-                        Debug.Log(newModel.Name);
                     }
                 }
                 

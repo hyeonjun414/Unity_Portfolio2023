@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Random = UnityEngine.Random;
+using Manager;
+using Presenter;
 
 namespace Model
 {
@@ -19,8 +20,8 @@ namespace Model
         public List<MasterStage> NormalStageList;
         public List<MasterStage> ShopStageList;
         public List<MasterStage> BossStageList;
-
-        public void GenerateMap(MasterMap mm, MasterTable mt)
+        
+        public void GenerateMap(User user, MasterMap mm, MasterTable mt)
         {
             var step = mm.Step;
             var width = mm.Width;
@@ -39,6 +40,7 @@ namespace Model
             EndNode = new MapNodeModel(step,
                 BossStageList.Find(t => t.Id == mm.EndNodeId),MinLevelValue, MaxLevelValue);
             var mapList = new List<List<MapNodeModel>>();
+            EndNode.StageInit(user, mt);
             
             for (var i = 0; i < step; i++)
             {
@@ -50,12 +52,12 @@ namespace Model
                 mapList.Add(stepStages);
             }
             MapNodes = mapList;
-            ArrangeMap(mt);
+            ArrangeMap(user, mt);
         }
 
         public MasterStage PickRandomStage()
         {
-            var randomValue = Random.value;
+            var randomValue = GameManager.Instance.Rand.Value;
             var type = (StageType)Util.CalcChance(randomValue, StageWeight);
             switch (type)
             {
@@ -73,7 +75,7 @@ namespace Model
 
         public MasterStage PickStage(StageType type)
         {
-            var randomValue = Random.value;
+            var randomValue = GameManager.Instance.Rand.Value;
             switch (type)
             {
                 case StageType.Normal:
@@ -89,13 +91,14 @@ namespace Model
             return null;
         }
 
-        public void ArrangeMap(MasterTable mt)
+        public void ArrangeMap(User user, MasterTable mt)
         {
             var firstStepNodes = MapNodes.First();
             for (var i = 0; i < firstStepNodes.Count; i++)
             {
                 var randomStage = PickStage(StageType.Normal);
                 firstStepNodes[i] = new MapNodeModel(0, randomStage,MinLevelValue, MaxLevelValue);
+                firstStepNodes[i].StageInit(user, mt);
                 StartNode.AddNextStage(firstStepNodes[i]);
             }
 
@@ -108,7 +111,7 @@ namespace Model
                         continue;
                     for (var k = 0; k < curNode.LinkCount; k++)
                     {
-                        var rand = Random.Range(-1, 2);
+                        var rand = GameManager.Instance.Rand.Range(-1, 2);
                         
                         var moveIndex = Math.Clamp(j + rand, 0, MapNodes[i + 1].Count - 1);
 
@@ -116,6 +119,7 @@ namespace Model
                         if (MapNodes[i + 1][moveIndex] == null)
                         {
                             MapNodes[i + 1][moveIndex] = new MapNodeModel(i+1, randomStage,MinLevelValue, MaxLevelValue);
+                            MapNodes[i + 1][moveIndex].StageInit(user, mt);
                         }
                         var nextNode = MapNodes[i + 1][moveIndex];
                         curNode.AddNextStage(nextNode);

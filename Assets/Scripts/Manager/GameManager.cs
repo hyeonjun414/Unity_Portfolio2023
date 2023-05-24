@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Presenter;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using View;
-using View.StageView;
 
 namespace Manager
 {
@@ -24,6 +19,7 @@ namespace Manager
         public Stage CurStage => GameCore.CurScene as Stage;
         public Map CurMap => GameCore.CurScene as Map;
         public User user => GameCore.User;
+        public SeedRandom Rand => GameCore.Rand;
         
         public List<SceneView> scenePrefabs;
         public Scene Title;
@@ -93,7 +89,7 @@ namespace Manager
             await loadingScreen.FadeOut();
             Title.SceneActive(false);
             GameCore = new GameCore();
-            
+            GameCore.Init();
             GameCore.User = new User(this, new UserModel(), MasterTable.MasterUsers[0], MasterTable);
             GameCore.User.SetView(CreateSceneView(GameCore.User));
             AddScene(GameCore.User);
@@ -103,7 +99,7 @@ namespace Manager
             AddScene(map);
 
             SaveGame();
-            GameCore.Init();
+            
             await loadingScreen.FadeIn();
         }
 
@@ -118,6 +114,7 @@ namespace Manager
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 TypeNameHandling = TypeNameHandling.All
             };
+            print(saveData);
             GameCore = JsonConvert.DeserializeObject<GameCore>(saveData, settings);
             GameCore.Load(this);
             await loadingScreen.FadeIn();
@@ -177,18 +174,18 @@ namespace Manager
         public Stage GenerateStage(MapNodeModel mapNode)
         {
             Stage genStage = null;
-            switch (mapNode.StageData.Type)
+            switch (mapNode.StageData)
             {
-                case nameof(BattleStageInfo):
-                    genStage = new BattleStage(this, new BattleStageModel(mapNode, MasterTable));
+                case BattleStageInfo:
+                    genStage = new BattleStage(this, mapNode.stageModel);
                     genStage.SetView(CreateSceneView(genStage));
                     break;
-                case nameof(BossStageInfo):
-                    genStage = new BossStage(this, new BossStageModel(mapNode, MasterTable));
+                case BossStageInfo:
+                    genStage = new BossStage(this, mapNode.stageModel);
                     genStage.SetView(CreateSceneView(genStage));
                     break;
-                case nameof(ShopStageInfo):
-                    genStage = new ShopStage(this, new ShopStageModel(mapNode, user, MasterTable));
+                case ShopStageInfo:
+                    genStage = new ShopStage(this, mapNode.stageModel);
                     genStage.SetView(CreateSceneView(genStage));
                     break;
             }

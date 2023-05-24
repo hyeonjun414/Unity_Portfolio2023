@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Presenter;
 
 namespace Model
 {
@@ -6,6 +7,7 @@ namespace Model
     {
         public StageInfo StageData;
         public List<MapNodeModel> NextNodes;
+        public StageModel stageModel;
         public int LinkCount;
         public int Step;
 
@@ -21,6 +23,22 @@ namespace Model
             MaxLevelValue = maxLevelValue;
             if(randomStage != null)
                 StageData = Util.ToObject<StageInfo>(randomStage.StageInfo);
+        }
+
+        public void StageInit(User user, MasterTable mt)
+        {
+            switch (StageData)
+            {
+                case BattleStageInfo:
+                    stageModel = new BattleStageModel(this, mt);
+                    break;
+                case BossStageInfo:
+                    stageModel = new BossStageModel(this, mt);
+                    break;
+                case ShopStageInfo:
+                    stageModel = new ShopStageModel(this, user, mt);
+                    break;
+            }
         }
 
         public void AddNextStage(MapNodeModel node)

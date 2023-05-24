@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Manager;
 using Newtonsoft.Json.Linq;
 using Presenter;
 using UniRx;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Model
 {
@@ -179,45 +177,51 @@ namespace Model
     public class EnemyModel : CharacterModel
     {
         public int DropGold;
-        private List<JObject> _actions;
-        private CharacterAction _curAction;
+        public List<JObject> Actions;
+        public CharacterAction CurAction;
+
+        public EnemyModel()
+        {
+        }
+
         public EnemyModel(MasterEnemy me, float levelValue) : base(me)
         {
             CharType = CharacterType.Enemy;
-            _actions = me.Actions;
+            Actions = me.Actions;
             DropGold = (int)(me.DropGold * levelValue);
             Stats.Damage = Mathf.Round(Stats.Damage * levelValue);
             Stats.MaxHp = Stats.CurHp = Mathf.Round(Stats.CurHp * levelValue);
             
-            if(_actions.Count != 0)
+            if(Actions.Count != 0)
                 SetAction();
         }
 
         public void SetAction()
         {
-            _curAction = Util.ToObject<CharacterAction>(_actions[Random.Range(0, _actions.Count)]);
-            _curAction.Init(this);
+            var randValue = GameManager.Instance.Rand.Range(0, Actions.Count);
+            CurAction = Util.ToObject<CharacterAction>(Actions[randValue]);
+            CurAction.Init(this);
         }
 
         public CharacterAction GetCurAction()
         {
-            return _curAction;
+            return CurAction;
         }
     }
 
     public class AllyModel : CharacterModel
     {
-        private List<JObject> _actions;
-        private CharacterAction _curAction;
+        public List<JObject> Actions;
+        public CharacterAction CurAction;
         
         public int Turn;
         public AllyModel(MasterAlly ma, int livingTurn) : base(ma)
         {
             CharType = CharacterType.Ally;
-            _actions = ma.Actions;
+            Actions = ma.Actions;
             Turn = livingTurn;
 
-            if (_actions.Count != 0)
+            if (Actions.Count != 0)
                 SetAction();
         }
 
@@ -233,13 +237,14 @@ namespace Model
 
         public void SetAction()
         {
-            _curAction = Util.ToObject<CharacterAction>(_actions[Random.Range(0, _actions.Count)]);
-            _curAction.Init(this);
+            var randValue = GameManager.Instance.Rand.Range(0, Actions.Count);
+            CurAction = Util.ToObject<CharacterAction>(Actions[randValue]);
+            CurAction.Init(this);
         }
 
         public CharacterAction GetCurAction()
         {
-            return _curAction;
+            return CurAction;
         }
     }
 

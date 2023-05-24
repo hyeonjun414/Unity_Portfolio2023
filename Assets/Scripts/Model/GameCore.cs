@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
-using Newtonsoft.Json;
 using Presenter;
 
 namespace Model
 {
     public class GameCore
     {
+        public SeedRandom Rand;
         public User User;
         public List<Scene> Scenes;
-
+        
         public Scene CurScene => Scenes.Last();
 
         public GameCore()
@@ -20,6 +20,8 @@ namespace Model
 
         public void Init()
         {
+            Rand = new SeedRandom();
+            Rand.SetSeedFromSystemTime();
         }
         
         public void Load(GameManager gameManager)

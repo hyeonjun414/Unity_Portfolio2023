@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
 using Newtonsoft.Json;
 using UnityEngine;
 using View;
-using Random = UnityEngine.Random;
 
 namespace Presenter
 {
@@ -68,7 +66,7 @@ namespace Presenter
 
         public async UniTask Attack(Character target, int damage)
         {
-            if (Model.HitRate >= Random.value)
+            if (Model.HitRate >= GameManager.Instance.Rand.Range(0, 1f))
             {
                 if (target.FindTag(StatTag.Weak, out var weakDamage))
                 {
@@ -256,7 +254,7 @@ namespace Presenter
 
         [JsonIgnore]
         public EnemyView eView => View as EnemyView;
-
+        
         public Enemy(EnemyModel model) : base(model)
         {
             eModel = model;

@@ -28,6 +28,10 @@ namespace Model
         public ArtifactTrigger Trigger;
         public List<ArtifactFunc> Functions;
 
+        public ArtifactModel()
+        {
+        }
+        
         public ArtifactModel(MasterArtifact ma)
         {
             Id = ma.Id;
