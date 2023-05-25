@@ -160,17 +160,18 @@ namespace Manager
 
             var data = JsonConvert.SerializeObject(GameCore, settings);
             PlayerPrefs.SetString("SaveData", data);
+            PlayerPrefs.Save();
             print(data);
         }
 
         public async UniTask ReturnToMain()
         {
-            // await loadingScreen.FadeOut();
-            // while (curScene is not TitleView)
-            // {
-            //     DestroyScene();
-            // }
-            // await loadingScreen.FadeIn();
+            await loadingScreen.FadeOut();
+            SoundManager.Instance.SaveVolumeData();
+            GameCore.Reset();
+            GameCore = null;
+            Title.SceneActive(true);
+            await loadingScreen.FadeIn();
         }
 
         public Stage GenerateStage(MapNodeModel mapNode)

@@ -12,18 +12,24 @@ namespace View
         public Button ContinueBtn;
         public Button QuitBtn;
 
+        public SettingView settingView;
+
         [Header("Sound")] 
         public AudioClip btnClickSound;
 
         public void Start()
         {
+            SceneInit();
+        }
+
+        public void SceneInit()
+        {
             SoundManager.Instance.PlayBgm(true);
+
+            GameStartBtn.onClick.RemoveAllListeners();
+            ContinueBtn.onClick.RemoveAllListeners();
             
-            GameStartBtn.onClick.AsObservable().Subscribe(async _ =>
-            {
-                
-                await GameManager.Instance.StartGame();
-            });
+            GameStartBtn.onClick.AsObservable().Subscribe(async _ => { await GameManager.Instance.StartGame(); });
             QuitBtn.onClick.AsObservable().Subscribe(_ =>
             {
                 SoundManager.Instance.PlaySfx(btnClickSound);
@@ -39,6 +45,12 @@ namespace View
                     await GameManager.Instance.ContinueGame();
                 });
             }
+            else
+            {
+                ContinueBtn.gameObject.SetActive(false);
+            }
+
+            settingView.Init();
         }
 
         private void Update()
@@ -47,6 +59,11 @@ namespace View
             {
                 Quit();
             }
+        }
+
+        private void OnEnable()
+        {
+            SceneInit();
         }
 
         private void Quit()

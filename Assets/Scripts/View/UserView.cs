@@ -8,17 +8,18 @@ namespace View
 {
     public class UserView : SceneView
     {
-        public User Presenter;
-
         public CardView cardPrefab;
         public UserGoldView userGoldView;
         public UserDeckView userDeckView;
         public ArtifactView artifactPrefab;
         public Transform artifactPivot;
+
+        public SettingView settingView;
         
         public void SetView(User user)
         {
             userGoldView.Init(user.uModel.Gold);
+            settingView.Init();
         }
 
         public CardView CreateDeckCard()

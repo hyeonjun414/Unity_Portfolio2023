@@ -21,7 +21,7 @@ namespace View
             canvas.worldCamera = GameManager.Instance.mainCam;
         }
 
-        public void SceneViewActive(bool isActive)
+        public virtual void SceneViewActive(bool isActive)
         {
             if (isFront == false)
             {

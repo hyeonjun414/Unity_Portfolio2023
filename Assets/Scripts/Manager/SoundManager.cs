@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -41,6 +42,9 @@ namespace Manager
 
         private void Init()
         {
+            sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 0.5f);
+            bgmVolume = PlayerPrefs.GetFloat("BgmVolume", 0.5f);
+            
             bgmClip = Resources.LoadAll<AudioClip>("Sound/Bgm");
             sfxClips = Resources.LoadAll<AudioClip>("Sound/Sfx");
             
@@ -119,9 +123,30 @@ namespace Manager
                 _channelIndex = loopIndex;
                 _sfxPlayers[_channelIndex].clip = clip;
                 _sfxPlayers[_channelIndex].Play();
-                print($"Play Channel : {_channelIndex}");
                 break;
             } 
+        }
+
+        public void SetSfxVolume(float volume)
+        {
+            sfxVolume = volume;
+            foreach (var sfxPlayer in _sfxPlayers)
+            {
+                sfxPlayer.volume = sfxVolume;
+            }
+        }
+
+        public void SetBgmVolume(float volume)
+        {
+            bgmVolume = volume;
+            _bgmPlayer.volume = bgmVolume;
+        }
+
+        public void SaveVolumeData()
+        {
+            PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
+            PlayerPrefs.SetFloat("BgmVolume", bgmVolume);
+            PlayerPrefs.Save();
         }
     }
 }

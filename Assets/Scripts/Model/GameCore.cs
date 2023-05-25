@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
@@ -51,6 +52,18 @@ namespace Model
             CurScene.CloseScene();
             Scenes.Remove(CurScene);
             CurScene.SceneActive(true);
+        }
+
+        public void Reset()
+        {
+            SoundManager.Instance.SaveVolumeData();
+            foreach (var scene in Scenes)
+            {
+                scene.CloseScene();
+            }
+            Scenes.Clear();
+            Rand = null;
+            User = null;
         }
     }
 }
