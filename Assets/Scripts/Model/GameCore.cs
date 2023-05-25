@@ -36,11 +36,14 @@ namespace Model
         
         public void OpenScene(Scene scene)
         {
+            
             if (Scenes.Count != 0)
             {
-                CurScene.SceneActive(false);
+                if(scene.View.isModel == false)
+                    CurScene.SceneActive(false);
             }
             Scenes.Add(scene);
+            scene.SetLayerOrder(Scenes.Count);
         }
 
         public void CloseCurScene()

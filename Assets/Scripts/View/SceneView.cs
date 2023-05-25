@@ -13,13 +13,12 @@ namespace View
         public RectTransform canvasRect;
 
         public bool isFront;
-        
+        public bool isModel;
+
         public void Init()
         {
             canvasRect = canvas.GetComponent<RectTransform>();
             canvas.worldCamera = GameManager.Instance.mainCam;
-            canvas.sortingOrder = isFront ? 15 : 10;
-            
         }
 
         public void SceneViewActive(bool isActive)
@@ -33,6 +32,17 @@ namespace View
         public void DestroyScene()
         {
             Destroy(gameObject);
+        }
+
+        public void SetLayerOrder(int orderNum)
+        {
+            canvas.sortingOrder = orderNum;
+            if (isFront)
+                canvas.sortingLayerName = "Front";
+            else if (isModel)
+                canvas.sortingLayerName = "Modal";
+            else
+                canvas.sortingLayerName = "Normal";
         }
     }
 }

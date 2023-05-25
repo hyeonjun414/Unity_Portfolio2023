@@ -51,6 +51,10 @@ namespace Presenter
             View.Presenter = this;
         }
 
-        
+
+        public void SetLayerOrder(int orderNum)
+        {
+            View.SetLayerOrder(orderNum);
+        }
     }
 }
