@@ -305,6 +305,8 @@ namespace Presenter
             {
                 await HandToGrave(Hand.Last());
             }
+            user.UseAllEnergy();
+            bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
         }
 
         private void GenerateReward()
@@ -501,6 +503,8 @@ namespace Presenter
 
             _isHeroTurn = false;
             user.UserHero.hModel.UseAp();
+            user.UseAllEnergy();
+            bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
             bsView.TurnEnded();
             await user.ActivateArtifacts(ArtifactTrigger.TurnEnded, this);
             ThisTurnUsedCardCount = 0;

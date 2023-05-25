@@ -74,6 +74,11 @@ namespace Presenter
             uModel.CurEnergy -= cost;
         }
 
+        public void UseAllEnergy()
+        {
+            uModel.CurEnergy = 0;
+        }
+
         public void AddEnergy(int value)
         {
             uModel.CurEnergy += value;
