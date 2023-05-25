@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2640308600123174032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2640308600369331076}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1945630469, guid: bc65f1675896c514b9ee661d10a50bd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -178,5 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2640308600123174047}
+  inputChecker: {fileID: 2640308600369331075}
   openSound: {fileID: 8300000, guid: 2cd6e6e7357c0494484178c095f63989, type: 3}
   closeSound: {fileID: 8300000, guid: 76277213ed4b820498fc1f3088c59fd1, type: 3}

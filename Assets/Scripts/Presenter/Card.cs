@@ -71,8 +71,10 @@ namespace Presenter
         public void OnClick(Card card)
         {
             card.View.Selected(this);
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.CloseReward(card);
+            if (GameManager.Instance.GameCore.CurScene is Reward rewardScene)
+            {
+                rewardScene.RewardSelect(card);
+            }
         }
 
         public void OnHover(Card card)

@@ -8,25 +8,20 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class RewardView : MonoBehaviour
+    public class RewardView : SceneView
     {
-        public Reward Presenter;
         public Button skipButton;
 
         public Transform rewardPivot;
         public CardView cardPrefabs;
-
-        private List<CardView> cardInstances = new();
-
-        public void Init(Reward reward)
+        
+        public void SetView(Reward reward)
         {
-            Presenter = reward;
-            skipButton.onClick.AsObservable().Subscribe(async _ => { await Presenter.Close(); });
-            for (var i = 0; i < reward.Cards.Count; i++)
+            skipButton.onClick.AsObservable().Subscribe(_ => { reward.Close(); });
+            foreach (var card in reward.Cards)
             {
                 var cardInst = Instantiate(cardPrefabs, rewardPivot);
-                cardInstances.Add(cardInst);
-                reward.Cards[i].SetView(cardInst);
+                card.SetView(cardInst);
             }
         }
     }

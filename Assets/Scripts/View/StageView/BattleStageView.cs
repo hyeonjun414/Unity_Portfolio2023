@@ -27,7 +27,6 @@ namespace View.StageView
         public ChestView chestPrefab;
         public Transform doorPivot, chestPivot;
             
-        public RewardView rewardView;
         public GameOverView gameOverView;
 
         public Button turnEndButton;
@@ -133,20 +132,9 @@ namespace View.StageView
             await UniTask.Delay(50);
         }
 
-        public void OpenRewardPanel()
-        {
-            rewardView.gameObject.SetActive(true);
-        }
-
-        public void CloseRewardPanel()
-        {
-            rewardView.gameObject.SetActive(false);
-        }
-
-        public void GenerateReward(Reward reward)
+        public void GenerateChest()
         {
             Instantiate(chestPrefab, chestPivot);
-            rewardView.Init(reward);
         }
 
         public void SetEnergyText(int userCurEnergy, int userMaxEnergy)

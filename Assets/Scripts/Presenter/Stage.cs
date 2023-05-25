@@ -68,7 +68,6 @@ namespace Presenter
         public int ThisTurnUsedCardCount;
         
         private bool hasMovedToNextStage;
-        private bool rewardGiven;
 
         private bool _isHeroTurn;
         private bool _isStageClear;
@@ -287,7 +286,7 @@ namespace Presenter
         {
             if (Model is BattleStageModel sn && !sn.AreAllEnemiesDead()) return;
 
-            GenerateReward();
+            GenerateChest();
             await BattleEnd();
             GenerateDoor();
         }
@@ -309,21 +308,9 @@ namespace Presenter
             bsView.SetEnergyText(user.uModel.CurEnergy, user.uModel.MaxEnergy);
         }
 
-        private void GenerateReward()
+        private void GenerateChest()
         {
-            var data = new RewardModel();
-            var cards = new List<Card>();
-            var cardTable = gm.MasterTable.MasterCards;
-            for (var i = 0; i < 3; i++)
-            {
-                var cardModel = new CardModel(cardTable[Random.Range(0, cardTable.Count)]);
-                var card = new Card(cardModel);
-                card.SetState(new CardRewardState());
-                cards.Add(card);
-            }
-            _reward = new Reward(null);
-            _reward.Init(cards);
-            bsView.GenerateReward(_reward);
+            bsView.GenerateChest();
         }
 
         private void GenerateDoor()
@@ -377,8 +364,7 @@ namespace Presenter
             Hand.Remove(card);
             await bsView.DiscardCard(card);
         }
-
-
+        
         private async UniTask UseCard()
         {
             bsView.CardUnSelected(_selectedCard.View);
@@ -465,35 +451,20 @@ namespace Presenter
 
         public async UniTask OpenReward(ChestView chest)
         {
-            if (rewardGiven) return;
-
             await chest.Open();
-            OpenRewardPanel();
+            
+            var rewardScene = new Reward(new RewardModel());
+            rewardScene.SetView(gm.CreateSceneView(rewardScene));
+            gm.GameCore.OpenScene(rewardScene);
+            await rewardScene.Wait();
+            
+            if (rewardScene.rewardSelected)
+                await chest.DestroyView();
+            else
+                await chest.Close();
         }
 
-        public async UniTask CloseReward(Card card)
-        {
-            if (card != null)
-            {
-                user.AddCard(card);
-                rewardGiven = true;
-            }
-
-            CloseRewardPanel();
-
-            await UniTask.Yield();
-        }
-
-        private void CloseRewardPanel()
-        {
-            bsView.CloseRewardPanel();
-        }
-
-        private void OpenRewardPanel()
-        {
-            bsView.OpenRewardPanel();
-        }
-
+        
         public async UniTask TurnEnd()
         {
             for (int i = Hand.Count-1; i >= 0; i--)

@@ -493,6 +493,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   canvasRect: {fileID: 0}
   isFront: 0
+  isModel: 0
   director: {fileID: 420676591}
   inputChecker: {fileID: 420676594}
   loadingImage: {fileID: 1703835333}
@@ -920,6 +921,7 @@ MonoBehaviour:
   - {fileID: 7678261100617552132, guid: 8c0909ff542d0e24ca335b1e159f31e9, type: 3}
   - {fileID: 8348515522833527283, guid: fae1bcbc7280d5c4f9ef6825a3f26518, type: 3}
   - {fileID: 2843650090922797347, guid: ee2a5befd75bd654bb0514230943f9a4, type: 3}
+  - {fileID: 2034810233274295167, guid: cbaf8db3a3a122b4ab7c5d99cc1bf5dc, type: 3}
   loadingScreen: {fileID: 2098395159}
   raycaster: {fileID: 530203834}
   mainCam: {fileID: 530203830}
@@ -2057,8 +2059,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 15
+  m_SortingLayerID: -2090473047
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &2098395158
 RectTransform:
