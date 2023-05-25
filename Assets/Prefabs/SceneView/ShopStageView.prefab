@@ -577,6 +577,7 @@ MonoBehaviour:
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   isFront: 0
+  isModel: 0
   cardPrefab: {fileID: 3218500856460828848, guid: 12dcefe6ea6bf8542a54f29733823c9b, type: 3}
   artifactPrefab: {fileID: 2816540146541296404, guid: b57477da1e9488e45a51f965b71f56f5, type: 3}
   cardPivot: {fileID: 41326328383163985}
