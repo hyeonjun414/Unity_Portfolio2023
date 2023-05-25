@@ -27,10 +27,12 @@ namespace Model
         
         public void Load(GameManager gameManager)
         {
-            foreach (var scene in Scenes)
+            for (int i = 0; i < Scenes.Count; i++)
             {
+                var scene = Scenes[i];
                 scene.Load(gameManager);
                 scene.SceneActive(false);
+                scene.SetLayerOrder(i);
             }
             CurScene.SceneActive(true);
         }
