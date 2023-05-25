@@ -14,16 +14,16 @@ namespace Presenter
         public SceneView View;
 
         [JsonIgnore]
-        public GameManager gm;
+        protected GameManager gm;
 
         public Scene()
         {
             Type = this.GetType().Name;
         }
 
-        public Scene(GameManager gm, SceneModel model)
+        public Scene(SceneModel model)
         {
-            this.gm = gm;
+            this.gm = GameManager.Instance;
             Model = model;
             Type = this.GetType().Name;
         }

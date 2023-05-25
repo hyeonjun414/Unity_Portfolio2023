@@ -574,8 +574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c55bd03e5599a44b3175a60b7c9eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
-  Child: {fileID: 0}
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   isFront: 0

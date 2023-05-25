@@ -21,7 +21,7 @@ namespace Model
         public List<MasterStage> ShopStageList;
         public List<MasterStage> BossStageList;
         
-        public void GenerateMap(User user, MasterMap mm, MasterTable mt)
+        public void GenerateMap(MasterMap mm, MasterTable mt)
         {
             var step = mm.Step;
             var width = mm.Width;
@@ -40,7 +40,7 @@ namespace Model
             EndNode = new MapNodeModel(step,
                 BossStageList.Find(t => t.Id == mm.EndNodeId),MinLevelValue, MaxLevelValue);
             var mapList = new List<List<MapNodeModel>>();
-            EndNode.StageInit(user, mt);
+            EndNode.StageInit(mt);
             
             for (var i = 0; i < step; i++)
             {
@@ -52,7 +52,7 @@ namespace Model
                 mapList.Add(stepStages);
             }
             MapNodes = mapList;
-            ArrangeMap(user, mt);
+            ArrangeMap(mt);
         }
 
         public MasterStage PickRandomStage()
@@ -91,14 +91,14 @@ namespace Model
             return null;
         }
 
-        public void ArrangeMap(User user, MasterTable mt)
+        public void ArrangeMap(MasterTable mt)
         {
             var firstStepNodes = MapNodes.First();
             for (var i = 0; i < firstStepNodes.Count; i++)
             {
                 var randomStage = PickStage(StageType.Normal);
                 firstStepNodes[i] = new MapNodeModel(0, randomStage,MinLevelValue, MaxLevelValue);
-                firstStepNodes[i].StageInit(user, mt);
+                firstStepNodes[i].StageInit(mt);
                 StartNode.AddNextStage(firstStepNodes[i]);
             }
 
@@ -119,7 +119,7 @@ namespace Model
                         if (MapNodes[i + 1][moveIndex] == null)
                         {
                             MapNodes[i + 1][moveIndex] = new MapNodeModel(i+1, randomStage,MinLevelValue, MaxLevelValue);
-                            MapNodes[i + 1][moveIndex].StageInit(user, mt);
+                            MapNodes[i + 1][moveIndex].StageInit(mt);
                         }
                         var nextNode = MapNodes[i + 1][moveIndex];
                         curNode.AddNextStage(nextNode);

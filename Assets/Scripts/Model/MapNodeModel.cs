@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Manager;
 using Presenter;
 
 namespace Model
@@ -25,7 +26,7 @@ namespace Model
                 StageData = Util.ToObject<StageInfo>(randomStage.StageInfo);
         }
 
-        public void StageInit(User user, MasterTable mt)
+        public void StageInit(MasterTable mt)
         {
             switch (StageData)
             {
@@ -36,6 +37,7 @@ namespace Model
                     stageModel = new BossStageModel(this, mt);
                     break;
                 case ShopStageInfo:
+                    var user = GameManager.Instance.user;
                     stageModel = new ShopStageModel(this, user, mt);
                     break;
             }

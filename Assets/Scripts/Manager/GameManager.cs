@@ -63,7 +63,7 @@ namespace Manager
             var newMasterTable = Resources.Load<TextAsset>("MasterTable");
             MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
-            Title = new Title(this, new SceneModel());
+            Title = new Title(new SceneModel());
             var task = CreateTitle();
         }
 
@@ -93,11 +93,11 @@ namespace Manager
             Title.SceneActive(false);
             GameCore = new GameCore();
             GameCore.Init();
-            GameCore.User = new User(this, new UserModel(), MasterTable.MasterUsers[0], MasterTable);
+            GameCore.User = new User(new UserModel(), MasterTable.MasterUsers[0], MasterTable);
             GameCore.User.SetView(CreateSceneView(GameCore.User));
             AddScene(GameCore.User);
             
-            var map = new Map(this, new MapModel(), MasterTable.MasterMaps[0], MasterTable);
+            var map = new Map(new MapModel(), MasterTable.MasterMaps[0], MasterTable);
             map.SetView(CreateSceneView(map));
             AddScene(map);
 
@@ -179,15 +179,15 @@ namespace Manager
             switch (mapNode.StageData)
             {
                 case BattleStageInfo:
-                    genStage = new BattleStage(this, mapNode.stageModel);
+                    genStage = new BattleStage(mapNode.stageModel);
                     genStage.SetView(CreateSceneView(genStage));
                     break;
                 case BossStageInfo:
-                    genStage = new BossStage(this, mapNode.stageModel);
+                    genStage = new BossStage(mapNode.stageModel);
                     genStage.SetView(CreateSceneView(genStage));
                     break;
                 case ShopStageInfo:
-                    genStage = new ShopStage(this, mapNode.stageModel);
+                    genStage = new ShopStage(mapNode.stageModel);
                     genStage.SetView(CreateSceneView(genStage));
                     break;
             }

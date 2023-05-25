@@ -25,7 +25,7 @@ namespace Presenter
 
         public User user => gm.user;
         
-        public Stage(GameManager gm, SceneModel model) : base(gm, model)
+        public Stage(SceneModel model) : base(model)
         {
             Init();
         }
@@ -75,7 +75,7 @@ namespace Presenter
         private bool _inCardZone;
         
 
-        public BattleStage(GameManager gm, StageModel model) : base(gm, model)
+        public BattleStage(StageModel model) : base(model)
         {
         }
 
@@ -319,7 +319,7 @@ namespace Presenter
                 card.SetState(new CardRewardState());
                 cards.Add(card);
             }
-            _reward = new Reward(data, null);
+            _reward = new Reward(null);
             _reward.Init(cards);
             bsView.GenerateReward(_reward);
         }
@@ -549,7 +549,7 @@ namespace Presenter
 
     public class BossStage : BattleStage
     {
-        public BossStage(GameManager gm, StageModel model) : base(gm, model)
+        public BossStage(StageModel model) : base(model)
         {
         }
     }
@@ -561,7 +561,7 @@ namespace Presenter
         public List<ShopCard> SellCards = new();
         public List<ShopArtifact> SellArtifacts = new();
         
-        public ShopStage(GameManager gm, StageModel model) : base(gm, model)
+        public ShopStage(StageModel model) : base(model)
         {
         }
 

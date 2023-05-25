@@ -20,7 +20,7 @@ namespace Presenter
         {
         }
 
-        public User(GameManager gm, UserModel model, MasterUser mu, MasterTable mt) : base(gm, model)
+        public User(UserModel model, MasterUser mu, MasterTable mt) : base(model)
         {
             uModel = model;
             Init(mu, mt);

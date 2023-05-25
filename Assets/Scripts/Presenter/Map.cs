@@ -24,15 +24,15 @@ namespace Presenter
         {
         }
         
-        public Map(GameManager gm, MapModel model, MasterMap mm, MasterTable mt) : base(gm, model)
+        public Map(MapModel model, MasterMap mm, MasterTable mt) : base(model)
         {
             mModel = model;
-            Init(gm.GameCore.User, mm, mt);
+            Init(mm, mt);
         }
 
-        public void Init(User user, MasterMap mm, MasterTable mt)
+        public void Init(MasterMap mm, MasterTable mt)
         {
-            mModel.GenerateMap(user, mm, mt);
+            mModel.GenerateMap(mm, mt);
             var stages = mModel.MapNodes;
             var stagePresenters = new List<List<MapNode>>();
             StartNode = new MapNode(mModel.StartNode, null);
