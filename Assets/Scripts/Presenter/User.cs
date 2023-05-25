@@ -139,7 +139,7 @@ namespace Presenter
 
         public void AddArtifact(Artifact artifact)
         {
-            artifact.View = uView.CreateArtifactView();
+            artifact.SetView(uView.CreateArtifactView());
             artifact.InitFunc(this);
             Artifacts.Add(artifact);
         }

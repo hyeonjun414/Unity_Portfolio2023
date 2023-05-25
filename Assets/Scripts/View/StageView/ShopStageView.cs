@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
 using Presenter;
@@ -10,7 +11,6 @@ namespace View.StageView
 {
     public class ShopStageView : StageView
     {
-        public ShopStage Presenter; 
         public ShopCardView cardPrefab;
         public ShopArtifactView artifactPrefab;
 
@@ -20,7 +20,16 @@ namespace View.StageView
         public override void SetStageView()
         {
             base.SetStageView();
-            quitBtn.onClick.AsObservable().Subscribe(async _ => { await Presenter.StageClear(); });
+            quitBtn.onClick.AsObservable().Subscribe(async _ => { await OnQuitBtn(); });
+        }
+
+        public async UniTask OnQuitBtn()
+        {
+            if (Presenter is ShopStage shopPresenter)
+            {
+                await shopPresenter.StageClear();
+            }
+            
         }
 
         public CardView CreateCard()
