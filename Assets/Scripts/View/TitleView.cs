@@ -21,8 +21,13 @@ namespace View
             
             GameStartBtn.onClick.AsObservable().Subscribe(async _ =>
             {
-                SoundManager.Instance.PlaySfx(btnClickSound);
+                
                 await GameManager.Instance.StartGame();
+            });
+            QuitBtn.onClick.AsObservable().Subscribe(_ =>
+            {
+                SoundManager.Instance.PlaySfx(btnClickSound);
+                Quit();
             });
 
             if (PlayerPrefs.HasKey("SaveData"))
@@ -34,6 +39,23 @@ namespace View
                     await GameManager.Instance.ContinueGame();
                 });
             }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Quit();
+            }
+        }
+
+        private void Quit()
+        {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
         }
     }
 }
