@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Model;
+using Newtonsoft.Json;
 using View;
 
 namespace Presenter
@@ -7,6 +8,7 @@ namespace Presenter
     public class Artifact : Item
     {
         public ArtifactModel Model;
+        [JsonIgnore]
         public ArtifactView View;
         public string Id => Model.Id;
     
@@ -28,7 +30,7 @@ namespace Presenter
 
         public void Init()
         {
-            
+            SetState();
         }
 
         public void SetView(ArtifactView view)
@@ -37,8 +39,6 @@ namespace Presenter
             View.Presenter = this;
             View.SetView(this);
         }
-
-        
     }
 
     public class ShopArtifact : Artifact
