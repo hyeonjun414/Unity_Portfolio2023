@@ -504,7 +504,7 @@ namespace Presenter
             var targetList = character is Enemy ? Enemies : Allies;
             targetIdx = targetList.IndexOf(character);
             if (targetIdx == -1) return;
-            moveIdx = Math.Clamp(targetIdx + moveIndex, 0, targetList.Count);
+            moveIdx = Math.Clamp(targetIdx + moveIndex, 0, targetList.Count-1);
             tempTarget = targetList[targetIdx];
             targetList[targetIdx] = targetList[moveIdx];
             targetList[moveIdx] = tempTarget;
@@ -548,14 +548,13 @@ namespace Presenter
             foreach (var cardModel in ssModel.SellCards)
             {
                 var card = new ShopCard(cardModel);
-                card.SetState(new CardShopState());
-                card.OnSell += BuyItem;
+                card.State.OnClickAction += () => BuyItem(card);
                 SellCards.Add(card);
             }
             foreach (var artifactModel in ssModel.SellArtifacts)
             {
                 var artifact = new ShopArtifact(artifactModel);
-                artifact.OnSell += BuyItem;
+                artifact.State.OnClickAction += () => BuyItem(artifact);
                 SellArtifacts.Add(artifact);
             }
         }
@@ -576,7 +575,7 @@ namespace Presenter
             ssView.SetStageView();
         }
 
-        public void BuyItem(object sender, EventArgs e)
+        public void BuyItem(Item sender)
         {
             switch (sender)
             {
@@ -596,7 +595,7 @@ namespace Presenter
                 artifact.Sold();
                 user.UseGold(artifact.Model.Value);
                 user.AddArtifact(artifact);
-                artifact.OnSell -= BuyItem;
+                artifact.SetState();
             }
         }
 
@@ -607,7 +606,7 @@ namespace Presenter
                 card.Sold();
                 user.UseGold(card.Model.Value);
                 user.AddCard(card);
-                card.OnSell -= BuyItem;
+                card.SetState();
             }
         }
     }
