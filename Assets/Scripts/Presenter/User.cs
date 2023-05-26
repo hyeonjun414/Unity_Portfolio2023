@@ -104,7 +104,7 @@ namespace Presenter
         {
             uModel.Cards.Add(card.Model);
             Cards.Add(card);
-            card.View = uView.CreateDeckCard();
+            card.SetView(uView.CreateDeckCard());
             card.Init();
         }
 
