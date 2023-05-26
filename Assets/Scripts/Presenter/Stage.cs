@@ -433,13 +433,15 @@ namespace Presenter
         
         public void SelectCard(Card card)
         {
-            Debug.Log("Card click");
+            if (_selectedCard != null) return;
             _selectedCard = card;
             bsView.CardSelected(card.View);
         }
 
         public void UnSelectCard(Card card)
         {
+            if (_selectedCard == null) return;
+            
             if (user.CanUseThisCard(_selectedCard))
             {
                 var task = UseCard();
