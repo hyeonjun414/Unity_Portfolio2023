@@ -181,15 +181,13 @@ namespace Presenter
             await user.ActivateArtifacts(ArtifactTrigger.BattleStarted, this);
             while (!_isStageClear)
             {
-                await UniTask.Yield();
                 if (_isHeroTurn)
-                {
-                    continue;
-                }
+                    await UniTask.WaitUntil(() => _isHeroTurn == false);
                 else
                 {
                     await AddEntityAp();
                 }
+                    
             }
         }
 
@@ -266,7 +264,6 @@ namespace Presenter
             }
 
             await UniTask.Yield();
-
         }
 
         public async UniTask StartUserTurn()
@@ -293,6 +290,7 @@ namespace Presenter
 
         private async UniTask BattleEnd()
         {
+            _isStageClear = true;
             user.UserHero.ResetStat();
             foreach (var ally in Allies.Where(ally => ally is not Hero))
             {

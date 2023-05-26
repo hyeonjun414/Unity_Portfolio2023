@@ -397,6 +397,24 @@
       ]
     },
     {
+      "Id"      : "방어",
+      "Name"    : "방어",
+      "Desc"    : "5 방어력을 얻습니다.",
+      "Icon"    : "Card_Shield",
+      "CardType": "Magic",
+      "Tier"    : 1,
+      "Value"   : 50,
+      "Cost"    : 1,
+      "Function": [
+        {
+          "Type"      : "Cf_DefenceUp",
+          "Effect"    : "DrawCard",
+          "Value"     : 5,
+          "TargetType": "Hero"
+        }
+      ]
+    },
+    {
       "Id"      : "사슬 던지기",
       "Name"    : "사슬 던지기",
       "Desc"    : "적에게 <color=red>2</color>의 피해를 줍니다. AP를 30감소시킵니다.",
@@ -789,24 +807,6 @@
       ]
     },
     {
-      "Id"      : "나무 방패",
-      "Name"    : "나무 방패",
-      "Desc"    : "5 방어력을 얻습니다.",
-      "Icon"    : "Card_Shield",
-      "CardType": "Magic",
-      "Tier"    : 1,
-      "Value"   : 50,
-      "Cost"    : 1,
-      "Function": [
-        {
-          "Type"      : "Cf_DefenceUp",
-          "Effect"    : "DrawCard",
-          "Value"     : 5,
-          "TargetType": "Hero"
-        }
-      ]
-    },
-    {
       "Id"      : "럼 부스트",
       "Name"    : "럼 부스트",
       "Desc"    : "방어력이 5 증가하고 카드 1장을 뽑습니다.",
@@ -917,27 +917,6 @@
   ],
   "MasterUsers"    : [
     {
-      "Id"           : "Test",
-      "Name"         : "Test",
-      "Desc"         : "Normal",
-      "Hero"         : "Hero",
-      "DrawCardCount": 5,
-      "InitGold"     : 50,
-      "Energy"       : 5,
-      "Artifacts"    : [],
-      "Cards"        : [
-        "사기 카드",
-        "선원 호출",
-        "앵커 드롭",
-        "바다의 물결",
-        "폭탄 투하",
-        "베기",
-        "폭탄 투하",
-        "폭탄 투하",
-        "폭탄 투하"
-      ]
-    },
-    {
       "Id"           : "Char1",
       "Name"         : "Char1",
       "Desc"         : "Normal",
@@ -957,6 +936,27 @@
         "방어",
         "방어",
         "방어"
+      ]
+    },
+    {
+      "Id"           : "Test",
+      "Name"         : "Test",
+      "Desc"         : "Normal",
+      "Hero"         : "Hero",
+      "DrawCardCount": 5,
+      "InitGold"     : 50,
+      "Energy"       : 5,
+      "Artifacts"    : [],
+      "Cards"        : [
+        "사기 카드",
+        "선원 호출",
+        "앵커 드롭",
+        "바다의 물결",
+        "폭탄 투하",
+        "베기",
+        "폭탄 투하",
+        "폭탄 투하",
+        "폭탄 투하"
       ]
     }
   ],
@@ -1008,8 +1008,8 @@
       "Name"         : "Level1",
       "MinLevelValue": 0.8,
       "MaxLevelValue": 1.2,
-      "Step"         : 10,
-      "Width"        : 4,
+      "Step"         : 5,
+      "Width"        : 3,
       "EndNodeId"    : "BossBattle1",
       "StageWeight"  : [
         8,
@@ -1021,8 +1021,8 @@
       "Name"         : "Level2",
       "MinLevelValue": 1.2,
       "MaxLevelValue": 1.6,
-      "Step"         : 10,
-      "Width"        : 4,
+      "Step"         : 7,
+      "Width"        : 3,
       "EndNodeId"    : "BossBattle1",
       "StageWeight"  : [
         8,
@@ -1034,7 +1034,7 @@
       "Name"         : "Level3",
       "MinLevelValue": 1.6,
       "MaxLevelValue": 2,
-      "Step"         : 10,
+      "Step"         : 9,
       "Width"        : 4,
       "EndNodeId"    : "BossBattle1",
       "StageWeight"  : [
