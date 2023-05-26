@@ -145,7 +145,12 @@ namespace View
         public void SetDefence(float defence)
         {
             defenceIcon.gameObject.SetActive(defence != 0);
-            defenceText.SetText(defence.ToString());
+            if (defenceIcon.gameObject.activeSelf)
+            {
+                defenceIcon.gameObject.transform.DOLocalJump(Vector3.zero, 10f, 1, 0.2f);
+                defenceText.SetText(defence.ToString());
+            }
+            
         }
         public async UniTask PlayEffect(ParticleSystem activeEft)
         {
