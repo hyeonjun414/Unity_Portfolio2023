@@ -27,6 +27,8 @@ namespace View
             artifactName.SetText(data.Name);
             artifactDesc.SetText(data.Desc);
             icon.sprite = Resources.Load<Sprite>($"ArtifactIcon/{data.Icon}");
+
+            descPanel.GetComponent<Canvas>().sortingLayerName = "Normal";
         }
 
         public void DestroyView()
