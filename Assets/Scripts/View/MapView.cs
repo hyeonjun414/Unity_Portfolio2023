@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Manager;
 using Presenter;
 using UnityEngine;
@@ -51,6 +52,8 @@ namespace View
                 }
                 stageNodes.Add(stageStep);
             }
+
+            stageNodes.Last().Last().transform.localScale = Vector3.one * 1.5f;
 
             StageNodeViews = stageNodes;
         }
