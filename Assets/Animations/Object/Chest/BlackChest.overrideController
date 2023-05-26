@@ -8,4 +8,6 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: BlackChest
   m_Controller: {fileID: 9100000, guid: f5a00fe3284b02b4fa5fe33092b3c873, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 51f930c1df6ea104f91674a4b6a63797, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7151d36d465f0674eabdff7d3ce006e9, type: 2}
