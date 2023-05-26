@@ -991,6 +991,17 @@
       "Selectable": true
     },
     {
+      "Id"        : "Chest",
+      "Name"      : "Chest",
+      "StageType" : "Chest",
+      "StageInfo" : {
+        "Type"         : "ChestStageInfo",
+        "Icon"         : "Stage_Chest",
+        "ArtifactCount": 1
+      },
+      "Selectable": true
+    },
+    {
       "Id"        : "BossBattle1",
       "Name"      : "BossBattle1",
       "StageType" : "Boss",

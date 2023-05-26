@@ -25,4 +25,9 @@ namespace Model
         public int ArtifactCount;
         public List<int> TierChance;
     }
+
+    public class ChestStageInfo : StageInfo
+    {
+        public int ArtifactCount;
+    }
 }

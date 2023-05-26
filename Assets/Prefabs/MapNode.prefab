@@ -1080,5 +1080,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c3a7befb587a91043b1dd1693d583196, type: 3}
   - {fileID: 21300000, guid: 12239410024807148af541774369f8a5, type: 3}
   - {fileID: 21300000, guid: 895afc6fe79d0a044a36ae19a6e48890, type: 3}
-  - {fileID: 21300000, guid: dcf5e64e504c5e744b3a428668e9e683, type: 3}
+  - {fileID: 21300000, guid: a314c3ff385a4ce418df58d28364cb57, type: 3}
+  - {fileID: 21300000, guid: 29e816b24f73a874e94471af4f10729a, type: 3}
   nodeClickSound: {fileID: 8300000, guid: e81b1eb321ccf994db56f1c86040c2d5, type: 3}

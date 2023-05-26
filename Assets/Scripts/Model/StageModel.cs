@@ -8,7 +8,8 @@ namespace Model
     {
         Normal,
         Shop,
-        Boss
+        Boss,
+        Chest
     }
     
     public class StageModel : SceneModel
@@ -127,6 +128,39 @@ namespace Model
                         SellArtifacts.Add(artifactModel);
                         artifactList.Remove(newModel);
                     }
+                }
+                
+            }
+        }
+    }
+
+    public class ChestStageModel : StageModel
+    {
+        public List<ArtifactModel> RewardArtifact = new();
+
+        public ChestStageModel()
+        {
+        }
+        
+        public ChestStageModel(MapNodeModel mapNode, User user, MasterTable mt)
+        {
+            if (mapNode.StageData is ShopStageInfo info)
+            {
+                var artifactCount = info.ArtifactCount;
+                
+                var artifactList = mt.MasterArtifacts.ToList();
+                foreach (var artifact in user.Artifacts)
+                {
+                    artifactList.RemoveAll(t => t.Id == artifact.Id);
+                }
+                for (var i = 0; i < artifactCount; i++)
+                {
+                    var newModel = artifactList.OrderBy(t => GameManager.Instance.Rand.Value).FirstOrDefault();
+                    if (newModel == null) continue;
+                    
+                    var artifactModel = new ArtifactModel(newModel);
+                    RewardArtifact.Add(artifactModel);
+                    artifactList.Remove(newModel);
                 }
                 
             }

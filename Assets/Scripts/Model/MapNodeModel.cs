@@ -28,6 +28,7 @@ namespace Model
 
         public void StageInit(MasterTable mt)
         {
+            var user = GameManager.Instance.user;
             switch (StageData)
             {
                 case BattleStageInfo:
@@ -37,8 +38,10 @@ namespace Model
                     stageModel = new BossStageModel(this, mt);
                     break;
                 case ShopStageInfo:
-                    var user = GameManager.Instance.user;
                     stageModel = new ShopStageModel(this, user, mt);
+                    break;
+                case ChestStageInfo:
+                    stageModel = new ChestStageModel(this, user, mt);
                     break;
             }
         }

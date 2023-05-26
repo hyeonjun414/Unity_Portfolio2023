@@ -181,17 +181,19 @@ namespace Manager
             {
                 case BattleStageInfo:
                     genStage = new BattleStage(mapNode.stageModel);
-                    genStage.SetView(CreateSceneView(genStage));
                     break;
                 case BossStageInfo:
                     genStage = new BossStage(mapNode.stageModel);
-                    genStage.SetView(CreateSceneView(genStage));
                     break;
                 case ShopStageInfo:
                     genStage = new ShopStage(mapNode.stageModel);
-                    genStage.SetView(CreateSceneView(genStage));
+                    break;
+                case ChestStageInfo:
+                    genStage = new ChestStage(mapNode.stageModel);
                     break;
             }
+            if(genStage != null)
+                genStage.SetView(CreateSceneView(genStage));
             return genStage;
         }
 

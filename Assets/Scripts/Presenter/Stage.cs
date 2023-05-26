@@ -611,4 +611,77 @@ namespace Presenter
             }
         }
     }
+
+    public class ChestStage : Stage
+    {
+        private ChestStageModel cModel => Model as ChestStageModel;
+        private ChestStageView cView => View as ChestStageView;
+
+        public List<Artifact> RewardArtifacts = new();
+
+        private bool hasMovedToNextStage;
+        public ChestStage(SceneModel model) : base(model)
+        {
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            foreach (var artifactModel in cModel.RewardArtifact)
+            {
+                var artifact = new Artifact(artifactModel);
+                RewardArtifacts.Add(artifact);
+            }
+        }
+
+        public override void SetView(SceneView view)
+        {
+            base.SetView(view);
+            gm.user.UserHero.SetView(cView.CreateHeroView());
+            GenerateChest();
+            GenerateDoor();
+        }
+
+        private void GenerateChest()
+        {
+            var chest = new Chest(new ChestModel());
+            chest.SetView(cView.GenerateChest());
+            chest.OnClickAction += UniTask.Action(async () => { await OpenReward(chest); });
+        }
+
+        private void GenerateDoor()
+        {
+            var door = new Door(new DoorModel());
+            door.SetView(cView.GenerateDoor());
+            door.OnClickEvent += UniTask.Action(async () => { await MoveStage(door); });
+        }
+
+        public async UniTask MoveStage(Door door)
+        {
+            if (hasMovedToNextStage) return;
+            hasMovedToNextStage = true;
+            door.View.Open();
+            await cView.MoveStage();
+            door.View.Close();
+            await UniTask.Delay(500);
+            await base.StageClear();
+        }
+
+        
+
+        public async UniTask OpenReward(Chest chest)
+        {
+            await chest.View.Open();
+
+            var rewardScene = new Reward(new RewardModel());
+            rewardScene.SetView(gm.CreateSceneView(rewardScene));
+            gm.GameCore.OpenScene(rewardScene);
+            await rewardScene.Wait();
+
+            if (rewardScene.rewardSelected)
+                await chest.View.DestroyView();
+            else
+                await chest.View.Close();
+        }
+    }
 }
