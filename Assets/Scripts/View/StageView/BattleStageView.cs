@@ -98,7 +98,6 @@ namespace View.StageView
                 .OnComplete(() => _heroView.gameObject.SetActive(false));
             
             await UniTask.Delay((int)(clipLength * 1000));
-            
         }
         
         public async UniTask DrawCard(Card card)
@@ -132,9 +131,10 @@ namespace View.StageView
             await UniTask.Delay(50);
         }
 
-        public void GenerateChest()
+        public ChestView GenerateChest()
         {
-            Instantiate(chestPrefab, chestPivot);
+            var inst = Instantiate(chestPrefab, chestPivot);
+            return inst;
         }
 
         public void SetEnergyText(int userCurEnergy, int userMaxEnergy)

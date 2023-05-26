@@ -14,15 +14,10 @@ namespace View
         [Header("Sound")] 
         public AudioClip openSound;
         public AudioClip closeSound;
-        public void Init(Door presenter)
-        {
-            Presenter = presenter;
-        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            print("Door Click!");
-            var task = Presenter.MoveStage();
+            Presenter.OnClick();
         }
 
         public void Open()

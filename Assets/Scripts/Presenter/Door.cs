@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
@@ -10,21 +11,23 @@ namespace Presenter
     {
         public DoorModel Model;
         public DoorView View;
+
+        public Action OnClickEvent;
         
-        public Door(DoorModel model, DoorView view)
+        public Door(DoorModel model)
         {
             Model = model;
-            View = view;
-            View.Init(this);
         }
 
-        public async UniTaskVoid MoveStage()
+        public void SetView(DoorView view)
         {
-            var stage = GameManager.Instance.CurStage as BattleStage;
-            if (stage != null)
-            {
-                await stage.MoveStage(this);
-            }
+            View = view;
+            View.Presenter = this;
+        }
+
+        public void OnClick()
+        {
+            OnClickEvent?.Invoke();
         }
     }
 }

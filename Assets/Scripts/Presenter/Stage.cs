@@ -308,15 +308,19 @@ namespace Presenter
 
         private void GenerateChest()
         {
-            bsView.GenerateChest();
+            var chest = new Chest(new ChestModel());
+            chest.SetView(bsView.GenerateChest());
+            chest.OnClickAction += UniTask.Action(async () =>
+            {
+                await OpenReward(chest);
+            });
         }
 
         private void GenerateDoor()
         {
-            var masterStage = gm.MasterTable.MasterStages[0];
-            var doorModel = new DoorModel(masterStage);
-            var doorView = bsView.GenerateDoor();
-            var door = new Door(doorModel, doorView);
+            var door = new Door(new DoorModel());
+            door.SetView(bsView.GenerateDoor());
+            door.OnClickEvent += UniTask.Action(async () => { await MoveStage(door); });
         }
 
         private List<Character> GetAliveEnemies()
@@ -447,9 +451,9 @@ namespace Presenter
             }
         }
 
-        public async UniTask OpenReward(ChestView chest)
+        public async UniTask OpenReward(Chest chest)
         {
-            await chest.Open();
+            await chest.View.Open();
             
             var rewardScene = new Reward(new RewardModel());
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
@@ -457,9 +461,9 @@ namespace Presenter
             await rewardScene.Wait();
             
             if (rewardScene.rewardSelected)
-                await chest.DestroyView();
+                await chest.View.DestroyView();
             else
-                await chest.Close();
+                await chest.View.Close();
         }
 
         

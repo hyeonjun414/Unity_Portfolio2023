@@ -9,6 +9,8 @@ namespace View
 {
     public class ChestView : MonoBehaviour, IPointerClickHandler
     {
+        public Chest Presenter;
+        
         public Animator animator;
         public BoxCollider2D inputChecker;
 
@@ -18,10 +20,7 @@ namespace View
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (GameManager.Instance.CurStage is BattleStage battleStage)
-            {
-                var task = battleStage.OpenReward(this);
-            }
+            Presenter.OnClick();
         }
 
         public async UniTask Open()
