@@ -48,6 +48,7 @@ namespace View
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
+            Presenter.OnClick();
         }
     }
 }

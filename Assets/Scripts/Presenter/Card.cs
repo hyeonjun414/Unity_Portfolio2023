@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Manager;
 using Model;
@@ -12,147 +13,55 @@ namespace Presenter
         Attack,
         Magic
     }
-    public interface ICardState
+    public interface IItemState
     {
-        void EnterState(Card card);
-        void OnClick(Card card);
-        void OnHover(Card card);
-        void OnUnhover(Card card);
-        void OnClickDown(Card card);
-        void OnClickUp(Card card);
+        void EnterState();
+        void OnClick();
+        void OnHover();
+        void OnUnhover();
+        void OnClickDown();
+        void OnClickUp();
     }
-    public class CardBattleState : ICardState
+    
+    public class ItemState : IItemState
     {
-        public bool IsSelected;
-        public void EnterState(Card card)
+        public Action OnClickAction;
+        public Action OnHoverAction;
+        public Action OnUnhoverAction;
+        public Action OnClickDownAction;
+        public Action OnClickUpAction;
+
+        public void EnterState()
         {
-            IsSelected = false;
+            OnClickAction = null;
+            OnHoverAction = null;
+            OnUnhoverAction = null;
+            OnClickDownAction = null;
+            OnClickUpAction = null;
         }
 
-        public void OnClick(Card card)
+        public void OnClick()
         {
+            OnClickAction?.Invoke();
         }
 
-        public void OnHover(Card card)
+        public void OnHover()
         {
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.HoverCard(card);
+            OnHoverAction?.Invoke();
         }
 
-        public void OnUnhover(Card card)
+        public void OnUnhover()
         {
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.UnHoverCard(card);
+            OnUnhoverAction?.Invoke();
         }
 
-        public void OnClickDown(Card card)
+        public void OnClickDown()
         {
-            IsSelected = true;
-            //card.View.Selected(this);
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.SelectCard(card);
+            OnClickDownAction?.Invoke();
         }
-
-        public void OnClickUp(Card card)
+        public void OnClickUp()
         {
-            IsSelected = false;
-            //card.View.UnSelected(this);
-            var curStage = GameManager.Instance.CurStage as BattleStage;
-            curStage?.UnSelectCard(card);
-        }
-    }
-
-    public class CardRewardState : ICardState
-    {
-        public void EnterState(Card card)
-        {
-        }
-
-        public void OnClick(Card card)
-        {
-            card.View.Selected(this);
-            if (GameManager.Instance.GameCore.CurScene is Reward rewardScene)
-            {
-                rewardScene.RewardSelect(card);
-            }
-        }
-
-        public void OnHover(Card card)
-        {
-            card.View.Hovered(this);
-        }
-
-        public void OnUnhover(Card card)
-        {
-            card.View.Unhovered(this);
-        }
-
-        public void OnClickDown(Card card)
-        {
-        }
-
-        public void OnClickUp(Card card)
-        {
-        }
-    }
-
-    public class CardShopState : ICardState
-    {
-        public void EnterState(Card card)
-        {
-        }
-
-        public void OnClick(Card card)
-        {
-            card.View.Selected(this);
-            card.OnSellEvent();
-        }
-
-        public void OnHover(Card card)
-        {
-            card.View.Hovered(this);
-        }
-
-        public void OnUnhover(Card card)
-        {
-            card.View.Unhovered(this);
-        }
-
-        public void OnClickDown(Card card)
-        {
-        }
-
-        public void OnClickUp(Card card)
-        {
-        }
-    }
-
-    public class CardNoneState : ICardState
-    {
-        public void EnterState(Card card)
-        {
-        }
-
-        public void OnClick(Card card)
-        {
-        }
-
-        public void OnHover(Card card)
-        {
-            card.View.Hovered(this);
-        }
-
-        public void OnUnhover(Card card)
-        {
-            card.View.Unhovered(this);
-        }
-
-        public void OnClickDown(Card card)
-        {
-        }
-
-        public void OnClickUp(Card card)
-        {
+            OnClickUpAction?.Invoke();
         }
     }
     public class Card : Item
@@ -160,9 +69,6 @@ namespace Presenter
         public CardModel Model;
         [JsonIgnore]
         public CardView View;
-
-        private ICardState _state;
-
 
         public Card(CardModel model)
         {
@@ -172,7 +78,7 @@ namespace Presenter
 
         public void Init()
         {
-            SetState(new CardNoneState());
+            SetState();
         }
         public void SetView(CardView view)
         {
@@ -181,42 +87,11 @@ namespace Presenter
             View.SetView(this);
         }
 
-        public void SetState(ICardState newState)
-        {
-            _state = newState;
-            _state.EnterState(this);
-        }
-
         public CardType GetCardType()
         {
             return Model.CardType;
         }
-
-        public void OnClick()
-        {
-            _state.OnClick(this);
-        }
-
-        public void OnHover()
-        {
-            _state.OnHover(this);
-        }
-
-        public void OnUnhover()
-        {
-            _state.OnUnhover(this);
-        }
-
-        public void OnClickDown()
-        {
-            _state.OnClickDown(this);
-        }
-
-        public void OnClickUp()
-        {
-            _state.OnClickUp(this);
-        }
-
+        
         public void Dispose()
         {
             Model = null;

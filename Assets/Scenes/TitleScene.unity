@@ -922,6 +922,7 @@ MonoBehaviour:
   - {fileID: 8348515522833527283, guid: fae1bcbc7280d5c4f9ef6825a3f26518, type: 3}
   - {fileID: 2843650090922797347, guid: ee2a5befd75bd654bb0514230943f9a4, type: 3}
   - {fileID: 2034810233274295167, guid: cbaf8db3a3a122b4ab7c5d99cc1bf5dc, type: 3}
+  - {fileID: 7392783857153820389, guid: 0516a0c02da440b4791d12ccca4716ca, type: 3}
   loadingScreen: {fileID: 2098395159}
   raycaster: {fileID: 530203834}
   mainCam: {fileID: 530203830}

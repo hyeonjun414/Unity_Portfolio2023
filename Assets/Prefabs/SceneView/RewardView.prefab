@@ -287,7 +287,8 @@ MonoBehaviour:
   isModel: 1
   skipButton: {fileID: 9137863552694045780}
   rewardPivot: {fileID: 5527887553772658697}
-  cardPrefabs: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
+  cardPrefab: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
+  artifactPrefab: {fileID: 1750593060498487943, guid: ba4acc0b3bc11794fb2de1edc1e096b5, type: 3}
 --- !u!1 &3096812689611107400
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,7 +756,8 @@ MonoBehaviour:
   isModel: 0
   skipButton: {fileID: 0}
   rewardPivot: {fileID: 5527887553772658697}
-  cardPrefabs: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
+  cardPrefab: {fileID: 0}
+  artifactPrefab: {fileID: 0}
 --- !u!1 &8669390076934881605
 GameObject:
   m_ObjectHideFlags: 0

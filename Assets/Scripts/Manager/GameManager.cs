@@ -157,7 +157,7 @@ namespace Manager
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 TypeNameHandling = TypeNameHandling.All
             };
-
+            
             var data = JsonConvert.SerializeObject(GameCore, settings);
             PlayerPrefs.SetString("SaveData", data);
             PlayerPrefs.Save();
@@ -222,5 +222,7 @@ namespace Manager
             var inst = Instantiate(particle, pivot);
             Destroy(inst.gameObject, inst.main.duration);
         }
+
+       
     }
 }

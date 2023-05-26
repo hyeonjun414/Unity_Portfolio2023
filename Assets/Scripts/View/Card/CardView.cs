@@ -86,52 +86,21 @@ namespace View
             Presenter.OnClickDown();
         }
 
-        public void Hovered(ICardState cardState)
+        public void Hovered(IItemState itemState)
         {
-            switch (cardState)
-            {
-                case CardBattleState:
-                    content.DOScale(1.2f, 0.1f);
-                    content.DOLocalMoveY(50, 0.1f);
-                    break;
-                case CardRewardState:
-                    content.DOScale(1.2f, 0.1f);
-                    break;
-                default:
-                    content.DOScale(1.1f, 0.1f);
-                    break;
-            }
+            content.DOScale(1.2f, 0.1f);
         }
 
-        public void Unhovered(ICardState cardState)
+        public void Unhovered(IItemState itemState)
         {
-            switch (cardState)
-            {
-                case CardBattleState :
-                    content.DOScale(1f, 0.1f);
-                    content.DOLocalMoveY(0, 0.1f);
-                    break;
-                default:
-                    content.DOScale(1f, 0.1f);
-                    break;
-            }
+            content.DOScale(1f, 0.1f);
         }
-        public void Selected(ICardState cardState)
+        public void Selected(IItemState itemState)
         {
-            switch (cardState)
-            {
-                case CardBattleState:
-                    content.DOScale(1.3f, 0.1f);
-                    content.DOLocalMoveY(75, 0.1f);
-                    break;
-                case CardRewardState:
-                case CardShopState:
-                    content.DOScale(1f, 0.1f);
-                    break;
-            }
+            content.DOScale(1.3f, 0.1f);
         }
 
-        public void UnSelected(ICardState cardState)
+        public void UnSelected(IItemState itemState)
         {
             RollBack();
         }

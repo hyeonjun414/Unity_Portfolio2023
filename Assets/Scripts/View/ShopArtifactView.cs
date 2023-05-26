@@ -19,12 +19,6 @@ namespace View
             valueText.text = artifact.Model.Value.ToString();
         }
 
-        public override void OnPointerClick(PointerEventData eventData)
-        {
-            base.OnPointerClick(eventData);
-            Presenter.OnSellEvent();
-        }
-
         public void Sold()
         {
             SetInputChecker(false);
