@@ -59,7 +59,7 @@ namespace Presenter
 
         private Character _curTarget;
         private Card _selectedCard;
-        private Reward _reward;
+        private RewardScene _rewardScene;
         public List<Character> Allies = new();
         public List<Character> Enemies = new();
         public List<Card> Hand = new();
@@ -89,7 +89,10 @@ namespace Presenter
             foreach (var cardData in userCardData)
             {
                 var card = new Card(cardData);
-                card.SetState(new CardBattleState());
+                card.State.OnHoverAction += () => HoverCard(card);
+                card.State.OnUnhoverAction += () => UnHoverCard(card);
+                card.State.OnClickDownAction += () => SelectCard(card);
+                card.State.OnClickUpAction += () => UnSelectCard(card);
                 Deck.Add(card);
             }
 
@@ -457,7 +460,7 @@ namespace Presenter
         {
             await chest.View.Open();
             
-            var rewardScene = new Reward(new RewardModel());
+            var rewardScene = new RewardScene(new RewardModel());
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
             gm.GameCore.OpenScene(rewardScene);
             await rewardScene.Wait();
@@ -674,7 +677,7 @@ namespace Presenter
         {
             await chest.View.Open();
 
-            var rewardScene = new Reward(new RewardModel());
+            var rewardScene = new RewardScene(new RewardModel());
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
             gm.GameCore.OpenScene(rewardScene);
             await rewardScene.Wait();
