@@ -94,7 +94,7 @@ namespace Presenter
             {
                 OnDeathEvent();
             }
-            View.PlayDamageEft();
+            await View.PlayDamageEft();
             View.UpdateHp(Model.CurHp, Model.MaxHp);
             await UniTask.Yield();
         }

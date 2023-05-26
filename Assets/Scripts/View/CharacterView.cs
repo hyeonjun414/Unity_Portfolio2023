@@ -64,10 +64,13 @@ namespace View
             HpText.SetText($"{curHp} / {maxHp}");
         }
         
-        public void PlayDamageEft()
+        public async UniTask PlayDamageEft()
         {
             animator.SetTrigger(STR_HIT);
             SoundManager.Instance.PlaySfx(hitSound);
+            await UniTask.Yield();
+            gameObject.transform.DOShakePosition(0.1f, Vector3.one * 0.1f);
+            await UniTask.Delay(100);
         }
 
         public virtual async UniTask PrepareAttack(Vector3 targetPos)
