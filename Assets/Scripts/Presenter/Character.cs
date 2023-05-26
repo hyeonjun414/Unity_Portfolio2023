@@ -137,6 +137,8 @@ namespace Presenter
 
         public virtual async UniTask PrepareAction()
         {
+            Model.Stats.Defence = 0;
+            View.SetDefence(Model.Stats.Defence);
             foreach (var statEft in StatusEffects)
             {
                 await statEft.Activate(this);
@@ -381,6 +383,8 @@ namespace Presenter
 
         public void ResetStat()
         {
+            Model.Stats.Defence = 0;
+            View.SetDefence(Model.Stats.Defence);
             ResetEvent();
             foreach (var stat in StatusEffects)
             {
