@@ -410,6 +410,8 @@ namespace Presenter
 
         public void TargetEntity(Character character)
         {
+            if (_selectedCard == null) return;
+            
             if ((_selectedCard.GetCardType() is CardType.Attack && character is Enemy) ||
                 (_selectedCard.GetCardType() is CardType.Magic && character is Hero))
             {
