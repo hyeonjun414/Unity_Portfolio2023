@@ -109,7 +109,7 @@ namespace Model
             var firstStepNodes = MapNodes.First();
             for (var i = 0; i < firstStepNodes.Count; i++)
             {
-                var randomStage = PickStage(StageType.Chest);
+                var randomStage = PickStage(StageType.Normal);
                 firstStepNodes[i] = new MapNodeModel(0, randomStage,MinLevelValue, MaxLevelValue);
                 firstStepNodes[i].StageInit(mt);
                 StartNode.AddNextStage(firstStepNodes[i]);

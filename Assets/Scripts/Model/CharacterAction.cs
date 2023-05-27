@@ -55,4 +55,52 @@ namespace Model
             await actor.EndAttack();
         }
     }
+
+    public class Ca_Defence : CharacterAction
+    {
+        public float Value;
+
+        public override void Init(CharacterModel charModel)
+        {
+            base.Init(charModel);
+            ActionValue = (int)(charModel.Damage * Value);
+        }
+
+        public override async UniTask Activate(Character actor, Character target)
+        {
+            await actor.PlayAttack();
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                foreach (var t in curStage.GetTarget(actor, TargetType))
+                {
+                    await t.AddDefence(ActionValue);
+                }
+            }
+            await actor.EndAttack();
+        }
+    }
+
+    public class Ca_HpRecover : CharacterAction
+    {
+        public float Value;
+
+        public override void Init(CharacterModel charModel)
+        {
+            base.Init(charModel);
+            ActionValue = (int)(charModel.Damage * Value);
+        }
+
+        public override async UniTask Activate(Character actor, Character target)
+        {
+            await actor.PlayAttack();
+            if (GameManager.Instance.CurStage is BattleStage curStage)
+            {
+                foreach (var t in curStage.GetTarget(actor, TargetType))
+                {
+                    t.HpRecover(ActionValue);
+                }
+            }
+            await actor.EndAttack();
+        }
+    }
 }

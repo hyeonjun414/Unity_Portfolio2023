@@ -3,7 +3,7 @@
     {
       "Id"        : "Bald Pirate",
       "Name"      : "Bald Pirate",
-      "Desc"      : "Bald Pirate",
+      "Desc"      : "일반 공격, 팀원 회복",
       "Hp"        : 20,
       "Damage"    : 5,
       "Speed"     : 60,
@@ -11,15 +11,16 @@
       "Actions"   : [
         {
           "Type"  : "Ca_NormalAttack",
-          "Turn"  : 1,
-          "Damage": 1.2,
+          "Turn"  : 2,
+          "Damage": 2,
           "Icon"  : "Icon_Attack"
         },
         {
-          "Type"  : "Ca_NormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_HpRecover",
+          "TargetType": "All",
+          "Turn"      : 2,
+          "Value"     : 2,
+          "Icon"      : "Icon_HpRecover"
         }
       ],
       "Selectable": true
@@ -27,22 +28,16 @@
     {
       "Id"        : "Cucumber",
       "Name"      : "Cucumber",
-      "Desc"      : "Cucumber",
+      "Desc"      : "빠른 공격, 높은 스피드",
       "Hp"        : 12,
       "Damage"    : 3,
-      "Speed"     : 100,
-      "DropGold"  : 23,
+      "Speed"     : 150,
+      "DropGold"  : 33,
       "Actions"   : [
         {
           "Type"  : "Ca_NormalAttack",
           "Turn"  : 1,
-          "Damage": 1.2,
-          "Icon"  : "Icon_Attack"
-        },
-        {
-          "Type"  : "Ca_NormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
+          "Damage": 1,
           "Icon"  : "Icon_Attack"
         }
       ],
@@ -51,11 +46,11 @@
     {
       "Id"        : "Big Guy",
       "Name"      : "Big Guy",
-      "Desc"      : "Big Guy",
-      "Hp"        : 25,
-      "Damage"    : 10,
+      "Desc"      : "일반 공격, 강한 공격",
+      "Hp"        : 40,
+      "Damage"    : 15,
       "Speed"     : 40,
-      "DropGold"  : 15,
+      "DropGold"  : 19,
       "Actions"   : [
         {
           "Type"  : "Ca_NormalAttack",
@@ -65,8 +60,8 @@
         },
         {
           "Type"  : "Ca_NormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
+          "Turn"  : 3,
+          "Damage": 5,
           "Icon"  : "Icon_Attack"
         }
       ],
@@ -75,7 +70,7 @@
     {
       "Id"        : "Captain",
       "Name"      : "Captain",
-      "Desc"      : "Captain",
+      "Desc"      : "일반 공격, 아군 방어막",
       "Hp"        : 20,
       "Damage"    : 7,
       "Speed"     : 70,
@@ -88,10 +83,11 @@
           "Icon"  : "Icon_Attack"
         },
         {
-          "Type"  : "Ca_NormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type"      : "Ca_Defence",
+          "Turn"      : 2,
+          "TargetType": "All",
+          "Value"     : 4,
+          "Icon"      : "Icon_Defence"
         }
       ],
       "Selectable": true
@@ -99,7 +95,7 @@
     {
       "Id"        : "Whale",
       "Name"      : "Whale",
-      "Desc"      : "Whale",
+      "Desc"      : "일반 공격, 자신 방어막 ",
       "Hp"        : 50,
       "Damage"    : 5,
       "Speed"     : 30,
@@ -112,10 +108,10 @@
           "Icon"  : "Icon_Attack"
         },
         {
-          "Type"  : "Ca_NormalAttack",
-          "Turn"  : 2,
-          "Damage": 4,
-          "Icon"  : "Icon_Attack"
+          "Type" : "Ca_Defence",
+          "Turn" : 1,
+          "Value": 2,
+          "Icon" : "Icon_Defence"
         }
       ],
       "Selectable": true
