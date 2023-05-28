@@ -42,7 +42,7 @@ namespace Model
             
             if (Scenes.Count != 0)
             {
-                if(scene.View.isModel == false)
+                if(scene.View.isModal == false)
                     CurScene.SceneActive(false);
             }
             Scenes.Add(scene);

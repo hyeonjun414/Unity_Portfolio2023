@@ -13,7 +13,7 @@ namespace View
         public RectTransform canvasRect;
 
         public bool isFront;
-        public bool isModel;
+        public bool isModal;
 
         public void Init()
         {
@@ -39,7 +39,7 @@ namespace View
             canvas.sortingOrder = orderNum;
             if (isFront)
                 canvas.sortingLayerName = "Front";
-            else if (isModel)
+            else if (isModal)
                 canvas.sortingLayerName = "Modal";
             else
                 canvas.sortingLayerName = "Normal";
