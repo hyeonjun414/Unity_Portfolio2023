@@ -41,7 +41,7 @@ namespace Presenter
         {
             View = view;
             View.Presenter = this;
-            View.Init(this);
+            View.SetView(this);
         }
 
         public virtual void AddTag(StatTag tag, float value)

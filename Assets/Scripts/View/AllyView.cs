@@ -17,9 +17,9 @@ namespace View
         public AudioClip waitSound;
         
         private float remainAttackAnimTime;
-        public override void Init(Character character)
+        public override void SetView(Character character)
         {
-            base.Init(character);
+            base.SetView(character);
             if (character is Ally ally)
             {
                 var enemyData = Resources.Load<CharacterData>($"CharacterData/{ally.Model.Name}");

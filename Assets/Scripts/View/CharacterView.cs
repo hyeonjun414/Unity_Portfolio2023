@@ -39,7 +39,7 @@ namespace View
         public Canvas uiCanvas;
         public Slider HpGauge;
         public Image defenceIcon;
-        public TextMeshProUGUI HpText, defenceText;
+        public TextMeshProUGUI HpText, defenceText, speedText;
 
         [Header("Sound")] 
         public AudioClip hitSound;
@@ -48,13 +48,13 @@ namespace View
         public List<IEntityObserver> Observers = new();
         
 
-        public virtual void Init(Character character)
+        public virtual void SetView(Character character)
         {
-            character.View = this;
-            Presenter = character;
             UpdateHp(character.Model.CurHp, character.Model.MaxHp);
             SetDefence(character.Model.Defence);
+            speedText.SetText(character.Model.Speed.ToString());
         }
+
 
         public void UpdateHp(float curHp, float maxHp)
         {
@@ -63,7 +63,7 @@ namespace View
 
             HpText.SetText($"{curHp} / {maxHp}");
         }
-        
+
         public async UniTask PlayDamageEft()
         {
             animator.SetTrigger(STR_HIT);
