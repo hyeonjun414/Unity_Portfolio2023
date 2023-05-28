@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class Util
+public static class Util
 {
     public static List<T> ToObjectList<T>(List<JObject> jsonList)
     {
