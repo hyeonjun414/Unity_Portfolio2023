@@ -31,6 +31,7 @@ namespace Model
     public class BattleStageModel : StageModel
     {
         public List<EnemyModel> Enemies = new();
+        public List<CardModel> Rewards = new();
 
         public BattleStageModel()
         {
@@ -40,13 +41,23 @@ namespace Model
         {
             if (mapNode.StageData is BattleStageInfo info)
             {
-                var enemyCount = GameManager.Instance.Rand.Range(info.MinCount, info.MaxCount + 1);// Random.Range();
+                var enemyCount = GameManager.Instance.Rand.Range(info.EnemyMinCount, info.EnemyMaxCount + 1);
+                var enemyList = mt.MasterEnemies.Where(t => t.Selectable).ToList();
                 for (var i = 0; i < enemyCount; i++)
                 {
                     var levelValue = GameManager.Instance.Rand.Range(mapNode.MinLevelValue, mapNode.MaxLevelValue);
-                    var masterEnemy = mt.MasterEnemies.Where(t => t.Selectable).OrderBy(t => GameManager.Instance.Rand.Value).First();
+                    var masterEnemy = enemyList.OrderBy(t => GameManager.Instance.Rand.Value).First();
                     var enemy = new EnemyModel(masterEnemy, levelValue);
                     Enemies.Add(enemy);
+                }
+                
+                var cardList = mt.MasterCards.ToList();
+                for (var i = 0; i < info.RewardCardCount; i++)
+                {
+                    var masterCard = cardList.OrderBy(t => GameManager.Instance.Rand.Value).First();
+                    var card = new CardModel(masterCard);
+                    cardList.Remove(masterCard);
+                    Rewards.Add(card);
                 }
             }
         }
@@ -144,7 +155,7 @@ namespace Model
         
         public ChestStageModel(MapNodeModel mapNode, User user, MasterTable mt)
         {
-            if (mapNode.StageData is ShopStageInfo info)
+            if (mapNode.StageData is ChestStageInfo info)
             {
                 var artifactCount = info.ArtifactCount;
                 

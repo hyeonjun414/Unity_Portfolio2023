@@ -161,7 +161,6 @@ namespace Manager
             var data = JsonConvert.SerializeObject(GameCore, settings);
             PlayerPrefs.SetString("SaveData", data);
             PlayerPrefs.Save();
-            print(data);
         }
 
         public async UniTask ReturnToMain()

@@ -127,10 +127,10 @@ namespace Model
                         var rand = GameManager.Instance.Rand.Range(-1, 2);
                         
                         var moveIndex = Math.Clamp(j + rand, 0, MapNodes[i + 1].Count - 1);
-
-                        var randomStage = PickRandomStage(i);
+                        
                         if (MapNodes[i + 1][moveIndex] == null)
                         {
+                            var randomStage = PickRandomStage(i);
                             MapNodes[i + 1][moveIndex] = new MapNodeModel(i+1, randomStage,MinLevelValue, MaxLevelValue);
                             MapNodes[i + 1][moveIndex].StageInit(mt);
                         }

@@ -10,13 +10,12 @@ namespace Presenter
 {
     public class RewardScene : Scene
     {
-        public RewardModel Model;
         public RewardSceneView RewardSceneView => View as RewardSceneView;
 
         public List<Item> Rewards;
 
-        public bool sceneClosed;
-        public bool rewardSelected;
+        public bool SceneClosed;
+        public bool RewardSelected;
         public RewardScene(RewardModel model) : base(model)
         {
             Model = model;
@@ -26,31 +25,22 @@ namespace Presenter
 
         public void Init()
         {
-            // var cardTable = gm.MasterTable.MasterCards;
-            // for (var i = 0; i < 3; i++)
-            // {
-            //     var cardModel = new CardModel(cardTable[gm.GameCore.Rand.Range(0, cardTable.Count)]);
-            //     var card = new Card(cardModel);
-            //     card.State.OnClickAction += () => RewardSelect(card);
-            //     Rewards.Add(card);
-            // }
+            SceneClosed = false;
+            RewardSelected = false;
+        }
 
-            var artifactTable = gm.MasterTable.MasterArtifacts;
-            for (var i = 0; i < 3; i++)
+        public void SetReward(List<Item> itemList)
+        {
+            Rewards = itemList;
+            foreach (var item in itemList)
             {
-                var cardModel = new ArtifactModel(artifactTable[gm.GameCore.Rand.Range(0, artifactTable.Count)]);
-                var card = new Artifact(cardModel);
-                card.State.OnClickAction += () => RewardSelect(card);
-                Rewards.Add(card);
+                item.State.OnClickAction += () => RewardSelect(item);
             }
-
-            sceneClosed = false;
-            rewardSelected = false;
         }
 
         public void RewardSelect(Item reward)
         {
-            rewardSelected = true;
+            RewardSelected = true;
             Rewards.Remove(reward);
             switch (reward)
             {
@@ -74,13 +64,13 @@ namespace Presenter
 
         public void Close()
         {
-            sceneClosed = true;
+            SceneClosed = true;
             GameManager.Instance.GameCore.CloseCurScene();
         }
 
         public async UniTask Wait()
         {
-            await UniTask.WaitUntil(() => sceneClosed);
+            await UniTask.WaitUntil(() => SceneClosed);
         }
     }
 

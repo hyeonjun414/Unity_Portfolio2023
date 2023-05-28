@@ -10,8 +10,9 @@ namespace Model
 
     public class BattleStageInfo : StageInfo
     {
-        public int MinCount;
-        public int MaxCount;
+        public int EnemyMinCount;
+        public int EnemyMaxCount;
+        public int RewardCardCount;
     }
 
     public class BossStageInfo : StageInfo

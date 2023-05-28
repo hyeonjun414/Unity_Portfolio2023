@@ -461,13 +461,22 @@ namespace Presenter
         public async UniTask OpenReward(Chest chest)
         {
             await chest.View.Open();
+
+            var rewards = new List<Item>();
+            foreach (var cardModel in bsModel.Rewards)
+            {
+                var artifact = new Card(cardModel);
+                rewards.Add(artifact);
+            }
             
             var rewardScene = new RewardScene(new RewardModel());
+
+            rewardScene.SetReward(rewards);
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
             gm.GameCore.OpenScene(rewardScene);
             await rewardScene.Wait();
             
-            if (rewardScene.rewardSelected)
+            if (rewardScene.RewardSelected)
                 await chest.View.DestroyView();
             else
                 await chest.View.Close();
@@ -679,12 +688,20 @@ namespace Presenter
         {
             await chest.View.Open();
 
+            var rewards = new List<Item>();
+            foreach (var artifactModel in cModel.RewardArtifact)
+            {
+                var artifact = new Artifact(artifactModel);
+                rewards.Add(artifact);
+            }
+            
             var rewardScene = new RewardScene(new RewardModel());
+            rewardScene.SetReward(rewards);
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
             gm.GameCore.OpenScene(rewardScene);
             await rewardScene.Wait();
 
-            if (rewardScene.rewardSelected)
+            if (rewardScene.RewardSelected)
                 await chest.View.DestroyView();
             else
                 await chest.View.Close();

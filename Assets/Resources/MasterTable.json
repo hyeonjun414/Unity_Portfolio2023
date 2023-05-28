@@ -361,7 +361,7 @@
     {
       "Id"      : "폭탄 투하",
       "Name"    : "폭탄 투하",
-      "Desc"    : "적에게 <color=red>15</color>의 피해를 줍니다.",
+      "Desc"    : "적에게 15의 피해를 줍니다.",
       "Icon"    : "Card_Bomb",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -378,7 +378,7 @@
     {
       "Id"      : "베기",
       "Name"    : "베기",
-      "Desc"    : "적에게 <color=red>6</color>의 피해를 줍니다.",
+      "Desc"    : "적에게 6의 피해를 줍니다.",
       "Icon"    : "Card_Slash",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -413,7 +413,7 @@
     {
       "Id"      : "사슬 던지기",
       "Name"    : "사슬 던지기",
-      "Desc"    : "적에게 <color=red>2</color>의 피해를 줍니다. AP를 30감소시킵니다.",
+      "Desc"    : "적에게 2의 피해를 줍니다. AP를 30감소시킵니다.",
       "Icon"    : "Card_Chain",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -435,7 +435,7 @@
     {
       "Id"      : "불태우기",
       "Name"    : "불태우기",
-      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 2턴간 5의 화상 피해를 줍니다.",
+      "Desc"    : "적에게 3의 피해를 줍니다. 2턴간 5의 화상 피해를 줍니다.",
       "Icon"    : "Card_Burn",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -463,7 +463,7 @@
     {
       "Id"      : "럼주 한 병",
       "Name"    : "럼주 한 병",
-      "Desc"    : "체력을 <color=green>15</color> 회복합니다.",
+      "Desc"    : "체력을 15 회복합니다.",
       "Icon"    : "Card_Rum",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -480,7 +480,7 @@
     {
       "Id"      : "선원 호출",
       "Name"    : "선원 호출",
-      "Desc"    : "매턴 <color=red>5</color>의 피해를 주는 선원을 <color=blue>3</color>턴간 소환합니다.",
+      "Desc"    : "매턴 5의 피해를 주는 선원을 3턴간 소환합니다.",
       "Icon"    : "Card_SummonSailor",
       "CardType": "Magic",
       "Tier"    : 1,
@@ -498,7 +498,7 @@
     {
       "Id"      : "튕겨내기",
       "Name"    : "튕겨내기",
-      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 공격하려는 적에게 빗나감을 부여합니다.",
+      "Desc"    : "적에게 3의 피해를 줍니다. 공격하려는 적에게 빗나감을 부여합니다.",
       "Icon"    : "Card_Parrying",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -525,7 +525,7 @@
     {
       "Id"      : "그래플링 훅",
       "Name"    : "그래플링 훅",
-      "Desc"    : "적에게 <color=red>3</color>의 피해를 줍니다. 공격한 적을 한 칸 앞으로 이동시킵니다.",
+      "Desc"    : "적에게 3의 피해를 줍니다. 공격한 적을 한 칸 앞으로 이동시킵니다.",
       "Icon"    : "Card_Hook",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -563,7 +563,7 @@
     {
       "Id"      : "캐논 볼",
       "Name"    : "캐논 볼",
-      "Desc"    : "모든 적에게 <color=red>10</color>의 피해를 줍니다.",
+      "Desc"    : "모든 적에게 10의 피해를 줍니다.",
       "Icon"    : "Card_CannonBall",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -581,7 +581,7 @@
     {
       "Id"      : "사기 카드",
       "Name"    : "사기 카드",
-      "Desc"    : "모든 적에게 <color=red>100</color>의 피해를 줍니다.",
+      "Desc"    : "모든 적에게 100의 피해를 줍니다.",
       "Icon"    : "Card_CannonBall",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -979,10 +979,11 @@
       "Name"      : "NormalBattle",
       "StageType" : "Normal",
       "StageInfo" : {
-        "Type"    : "BattleStageInfo",
-        "Icon"    : "Stage_Level1",
-        "MinCount": 1,
-        "MaxCount": 3
+        "Type"           : "BattleStageInfo",
+        "Icon"           : "Stage_Level1",
+        "EnemyMinCount"  : 1,
+        "EnemyMaxCount"  : 3,
+        "RewardCardCount": 3
       },
       "Selectable": true
     },
@@ -993,7 +994,7 @@
       "StageInfo" : {
         "Type"         : "ChestStageInfo",
         "Icon"         : "Stage_Chest",
-        "ArtifactCount": 1
+        "ArtifactCount": 3
       },
       "Selectable": true
     },
