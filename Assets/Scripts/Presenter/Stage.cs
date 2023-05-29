@@ -550,7 +550,7 @@ namespace Presenter
     public class ShopStage : Stage
     {
         private ShopStageModel ssModel => Model as ShopStageModel;
-        private ShopStageView ssView => View as ShopStageView;
+        private ShopStageView shopSceneView => View as ShopStageView;
 
         public List<ShopCard> SellCards = new();
         public List<ShopArtifact> SellArtifacts = new();
@@ -582,14 +582,14 @@ namespace Presenter
 
             foreach (var card in SellCards)
             {
-                card.SetView(ssView.CreateCard());
+                card.SetView(shopSceneView.CreateCard());
             }
 
             foreach (var artifact in SellArtifacts)
             {
-                artifact.SetView(ssView.CreateArtifact());
+                artifact.SetView(shopSceneView.CreateArtifact());
             }
-            ssView.SetStageView();
+            shopSceneView.SetStageView();
         }
 
         public void BuyItem(Item sender)
