@@ -42,7 +42,6 @@ namespace Manager
                 DontDestroyOnLoad(gameObject);
                 Application.targetFrameRate = 60;
                 introScene.StartTimeLine();
-                //Init();
             }
             else
             {
@@ -52,19 +51,13 @@ namespace Manager
 
         public void Init()
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.Converters.Add(new EnumConverter<CardType>());
-            settings.Converters.Add(new EnumConverter<ArtifactTrigger>());
-            settings.Converters.Add(new EnumConverter<TargetType>());
-            settings.Converters.Add(new EnumConverter<StatTag>());
-
             Particles = Resources.LoadAll<ParticleSystem>("Particle").ToList();
-
+            
             var newMasterTable = Resources.Load<TextAsset>("MasterTable");
             MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
             Title = new Title(new SceneModel());
-            var task = CreateTitle();
+            CreateTitle().AsAsyncUnitUniTask();
         }
 
         private async UniTask CreateTitle()
@@ -108,17 +101,8 @@ namespace Manager
         public async UniTask ContinueGame()
         {
             await loadingScreen.FadeOut();
+            LoadGame();
             Title.SceneActive(false);
-            var saveData = PlayerPrefs.GetString("SaveData", "");
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                TypeNameHandling = TypeNameHandling.All
-            };
-            print(saveData);
-            GameCore = JsonConvert.DeserializeObject<GameCore>(saveData, settings);
-            GameCore.Load(this);
             await loadingScreen.FadeIn();
         }
 
@@ -160,7 +144,19 @@ namespace Manager
             
             var data = JsonConvert.SerializeObject(GameCore, settings);
             PlayerPrefs.SetString("SaveData", data);
-            PlayerPrefs.Save();
+        }
+
+        public void LoadGame()
+        {
+            var saveData = PlayerPrefs.GetString("SaveData", "");
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                TypeNameHandling = TypeNameHandling.All
+            };
+            GameCore = JsonConvert.DeserializeObject<GameCore>(saveData, settings);
+            GameCore.Load(this);
         }
 
         public async UniTask ReturnToMain()
