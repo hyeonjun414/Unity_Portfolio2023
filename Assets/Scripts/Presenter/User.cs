@@ -39,6 +39,7 @@ namespace Presenter
             foreach (var artifactModel in uModel.Artifacts)
             {
                 var artifact = new Artifact(artifactModel);
+                artifact.InitFunc(this);
                 Artifacts.Add(artifact);
             }
         }
