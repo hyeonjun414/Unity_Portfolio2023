@@ -284,7 +284,7 @@ MonoBehaviour:
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   isFront: 0
-  isModel: 1
+  isModal: 1
   skipButton: {fileID: 9137863552694045780}
   rewardPivot: {fileID: 5527887553772658697}
   cardPrefab: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
@@ -753,7 +753,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   canvasRect: {fileID: 0}
   isFront: 0
-  isModel: 0
+  isModal: 0
   skipButton: {fileID: 0}
   rewardPivot: {fileID: 5527887553772658697}
   cardPrefab: {fileID: 0}

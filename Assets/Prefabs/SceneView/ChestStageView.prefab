@@ -6596,7 +6596,7 @@ MonoBehaviour:
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   isFront: 0
-  isModel: 0
+  isModal: 0
   heroPrefab: {fileID: 1438007507274079348, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
   chestPrefab: {fileID: 2640308600369331074, guid: 7a59bbd4b9e2ec04f90502042f107605, type: 3}
   doorPrefab: {fileID: 4957955070667770164, guid: 95c81c2a36d4dd642952e3e169cf4d9f, type: 3}
