@@ -1,7 +1,7 @@
 {
   "MasterEnemies"  : [
     {
-      "Id"        : "Bald Pirate",
+      "Id"        : "Enemy1",
       "Name"      : "Bald Pirate",
       "Desc"      : "일반 공격, 팀원 회복",
       "Hp"        : 20,
@@ -26,7 +26,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "Cucumber",
+      "Id"        : "Enemy2",
       "Name"      : "Cucumber",
       "Desc"      : "빠른 공격, 높은 스피드",
       "Hp"        : 12,
@@ -44,7 +44,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "Big Guy",
+      "Id"        : "Enemy3",
       "Name"      : "Big Guy",
       "Desc"      : "일반 공격, 강한 공격",
       "Hp"        : 40,
@@ -68,7 +68,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "Captain",
+      "Id"        : "Enemy4",
       "Name"      : "Captain",
       "Desc"      : "일반 공격, 아군 방어막",
       "Hp"        : 20,
@@ -93,7 +93,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "Whale",
+      "Id"        : "Enemy5",
       "Name"      : "Whale",
       "Desc"      : "일반 공격, 자신 방어막 ",
       "Hp"        : 50,
@@ -117,7 +117,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "Boss1",
+      "Id"        : "Enemy6",
       "Name"      : "Boss1",
       "Desc"      : "Boss1",
       "Hp"        : 300,
@@ -141,7 +141,7 @@
       "Selectable": false
     },
     {
-      "Id"        : "Boss1",
+      "Id"        : "Enemy7",
       "Name"      : "Boss1",
       "Desc"      : "Boss1",
       "Hp"        : 300,
@@ -167,7 +167,7 @@
   ],
   "MasterAllies"   : [
     {
-      "Id"     : "Sailor",
+      "Id"     : "Ally1",
       "Name"   : "Sailor",
       "Desc"   : "Sailor",
       "Hp"     : 20,
@@ -183,7 +183,7 @@
       ]
     },
     {
-      "Id"     : "Sailor2",
+      "Id"     : "Ally2",
       "Name"   : "Sailor2",
       "Desc"   : "Sailor",
       "Hp"     : 5,
@@ -201,7 +201,7 @@
   ],
   "MasterHeroes"   : [
     {
-      "Id"    : "Hero",
+      "Id"    : "Hero1",
       "Name"  : "Hero",
       "Desc"  : "Hero",
       "Hp"    : 100,
@@ -211,7 +211,7 @@
   ],
   "MasterArtifacts": [
     {
-      "Id"      : "충전기",
+      "Id"      : "Artifact1",
       "Name"    : "충전기",
       "Desc"    : "턴이 시작할 때 1의 에너지를 추가로 얻습니다.",
       "Tier"    : 1,
@@ -226,7 +226,7 @@
       ]
     },
     {
-      "Id"      : "보조 배터리",
+      "Id"      : "Artifact2",
       "Name"    : "보조 배터리",
       "Desc"    : "최대 에너지가 1 증가합니다.",
       "Tier"    : 1,
@@ -241,7 +241,7 @@
       ]
     },
     {
-      "Id"      : "생선 캔",
+      "Id"      : "Artifact3",
       "Name"    : "생선 캔",
       "Desc"    : "최대 체력이 15 증가합니다.",
       "Tier"    : 1,
@@ -256,7 +256,7 @@
       ]
     },
     {
-      "Id"      : "조개 껍질",
+      "Id"      : "Artifact4",
       "Name"    : "조개 껍질",
       "Desc"    : "턴이 시작할 때 5의 방어력을 추가로 얻습니다.",
       "Tier"    : 1,
@@ -271,7 +271,7 @@
       ]
     },
     {
-      "Id"      : "바람 신발",
+      "Id"      : "Artifact5",
       "Name"    : "바람 신발",
       "Desc"    : "동료의 스피드를 30 올립니다.",
       "Tier"    : 1,
@@ -287,7 +287,7 @@
       ]
     },
     {
-      "Id"      : "견제 검",
+      "Id"      : "Artifact6",
       "Name"    : "견제 검",
       "Desc"    : "이번 턴에 공격하는 적을 공격할 경우 AP를 20 감소시킵니다.",
       "Tier"    : 1,
@@ -307,7 +307,7 @@
       ]
     },
     {
-      "Id"      : "오색 달걀",
+      "Id"      : "Artifact7",
       "Name"    : "오색 달걀",
       "Desc"    : "적에게 피해를 줄 때 2의 데미지를 추가로 가합니다.",
       "Tier"    : 1,
@@ -322,7 +322,7 @@
       ]
     },
     {
-      "Id"      : "큰 손",
+      "Id"      : "Artifact8",
       "Name"    : "큰 손",
       "Desc"    : "전투가 시작될 때 첫 턴에 2장의 카드를 더 뽑습니다.",
       "Tier"    : 1,
@@ -337,7 +337,7 @@
       ]
     },
     {
-      "Id"      : "인어의 눈물",
+      "Id"      : "Artifact9",
       "Name"    : "인어의 눈물",
       "Desc"    : "카드를 사용하지 않으면 이번턴에 체력을 3 회복합니다.",
       "Tier"    : 1,
@@ -359,24 +359,7 @@
   ],
   "MasterCards"    : [
     {
-      "Id"      : "폭탄 투하",
-      "Name"    : "폭탄 투하",
-      "Desc"    : "적에게 15의 피해를 줍니다.",
-      "Icon"    : "Card_Bomb",
-      "CardType": "Attack",
-      "Tier"    : 1,
-      "Value"   : 50,
-      "Cost"    : 3,
-      "Function": [
-        {
-          "Type"  : "Cf_Damage",
-          "Effect": "Explosion",
-          "Damage": 15
-        }
-      ]
-    },
-    {
-      "Id"      : "베기",
+      "Id"      : "Card1",
       "Name"    : "베기",
       "Desc"    : "적에게 6의 피해를 줍니다.",
       "Icon"    : "Card_Slash",
@@ -393,7 +376,7 @@
       ]
     },
     {
-      "Id"      : "방어",
+      "Id"      : "Card2",
       "Name"    : "방어",
       "Desc"    : "5 방어력을 얻습니다.",
       "Icon"    : "Card_Shield",
@@ -411,7 +394,24 @@
       ]
     },
     {
-      "Id"      : "사슬 던지기",
+      "Id"      : "Card3",
+      "Name"    : "폭탄 투하",
+      "Desc"    : "적에게 15의 피해를 줍니다.",
+      "Icon"    : "Card_Bomb",
+      "CardType": "Attack",
+      "Tier"    : 1,
+      "Value"   : 50,
+      "Cost"    : 3,
+      "Function": [
+        {
+          "Type"  : "Cf_Damage",
+          "Effect": "Explosion",
+          "Damage": 15
+        }
+      ]
+    },
+    {
+      "Id"      : "Card4",
       "Name"    : "사슬 던지기",
       "Desc"    : "적에게 2의 피해를 줍니다. AP를 30감소시킵니다.",
       "Icon"    : "Card_Chain",
@@ -433,7 +433,7 @@
       ]
     },
     {
-      "Id"      : "불태우기",
+      "Id"      : "Card5",
       "Name"    : "불태우기",
       "Desc"    : "적에게 3의 피해를 줍니다. 2턴간 5의 화상 피해를 줍니다.",
       "Icon"    : "Card_Burn",
@@ -461,7 +461,7 @@
       ]
     },
     {
-      "Id"      : "럼주 한 병",
+      "Id"      : "Card6",
       "Name"    : "럼주 한 병",
       "Desc"    : "체력을 15 회복합니다.",
       "Icon"    : "Card_Rum",
@@ -478,7 +478,7 @@
       ]
     },
     {
-      "Id"      : "선원 호출",
+      "Id"      : "Card7",
       "Name"    : "선원 호출",
       "Desc"    : "매턴 5의 피해를 주는 선원을 3턴간 소환합니다.",
       "Icon"    : "Card_SummonSailor",
@@ -490,13 +490,13 @@
         {
           "Type"      : "Cf_SummonAlly",
           "Effect"    : "Teleport_blue",
-          "Character" : "Sailor",
+          "Character" : "Ally1",
           "LivingTurn": 3
         }
       ]
     },
     {
-      "Id"      : "튕겨내기",
+      "Id"      : "Card8",
       "Name"    : "튕겨내기",
       "Desc"    : "적에게 3의 피해를 줍니다. 공격하려는 적에게 빗나감을 부여합니다.",
       "Icon"    : "Card_Parrying",
@@ -523,7 +523,7 @@
       ]
     },
     {
-      "Id"      : "그래플링 훅",
+      "Id"      : "Card9",
       "Name"    : "그래플링 훅",
       "Desc"    : "적에게 3의 피해를 줍니다. 공격한 적을 한 칸 앞으로 이동시킵니다.",
       "Icon"    : "Card_Hook",
@@ -544,7 +544,7 @@
       ]
     },
     {
-      "Id"      : "약탈",
+      "Id"      : "Card10",
       "Name"    : "약탈",
       "Desc"    : "카드를 1장 뽑습니다.",
       "Icon"    : "Card_Loot",
@@ -561,7 +561,7 @@
       ]
     },
     {
-      "Id"      : "캐논 볼",
+      "Id"      : "Card11",
       "Name"    : "캐논 볼",
       "Desc"    : "모든 적에게 10의 피해를 줍니다.",
       "Icon"    : "Card_CannonBall",
@@ -579,7 +579,7 @@
       ]
     },
     {
-      "Id"      : "사기 카드",
+      "Id"      : "Card12",
       "Name"    : "사기 카드",
       "Desc"    : "모든 적에게 100의 피해를 줍니다.",
       "Icon"    : "Card_CannonBall",
@@ -597,7 +597,7 @@
       ]
     },
     {
-      "Id"      : "권총 사격",
+      "Id"      : "Card13",
       "Name"    : "권총 사격",
       "Desc"    : "대상에게 5의 피해를 줍니다.",
       "Icon"    : "Card_Shot",
@@ -614,7 +614,7 @@
       ]
     },
     {
-      "Id"      : "퀵 슬래시",
+      "Id"      : "Card14",
       "Name"    : "퀵 슬래시",
       "Desc"    : "대상에게 3의 피해를 줍니다.",
       "Icon"    : "Card_QuickSlash",
@@ -631,9 +631,9 @@
       ]
     },
     {
-      "Id"      : "강풍",
+      "Id"      : "Card15",
       "Name"    : "강풍",
-      "Desc"    : "모든 적에게 피해를 5 주고 속도를 20 감소시킵니다.",
+      "Desc"    : "모든 적에게 피해를 5 주고 AP를 20 감소시킵니다.",
       "Icon"    : "Card_Wind",
       "CardType": "Attack",
       "Tier"    : 1,
@@ -649,13 +649,13 @@
         {
           "Type"      : "Cf_ApDown",
           "Effect"    : "ApDown",
-          "Value"     : 30,
+          "Value"     : 20,
           "TargetType": "All"
         }
       ]
     },
     {
-      "Id"      : "강타",
+      "Id"      : "Card16",
       "Name"    : "강타",
       "Desc"    : "대상을 가장 한 칸 뒤로 이동시키고, 15의 데미지를 준다.",
       "Icon"    : "Card_PowerSlash",
@@ -676,7 +676,7 @@
       ]
     },
     {
-      "Id"      : "돌격",
+      "Id"      : "Card17",
       "Name"    : "돌격",
       "Desc"    : "피해를 2 입히고 방어력을 2 얻습니다.",
       "Icon"    : "Card_Rush",
@@ -698,7 +698,7 @@
       ]
     },
     {
-      "Id"      : "반격 준비",
+      "Id"      : "Card18",
       "Name"    : "반격 준비",
       "Desc"    : "5 방어력을 얻고 3턴간 3의 데미지로 반격합니다.",
       "Icon"    : "Card_CounterReady",
@@ -728,7 +728,7 @@
       ]
     },
     {
-      "Id"      : "상처내기",
+      "Id"      : "Card19",
       "Name"    : "상처내기",
       "Desc"    : "대상에게 피해 2를 주고 2턴간 취약 2를 부여합니다.",
       "Icon"    : "Card_Injure",
@@ -756,7 +756,7 @@
       ]
     },
     {
-      "Id"      : "앵커 드롭",
+      "Id"      : "Card20",
       "Name"    : "앵커 드롭",
       "Desc"    : "선택한 대상에 1턴 동안 기절을 적용합니다.",
       "Icon"    : "Card_AnchorDrop",
@@ -779,7 +779,7 @@
       ]
     },
     {
-      "Id"      : "바다의 물결",
+      "Id"      : "Card21",
       "Name"    : "바다의 물결",
       "Desc"    : "2턴 동안 4 건강을 부여합니다.",
       "Icon"    : "Card_Wave",
@@ -803,7 +803,7 @@
       ]
     },
     {
-      "Id"      : "럼 부스트",
+      "Id"      : "Card22",
       "Name"    : "럼 부스트",
       "Desc"    : "방어력이 5 증가하고 카드 1장을 뽑습니다.",
       "Icon"    : "Card_RumBoost",
@@ -825,7 +825,7 @@
       ]
     },
     {
-      "Id"      : "갑판원 소환",
+      "Id"      : "Card23",
       "Name"    : "갑판원 소환",
       "Desc"    : "체력이 5이고 공격력이 2인 갑판원을 소환합니다.",
       "Icon"    : "Card_Summon2",
@@ -837,13 +837,13 @@
         {
           "Type"      : "Cf_SummonAlly",
           "Effect"    : "Slash",
-          "Character" : "Sailor2",
+          "Character" : "Ally2",
           "LivingTurn": 999
         }
       ]
     },
     {
-      "Id"      : "약탈",
+      "Id"      : "Card24",
       "Name"    : "약탈",
       "Desc"    : "5골드를 얻고 카드 1장을 뽑습니다.",
       "Icon"    : "Card_Looting",
@@ -864,7 +864,7 @@
       ]
     },
     {
-      "Id"      : "혹한지",
+      "Id"      : "Card25",
       "Name"    : "혹한지",
       "Desc"    : "모든 적에게 20%의 슬로우 한 턴간 적용합니다.",
       "Icon"    : "Card_Frozen",
@@ -889,7 +889,7 @@
       ]
     },
     {
-      "Id"      : "보물이다",
+      "Id"      : "Card26",
       "Name"    : "보물이다",
       "Desc"    : "카드 2장을 뽑고 방어력을 7 얻습니다.",
       "Icon"    : "Card_Treasure",
@@ -913,7 +913,7 @@
   ],
   "MasterUsers"    : [
     {
-      "Id"           : "Char1",
+      "Id"           : "User1",
       "Name"         : "Char1",
       "Desc"         : "Normal",
       "Hero"         : "Hero",
@@ -922,43 +922,48 @@
       "Energy"       : 5,
       "Artifacts"    : [],
       "Cards"        : [
-        "베기",
-        "베기",
-        "베기",
-        "베기",
-        "베기",
-        "방어",
-        "방어",
-        "방어",
-        "방어",
-        "방어"
+        "Card1",
+        "Card1",
+        "Card1",
+        "Card1",
+        "Card1",
+        "Card2",
+        "Card2",
+        "Card2",
+        "Card2",
+        "Card2"
       ]
     },
     {
-      "Id"           : "Test",
-      "Name"         : "Test",
+      "Id"           : "User2",
+      "Name"         : "Char1",
       "Desc"         : "Normal",
       "Hero"         : "Hero",
       "DrawCardCount": 5,
-      "InitGold"     : 50,
+      "InitGold"     : 200,
       "Energy"       : 5,
-      "Artifacts"    : [],
+      "Artifacts"    : [
+        "Artifact9",
+        "Artifact7",
+        "Artifact7"
+      ],
       "Cards"        : [
-        "사기 카드",
-        "선원 호출",
-        "앵커 드롭",
-        "바다의 물결",
-        "폭탄 투하",
-        "베기",
-        "폭탄 투하",
-        "폭탄 투하",
-        "폭탄 투하"
+        "Card12",
+        "Card12",
+        "Card1",
+        "Card2",
+        "Card2",
+        "Card2",
+        "Card7",
+        "Card15",
+        "Card19",
+        "Card9"
       ]
     }
   ],
   "MasterStages"   : [
     {
-      "Id"        : "Shop",
+      "Id"        : "Stage1",
       "Name"      : "Shop",
       "StageType" : "Shop",
       "StageInfo" : {
@@ -975,7 +980,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "NormalBattle",
+      "Id"        : "Stage2",
       "Name"      : "NormalBattle",
       "StageType" : "Normal",
       "StageInfo" : {
@@ -988,7 +993,7 @@
       "Selectable": true
     },
     {
-      "Id"        : "Chest",
+      "Id"        : "Stage3",
       "Name"      : "Chest",
       "StageType" : "Chest",
       "StageInfo" : {
@@ -999,52 +1004,52 @@
       "Selectable": true
     },
     {
-      "Id"        : "BossBattle1",
+      "Id"        : "Stage4",
       "Name"      : "BossBattle1",
       "StageType" : "Boss",
       "StageInfo" : {
         "Type"  : "BossStageInfo",
         "Icon"  : "Stage_Level2",
-        "BossId": "Boss1"
+        "BossId": "Enemy7"
       },
       "Selectable": false
     }
   ],
   "MasterMaps"     : [
     {
-      "Id"           : "Level1",
+      "Id"           : "Map1",
       "Name"         : "Level1",
       "MinLevelValue": 0.8,
       "MaxLevelValue": 1.2,
       "Step"         : 5,
       "Width"        : 3,
-      "EndNodeId"    : "BossBattle1",
+      "EndNodeId"    : "Stage4",
       "StageWeight"  : [
         8,
         2
       ]
     },
     {
-      "Id"           : "Level2",
+      "Id"           : "Map2",
       "Name"         : "Level2",
       "MinLevelValue": 1.2,
       "MaxLevelValue": 1.6,
       "Step"         : 7,
       "Width"        : 3,
-      "EndNodeId"    : "BossBattle1",
+      "EndNodeId"    : "Stage4",
       "StageWeight"  : [
         8,
         2
       ]
     },
     {
-      "Id"           : "Level3",
+      "Id"           : "Map3",
       "Name"         : "Level3",
       "MinLevelValue": 1.6,
       "MaxLevelValue": 2,
       "Step"         : 9,
       "Width"        : 4,
-      "EndNodeId"    : "BossBattle1",
+      "EndNodeId"    : "Stage4",
       "StageWeight"  : [
         8,
         2
