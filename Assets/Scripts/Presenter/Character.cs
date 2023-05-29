@@ -87,6 +87,7 @@ namespace Presenter
 
         public virtual async UniTask TakeDamage(float damage)
         {
+            if (Model.IsDead) return;
             Model.TakeDamage(damage);
             View.SetDefence(Model.Defence);
             GameManager.Instance.CreateFloatingText(((int)damage).ToString(), CenterPos, TextType.Damage);
@@ -283,7 +284,8 @@ namespace Presenter
         public override async UniTask TakeDamage(float damage)
         {
             await base.TakeDamage(damage);
-            await GameManager.Instance.user.ActivateArtifacts(ArtifactTrigger.EnemyDamaged, this);
+            if(Model.IsDead == false)
+                await GameManager.Instance.user.ActivateArtifacts(ArtifactTrigger.EnemyDamaged, this);
         }
 
         public override async UniTask ExecuteAction(Character target)
