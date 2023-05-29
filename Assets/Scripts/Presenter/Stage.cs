@@ -386,6 +386,7 @@ namespace Presenter
                 case CardType.Magic:
                     if (_inCardZone)
                     {
+                        ThisTurnUsedCardCount++;
                         await user.UseCard(_selectedCard, user.UserHero);
                         await HandToGrave(_selectedCard);
                     }
