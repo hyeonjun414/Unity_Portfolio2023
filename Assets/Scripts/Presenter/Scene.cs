@@ -33,6 +33,12 @@ namespace Presenter
             gm = gameManager;
             SetView(gm.CreateSceneView(this));
         }
+
+        public virtual void SetView(SceneView view)
+        {
+            View = view;
+            View.Presenter = this;
+        }
         
         public void SceneActive(bool isActive)
         {
@@ -45,11 +51,7 @@ namespace Presenter
             View.DestroyScene();
         }
 
-        public virtual void SetView(SceneView view)
-        {
-            View = view;
-            View.Presenter = this;
-        }
+        
 
 
         public void SetLayerOrder(int orderNum)
