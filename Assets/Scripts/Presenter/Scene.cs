@@ -28,6 +28,10 @@ namespace Presenter
             Type = this.GetType().Name;
         }
 
+        public virtual void Init()
+        {
+        }
+
         public virtual void Load(GameManager gameManager)
         {
             gm = gameManager;
@@ -40,21 +44,17 @@ namespace Presenter
             View.Presenter = this;
         }
         
-        public void SceneActive(bool isActive)
+        public virtual void ActivateScene(bool isActive)
         {
-            View.SceneViewActive(isActive);
+            View.SceneActivated(isActive);
         }
 
-        public void CloseScene()
+        public virtual void CloseScene()
         {
             Model = null;
-            View.DestroyScene();
+            View.SceneClosed();
         }
-
-        
-
-
-        public void SetLayerOrder(int orderNum)
+        public virtual void SetLayerOrder(int orderNum)
         {
             View.SetLayerOrder(orderNum);
         }

@@ -56,15 +56,16 @@ namespace Manager
             var newMasterTable = Resources.Load<TextAsset>("MasterTable");
             MasterTable = JsonConvert.DeserializeObject<MasterTable>(newMasterTable.ToString());
 
-            Title = new Title(new SceneModel());
+            
             CreateTitle().AsAsyncUnitUniTask();
         }
 
         private async UniTask CreateTitle()
         {
             loadingScreen.Init();
-            await UniTask.Delay(500);
+            Title = new Title(new SceneModel());
             Title.SetView(CreateSceneView(Title));
+            await UniTask.Delay(500);
             await loadingScreen.FadeIn();
         }
 
@@ -83,15 +84,13 @@ namespace Manager
         public async UniTask StartGame()
         {
             await loadingScreen.FadeOut();
-            Title.SceneActive(false);
+            Title.ActivateScene(false);
             GameCore = new GameCore();
             GameCore.Init();
             GameCore.User = new User(new UserModel(), MasterTable.MasterUsers[0], MasterTable);
-            GameCore.User.SetView(CreateSceneView(GameCore.User));
             AddScene(GameCore.User);
             
             var map = new Map(new MapModel(), MasterTable.MasterMaps[0], MasterTable);
-            map.SetView(CreateSceneView(map));
             AddScene(map);
 
             SaveGame();
@@ -102,7 +101,7 @@ namespace Manager
         {
             await loadingScreen.FadeOut();
             LoadGame();
-            Title.SceneActive(false);
+            Title.ActivateScene(false);
             await loadingScreen.FadeIn();
         }
 
@@ -114,10 +113,11 @@ namespace Manager
             inst.Init();
             return inst;
         }
-
+        
         public void AddScene(Scene scene)
-        {
-            GameCore.OpenScene(scene);
+        { 
+            scene.SetView(CreateSceneView(scene)); 
+            GameCore.AddScene(scene);
         }
         
         public async UniTask DestroyCurScene()
@@ -165,7 +165,7 @@ namespace Manager
             SoundManager.Instance.SaveVolumeData();
             GameCore.Reset();
             GameCore = null;
-            Title.SceneActive(true);
+            Title.ActivateScene(true);
             await loadingScreen.FadeIn();
         }
 
@@ -201,7 +201,7 @@ namespace Manager
         public async UniTask LoadStageScene(MapNode mapNode)
         {
             await loadingScreen.FadeOut();
-            GameCore.OpenScene(GenerateStage(mapNode.Model));
+            GameCore.AddScene(GenerateStage(mapNode.Model));
             await loadingScreen.FadeIn();
         }
 

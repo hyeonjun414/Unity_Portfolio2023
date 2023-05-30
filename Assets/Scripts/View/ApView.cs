@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using View;
 
-public class ApView : MonoBehaviour, IEntityObserver
+public class ApView : MonoBehaviour, ICharacterObserver
 {
     private Transform _start, _end;
     private CharacterView _connectedView;

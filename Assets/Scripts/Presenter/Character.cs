@@ -11,8 +11,8 @@ namespace Presenter
 {
     public interface ICharacter
     {
-        void AddObserver(IEntityObserver observer);
-        void RemoveObserver(IEntityObserver observer);
+        void AddObserver(ICharacterObserver observer);
+        void RemoveObserver(ICharacterObserver observer);
     }
     public class Character : ICharacter
     {
@@ -21,10 +21,19 @@ namespace Presenter
         [JsonIgnore]
         public CharacterView View;
 
-        public List<StatusEffect> StatusEffects;
+        public List<StatusEffect> StatusEffects = new();
         private List<StatusEffect> _expiredEffect = new();
 
-        public event EventHandler OnDeath;
+        public Action OnDeath;
+
+        [JsonIgnore] 
+        public Vector3 WorldPosition => View.GetPosition();
+        [JsonIgnore] 
+        public Vector3 CenterPos => View.CenterPos;
+        [JsonIgnore] 
+        public Transform CenterPivot => View.centerPivot;
+        public CharacterType CharType => Model.CharType;
+
 
         public Character(CharacterModel model)
         {
@@ -34,7 +43,6 @@ namespace Presenter
 
         public virtual void Init()
         {
-            StatusEffects = new List<StatusEffect>();
         }
 
         public virtual void SetView(CharacterView view)
@@ -198,22 +206,22 @@ namespace Presenter
             stage?.UnTargetEntity();
         }
 
-        public void AddObserver(IEntityObserver observer)
+        public void AddObserver(ICharacterObserver observer)
         {
             View.Observers.Add(observer);
         }
 
-        public void RemoveObserver(IEntityObserver observer)
+        public void RemoveObserver(ICharacterObserver observer)
         {
             View.Observers.Remove(observer);
         }
 
         public virtual void OnDeathEvent()
         {
-            OnDeath?.Invoke(this, EventArgs.Empty);
+            OnDeath?.Invoke();
         }
 
-        public virtual void ResetEvent()
+        public virtual void ResetAction()
         {
             OnDeath = null;
         }
@@ -227,17 +235,7 @@ namespace Presenter
         {
             Model.RemoveBuff(statName, value);
         }
-
-        [JsonIgnore]
-        public Vector3 WorldPosition => View.GetPosition();
-
-        [JsonIgnore]
-        public Vector3 CenterPos => View.CenterPos;
-
-        [JsonIgnore]
-        public Transform CenterPivot => View.centerPivot;
-        public CharacterType CharType => Model.CharType;
-
+        
         public async UniTask AddDefence(int value)
         {
             Model.AddDefence(value);
@@ -387,7 +385,7 @@ namespace Presenter
         {
             Model.Stats.Defence = 0;
             View.SetDefence(Model.Stats.Defence);
-            ResetEvent();
+            ResetAction();
             foreach (var stat in StatusEffects)
             {
                 stat.Dispose(this);

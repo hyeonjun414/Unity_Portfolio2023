@@ -31,19 +31,19 @@ namespace Model
             {
                 var scene = Scenes[i];
                 scene.Load(gameManager);
-                scene.SceneActive(false);
+                scene.ActivateScene(false);
                 scene.SetLayerOrder(i);
             }
-            CurScene.SceneActive(true);
+            CurScene.ActivateScene(true);
         }
         
-        public void OpenScene(Scene scene)
+        public void AddScene(Scene scene)
         {
             
             if (Scenes.Count != 0)
             {
                 if(scene.View.isModal == false)
-                    CurScene.SceneActive(false);
+                    CurScene.ActivateScene(false);
             }
             Scenes.Add(scene);
             scene.SetLayerOrder(Scenes.Count);
@@ -53,7 +53,7 @@ namespace Model
         {
             CurScene.CloseScene();
             Scenes.Remove(CurScene);
-            CurScene.SceneActive(true);
+            CurScene.ActivateScene(true);
         }
 
         public void Reset()

@@ -34,12 +34,6 @@ namespace Presenter
         {
         }
 
-        public virtual void SetView(SceneView view)
-        {
-            View = view;
-            View.Presenter = this;
-        }
-        
         public virtual async UniTask Update()
         {
             await UniTask.Yield();
@@ -82,7 +76,7 @@ namespace Presenter
         {
             base.Init();
             // user
-            user.UserHero.OnDeath += OnDeath;
+            user.UserHero.OnDeath += () => OnDeath(user.UserHero);
             Allies.Add(user.UserHero);
             user.UserHero.UseAp();
             var userCardData = user.GetCards().OrderBy(t => Random.value).ToList();
@@ -100,7 +94,7 @@ namespace Presenter
             foreach (var enemyModel in bsModel.GetEnemies())
             {
                 var enemy = new Enemy(enemyModel);
-                enemy.OnDeath += OnDeath;
+                enemy.OnDeath += () => OnDeath(enemy);
                 Enemies.Add(enemy);
             }
         }
@@ -135,25 +129,25 @@ namespace Presenter
                 ally.SetView(bsView.CreateAllyView());
                 await user.ActivateArtifacts(ArtifactTrigger.AllySummoned, ally);
                 ally.Init();
-                ally.OnDeath += OnDeath;
+                ally.OnDeath += () => OnDeath(ally);
                 Allies.Insert(0, ally);
                 bsView.AddApView(ally);
             }
         }
 
-        public async void OnDeath(object sender, EventArgs e)
+        public async void OnDeath(Character character)
         {
-            if (sender is Hero hero)
+            if (character is Hero hero)
             {
                 Allies.Remove(hero);
                 GameOver();
             }
-            else if (sender is Ally ally)
+            else if (character is Ally ally)
             {
                 Allies.Remove(ally);
                 await RemoveEntityView(ally);
             }
-            else if (sender is Enemy enemy)
+            else if (character is Enemy enemy)
             {
                 UserGetGold(enemy.eModel.DropGold);
                 Enemies.Remove(enemy);
@@ -175,7 +169,6 @@ namespace Presenter
 
         public void StageStart()
         {
-            
             var Modeltask = Update();
         }
 
@@ -474,7 +467,7 @@ namespace Presenter
 
             rewardScene.SetReward(rewards);
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
-            gm.GameCore.OpenScene(rewardScene);
+            gm.GameCore.AddScene(rewardScene);
             await rewardScene.Wait();
             
             if (rewardScene.RewardSelected)
@@ -699,7 +692,7 @@ namespace Presenter
             var rewardScene = new RewardScene(new RewardModel());
             rewardScene.SetReward(rewards);
             rewardScene.SetView(gm.CreateSceneView(rewardScene));
-            gm.GameCore.OpenScene(rewardScene);
+            gm.GameCore.AddScene(rewardScene);
             await rewardScene.Wait();
 
             if (rewardScene.RewardSelected)

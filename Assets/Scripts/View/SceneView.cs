@@ -21,7 +21,7 @@ namespace View
             canvas.worldCamera = GameManager.Instance.mainCam;
         }
 
-        public virtual void SceneViewActive(bool isActive)
+        public virtual void SceneActivated(bool isActive)
         {
             if (isFront == false)
             {
@@ -29,7 +29,7 @@ namespace View
             }
         }
 
-        public void DestroyScene()
+        public void SceneClosed()
         {
             Destroy(gameObject);
         }

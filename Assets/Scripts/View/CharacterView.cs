@@ -14,7 +14,7 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public interface IEntityObserver
+    public interface ICharacterObserver
     {
         void OnMouseEnterEntity();
         void OnMouseExitEntity();
@@ -45,7 +45,7 @@ namespace View
         public AudioClip hitSound;
         
         [Header("Observer")]
-        public List<IEntityObserver> Observers = new();
+        public List<ICharacterObserver> Observers = new();
         
 
         public virtual void SetView(Character character)
