@@ -46,9 +46,10 @@ namespace Model
                 var targetList = curStage.GetTarget(target, TargetType);
                 foreach (var t in targetList)
                 {
-                    var effect = Util.ToObject<StatusEffectModel>(StatusEffect);
+                    var effectModel = Util.ToObject<StatusEffectModel>(StatusEffect);
                     CreateEft(t.CenterPivot);
-                    await t.AddStatusEffect(effect);
+                    t.AddStatusEffect(new StatusEffect(effectModel));
+                    await UniTask.Yield();
                 }
             }
         }

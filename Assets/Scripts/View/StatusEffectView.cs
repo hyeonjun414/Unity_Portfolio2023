@@ -19,10 +19,8 @@ namespace View
         public List<Sprite> iconImages;
         public ParticleSystem activeEft;
         
-        public void SetView(StatusEffect statEft)
+        public void SetView()
         {
-            Presenter = statEft;
-
             activeEft = Resources.Load<ParticleSystem>("Particle/" + Presenter.Model.Particle);
             var statValue = Presenter.Model.Value;
             valueText.SetText(statValue < 1 ? $"{statValue * 100}%" : $"{statValue}");

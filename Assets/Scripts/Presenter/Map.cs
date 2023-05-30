@@ -35,8 +35,8 @@ namespace Presenter
             mModel.GenerateMap(mm, mt);
             var stages = mModel.MapNodes;
             var stagePresenters = new List<List<MapNode>>();
-            StartNode = new MapNode(mModel.StartNode, null);
-            EndNode = new MapNode(mModel.EndNode, null);
+            StartNode = new MapNode(mModel.StartNode);
+            EndNode = new MapNode(mModel.EndNode);
 
             CurNode = StartNode;
             CurStep = -1;
@@ -48,7 +48,7 @@ namespace Presenter
                 {
                     var curMapNode = stages[i][j];
 
-                    stageStep.Add(curMapNode == null ? null : new MapNode(curMapNode, null));
+                    stageStep.Add(curMapNode == null ? null : new MapNode(curMapNode));
                 }
                 stagePresenters.Add(stageStep);
             }

@@ -10,10 +10,21 @@ namespace Presenter
         public StatusEffectModel Model;
         public StatusEffectView View;
 
-        public StatusEffect(StatusEffectModel model, StatusEffectView view)
+        public StatusEffect(StatusEffectModel model)
         {
             Model = model;
+        }
+
+        public void Init(Character character)
+        {
+            Model.Init(character);
+        }
+        
+        public void SetView(StatusEffectView view)
+        {
             View = view;
+            View.Presenter = this;
+            View.SetView();
         }
 
         public virtual async UniTask Activate(Character character)
@@ -28,5 +39,7 @@ namespace Presenter
             Model = null;
             View.DestroyView();
         }
+
+        
     }
 }

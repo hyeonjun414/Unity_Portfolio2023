@@ -130,12 +130,11 @@ namespace Presenter
             View.DestroyView();
         }
 
-        public virtual async UniTask AddStatusEffect(StatusEffectModel statEft)
+        public void AddStatusEffect(StatusEffect statEft)
         {
-            var eftPresenter = new StatusEffect(statEft, null);
-            StatusEffects.Add(eftPresenter);
+            statEft.SetView(View.CreateStatusEffectView());
+            StatusEffects.Add(statEft);
             statEft.Init(this);
-            await View.AddStatusEffect(eftPresenter);
         }
 
         public virtual async UniTask ExecuteAction(Character target)

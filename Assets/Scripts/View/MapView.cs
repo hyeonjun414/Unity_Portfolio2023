@@ -46,7 +46,7 @@ namespace View
                             (-totalWidth / 2) + (j + 0.5f) * 220f,
                             (-totalHeight / 2) + i * 300f + 100f,
                             0);
-                        node.Init(stages[i][j]);
+                        stages[i][j].SetView(node);
                         stageStep.Add(node);
                     }
                 }

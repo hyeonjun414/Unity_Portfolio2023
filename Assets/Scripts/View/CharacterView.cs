@@ -128,13 +128,11 @@ namespace View
         }
 
 
-        public async UniTask AddStatusEffect(StatusEffect eft)
+        public StatusEffectView CreateStatusEffectView()
         {
-            var eftInst = Instantiate(statusEffectPrefab, statEftPivot);
-            eftInst.SetView(eft);
-            eft.View = eftInst;
-            StatEftList.Add(eftInst);
-            await UniTask.Yield();
+            var inst = Instantiate(statusEffectPrefab, statEftPivot);
+            StatEftList.Add(inst);
+            return inst;
         }
 
         public void HpRecover(float curHp, float maxHp)

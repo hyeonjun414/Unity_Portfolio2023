@@ -18,11 +18,8 @@ namespace View
         public List<Sprite> iconSprites;
 
         public AudioClip nodeClickSound;
-        public void Init(MapNode mapNode)
+        public void SetView(MapNode mapNode)
         {
-            Presenter = mapNode;
-            Presenter.View = this;
-
             var iconImage = iconSprites.FirstOrDefault(t => t.name == mapNode.GetIconName());
             icon.sprite = iconImage;
             icon.color = Color.black;

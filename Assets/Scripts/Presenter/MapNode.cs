@@ -19,10 +19,16 @@ namespace Presenter
         {
             
         }
-        public MapNode(MapNodeModel model, MapNodeView view)
+        public MapNode(MapNodeModel model)
         {
             Model = model;
+        }
+
+        public void SetView(MapNodeView view)
+        {
             View = view;
+            View.Presenter = this;
+            View.SetView(this);
         }
 
         public async UniTask SelectMapNode()
