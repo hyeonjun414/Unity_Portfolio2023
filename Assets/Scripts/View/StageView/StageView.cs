@@ -13,8 +13,5 @@ namespace View.StageView
     
     public class StageView : SceneView
     {
-        public virtual void SetStageView()
-        {
-        }
     }
 }

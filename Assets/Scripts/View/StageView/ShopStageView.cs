@@ -17,9 +17,9 @@ namespace View.StageView
         public Transform cardPivot, artifactPivot;
         public Button quitBtn;
         
-        public override void SetStageView()
+        public override void SetView(Scene scene)
         {
-            base.SetStageView();
+            base.SetView(scene);
             quitBtn.onClick.AsObservable().Subscribe(async _ => { await OnQuitBtn(); });
         }
 

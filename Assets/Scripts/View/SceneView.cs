@@ -29,6 +29,11 @@ namespace View
             }
         }
 
+        public virtual void SetView(Scene scene)
+        {
+            
+        }
+
         public void SceneClosed()
         {
             Destroy(gameObject);

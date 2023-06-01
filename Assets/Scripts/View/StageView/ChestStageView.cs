@@ -15,12 +15,6 @@ namespace View.StageView
 
         private HeroView _heroView;
         
-        public override void SetStageView()
-        {
-            base.SetStageView();
-            
-        }
-
         public CharacterView CreateHeroView()
         {
             var inst = Instantiate(heroPrefab);

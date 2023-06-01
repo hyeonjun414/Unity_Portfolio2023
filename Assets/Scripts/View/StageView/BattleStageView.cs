@@ -36,10 +36,10 @@ namespace View.StageView
         public CharacterHolder characterHolder;
         
         private CharacterView _heroView;
-        
-        public override void SetStageView()
+
+        public override void SetView(Scene scene)
         {
-            base.SetStageView();
+            base.SetView(scene);
             turnEndButton.onClick.AsObservable().Subscribe(async _ => { await bsPresenter.TurnEnd(); });
         }
 

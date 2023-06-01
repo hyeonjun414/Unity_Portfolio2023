@@ -116,8 +116,8 @@ namespace Presenter
                 enemy.SetView(bsView.CreateEnemyView());
                 bsView.AddApView(enemy);
             }
-            
-            bsView.SetStageView();
+
+            view.SetView(this);
             StageStart();
         }
         public async UniTask SummonAlly(string character, int livingTurn)
@@ -582,7 +582,7 @@ namespace Presenter
             {
                 artifact.SetView(shopSceneView.CreateArtifact());
             }
-            shopSceneView.SetStageView();
+            view.SetView(this);
         }
 
         public void BuyItem(Item sender)
