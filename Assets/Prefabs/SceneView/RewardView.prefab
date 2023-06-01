@@ -288,7 +288,7 @@ MonoBehaviour:
   skipButton: {fileID: 9137863552694045780}
   rewardPivot: {fileID: 5527887553772658697}
   cardPrefab: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
-  artifactPrefab: {fileID: 1750593060498487943, guid: ba4acc0b3bc11794fb2de1edc1e096b5, type: 3}
+  artifactPrefab: {fileID: 1750593060498487943, guid: 60e4864658c39844c8fbc3686e26698c, type: 3}
 --- !u!1 &3096812689611107400
 GameObject:
   m_ObjectHideFlags: 0

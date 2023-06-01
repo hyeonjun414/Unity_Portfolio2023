@@ -2859,7 +2859,7 @@ MonoBehaviour:
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   isFront: 1
-  isModel: 0
+  isModal: 0
   cardPrefab: {fileID: 3284550490236793178, guid: 5fa727c6bb2d93b468f816d805b30bf6, type: 3}
   userGoldView: {fileID: 6480712700463937874}
   userDeckView: {fileID: 5737627489903471635}
