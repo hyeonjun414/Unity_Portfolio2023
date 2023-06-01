@@ -113,7 +113,7 @@ namespace Model
             await base.Activate(target);
             if (target is Enemy enemy)
             {
-                await enemy.TakeDamage(Value);
+                await enemy.TakeDamageByItem(Value);
             }
         }
     }

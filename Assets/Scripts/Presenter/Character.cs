@@ -108,6 +108,23 @@ namespace Presenter
             await UniTask.Yield();
         }
 
+        public virtual async UniTask TakeDamageByItem(float damage)
+        {
+            if (Model.IsDead) return;
+            Model.TakeDamage(damage);
+            View.SetDefence(Model.Defence);
+            GameManager.Instance.CreateFloatingText(((int)damage).ToString(), CenterPos, TextType.Damage);
+            if (Model.IsDead)
+            {
+                OnDeathEvent();
+            }
+
+            await View.PlayDamageEft();
+            View.UpdateHp(Model.CurHp, Model.MaxHp);
+            await UniTask.Yield();
+        }
+
+
         public async UniTask PrepareAttack(Vector3 targetPos)
         {
             await View.PrepareAttack(targetPos);
