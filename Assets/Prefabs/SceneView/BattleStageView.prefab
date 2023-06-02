@@ -7796,7 +7796,7 @@ MonoBehaviour:
   canvas: {fileID: 3096812689611107407}
   canvasRect: {fileID: 0}
   isFront: 0
-  isModel: 0
+  isModal: 0
   energyText: {fileID: 1913537104676213848}
   characterView: {fileID: 1438007507274079348, guid: fb4abd4fe2cc52c45a50412a7740e742, type: 3}
   allyView: {fileID: 7227543362852767417, guid: cd205cea03fe67b4fbe74ae7678a6965, type: 3}
