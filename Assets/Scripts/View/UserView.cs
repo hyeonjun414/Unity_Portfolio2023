@@ -12,9 +12,12 @@ namespace View
         public UserGoldView userGoldView;
         public UserDeckView userDeckView;
         public ArtifactView artifactPrefab;
+        public ArtifactDescPanel artifactDescPanel;
         public Transform artifactPivot;
 
         public SettingView settingView;
+
+
         
         public void SetView(User user)
         {
@@ -40,6 +43,10 @@ namespace View
             userGoldView.AddGold(prevGold, amount);
         }
 
-        
+
+        public void DisplayArtifactDesc(Artifact artifact)
+        {
+            artifactDescPanel.SetPanel(artifact);
+        }
     }
 }

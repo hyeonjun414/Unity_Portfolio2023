@@ -56,6 +56,7 @@ namespace Presenter
             foreach (var artifact in Artifacts)
             {
                 artifact.SetView(uView.CreateArtifactView());
+                artifact.State.OnClickAction += () => uView.DisplayArtifactDesc(artifact);
             }
             uView.SetView(this);
         }
@@ -103,6 +104,7 @@ namespace Presenter
 
         public void AddCard(Card card)
         {
+            card.SetState();
             uModel.Cards.Add(card.Model);
             Cards.Add(card);
             card.SetView(uView.CreateDeckCard());
@@ -145,8 +147,10 @@ namespace Presenter
 
         public void AddArtifact(Artifact artifact)
         {
+            artifact.SetState();
             artifact.SetView(uView.CreateArtifactView());
             artifact.InitFunc(this);
+            artifact.State.OnClickAction += () => uView.DisplayArtifactDesc(artifact);
             Artifacts.Add(artifact);
         }
     }

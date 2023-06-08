@@ -1,10 +1,11 @@
 using System;
+using Newtonsoft.Json;
 
 namespace Presenter
 {
     public class Item
     {
-
+        [JsonIgnore]
         public ItemState State;
 
         public void SetState()

@@ -87,7 +87,7 @@ namespace Manager
             Title.ActivateScene(false);
             GameCore = new GameCore();
             GameCore.Init();
-            GameCore.User = new User(new UserModel(), MasterTable.MasterUsers[0], MasterTable);
+            GameCore.User = new User(new UserModel(), MasterTable.MasterUsers[1], MasterTable);
             AddScene(GameCore.User);
             
             var map = new Map(new MapModel(), MasterTable.MasterMaps[0], MasterTable);

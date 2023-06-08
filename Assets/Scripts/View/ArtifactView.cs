@@ -11,24 +11,16 @@ namespace View
         public Artifact Presenter;
 
         public Image icon;
-        public GameObject descPanel;
-        public TextMeshProUGUI artifactName, artifactDesc;
 
         public Image inputChecker;
-
+        public Vector3 WorldPos => transform.position;
         public void SetInputChecker(bool value) => inputChecker.raycastTarget = value;
         
         public virtual void SetView(Artifact artifact)
         {
             Presenter = artifact;
             Presenter.View = this;
-
-            var data = artifact.Model;
-            artifactName.SetText(data.Name);
-            artifactDesc.SetText(data.Desc);
-            icon.sprite = Resources.Load<Sprite>($"ArtifactIcon/{data.Icon}");
-
-            descPanel.GetComponent<Canvas>().sortingLayerName = "Normal";
+            icon.sprite = Resources.Load<Sprite>($"ArtifactIcon/{artifact.Model.Icon}");
         }
 
         public void DestroyView()
@@ -38,12 +30,12 @@ namespace View
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            descPanel.SetActive(true);
+            Presenter.OnHover();
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
-            descPanel.SetActive(false);
+            Presenter.OnUnhover();
         }
 
         public virtual void OnPointerClick(PointerEventData eventData)

@@ -15,6 +15,7 @@ namespace View
         public Transform rewardPivot;
         public CardView cardPrefab;
         public ArtifactView artifactPrefab;
+        public ArtifactDescPanel artifactDescPanel;
         
         public void SetView(RewardScene rewardScene)
         {
@@ -33,6 +34,11 @@ namespace View
                         break;
                 }
             }
+        }
+
+        public void DisplayArtifactDesc(Artifact artifact)
+        {
+            artifactDescPanel.SetPanel(artifact);
         }
     }
 }

@@ -35,6 +35,11 @@ namespace Presenter
             foreach (var item in itemList)
             {
                 item.State.OnClickAction += () => RewardSelect(item);
+                if (item is Artifact arti)
+                {
+                    arti.State.OnHoverAction += () => RewardSceneView.DisplayArtifactDesc(arti);
+                    arti.State.OnUnhoverAction += () => RewardSceneView.DisplayArtifactDesc(arti);
+                }
             }
         }
 
@@ -46,11 +51,9 @@ namespace Presenter
             {
                 case Card card:
                     gm.user.AddCard(card);
-                    card.SetState();
                     break;
                 case Artifact artifact:
                     gm.user.AddArtifact(artifact);
-                    artifact.SetState();
                     break;
             }
             Close();

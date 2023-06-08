@@ -16,7 +16,7 @@ namespace View.StageView
 
         public Transform cardPivot, artifactPivot;
         public Button quitBtn;
-        
+        public ArtifactDescPanel artifactDescPanel;
         public override void SetView(Scene scene)
         {
             base.SetView(scene);
@@ -42,6 +42,11 @@ namespace View.StageView
         {
             var inst = Instantiate(artifactPrefab, artifactPivot);
             return inst;
+        }
+
+        public void DisplayArtifactDesc(Artifact artifact)
+        {
+            artifactDescPanel.SetPanel(artifact);
         }
     }
 }

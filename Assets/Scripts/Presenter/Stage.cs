@@ -581,6 +581,8 @@ namespace Presenter
             foreach (var artifact in SellArtifacts)
             {
                 artifact.SetView(shopSceneView.CreateArtifact());
+                artifact.State.OnHoverAction += () => shopSceneView.DisplayArtifactDesc(artifact);
+                artifact.State.OnUnhoverAction += () => shopSceneView.DisplayArtifactDesc(artifact);
             }
             view.SetView(this);
         }
@@ -605,7 +607,7 @@ namespace Presenter
                 artifact.Sold();
                 user.UseGold(artifact.Model.Value);
                 user.AddArtifact(artifact);
-                artifact.SetState();
+                shopSceneView.DisplayArtifactDesc(artifact);
             }
         }
 
@@ -616,7 +618,6 @@ namespace Presenter
                 card.Sold();
                 user.UseGold(card.Model.Value);
                 user.AddCard(card);
-                card.SetState();
             }
         }
     }
